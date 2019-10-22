@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966914a83890eee4d819c5e70dd9f169, type: 3}
+  m_Name: ResourceEx
+  m_EditorClassIdentifier: 
+  version: 1
+  justFilesWithId: 1
+  files:
+  - path: Game/Patterns/0
+    dire: Game/Patterns/
+    name: 0
+    id: 0
+    tags:
+    - 0
+  - path: Game/Patterns/1
+    dire: Game/Patterns/
+    name: 1
+    id: 1
+    tags:
+    - 1
+  - path: Game/Patterns/2
+    dire: Game/Patterns/
+    name: 2
+    id: 2
+    tags:
+    - 2
+  - path: Game/Patterns/3
+    dire: Game/Patterns/
+    name: 3
+    id: 3
+    tags:
+    - 3
+  - path: Game/Seasons/0_Season
+    dire: Game/Seasons/
+    name: 0_Season
+    id: 0
+    tags:
+    - 0
+    - Season
