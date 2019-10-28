@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class UiPlayingMission : MonoBehaviour
 {
     [SerializeField] private LocalText blocksLabel = null;
+    [SerializeField] private Image ballsImage = null;
     [SerializeField] private LocalText ballsLabel = null;
     [SerializeField] private Image item0Image = null;
     [SerializeField] private LocalText item0Label = null;
     [SerializeField] private Image item1Image = null;
     [SerializeField] private LocalText item1Label = null;
+    [SerializeField] private AnimationCurve itemMoveCurve = null;
+    [SerializeField] private AnimationCurve itemScaleCurve = null;
 
     private IEnumerator Start()
     {
@@ -21,7 +24,13 @@ public class UiPlayingMission : MonoBehaviour
         PlayModel.level.targetItem1 = Random.Range(1, 10);
 
         blocksLabel.transform.parent.gameObject.SetActive(PlayModel.level.targetBlocks > 0);
-        ballsLabel.transform.parent.gameObject.SetActive(PlayModel.level.targetBalls > 0);
+
+        if (PlayModel.level.targetBalls > 0)
+        {
+            ballsImage.gameObject.SetActive(true);
+            ballsImage.sprite = GlobalFactory.Balls.GetSprite(PlayModel.ballId);
+        }
+        else ballsImage.gameObject.SetActive(false);
 
         if (PlayModel.level.targetItem0 > 0)
         {
@@ -66,5 +75,34 @@ public class UiPlayingMission : MonoBehaviour
 
             yield return wait;
         }
+    }
+
+    private void OnMessage(Messages.Param param)
+    {
+        if (param.Is(Messages.Type.BlockDeath) && param.Is<BlockSimple>())
+        {
+            var subject = param.As<BlockSimple>();
+            if (subject.ItemIndex < 2)
+            {
+                StartCoroutine(DoMoveToMissionUi(subject.transform, subject.ItemIndex < 1 ? item0Image.transform.position : item1Image.transform.position));
+            }
+        }
+    }
+
+    private IEnumerator DoMoveToMissionUi(Transform subject, Vector3 dest)
+    {
+        float time = 0;
+        var wait = new WaitForEndOfFrame();
+        var startPosit = subject.transform.position;
+        var startScale = subject.transform.localScale;
+        while (time < 1)
+        {
+            time += Time.deltaTime * 2;
+            subject.position = Vector3.Lerp(startPosit, dest, itemMoveCurve.Evaluate(time));
+            subject.localScale = Vector3.Lerp(startScale, Vector3.zero, itemScaleCurve.Evaluate(time));
+            subject.Rotate(0, 0, 10);
+            yield return wait;
+        }
+        subject.localScale = Vector3.zero;
     }
 }

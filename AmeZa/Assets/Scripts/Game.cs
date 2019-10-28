@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class Game : GameManager<Game>
 {
+    private void Awake()
+    {
+
+    }
 
     // Use this for initialization
     private void Start()

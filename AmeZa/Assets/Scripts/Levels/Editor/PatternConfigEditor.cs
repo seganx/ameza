@@ -45,7 +45,7 @@ public class PatternConfigEditor : Editor
 
             if (obj.blocks[i] > 0)
             {
-                style.normal.background = GlobalFactory.Theme.GetSprite(BlockType.Value).texture;
+                style.normal.background = EditorFactory.GetTexture(BlockType.Value);
                 int value = (int)obj.blocks[i];
                 if (GUI.Button(r, value.ToString().Persian(), style))
                 {
@@ -55,7 +55,7 @@ public class PatternConfigEditor : Editor
             }
             else
             {
-                style.normal.background = GlobalFactory.Theme.GetSprite(obj.blocks[i]).texture;
+                style.normal.background = EditorFactory.GetTexture(obj.blocks[i]);
                 if (GUI.Button(r, string.Empty, style))
                 {
                     obj.blocks[i] = brush == BlockType.Value ? (BlockType)brushValue : brush;

@@ -17,6 +17,7 @@ public static class PlayModel
     }
 
     public static Type type = Type.Levels;
+    public static int ballId = 105;
     public static Action onWin = null;
     public static Action onLose = null;
     public static Action onLeave = null;
@@ -26,6 +27,7 @@ public static class PlayModel
     public static void Reset(Type newType)
     {
         type = newType;
+        ballId = 105;
         stats = new Stats();
         level = new LevelModel();
         onWin = null;
