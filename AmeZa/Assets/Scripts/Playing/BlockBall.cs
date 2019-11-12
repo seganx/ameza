@@ -2,59 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockBall : MonoBehaviour
+public class BlockBall : BlockBase
 {
-    public BlockBall Setup(int x, int y, int ballId)
+    [SerializeField] private SpriteRenderer ballSpriter = null;
+    [SerializeField] private SpriteRenderer blockSpriter = null;
+
+    public override BlockType Type { get { return BlockType.Ball; } }
+
+    private bool released = false;
+
+    private void Start()
     {
-        transform.localPosition = new Vector3(x, y, 0);
-        var item = GlobalFactory.Balls.GetPrefab(ballId).Clone<Transform>(transform);
-        Destroy(item.GetComponent<Ball>());
-        Destroy(item.GetComponent<CircleCollider2D>());
-        Destroy(item.GetComponent<Rigidbody2D>());
-        item.localPosition = Vector3.zero;
-        return this;
+        ballSpriter.sprite = GlobalFactory.Balls.GetSprite(PlayModel.ballId);
+        blockSpriter.color = ballSpriter.sprite.GetAverageColor();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Update()
     {
+        blockSpriter.transform.Rotate(0, 0, 90 * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        released = true;
+        PlayModel.stats.totalBalls++;
         Destroy(GetComponent<BoxCollider2D>());
-        StartCoroutine(MoveDown());
+        transform.Broadcast(Messages.Type.OnBlockDeath, this);
+        transform.root.Broadcast(Messages.Type.BlockDead, this);
+        Destroy(gameObject);
     }
 
-    private IEnumerator MoveDown()
+    public override void GoDown(int step)
     {
-        var wait = new WaitForEndOfFrame();
-        var target = new Vector3(transform.localPosition.x, BallManager.SpawnPoint.y, -0.2f);
-        while (Mathf.Approximately(transform.localPosition.y, target.y) == false)
-        {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, Time.deltaTime);
-            yield return wait;
-        }
-    }
+        if (released) return;
 
-    private void OnMessage(Messages.Param param)
-    {
-        if (param.Is(Messages.Type.TurnEnded))
-        {
-            StopAllCoroutines();
-            StartCoroutine(MoveToMain(param.As<BallManager>()));
-        }
+        var edge = -BlockManager.OriginY + 1;
+        if (Position.y > edge)
+            base.GoDown(step);
+        else
+            Destroy(gameObject);
     }
-
-    private IEnumerator MoveToMain(BallManager sender)
-    {
-        float time = 0;
-        var wait = new WaitForEndOfFrame();
-        var startPosit = transform.localPosition;
-        var startScale = transform.localPosition;
-        while (time < 1)
-        {
-            time += Time.deltaTime;
-            transform.localPosition = Vector3.Lerp(startPosit, BallManager.SpawnPoint, time);
-            transform.localScale = Vector3.Lerp(startScale, Vector3.zero, time);
-            yield return wait;
-        }
-        sender.SpawnBall();
-    }
-
 }

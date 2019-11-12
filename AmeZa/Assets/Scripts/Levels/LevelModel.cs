@@ -31,9 +31,10 @@ public class LevelModel
     public int index = 0;
     public float progress = 0;
     public int startBallCount = 1;
+    public int startBallSpeed = 15;
     public int minBlockHealth = 1;
     public int maxBlockHealth = 10;
-    public int shootCount = 0;  // 0 means infinit
+    public int targetTurns = 0;  // 0 means infinit
     public int targetBalls = 0;
     public int targetBlocks = 0;
     public int targetItem0 = 0;

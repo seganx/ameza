@@ -10,13 +10,17 @@ public class PlayerController : Base
     [SerializeField] private LineRenderer previewLine = null;
     [SerializeField] private Transform previewBall = null;
 
-    private bool isUp = true;
-    private bool isDown = false;
     private Vector3 direction = Vector3.zero;
     private RaycastHit2D[] previewHits = new RaycastHit2D[100];
     private ContactFilter2D previewFilter = new ContactFilter2D();
     private float ballRadius = 0.1f;
+
     private bool isShooting = false;
+    private bool isDown = false;
+    private bool isHold = false;
+    private bool isUp = false;
+    private bool CanShoot { get { return isShooting == false && isDown == false && isHold == false && isUp == false; } }
+
 
     private void Awake()
     {
@@ -32,17 +36,20 @@ public class PlayerController : Base
 
     private void Update()
     {
-        if (isShooting || gameManager.CurrentPopup != null) return;
+        if (gameManager.CurrentPopup != null) return;
 
-        if (isUp && Input.GetMouseButton(0) && Input.mousePosition.y < Screen.height * 0.75f)
+        if (isUp)
         {
             isUp = false;
-            isDown = true;
-            direction = Vector2.down;
-            previewArrow.transform.position = BallManager.SpawnPoint;
+            isHold = false;
+            isDown = false;
+            isShooting = true;
+            previewArrow.gameObject.SetActive(false);
+            transform.root.Broadcast(Messages.Type.StartTurn, direction);
         }
-        else if (isDown)
+        else if (isHold)
         {
+            isUp = Input.GetMouseButtonUp(0);
             var hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition), 20, 1 << 8);
             Vector3 currentPoint = hit.point;
             var distance = (currentPoint - BallManager.SpawnPoint);
@@ -55,18 +62,16 @@ public class PlayerController : Base
                     DisplayPreview(angle);
                 }
             }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                isUp = true;
-                isDown = false;
-                previewArrow.gameObject.SetActive(false);
-                if (direction.y > 0)
-                {
-                    isShooting = true;
-                    transform.root.Broadcast(Messages.Type.StartTurn, direction);
-                }
-            }
+        }
+        else if (isDown)
+        {
+            isHold = Input.GetMouseButton(0);
+            direction = Vector2.down;
+            previewArrow.transform.position = BallManager.SpawnPoint;
+        }
+        else if (CanShoot)
+        {
+            isDown = Input.GetMouseButtonDown(0);
         }
     }
 

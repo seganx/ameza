@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IMessages
+{
+    void OnMessage(Messages.Param param);
+}
+
 public static class Messages
 {
     public enum Type : int
@@ -11,9 +16,12 @@ public static class Messages
         EndTurn,
         TurnStarted,
         TurnEnded,
-        BlockHit,
-        BlockDeath,
-        BlockMoveToUi
+        OnBlockHit,
+        OnBlockDeath,
+        BlockDead,
+        AvatarChanged,
+        BallPurchased,
+        UseAbility,
     }
 
     public class Param

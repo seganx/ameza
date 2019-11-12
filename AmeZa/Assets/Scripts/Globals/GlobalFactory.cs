@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class GlobalFactory : StaticConfig<GlobalFactory>
 {
+    [System.Serializable]
+    public class BlocksInfo
+    {
+        public AnimationCurve moveDownCurve = new AnimationCurve(new Keyframe[2] { new Keyframe(0, 0), new Keyframe(1, 1) });
+    }
+
+    [SerializeField] private BlocksInfo blocks = new BlocksInfo();
+
     protected override void OnInitialize()
     {
 
@@ -40,9 +48,16 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
     public static class Balls
     {
-        public static int GetCount()
+        private static int count = 0;
+
+        public static int Count
         {
-            return ResourceEx.LoadAll("Balls/", true).Count;
+            get
+            {
+                if (count < 1)
+                    count = ResourceEx.LoadAll("Balls/", true).LastOne().id + 1;
+                return count;
+            }
         }
 
         public static Sprite GetSprite(int id)
@@ -55,10 +70,17 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             var res = ResourceEx.Load<Ball>("Balls/", id);
             if (res == null)
             {
+                var sprite = GetSprite(id);
                 res = ResourceEx.Load<Ball>("Balls/", 0);
-                res.transform.GetComponent<SpriteRenderer>(true, true).sprite = GetSprite(id);
+                res.transform.GetComponent<SpriteRenderer>(true, true).sprite = sprite;
+                res.transform.GetComponent<TrailRenderer>(true, true).sharedMaterial.color = sprite.GetAverageColor();
             }
             return res;
+        }
+
+        public static int GetPrice(int id)
+        {
+            return GlobalConfig.Shop.ballPriceRatio * id;
         }
     }
 
@@ -96,9 +118,40 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
     public static class Blocks
     {
-        public static BlockSimple CreateSimple(Transform parent, int x, int y, int itemIndex, int health)
+        public static AnimationCurve MoveDownCurve { get { return Instance.blocks.moveDownCurve; } }
+
+        public static BlockBase CreateSimple(Transform parent, int x, int y, int itemIndex, int health)
         {
-            return Resources.Load<BlockSimple>("Blocks/Simple").Clone<BlockSimple>(parent).Setup(x, y, itemIndex, health);
+            var res = Resources.Load<BlockSimple>("Blocks/Simple").Clone<BlockSimple>(parent).Setup(itemIndex, health).SetPosition(x, y);
+            Theme.GetSounds(PlayModel.level.theme).Clone<ThemeSounds>(res.transform);
+            return res;
+        }
+
+        public static BlockBase CreateBall(Transform parent, int x, int y)
+        {
+            var res = Resources.Load<BlockBall>("Blocks/Ball").Clone<BlockBall>(parent).SetPosition(x, y);
+            Theme.GetSounds(PlayModel.level.theme).Clone<ThemeSounds>(res.transform);
+            return res;
+        }
+    }
+
+    public static class Seasons
+    {
+        private static List<SeasonConfig> all = new List<SeasonConfig>();
+
+        public static List<SeasonConfig> All
+        {
+            get
+            {
+                if (all.Count < 1)
+                    all = ResourceEx.LoadAllWithId<SeasonConfig>("Game/Seasons/", false);
+                return all;
+            }
+        }
+
+        public static SeasonConfig Get(int id)
+        {
+            return All.Find(x => x.Id == id);
         }
     }
 }

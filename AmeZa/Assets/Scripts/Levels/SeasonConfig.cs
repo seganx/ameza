@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using SeganX;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Season")]
-public class SeasonConfig : ScriptableObject
+public class SeasonConfig : ScriptableObject, IResource
 {
     [System.Serializable]
     public class SpecialLevel
@@ -19,11 +20,13 @@ public class SeasonConfig : ScriptableObject
     public Vector2Int maxBlockHealth = Vector2Int.zero;
     public List<SpecialLevel> specialLevels = new List<SpecialLevel>();
 
+    public int Id { get; set; }
+
     public LevelModel GetLevelModel(int index)
     {
         var res = new LevelModel();
         res.index = index;
-        res.progress = index / levelCount;
+        res.progress = index / (float)levelCount;
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
         res.minBlockHealth = Mathf.RoundToInt(Mathf.Lerp(minBlockHealth.x, minBlockHealth.y, res.progress));
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, res.progress));
@@ -35,7 +38,7 @@ public class SeasonConfig : ScriptableObject
         }
         else
         {
-            res.shootCount = 0;
+            res.targetTurns = 0;
             res.pattern = LevelModel.Pattern.Indexed;
         }
 

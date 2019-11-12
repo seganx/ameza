@@ -8,16 +8,13 @@ public class State_Playing : GameState
 {
     [SerializeField] private Button endTurnButton = null;
 
-    // Use this for initialization
     private void Start()
     {
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
-    }
+        endTurnButton.gameObject.SetActive(false);
 
-    // Update is called once per frame
-    private void Update()
-    {
-
+        UIBackground.Hide();
+        UiShowHide.ShowAll(transform);
     }
 
     private void OnMessage(Messages.Param param)
@@ -29,8 +26,54 @@ public class State_Playing : GameState
                 break;
 
             case Messages.Type.TurnEnded:
+                PlayModel.stats.totalTurn++;
                 endTurnButton.gameObject.SetActive(false);
+                CheckMission();
                 break;
         }
+    }
+
+    private void CheckMission()
+    {
+        if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
+        {
+            gameManager.OpenPopup<Popup_Ability>().Setup(ability => // check if player wants to use abilities
+            {
+                if (ability != AbilityType.Null)
+                {
+                    transform.Broadcast(Messages.Type.UseAbility, ability);
+                    CheckMission();
+                }
+                else Back();
+            });
+        }
+        else
+        {
+            var isTurnOut = PlayModel.IsTurnsFinished;
+            var blocksOut = PlayModel.level.pattern != LevelModel.Pattern.Procedural && BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
+            var targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
+
+            if (isTurnOut || blocksOut || targetOut) // no blocks or target remained
+            {
+                // now check if player wins
+                var playerWin = PlayModel.IsTargetExist == false || PlayModel.IsTargetsReached;
+                if (playerWin)
+                {
+                    if (PlayModel.onWin != null)
+                        PlayModel.onWin();
+                    else
+                        gameManager.OpenPopup<Popup_Win>().SetNextTask(() => base.Back());
+                }
+                else Back();
+            }
+        }
+    }
+
+    public override void Back()
+    {
+        if (PlayModel.onLose != null)
+            PlayModel.onLose();
+        else
+            gameManager.OpenPopup<Popup_Loos>().SetNextTask(() => base.Back());
     }
 }

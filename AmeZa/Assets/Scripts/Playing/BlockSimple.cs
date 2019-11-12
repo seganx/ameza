@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSimple : MonoBehaviour
+public class BlockSimple : BlockBase
 {
     [SerializeField] private SpriteRenderer spriter = null;
     [SerializeField] private SpriteRenderer effector = null;
@@ -13,34 +13,32 @@ public class BlockSimple : MonoBehaviour
     public int ItemIndex { get; set; }
     public int Health { get; set; }
 
+    public override BlockType Type { get { return BlockType.Value; } }
+
     private void Awake()
     {
         Health = 100;
         effector.gameObject.SetActive(false);
         numberLabel.text = Health.ToString().Persian();
-        GlobalFactory.Theme.GetSounds(PlayModel.level.theme).Clone<ThemeSounds>(transform);
     }
 
-    public BlockSimple Setup(int x, int y, int itemIndex, int health)
+    public BlockSimple Setup(int itemIndex, int health)
     {
         Health = health;
         ItemIndex = itemIndex % GlobalFactory.Theme.GetSpriteCount(PlayModel.level.theme);
-        transform.localPosition = new Vector3(x, y, 0);
         spriter.sprite = effector.sprite = GlobalFactory.Theme.GetSprite(PlayModel.level.theme, ItemIndex);
         numberLabel.text = Health.ToString().Persian();
         return this;
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Hit(int damage)
     {
-        if (Health > 1)
+        if (Health > damage)
         {
-            Health--;
+            Health -= damage;
             numberLabel.text = Health.ToString().Persian();
             if (animator.isPlaying == false) animator.Play("BlockHit");
-
-            transform.root.Broadcast(Messages.Type.BlockHit, this);
+            transform.Broadcast(Messages.Type.OnBlockHit, this);
         }
         else
         {
@@ -49,16 +47,32 @@ public class BlockSimple : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(effector.gameObject);
             Destroy(numberLabel.gameObject);
-            if (ItemIndex < 2)
-            {
-                if (ItemIndex == 0) PlayModel.stats.totalItem0++;
-                if (ItemIndex == 1) PlayModel.stats.totalItem1++;
-            }
-            else animator.Play("BlockDeath");
+
+            if (PlayModel.level.targetItem0 > 0 && ItemIndex == 0)
+                PlayModel.stats.totalItem0++;
+            else if (PlayModel.level.targetItem1 > 0 && ItemIndex == 1)
+                PlayModel.stats.totalItem1++;
+            else
+                animator.Play("BlockDeath");
             Destroy(gameObject, 3);
 
-            transform.root.Broadcast(Messages.Type.BlockDeath, this);
+            transform.Broadcast(Messages.Type.OnBlockDeath, this);
+            transform.root.Broadcast(Messages.Type.BlockDead, this);
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Hit(1);
+    }
+
+    public override void UsedAbility(AbilityType ability)
+    {
+        switch (ability)
+        {
+            case AbilityType.Hammer: Hit(1); break;
+            case AbilityType.Bomb: Hit(100); break;
+            case AbilityType.Missle: if (Position.y < -(BlockManager.OriginY - 3)) Hit(999999); break;
+        }
+    }
 }

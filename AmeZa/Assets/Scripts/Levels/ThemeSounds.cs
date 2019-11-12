@@ -4,28 +4,46 @@ using UnityEngine;
 
 public class ThemeSounds : MonoBehaviour
 {
-    [SerializeField] private AudioSource[] hits = null;
-    [SerializeField] private AudioSource[] breaks = null;
-    
-    private void OnMessage(Messages.Param data)
+    [SerializeField] private AudioSource[] hitSounds = null;
+    [SerializeField] private AudioSource[] breakSounds = null;
+    [SerializeField] private AudioSource[] releaseBallSounds = null;
+
+    private void OnMessage(Messages.Param param)
     {
-        switch (data.type)
+        switch (param.type)
         {
-            case Messages.Type.BlockHit:
+            case Messages.Type.OnBlockHit:
                 {
-                    var index = Random.Range(0, 1000);
-                    hits[index % hits.Length].Play();
+                    if (param.Is<BlockSimple>()) PlayHit();
                 }
                 break;
 
-            case Messages.Type.BlockDeath:
+            case Messages.Type.OnBlockDeath:
                 {
                     transform.SetParent(null);
-                    var index = Random.Range(0, 1000);
-                    breaks[index % breaks.Length].Play();
                     Destroy(gameObject, 2);
+                    if (param.Is<BlockSimple>()) PlayBreak();
+                    else if (param.Is<BlockBall>()) PlayReleaseBall();
                 }
                 break;
         }
+    }
+
+    private void PlayHit()
+    {
+        var index = Random.Range(0, 1000);
+        hitSounds[index % hitSounds.Length].Play();
+    }
+
+    private void PlayBreak()
+    {
+        var index = Random.Range(0, 1000);
+        breakSounds[index % breakSounds.Length].Play();
+    }
+
+    private void PlayReleaseBall()
+    {
+        var index = Random.Range(0, 1000);
+        releaseBallSounds[index % releaseBallSounds.Length].Play();
     }
 }
