@@ -47,7 +47,7 @@ public static class PlayModel
     public static void Reset(Type newType)
     {
         type = newType;
-        ballId = 105;
+        ballId = 0;
         stats = new Stats();
         level = new LevelModel();
         onWin = null;

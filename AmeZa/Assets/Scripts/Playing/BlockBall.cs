@@ -36,8 +36,7 @@ public class BlockBall : BlockBase
     {
         if (released) return;
 
-        var edge = -BlockManager.OriginY + 1;
-        if (Position.y > edge)
+        if (Position.y > BlockManager.BottomEdge)
             base.GoDown(step);
         else
             Destroy(gameObject);

@@ -67,7 +67,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
         public static Ball GetPrefab(int id)
         {
-            var res = ResourceEx.Load<Ball>("Balls/", id);
+            var res = id > 0 ? ResourceEx.Load<Ball>("Balls/", id) : null;
             if (res == null)
             {
                 var sprite = GetSprite(id);
@@ -122,7 +122,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
         public static BlockBase CreateSimple(Transform parent, int x, int y, int itemIndex, int health)
         {
-            var res = Resources.Load<BlockSimple>("Blocks/Simple").Clone<BlockSimple>(parent).Setup(itemIndex, health).SetPosition(x, y);
+            var res = Resources.Load<BlockValue>("Blocks/Value").Clone<BlockValue>(parent).Setup(itemIndex, health).SetPosition(x, y);
             Theme.GetSounds(PlayModel.level.theme).Clone<ThemeSounds>(res.transform);
             return res;
         }

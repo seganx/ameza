@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSimple : BlockBase
+public class BlockValue : BlockBase
 {
     [SerializeField] private SpriteRenderer spriter = null;
     [SerializeField] private SpriteRenderer effector = null;
@@ -17,12 +17,10 @@ public class BlockSimple : BlockBase
 
     private void Awake()
     {
-        Health = 100;
         effector.gameObject.SetActive(false);
-        numberLabel.text = Health.ToString().Persian();
     }
 
-    public BlockSimple Setup(int itemIndex, int health)
+    public BlockValue Setup(int itemIndex, int health)
     {
         Health = health;
         ItemIndex = itemIndex % GlobalFactory.Theme.GetSpriteCount(PlayModel.level.theme);

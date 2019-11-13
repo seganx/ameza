@@ -9,18 +9,16 @@ public class BallManager : MonoBehaviour
     public static List<Ball> balls = new List<Ball>(128);
 
     private Ball ballPrefab = null;
+    private bool turnStarted = false;
 
-    private void Awake()
+    private void Start()
     {
         ballPrefab = GlobalFactory.Balls.GetPrefab(PlayModel.ballId);
         SpawnPoint.x = 0;
         SpawnPoint.y = -BlockManager.OriginY - ballPrefab.transform.localScale.y * 0.5f;
         mainBall = null;
         balls.Clear();
-    }
 
-    private void Start()
-    {
         for (int i = 0; i < PlayModel.level.startBallCount; i++)
             SpawnBall(SpawnPoint);
     }
@@ -43,14 +41,18 @@ public class BallManager : MonoBehaviour
         collision.transform.position = new Vector2(collision.contacts[0].point.x, SpawnPoint.y);
         if (collision.transform == mainBall.transform)
             SpawnPoint.x = collision.contacts[0].point.x;
+        collision.rigidbody.Sleep();
 
-        bool turnOver = true;
-        for (int i = 0; i < balls.Count; i++)
-            if (balls[i].Rigidbody.velocity.sqrMagnitude > 1)
-                turnOver = false;
+        if (turnStarted)
+        {
+            bool turnOver = true;
+            for (int i = 0; i < balls.Count; i++)
+                if (balls[i].Rigidbody.velocity.sqrMagnitude > 0.05f)
+                    turnOver = false;
 
-        if (turnOver)
-            transform.root.Broadcast(Messages.Type.EndTurn);
+            if (turnOver)
+                transform.root.Broadcast(Messages.Type.EndTurn);
+        }
     }
 
 
@@ -60,12 +62,14 @@ public class BallManager : MonoBehaviour
         {
             case Messages.Type.StartTurn:
                 {
+                    turnStarted = true;
                     StartCoroutine(DoStartTurn(param.As<Vector3>().normalized * PlayModel.level.startBallSpeed));
                     transform.root.Broadcast(Messages.Type.TurnStarted, this);
                 }
                 break;
             case Messages.Type.EndTurn:
                 {
+                    turnStarted = false;
                     StopAllCoroutines();
                     transform.root.Broadcast(Messages.Type.TurnEnded, this);
                 }

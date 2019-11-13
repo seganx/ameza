@@ -6,6 +6,7 @@ public class BlockManager : MonoBehaviour
 {
     public const int OriginX = -3;
     public const int OriginY = 5;
+    public const int BottomEdge = -OriginY + 1;
     public static List<BlockBase> blocks = new List<BlockBase>(64);
     public static bool IsBlockReachedDown { get; private set; }
 
@@ -27,9 +28,10 @@ public class BlockManager : MonoBehaviour
         switch (param.type)
         {
             case Messages.Type.EndTurn:
-                for (int i = 0; i < blocks.Count; i++)
-                    blocks[i].GoDown();
-                IsBlockReachedDown = CheckBlocksReached();
+                IsBlockReachedDown = CheckBlocksReached(1);
+                if (IsBlockReachedDown == false)
+                    for (int i = 0; i < blocks.Count; i++)
+                        blocks[i].GoDown();
                 break;
             case Messages.Type.TurnEnded:
                 SpawnBlocks(PlayModel.stats.totalTurn);
@@ -43,17 +45,17 @@ public class BlockManager : MonoBehaviour
                     var tmplist = new List<BlockBase>(blocks);
                     foreach (var block in tmplist)
                         block.UsedAbility(ability);
-                    IsBlockReachedDown = CheckBlocksReached();
+                    IsBlockReachedDown = CheckBlocksReached(0);
                 }
                 break;
         }
     }
 
-    private bool CheckBlocksReached()
+    private bool CheckBlocksReached(int offset)
     {
-        var edge = -OriginY + 1;
+        var edge = BottomEdge + offset;
         for (int i = 0; i < blocks.Count; i++)
-            if (blocks[i].Position.y < edge)
+            if (blocks[i].Type != BlockType.Ball && blocks[i].Position.y < edge)
                 return true;
         return false;
     }

@@ -14,7 +14,7 @@ public class ThemeSounds : MonoBehaviour
         {
             case Messages.Type.OnBlockHit:
                 {
-                    if (param.Is<BlockSimple>()) PlayHit();
+                    if (param.Is<BlockValue>()) PlayHit();
                 }
                 break;
 
@@ -22,7 +22,7 @@ public class ThemeSounds : MonoBehaviour
                 {
                     transform.SetParent(null);
                     Destroy(gameObject, 2);
-                    if (param.Is<BlockSimple>()) PlayBreak();
+                    if (param.Is<BlockValue>()) PlayBreak();
                     else if (param.Is<BlockBall>()) PlayReleaseBall();
                 }
                 break;

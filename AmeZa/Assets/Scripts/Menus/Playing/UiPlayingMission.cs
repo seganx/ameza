@@ -94,9 +94,9 @@ public class UiPlayingMission : MonoBehaviour
     {
         if (PlayModel.level.targetItem0 < 1 && PlayModel.level.targetItem1 < 1) return;
 
-        if (param.Is(Messages.Type.BlockDead) && param.Is<BlockSimple>())
+        if (param.Is(Messages.Type.BlockDead) && param.Is<BlockValue>())
         {
-            var subject = param.As<BlockSimple>();
+            var subject = param.As<BlockValue>();
             if (PlayModel.level.targetItem0 > 0 && subject.ItemIndex == 0)
                 StartCoroutine(DoMoveToMissionUi(subject.transform, item0Image.transform.position));
             else if (PlayModel.level.targetItem1 > 0 && subject.ItemIndex == 1)
