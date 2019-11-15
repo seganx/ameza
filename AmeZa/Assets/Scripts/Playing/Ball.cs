@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using SeganX;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SeganX;
 
 public class Ball : MonoBehaviour
 {
@@ -16,11 +16,25 @@ public class Ball : MonoBehaviour
 
     private void OnMessage(Messages.Param param)
     {
-        if (param.Is(Messages.Type.TurnEnded))
+        switch (param.type)
         {
-            rigid.velocity = Vector2.zero;
-            StopAllCoroutines();
-            StartCoroutine(MoveToMain(param.As<BallManager>()));
+            case Messages.Type.EndTurn:
+                var speed = rigid.velocity.magnitude;
+                if (speed > 0.1f)
+                {
+                    var dir = BallManager.SpawnPoint - transform.localPosition;
+                    rigid.velocity = dir.normalized * speed;
+                }
+                break;
+
+            case Messages.Type.TurnEnded:
+                {
+                    rigid.velocity = Vector2.zero;
+                    StopAllCoroutines();
+                    if (Vector3.Distance(transform.localPosition, BallManager.SpawnPoint) > 0.05f)
+                        StartCoroutine(MoveToMain(param.As<BallManager>()));
+                }
+                break;
         }
     }
 

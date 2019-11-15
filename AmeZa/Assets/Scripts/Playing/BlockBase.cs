@@ -40,7 +40,7 @@ public class BlockBase : MonoBehaviour
         float time = 0;
         while (time < 1)
         {
-            time += Time.deltaTime;
+            time += Time.deltaTime * 2;
             transform.localPosition = Vector3.LerpUnclamped(startPos, position, GlobalFactory.Blocks.MoveDownCurve.Evaluate(time));
             yield return wait;
         }

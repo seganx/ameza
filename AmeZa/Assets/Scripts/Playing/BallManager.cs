@@ -51,7 +51,10 @@ public class BallManager : MonoBehaviour
                     turnOver = false;
 
             if (turnOver)
-                transform.root.Broadcast(Messages.Type.EndTurn);
+            {
+                turnStarted = false;
+                transform.root.Broadcast(Messages.Type.TurnEnded, this);
+            }
         }
     }
 
@@ -69,9 +72,7 @@ public class BallManager : MonoBehaviour
                 break;
             case Messages.Type.EndTurn:
                 {
-                    turnStarted = false;
                     StopAllCoroutines();
-                    transform.root.Broadcast(Messages.Type.TurnEnded, this);
                 }
                 break;
             case Messages.Type.BlockDead:

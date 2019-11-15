@@ -8,10 +8,10 @@ public class Popup_Ability : GameState
 {
     [SerializeField] private Button bombButton = null;
     [SerializeField] private LocalText bombLabel = null;
-    [SerializeField] private Button missleButton = null;
-    [SerializeField] private LocalText missleLabel = null;
     [SerializeField] private Button hammerButton = null;
     [SerializeField] private LocalText hammerLabel = null;
+    [SerializeField] private Button missleButton = null;
+    [SerializeField] private LocalText missleLabel = null;
 
     private System.Action<AbilityType> callbackFunc = null;
 

@@ -27,13 +27,11 @@ public class BlockManager : MonoBehaviour
 
         switch (param.type)
         {
-            case Messages.Type.EndTurn:
+            case Messages.Type.TurnEnded:
                 IsBlockReachedDown = CheckBlocksReached(1);
                 if (IsBlockReachedDown == false)
                     for (int i = 0; i < blocks.Count; i++)
                         blocks[i].GoDown();
-                break;
-            case Messages.Type.TurnEnded:
                 SpawnBlocks(PlayModel.stats.totalTurn);
                 break;
             case Messages.Type.BlockDead:

@@ -7,6 +7,7 @@ public class UiChest : Base
 {
     [SerializeField] private Animation animator = null;
     [SerializeField] private Button button = null;
+    [SerializeField] private GameObject buttonText = null;
     [SerializeField] private GameObject closed = null;
     [SerializeField] private GameObject opened = null;
 
@@ -19,6 +20,7 @@ public class UiChest : Base
 
     public void Open()
     {
+        buttonText.SetActive(false);
         button.interactable = false;
         animator.Play();
         DelayCall(1, () =>
