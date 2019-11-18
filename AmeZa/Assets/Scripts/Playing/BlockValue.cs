@@ -70,7 +70,7 @@ public class BlockValue : BlockBase
         {
             case AbilityType.Hammer: Hit(1); break;
             case AbilityType.Bomb: Hit(100); break;
-            case AbilityType.Missle: if (Position.y < -(BlockManager.OriginY - 3)) Hit(999999); break;
+            case AbilityType.Missle: if (Position.y < (BlockManager.BottomEdge + 3)) Hit(999999); break;
         }
     }
 }

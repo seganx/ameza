@@ -17,9 +17,14 @@ public class ProfileData
     public class PrivateData
     {
         public CryptoInt sessions = 0;
-        public CryptoInt gems = 0;
         public CryptoInt seasonsId = 0;
         public CryptoInt levelId = 0;
+        public CryptoInt gems = 0;
+        public CryptoInt hearts = 0;
+        public CryptoInt bombs = 0;
+        public CryptoInt missles = 0;
+        public CryptoInt hammers = 0;
+        public CryptoInt plusballs = 0;
         public List<int> balls = new List<int>() { 0 };
 
         public string Datahash

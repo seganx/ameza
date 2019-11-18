@@ -26,9 +26,7 @@ public class State_Playing : GameState
                 break;
 
             case Messages.Type.TurnEnded:
-                PlayModel.stats.totalTurn++;
                 endTurnButton.gameObject.SetActive(false);
-                CheckMission();
                 break;
         }
     }
@@ -37,7 +35,7 @@ public class State_Playing : GameState
     {
         if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
         {
-            gameManager.OpenPopup<Popup_Ability>().Setup(ability => // check if player wants to use abilities
+            gameManager.OpenPopup<Popup_Lose>().Setup(ability => // check if player wants to use abilities
             {
                 if (ability != AbilityType.Null)
                 {
@@ -50,7 +48,7 @@ public class State_Playing : GameState
         else
         {
             var isTurnOut = PlayModel.IsTurnsFinished;
-            var blocksOut = PlayModel.level.pattern != LevelModel.Pattern.Procedural && BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
+            var blocksOut = BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
             var targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
 
             if (isTurnOut || blocksOut || targetOut) // no blocks or target remained
@@ -73,7 +71,5 @@ public class State_Playing : GameState
     {
         if (PlayModel.onLose != null)
             PlayModel.onLose();
-        else
-            gameManager.OpenPopup<Popup_Loos>().SetNextTask(() => base.Back());
     }
 }

@@ -71,9 +71,12 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             if (res == null)
             {
                 var sprite = GetSprite(id);
+                var color = sprite.GetAverageColor();
+                color.a *= 0.5f;
+
                 res = ResourceEx.Load<Ball>("Balls/", 0);
                 res.transform.GetComponent<SpriteRenderer>(true, true).sprite = sprite;
-                res.transform.GetComponent<TrailRenderer>(true, true).sharedMaterial.color = sprite.GetAverageColor();
+                res.transform.GetComponent<TrailRenderer>(true, true).sharedMaterial.color = color;
             }
             return res;
         }

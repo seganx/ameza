@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 5c688d97214240547ad8c2ffa09aff63
+guid: 424f6f4d194dd2e45a0503d2ecc34acc
 TextureImporter:
   fileIDToRecycleName:
     21300000: Buttons_Circle_0
     21300002: Buttons_Circle_1
     21300004: Buttons_Circle_2
     21300006: Buttons_Circle_3
-    21300008: Buttons_Circle_4
-    21300010: Buttons_Circle_5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -98,12 +96,12 @@ TextureImporter:
       name: Buttons_Circle_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 151
-        width: 69
-        height: 71
+        x: 9
+        y: 127
+        width: 108
+        height: 109
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -112,12 +110,12 @@ TextureImporter:
       name: Buttons_Circle_1
       rect:
         serializedVersion: 2
-        x: 79
-        y: 149
-        width: 69
-        height: 71
+        x: 134
+        y: 132
+        width: 108
+        height: 109
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,13 +124,13 @@ TextureImporter:
       name: Buttons_Circle_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 75
-        width: 69
-        height: 71
+        x: 9
+        y: 9
+        width: 108
+        height: 109
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 50, y: 0, z: 50, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -140,40 +138,12 @@ TextureImporter:
       name: Buttons_Circle_3
       rect:
         serializedVersion: 2
-        x: 79
-        y: 74
-        width: 69
-        height: 71
+        x: 131
+        y: 9
+        width: 108
+        height: 109
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_Circle_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 69
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Buttons_Circle_5
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 2
-        width: 69
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

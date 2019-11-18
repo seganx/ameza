@@ -20,8 +20,11 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class ProfilePreset
         {
-            public int coins = 100;
-            public int ballId = 0;
+            public int gems = 100;
+            public int heats = 3;
+            public int bombs = 3;
+            public int hammers = 3;
+            public int missles = 3;
         }
 
         [System.Serializable]
@@ -47,6 +50,13 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         }
 
         [System.Serializable]
+        public class Difficulty
+        {
+            public int turnsFactor = 50;
+            public int ballsFactor = 100;
+        }
+
+        [System.Serializable]
         public class Shop
         {
             [System.Serializable]
@@ -61,6 +71,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int nicknamePrice = 1200;
             public int statusPrice = 1200;
             public int ballPriceRatio = 45;
+            public int heartPrice = 20;
             public int bombPrice = 20;
             public int misslePrice = 10;
             public int hammerPrice = 5;
@@ -69,6 +80,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
         public Update forceUpdate = new Update();
         public Socials socials = new Socials();
+        public Difficulty difficulty = new Difficulty();
         public List<League> leagues = new List<League>();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
@@ -116,6 +128,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     ////////////////////////////////////////////////////////////
     public static Data.Update ForceUpdate { get { return Instance.data.forceUpdate; } }
     public static Data.Socials Socials { get { return Instance.data.socials; } }
+    public static Data.Difficulty Difficulty { get { return Instance.data.difficulty; } }
     public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
 

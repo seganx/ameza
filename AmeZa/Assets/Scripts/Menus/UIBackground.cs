@@ -9,7 +9,10 @@ public class UIBackground : MonoBehaviour
     [SerializeField] private UiAvatar avatar = null;
     [SerializeField] private LocalText nickNameLabel = null;
     [SerializeField] private LocalText gems = null;
+    [SerializeField] private LocalText heartsTime = null;
+    [SerializeField] private LocalText heartsCount = null;
     [SerializeField] Animation backgroundAnimator = null;
+    [SerializeField] Button heartsButton = null;
     [SerializeField] Button gemsButton = null;
     [SerializeField] Button profileButton = null;
     [SerializeField] Button settingsButton = null;
@@ -26,6 +29,7 @@ public class UIBackground : MonoBehaviour
             break;
         }
 
+        heartsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
         settingsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Settings>(); });
@@ -38,6 +42,7 @@ public class UIBackground : MonoBehaviour
         {
             avatar.Setup(Profile.Avatar);
             nickNameLabel.SetText(Profile.Nickname);
+            heartsCount.SetText(Profile.Hearts.ToString());
             gems.SetText(Profile.Gems.ToString("#,0"));
             yield return wait;
         }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour
 {
-    public const int OriginX = -3;
-    public const int OriginY = 5;
-    public const int BottomEdge = -OriginY + 1;
+    public const int LeftEdge = -3;
+    public const int TopEdge = 5;
+    public const int BottomEdge = -TopEdge + 1;
     public static List<BlockBase> blocks = new List<BlockBase>(64);
     public static bool IsBlockReachedDown { get; private set; }
 
@@ -18,7 +18,7 @@ public class BlockManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.5f);
-        SpawnBlocks(PlayModel.stats.totalTurn);
+        SpawnBlocks(PlayModel.stats.totalTurn++);
     }
 
     private void OnMessage(Messages.Param param)
@@ -30,20 +30,25 @@ public class BlockManager : MonoBehaviour
             case Messages.Type.TurnEnded:
                 IsBlockReachedDown = CheckBlocksReached(1);
                 if (IsBlockReachedDown == false)
+                {
                     for (int i = 0; i < blocks.Count; i++)
                         blocks[i].GoDown();
-                SpawnBlocks(PlayModel.stats.totalTurn);
+                    SpawnBlocks(PlayModel.stats.totalTurn++);
+                }
+                SendMessageUpwards("CheckMission");
                 break;
+
             case Messages.Type.BlockDead:
                 blocks.Remove(param.As<BlockBase>());
                 break;
+
             case Messages.Type.UseAbility:
                 {
                     var ability = param.As<AbilityType>();
                     var tmplist = new List<BlockBase>(blocks);
                     foreach (var block in tmplist)
                         block.UsedAbility(ability);
-                    IsBlockReachedDown = CheckBlocksReached(0);
+                    IsBlockReachedDown = CheckBlocksReached(1);
                 }
                 break;
         }
@@ -60,33 +65,26 @@ public class BlockManager : MonoBehaviour
 
     public void SpawnBlocks(int step)
     {
-        if (step == 0 && PlayModel.level.pattern == LevelModel.Pattern.Indexed)
-        {
-            DisplayPattern(GlobalFactory.Patterns.Get(PlayModel.level.index));
-        }
-        else if (step == 0 && PlayModel.level.pattern == LevelModel.Pattern.Random)
-        {
-            DisplayPattern(GlobalFactory.Patterns.GetRandom());
-        }
-        else if (PlayModel.level.pattern == LevelModel.Pattern.Procedural)
-        {
-
-        }
+        var patt = PlayModel.level.GetPattern();
+        var list = patt.GetBlocks(step);
+        DisplayBlocks(list);
     }
 
-    private void DisplayPattern(PatternConfig patt)
+    private void DisplayBlocks(List<BlockType> list)
     {
-        for (int i = 0; i < patt.blocks.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            int x = OriginX + (i % PatternConfig.Width);
-            int y = OriginY - (i / PatternConfig.Width);
-            var block = CreateBlock(x, y, patt.blocks[i]);
+            int x = LeftEdge + (i % PatternConfig.width);
+            int y = TopEdge - (i / PatternConfig.width);
+            var block = CreateBlock(x, y, list[i]);
             if (block != null) blocks.Add(block);
         }
     }
 
     private BlockBase CreateBlock(int x, int y, BlockType typeValue)
     {
+        int additionalHealth = PlayModel.stats.totalTurn * GlobalConfig.Difficulty.turnsFactor / 100 + PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
+
         switch (typeValue)
         {
             case BlockType.BoxKill: return null;
@@ -98,9 +96,9 @@ public class BlockManager : MonoBehaviour
             case BlockType.CrossDamage: return null;
             case BlockType.Ball: return GlobalFactory.Blocks.CreateBall(transform, x, y);
             case BlockType.Null: return null;
-            case BlockType.RandomValue: return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), Random.Range(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth));
+            case BlockType.RandomValue: return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), Random.Range(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth + additionalHealth));
         }
 
-        return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), PlayModel.level.minBlockHealth + (int)typeValue);
+        return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), PlayModel.level.minBlockHealth + additionalHealth + (int)typeValue);
     }
 }

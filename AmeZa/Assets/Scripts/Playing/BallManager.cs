@@ -8,6 +8,7 @@ public class BallManager : MonoBehaviour
     public static Ball mainBall = null;
     public static List<Ball> balls = new List<Ball>(128);
 
+    private static List<Ball> tmp = new List<Ball>(128);
     private Ball ballPrefab = null;
     private bool turnStarted = false;
 
@@ -15,7 +16,7 @@ public class BallManager : MonoBehaviour
     {
         ballPrefab = GlobalFactory.Balls.GetPrefab(PlayModel.ballId);
         SpawnPoint.x = 0;
-        SpawnPoint.y = -BlockManager.OriginY - ballPrefab.transform.localScale.y * 0.5f;
+        SpawnPoint.y = -BlockManager.TopEdge - ballPrefab.transform.localScale.y * 0.5f;
         mainBall = null;
         balls.Clear();
 
@@ -89,9 +90,11 @@ public class BallManager : MonoBehaviour
 
     private IEnumerator DoStartTurn(Vector2 direction)
     {
-        for (int i = 0; i < balls.Count; i++)
+        tmp.Clear();
+        tmp.AddRange(balls);
+        for (int i = 0; i < tmp.Count; i++)
         {
-            balls[i].Rigidbody.velocity = direction;
+            tmp[i].Rigidbody.velocity = direction;
             yield return new WaitForSeconds(0.1f);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Level")]
 public class LevelConfig : ScriptableObject
 {
-    public LevelModel.Pattern pattern = LevelModel.Pattern.Indexed;
+    public PatternConfig pattern = null;
     public Vector2Int targetBalls = Vector2Int.zero;
     public Vector2Int targetBlocks = Vector2Int.zero;
     public Vector2Int targetItem0 = Vector2Int.zero;

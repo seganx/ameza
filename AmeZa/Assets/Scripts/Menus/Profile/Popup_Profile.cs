@@ -99,7 +99,7 @@ public class Popup_Profile : GameState
                     }
                 });
             }
-            else gameManager.OpenPopup<Popup_Confirm>().Setup(111121, false, null);
+            else gameManager.OpenPopup<Popup_Confirm>().Setup(111001, false, true, null);
         }
     }
 
@@ -121,7 +121,7 @@ public class Popup_Profile : GameState
                     }
                 });
             }
-            else gameManager.OpenPopup<Popup_Confirm>().Setup(111121, false, null);
+            else gameManager.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
         }
     }
 

@@ -19,14 +19,19 @@ public class State_Main : GameState
             gameManager.OpenState<State_SelectLeague>();
         });
 
-        levelsButton.onClick.AddListener(() =>
-        {
-            PlayModel.ballId = Profile.Avatar.ballId;
-            gameManager.OpenState<State_Playing>();
-        });// { gameManager.OpenState<State_Levels>(); });
+        levelsButton.onClick.AddListener(() => gameManager.OpenState<State_Levels>());
         shopButton.onClick.AddListener(() => { gameManager.OpenPopup<Popup_Shop>(); });
 
         UIBackground.Show();
         UiShowHide.ShowAll(transform);
+    }
+
+    public override void Back()
+    {
+        gameManager.OpenPopup<Popup_Confirm>().Setup(111004, true, true, yes =>
+        {
+            if (yes)
+                Application.Quit();
+        });
     }
 }

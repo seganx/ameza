@@ -19,15 +19,8 @@ public enum BlockType : int
 
 public class LevelModel
 {
-    public enum Pattern
-    {
-        Indexed,
-        Random,
-        Procedural
-    }
-
     public int theme = 0;
-    public Pattern pattern = Pattern.Indexed;
+    public PatternConfig pattern = null;
     public int index = 0;
     public float progress = 0;
     public int startBallCount = 1;
@@ -39,4 +32,12 @@ public class LevelModel
     public int targetBlocks = 0;
     public int targetItem0 = 0;
     public int targetItem1 = 0;
+
+    public PatternConfig GetPattern()
+    {
+        if (pattern != null)
+            return pattern;
+        else
+            return GlobalFactory.Patterns.Get(index);
+    }
 }

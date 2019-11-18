@@ -10,7 +10,13 @@ public class Profile : MonoBehaviour
         LoadLocal();
         data.privateData.sessions++;
         if (IsFirstSession)
-            EarnGems(GlobalConfig.ProfilePreset.coins);
+        {
+            EarnGems(GlobalConfig.ProfilePreset.gems);
+            Hearts = GlobalConfig.ProfilePreset.heats;
+            Bombs = GlobalConfig.ProfilePreset.bombs;
+            Hammers = GlobalConfig.ProfilePreset.hammers;
+            Missles= GlobalConfig.ProfilePreset.missles;
+        }
     }
 
     private void OnApplicationPause(bool pause)
@@ -54,6 +60,30 @@ public class Profile : MonoBehaviour
     {
         get { return data.info.status; }
         set { data.info.status = value; }
+    }
+
+    public static int Hearts
+    {
+        get { return data.privateData.hearts; }
+        set { data.privateData.hearts = value; }
+    }
+
+    public static int Bombs
+    {
+        get { return data.privateData.bombs; }
+        set { data.privateData.bombs = value; }
+    }
+
+    public static int Hammers
+    {
+        get { return data.privateData.hammers; }
+        set { data.privateData.hammers = value; }
+    }
+
+    public static int Missles
+    {
+        get { return data.privateData.missles; }
+        set { data.privateData.missles = value; }
     }
 
     public static ProfileData.AvatarData Avatar

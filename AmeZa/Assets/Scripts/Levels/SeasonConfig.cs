@@ -39,7 +39,6 @@ public class SeasonConfig : ScriptableObject, IResource
         else
         {
             res.targetTurns = 0;
-            res.pattern = LevelModel.Pattern.Indexed;
         }
 
         return res;

@@ -23,9 +23,17 @@ public class PatternConfigEditor : Editor
     public override void OnInspectorGUI()
     {
         var obj = target as PatternConfig;
-        while (obj.blocks.Count < PatternConfig.Length)
-            obj.blocks.Add(BlockType.Null);
 
+        obj.height = EditorGUILayout.DelayedIntField("Height", obj.height);
+        obj.startLength = EditorGUILayout.IntField("Start Length", obj.startLength);
+        obj.wrapMode = (PatternConfig.WrapMode)EditorGUILayout.EnumPopup("Wrap Mode", obj.wrapMode);
+        obj.verticalRandom.activated = EditorGUILayout.Toggle("Vertical Random", obj.verticalRandom.activated);
+        if (obj.verticalRandom.activated)
+            obj.verticalRandom.startStep = EditorGUILayout.IntField(" Start Step", obj.verticalRandom.startStep);
+        obj.horizontalRandom.activated = EditorGUILayout.Toggle("Horizontal Random", obj.horizontalRandom.activated);
+        if (obj.horizontalRandom.activated)
+            obj.horizontalRandom.startStep = EditorGUILayout.IntField(" Start Step", obj.horizontalRandom.startStep);
+        SetHeight(obj, obj.height);
         brush = (BlockType)EditorGUILayout.EnumPopup("Brush", brush);
         if (brush == BlockType.Value)
             brushValue = EditorGUILayout.IntField("Value", brushValue);
@@ -36,12 +44,12 @@ public class PatternConfigEditor : Editor
         style.fontSize = 30;
 
         var rect = EditorGUILayout.GetControlRect();
-        var w = rect.width / PatternConfig.Width;
+        var w = rect.width / PatternConfig.width;
         var r = new Rect(0, 0, w, w);
         for (int i = 0; i < obj.blocks.Count; i++)
         {
-            r.x = rect.x + (i % PatternConfig.Width) * w;
-            r.y = rect.y + (i / PatternConfig.Width) * w;
+            r.x = rect.x + (i % PatternConfig.width) * w;
+            r.y = rect.y + (i / PatternConfig.width) * w;
 
             if (obj.blocks[i] > 0)
             {
@@ -63,5 +71,14 @@ public class PatternConfigEditor : Editor
                 }
             }
         }
+    }
+
+    private static void SetHeight(PatternConfig obj, int height)
+    {
+        int length = PatternConfig.width * obj.height;
+        while (obj.blocks.Count < length)
+            obj.blocks.Add(BlockType.Null);
+        while (obj.blocks.Count > length)
+            obj.blocks.RemoveAt(obj.blocks.Count - 1);
     }
 }
