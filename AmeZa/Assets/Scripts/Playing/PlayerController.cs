@@ -43,9 +43,14 @@ public class PlayerController : Base
             isUp = false;
             isHold = false;
             isDown = false;
-            isShooting = true;
             previewArrow.gameObject.SetActive(false);
-            transform.root.Broadcast(Messages.Type.StartTurn, direction);
+
+            var angle = Vector2.SignedAngle(Vector2.up, direction);
+            if (-rangeAngle < angle && angle < rangeAngle)
+            {
+                isShooting = true;
+                transform.root.Broadcast(Messages.Type.StartTurn, direction);
+            }
         }
         else if (isHold)
         {

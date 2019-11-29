@@ -16,10 +16,10 @@ public class UiCharacter : MonoBehaviour
         var wait = new WaitForSeconds(2);
         while (true)
         {
-            if (Random.Range(0, 100) < 50)
+            if (Random.Range(0, 100) < 60)
                 StartCoroutine(BlinkEyes());
 
-            if (Random.Range(0, 100) < 50)
+            if (Random.Range(0, 100) < 60)
                 hand.PlayRandom(0, SimpleAnimation.Mode.DiscardNext);
 
             yield return wait;
@@ -29,7 +29,7 @@ public class UiCharacter : MonoBehaviour
     private IEnumerator BlinkEyes()
     {
         eyes.SetActive(true);
-        yield return new WaitForSeconds(Random.Range(0.2f, 0.7f));
+        yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
         eyes.SetActive(false);
     }
 }

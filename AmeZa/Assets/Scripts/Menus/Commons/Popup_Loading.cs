@@ -18,13 +18,15 @@ public class Popup_Loading : GameState
             Application.Quit();
         });
 
-        UiShowHide.ShowAll(transform);
+        if (instance != null)
+            UiShowHide.ShowAll(transform);
     }
 
     private void Update()
     {
         updateObject.SetActive(GlobalConfig.ForceUpdate.whole);
         defaultObject.SetActive(GlobalConfig.ForceUpdate.whole == false);
+        transform.SetAsLastSibling();
     }
 
     public override void Back()

@@ -11,6 +11,7 @@ public class BallManager : MonoBehaviour
     private static List<Ball> tmp = new List<Ball>(128);
     private Ball ballPrefab = null;
     private bool turnStarted = false;
+    private bool ballsShooting = false;
 
     private void Start()
     {
@@ -44,7 +45,7 @@ public class BallManager : MonoBehaviour
             SpawnPoint.x = collision.contacts[0].point.x;
         collision.rigidbody.Sleep();
 
-        if (turnStarted)
+        if (turnStarted && ballsShooting == false)
         {
             bool turnOver = true;
             for (int i = 0; i < balls.Count; i++)
@@ -74,6 +75,7 @@ public class BallManager : MonoBehaviour
             case Messages.Type.EndTurn:
                 {
                     StopAllCoroutines();
+                    ballsShooting = false;
                 }
                 break;
             case Messages.Type.BlockDead:
@@ -90,6 +92,7 @@ public class BallManager : MonoBehaviour
 
     private IEnumerator DoStartTurn(Vector2 direction)
     {
+        ballsShooting = true;
         tmp.Clear();
         tmp.AddRange(balls);
         for (int i = 0; i < tmp.Count; i++)
@@ -97,5 +100,6 @@ public class BallManager : MonoBehaviour
             tmp[i].Rigidbody.velocity = direction;
             yield return new WaitForSeconds(0.1f);
         }
+        ballsShooting = false;
     }
 }

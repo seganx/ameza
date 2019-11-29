@@ -6,45 +6,30 @@ using UnityEngine;
 [DefaultExecutionOrder(-1)]
 public class Game : GameManager<Game>
 {
-    public int levelindex = 0;
-
-    private void StartLevel()
-    {
-        PlayModel.Reset(PlayModel.Type.Levels);
-        PlayModel.level = GlobalFactory.Seasons.Get(0).GetLevelModel(levelindex);
-
-        PlayModel.onWin = () =>
-        {
-            Debug.Log("Play Wins");
-            levelindex++;
-            StartLevel();
-        };
-
-        PlayModel.onLose = () =>
-        {
-            Debug.Log("Play Lose");
-            StartLevel();
-        };
-
-        Profile.EarnGems(1000);
-
-        OpenState<State_Main>();
-    }
-
     // Use this for initialization
     private IEnumerator Start()
     {
+        FirstInitialization();
         yield return new WaitForSeconds(0.1f);
 
+        PurchaseSystem.Initialize(GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl, (succeed, msg) => Debug.Log("Purchase system initialized!"));
+
         Loading.Show();
-        Profile.SyncWidthServer(false, succss =>
+        Profile.Sync(false, succss =>
         {
             Loading.Hide();
-            StartLevel();
+            OpenState<State_Main>();
         });
     }
 
+    private void FirstInitialization()
+    {
+        if (PlayerPrefs.GetInt(name + ".Inited", 0) > 0) return;
+        PlayerPrefs.SetInt(name + ".Inited", 1);
 
+        // init timers
+        Online.Timer.SetTimer(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+    }
 
     public static void SpendGems(int value, System.Action onSuccess)
     {

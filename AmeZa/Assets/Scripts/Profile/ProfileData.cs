@@ -14,11 +14,17 @@ public class ProfileData
     }
 
     [System.Serializable]
+    public class SeasonData
+    {
+        public int id = 0;
+        public int rewarded = 0;
+        public List<int> levels = new List<int>();
+    }
+
+    [System.Serializable]
     public class PrivateData
     {
         public CryptoInt sessions = 0;
-        public CryptoInt seasonsId = 0;
-        public CryptoInt levelId = 0;
         public CryptoInt gems = 0;
         public CryptoInt hearts = 0;
         public CryptoInt bombs = 0;
@@ -26,10 +32,11 @@ public class ProfileData
         public CryptoInt hammers = 0;
         public CryptoInt plusballs = 0;
         public List<int> balls = new List<int>() { 0 };
+        public List<SeasonData> seasons = new List<SeasonData>();
 
         public string Datahash
         {
-            get { return "H" + gems.Value + "|" + seasonsId + "|" + levelId.Value + "|" + balls.Count; }
+            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" +  missles.Value + "|" + hammers.Value + "|" + plusballs.Value + "|" + balls.Count; }
         }
     }
 

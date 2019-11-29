@@ -40,7 +40,7 @@ public class UiProfileBallItem : MonoBehaviour
                         {
                             Profile.AddBall(ballId);
                             Profile.Avatar.ballId = ballId;
-                            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, ballId, true, () =>
+                            Game.Instance.OpenPopup<Popup_Rewards>().Setup(ballId, 0, 0, 0, 0, true, () =>
                             {
                                 transform.parent.Broadcast(Messages.Type.BallPurchased);
                                 transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar);
@@ -86,7 +86,14 @@ public class UiProfileBallItem : MonoBehaviour
         {
             currState = lastState = State.Disabled;
             backImage.color = Color.gray;
+#if UNITY_EDITOR && OFF
+            var price = GlobalFactory.Balls.GetPrice(id);
+            totalPrice += price;
+            priceLabel.SetText(price.ToString());
+            Debug.LogWarning(totalPrice);
+#else
             priceLabel.SetText("?");
+#endif
         }
     }
 
@@ -103,4 +110,7 @@ public class UiProfileBallItem : MonoBehaviour
     //////////////////////////////////////////////////
     public static Vector2 unlockedPosition = Vector2.zero;
     private static State lastState = State.Owned;
+#if UNITY_EDITOR && OFF
+    private static int totalPrice = 0;
+#endif
 }

@@ -8,16 +8,28 @@ public class UiPlayingMission : MonoBehaviour
 {
     [SerializeField] private LocalText levelNumberLabel = null;
     [SerializeField] private LocalText blocksLabel = null;
+    [SerializeField] private GameObject blocksChecked = null;
     [SerializeField] private Image ballsImage = null;
     [SerializeField] private LocalText ballsLabel = null;
+    [SerializeField] private GameObject ballsChecked = null;
     [SerializeField] private Image item0Image = null;
     [SerializeField] private LocalText item0Label = null;
+    [SerializeField] private GameObject item0Checked = null;
     [SerializeField] private Image item1Image = null;
     [SerializeField] private LocalText item1Label = null;
+    [SerializeField] private GameObject item1Checked = null;
     [SerializeField] private LocalText scoreBallsLabel = null;
     [SerializeField] private LocalText scoreBlocksLabel = null;
     [SerializeField] private AnimationCurve itemMoveCurve = null;
     [SerializeField] private AnimationCurve itemScaleCurve = null;
+
+    private void Awake()
+    {
+        blocksChecked.gameObject.SetActive(false);
+        ballsChecked.gameObject.SetActive(false);
+        item0Checked.gameObject.SetActive(false);
+        item1Checked.gameObject.SetActive(false);
+    }
 
     private IEnumerator Start()
     {
@@ -27,10 +39,10 @@ public class UiPlayingMission : MonoBehaviour
 
         if (PlayModel.type == PlayModel.Type.Levels)
         {
-            levelNumberLabel.transform.parent.gameObject.SetActive(true);
+            levelNumberLabel.gameObject.SetActive(true);
             levelNumberLabel.SetFormatedText(PlayModel.level.index + 1);
         }
-        else levelNumberLabel.transform.parent.gameObject.SetActive(false);
+        else levelNumberLabel.gameObject.SetActive(false);
 
         if (PlayModel.level.targetBalls > 0)
         {
@@ -59,32 +71,52 @@ public class UiPlayingMission : MonoBehaviour
             if (PlayModel.level.targetBlocks > 0)
             {
                 var diff = PlayModel.level.targetBlocks - PlayModel.stats.totalBlocks;
-                if (diff >= 0) blocksLabel.SetText(diff.ToString());
+                if (diff < 1)
+                {
+                    blocksLabel.gameObject.SetActive(false);
+                    blocksChecked.gameObject.SetActive(true);
+                }
+                else blocksLabel.SetText(diff.ToString());
             }
 
             if (PlayModel.level.targetBalls > 0)
             {
                 var diff = PlayModel.level.targetBalls - PlayModel.stats.totalBalls;
-                if (diff >= 0) ballsLabel.SetText(diff.ToString());
+                if (diff < 1)
+                {
+                    ballsLabel.gameObject.SetActive(false);
+                    ballsChecked.gameObject.SetActive(true);
+                }
+                else ballsLabel.SetText(diff.ToString());
             }
 
             if (PlayModel.level.targetItem0 > 0)
             {
                 var diff = PlayModel.level.targetItem0 - PlayModel.stats.totalItem0;
-                if (diff >= 0) item0Label.SetText(diff.ToString());
+                if (diff < 1)
+                {
+                    item0Label.gameObject.SetActive(false);
+                    item0Checked.gameObject.SetActive(true);
+                }
+                else item0Label.SetText(diff.ToString());
             }
 
             if (PlayModel.level.targetItem1 > 0)
             {
                 var diff = PlayModel.level.targetItem1 - PlayModel.stats.totalItem1;
-                if (diff >= 0) item1Label.SetText(diff.ToString());
+                if (diff < 1)
+                {
+                    item1Label.gameObject.SetActive(false);
+                    item1Checked.gameObject.SetActive(true);
+                }
+                else item1Label.SetText(diff.ToString());
             }
 
             if (PlayModel.type == PlayModel.Type.LeagueBalls)
-                scoreBallsLabel.SetFormatedText(PlayModel.stats.totalBalls);
+                scoreBallsLabel.SetText(PlayModel.stats.totalBalls.ToString() + "x");
 
             if (PlayModel.type == PlayModel.Type.LeagueBlocks)
-                scoreBlocksLabel.SetFormatedText(PlayModel.stats.totalBlocks);
+                scoreBlocksLabel.SetText(PlayModel.stats.totalBlocks.ToString() + "x");
 
             yield return wait;
         }

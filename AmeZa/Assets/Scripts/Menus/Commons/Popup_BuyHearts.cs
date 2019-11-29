@@ -31,7 +31,7 @@ public class Popup_BuyHearts : GameState
         while (true)
         {
             hearts.SetText(Profile.Hearts.ToString());
-            int seconds = Online.Timer.GetRemainSeconds(1);
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id);
             title.SetFormatedText(seconds / 60, seconds % 60);
             yield return wait;
         }

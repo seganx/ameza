@@ -5,16 +5,9 @@ using UnityEngine;
 
 public class State_SelectLeague : GameState
 {
-
-    // Use this for initialization
     private void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-
+        UIBackground.Show();
+        UiShowHide.ShowAll(transform);
     }
 }

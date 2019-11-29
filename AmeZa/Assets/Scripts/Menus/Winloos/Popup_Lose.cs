@@ -34,7 +34,7 @@ public class Popup_Lose : GameState
 
         hammerButton.onClick.AddListener(() =>
         {
-            if (Profile.Hammers> 0)
+            if (Profile.Hammers > 0)
             {
                 Profile.Hammers--;
                 callback(AbilityType.Hammer);
@@ -60,17 +60,15 @@ public class Popup_Lose : GameState
 
     public override void Back()
     {
-        if (Profile.Hearts > 0)
-            Profile.Hearts--;
         base.Back();
         callbackFunc(AbilityType.Null);
     }
 
     private void UpdateTexts()
     {
-        bombLabel.SetText(Profile.Bombs.ToString());
-        hammerLabel.SetText(Profile.Hammers.ToString());
-        missleLabel.SetText(Profile.Missles.ToString());
+        bombLabel.SetText(Profile.Bombs > 0 ? Profile.Bombs.ToString() : "+");
+        hammerLabel.SetText(Profile.Hammers > 0 ? Profile.Hammers.ToString() : "+");
+        missleLabel.SetText(Profile.Missles > 0 ? Profile.Missles.ToString() : "+");
     }
 
     private void BuyBooster(int count, int price, System.Action<int> onSuccess)

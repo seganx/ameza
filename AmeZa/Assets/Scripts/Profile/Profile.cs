@@ -15,7 +15,31 @@ public class Profile : MonoBehaviour
             Hearts = GlobalConfig.ProfilePreset.heats;
             Bombs = GlobalConfig.ProfilePreset.bombs;
             Hammers = GlobalConfig.ProfilePreset.hammers;
-            Missles= GlobalConfig.ProfilePreset.missles;
+            Missles = GlobalConfig.ProfilePreset.missles;
+        }
+    }
+
+    private IEnumerator Start()
+    {
+        var wait = new WaitForSeconds(1);
+
+        int syncSeconds = 0;
+        while (true)
+        {
+            yield return wait;
+
+            // update hearts
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id);
+            if (seconds < 0)
+            {
+                int addhearts = 1 - seconds / GlobalConfig.Timers.heart.duration;
+                Hearts = Mathf.Clamp(Hearts + addhearts, 0, GlobalConfig.ProfilePreset.heats);
+                Online.Timer.SetTimer(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+            }
+
+            syncSeconds++;
+            if (syncSeconds % 10 == 0)
+                Sync(true, ok => { });
         }
     }
 
@@ -35,6 +59,7 @@ public class Profile : MonoBehaviour
     ////////////////////////////////////////////
     private static ProfileData data = new ProfileData();
     private static System.DateTime lastGetPrfoileTime = System.DateTime.MinValue;
+    private static System.DateTime lastSetPrfoileTime = System.DateTime.MinValue;
     public static bool IsGlobalConfigUpdated { get; set; }
     public static bool IsLoggedIn { get; set; }
 
@@ -86,6 +111,12 @@ public class Profile : MonoBehaviour
         set { data.privateData.missles = value; }
     }
 
+    public static int Plusballs
+    {
+        get { return data.privateData.plusballs; }
+        set { data.privateData.plusballs = value; }
+    }
+
     public static ProfileData.AvatarData Avatar
     {
         get { return data.avatar; }
@@ -131,19 +162,72 @@ public class Profile : MonoBehaviour
             data.privateData.balls.Add(id);
     }
 
+    public static int GetSeasonRewarded(int seasonId)
+    {
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        if (season == null) return 0;
+        return season.rewarded;
+    }
+
+    public static void SetSeasonRewarded(int seasonId, int rewarded)
+    {
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        if (season == null) return;
+        season.rewarded = rewarded;
+    }
+
+    public static bool CanOpenLevel(int seasonId, int index)
+    {
+        if (index < 0) return false;
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        if (season == null)
+            data.privateData.seasons.Add(season = new ProfileData.SeasonData() { id = seasonId });
+        return index <= season.levels.Count;
+    }
+
+    public static bool IsLevelPassed(int seasonId, int index)
+    {
+        if (index < 0) return false;
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        if (season == null) return false;
+        return index < season.levels.Count;
+    }
+
+    // return 0 if no level found
+    public static int GetLevelStars(int seasonId, int index)
+    {
+        if (index < 0) return 0;
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        if (season == null) return 0;
+        if (season.levels.Count <= index) return 0;
+        return season.levels[index];
+    }
+
+    public static void SetLevelStars(int seasonId, int index, int stars)
+    {
+        if (index < 0) return;
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        if (season == null) return;
+        if (season.levels.Count < index) return;
+        if (season.levels.Count == index)
+            season.levels.Add(stars);
+        else if (season.levels[index] < stars)
+            season.levels[index] = stars;
+    }
+
     public static void SaveLocal()
     {
-        PlayerPrefsEx.Serialize("Profile.Data", data);
+        PlayerPrefsEx.SetObject("Profile.Data", data);
     }
 
     public static void LoadLocal()
     {
-        data = PlayerPrefsEx.Deserialize("Profile.Data", new ProfileData());
+        data = PlayerPrefsEx.GetObject("Profile.Data", data);
     }
 
 
 
-    public static void SyncWidthServer(bool sendProfile, System.Action<bool> nextTask)
+    public static void Sync(bool sendProfile, System.Action<bool> nextTask)
     {
         SaveLocal();
 
@@ -182,7 +266,7 @@ public class Profile : MonoBehaviour
 
     private static void GetProfile(bool sendProfile, System.Action<bool> nextTask)
     {
-        if ((System.DateTime.Now - lastGetPrfoileTime).TotalMinutes < 5)
+        if ((System.DateTime.Now - lastGetPrfoileTime).TotalMinutes < 2)
         {
             SyncProfile(sendProfile, data.info, nextTask);
             return;
@@ -203,30 +287,10 @@ public class Profile : MonoBehaviour
     {
         if (Username.IsNullOrEmpty())
         {
+            data.info = serverData;
+
             if (serverData.datahash.HasContent())
             {
-#if OFF
-                Popup_Loading.Hide();
-                Game.Instance.OpenPopup<Popup_AccountSelection>().Setup(newprofile, yes =>
-                {
-                    if (yes)
-                    {
-                        Profile.Data = newprofile;
-                        PlayerPrefs.DeleteAll();
-                        PlayerPrefsEx.ClearData();
-                        SaveToLocal();
-                        SocialLogic.ForceDownloadFromServer = true;
-                        Game.Instance.OpenPopup<Popup_Confirm>().Setup(111068, false, ok => Application.Quit());
-                    }
-                    else
-                    {
-                        var selfdata = Profile.Data.data;
-                        Profile.Data = newprofile;
-                        Profile.Data.data = selfdata;
-                        SendProfileData(sendProfile, nextTask);
-                    }
-                });
-#endif
                 Online.Userdata.Get((sucess, privateStr, publicStr) =>
                 {
                     if (sucess)
@@ -234,49 +298,32 @@ public class Profile : MonoBehaviour
                         data.info = serverData;
                         data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
                         data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
+                        nextTask(true);
                     }
                     else nextTask(false);
                 });
             }
             else
             {
-                data.info = serverData;
                 SendProfileData(sendProfile, nextTask);
             }
         }
-        else if (Username == serverData.username)
+        else
         {
             data.info = serverData;
             SendProfileData(sendProfile, nextTask);
         }
-
-#if OFF
-        else if (Profile.UserId != newprofile.userId)
-        {
-            Popup_Loading.Hide();
-            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111067, false, yes =>
-            {
-                PlayerPrefs.DeleteAll();
-                PlayerPrefsEx.ClearData();
-                Profile.Data = new ProfileData();
-                Application.Quit();
-
-                //  I don't know if it works. but let it be for sure :)
-                PlayerPrefs.DeleteAll();
-                PlayerPrefsEx.ClearData();
-            });
-        }
-#endif
     }
 
     private static void SendProfileData(bool sendProfile, System.Action<bool> nextTask)
     {
-        if (sendProfile == false || LastHashdata == data.privateData.Datahash)
+        if (sendProfile == false || LastHashdata == data.privateData.Datahash || (System.DateTime.Now - lastSetPrfoileTime).TotalMinutes < 3)
         {
             nextTask(true);
             return;
         }
 
+        lastSetPrfoileTime = System.DateTime.Now;
         data.publicData.balls = data.privateData.balls;
         string privateString = Utilities.CompressString(JsonUtility.ToJson(data.privateData), null);
         string publicString = Utilities.CompressString(JsonUtility.ToJson(data.publicData), null);

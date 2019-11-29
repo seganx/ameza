@@ -96,9 +96,20 @@ public class BlockManager : MonoBehaviour
             case BlockType.CrossDamage: return null;
             case BlockType.Ball: return GlobalFactory.Blocks.CreateBall(transform, x, y);
             case BlockType.Null: return null;
-            case BlockType.RandomValue: return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), Random.Range(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth + additionalHealth));
-        }
 
-        return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), PlayModel.level.minBlockHealth + additionalHealth + (int)typeValue);
+            case BlockType.RandomValue:
+                {
+                    var health = Random.Range(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth + additionalHealth);
+                    PlayModel.stats.totalLevelHealth += health;
+                    return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), health);
+                }
+
+            default:
+                {
+                    var health = PlayModel.level.minBlockHealth + additionalHealth + (int)typeValue;
+                    PlayModel.stats.totalLevelHealth += health;
+                    return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), health);
+                }
+        }
     }
 }

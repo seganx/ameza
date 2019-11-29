@@ -18,6 +18,7 @@ public class Popup_Profile : GameState
 
     private UiProfileBallItem itemPrefab = null;
     private System.Action onCloseFunc = null;
+    private string lastAvatar = string.Empty;
 
     public Popup_Profile SetOnClose(System.Action onClose)
     {
@@ -27,6 +28,7 @@ public class Popup_Profile : GameState
 
     private void Awake()
     {
+        lastAvatar = JsonUtility.ToJson(Profile.Avatar);
         itemPrefab = ballsScroller.content.GetComponent<UiProfileBallItem>(true, true);
         itemPrefab.gameObject.SetActive(false);
     }
@@ -42,12 +44,19 @@ public class Popup_Profile : GameState
         nicknamePrice.SetText(GlobalConfig.Shop.nicknamePrice.ToString());
         nicknameButton.onClick.AddListener(() =>
         {
-            if (nicknameInput.text.ComputeMD5(Core.Salt) == "1EB663B178CEFE01AF0C8D7FBDE59BBE")
-                GlobalConfig.DebugMode = true;
-            else if (Profile.HasNickname)
-                Game.SpendGems(GlobalConfig.Shop.nicknamePrice, SendNickname);
-            else
-                SendNickname();
+            if (nicknameInput.text.ComputeMD5(Core.Salt) != "AC9CD53769E38CBBD8707CA1108BA10D")
+            {
+                var nickname = nicknameInput.text.Trim().CleanFromCode().CleanForPersian();
+                if (nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
+                {
+                    if (Profile.HasNickname)
+                        Game.SpendGems(GlobalConfig.Shop.nicknamePrice, () => SendNickname(nickname));
+                    else
+                        SendNickname(nickname);
+                }
+                else gameManager.OpenPopup<Popup_Confirm>().Setup(111001, false, true, null);
+            }
+            else GlobalConfig.DebugMode = true;
         });
 
         statusInput.text = Profile.Status;
@@ -55,10 +64,15 @@ public class Popup_Profile : GameState
         statusPrice.SetText(GlobalConfig.Shop.statusPrice.ToString());
         statusButton.onClick.AddListener(() =>
         {
-            if (Profile.HasStatus)
-                Game.SpendGems(GlobalConfig.Shop.statusPrice, SendStatus);
-            else
-                SendStatus();
+            var status = statusInput.text.Trim().CleanFromCode().CleanForPersian();
+            if (status.HasContent(3) && status.IsLetterOrDigit() && BadWordsFinder.HasBadWord(status) == false)
+            {
+                if (Profile.HasStatus)
+                    Game.SpendGems(GlobalConfig.Shop.statusPrice, () => SendStatus(status));
+                else
+                    SendStatus(status);
+            }
+            else gameManager.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
         });
 
         hairSlider.minValue = 0;
@@ -81,54 +95,47 @@ public class Popup_Profile : GameState
         ballsScroller.content.anchoredPosition = Vector2.down * (UiProfileBallItem.unlockedPosition.y + 100);
     }
 
-    private void SendNickname()
+    private void SendNickname(string nickname)
     {
-        var nickname = nicknameInput.text.Trim().CleanFromCode().CleanForPersian();
-        if (nickname.HasContent(3))
+        Popup_Loading.Show();
+        Online.Profile.SetNickname(nickname, success =>
         {
-            if (nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
+            Popup_Loading.Hide();
+            if (success)
             {
-                Popup_Loading.Show();
-                Online.Profile.SetNickname(nickname, success =>
-                {
-                    Popup_Loading.Hide();
-                    if (success)
-                    {
-                        Profile.Nickname = nickname;
-                        nicknamePrice.transform.parent.gameObject.SetActive(true);
-                    }
-                });
+                Profile.Nickname = nickname;
+                nicknamePrice.transform.parent.gameObject.SetActive(true);
             }
-            else gameManager.OpenPopup<Popup_Confirm>().Setup(111001, false, true, null);
-        }
+        });
     }
 
-    private void SendStatus()
+    private void SendStatus(string status)
     {
-        var status = statusInput.text.Trim().CleanFromCode().CleanForPersian();
-        if (status.HasContent(3))
+        Popup_Loading.Show();
+        Online.Profile.SetStatus(status, success =>
         {
-            if (status.IsLetterOrDigit() && BadWordsFinder.HasBadWord(status) == false)
+            Popup_Loading.Hide();
+            if (success)
             {
-                Popup_Loading.Show();
-                Online.Profile.SetStatus(status, success =>
-                {
-                    Popup_Loading.Hide();
-                    if (success)
-                    {
-                        Profile.Status = status;
-                        statusPrice.transform.parent.gameObject.SetActive(true);
-                    }
-                });
+                Profile.Status = status;
+                statusPrice.transform.parent.gameObject.SetActive(true);
             }
-            else gameManager.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
-        }
+        });
+    }
+
+    private void SendAvatar()
+    {
+        var newAvatar = JsonUtility.ToJson(Profile.Avatar);
+        if (lastAvatar == newAvatar) return;
+        Online.Profile.SetAvatar(newAvatar, res => { });
     }
 
     public override void Back()
     {
+        SendAvatar();
         base.Back();
         if (onCloseFunc != null)
             onCloseFunc();
+        Profile.Sync(true, ok => { });
     }
 }

@@ -12,6 +12,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     }
 
     [SerializeField] private BlocksInfo blocks = new BlocksInfo();
+    [SerializeField] private Sprite[] leagueMedals = null;
 
     protected override void OnInitialize()
     {
@@ -24,24 +25,30 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     ////////////////////////////////////////////////////////////
     public static class Theme
     {
+        public const int Count = 1;
+
         public static int GetSpriteCount(int themeId)
         {
+            themeId = themeId % Count;
             return Resources.LoadAll<Sprite>("Game/Themes/" + themeId + "/Items").Length;
         }
 
         public static Sprite GetSprite(int themeId, int index)
         {
+            themeId = themeId % Count;
             var sprites = Resources.LoadAll<Sprite>("Game/Themes/" + themeId + "/Items");
             return sprites[index % sprites.Length];
         }
 
         public static Sprite GetBackground(int themeId)
         {
+            themeId = themeId % Count;
             return Resources.Load<Sprite>("Game/Themes/" + themeId + "/Background");
         }
 
         public static ThemeSounds GetSounds(int themeId)
         {
+            themeId = themeId % Count;
             return Resources.Load<ThemeSounds>("Game/Themes/" + themeId + "/Sounds");
         }
     }
@@ -83,7 +90,8 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
         public static int GetPrice(int id)
         {
-            return GlobalConfig.Shop.ballPriceRatio * id;
+            int ratio = GlobalConfig.Shop.ballPriceRatio;
+            return ratio * id * id / 5;
         }
     }
 
@@ -116,6 +124,11 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             if (index == lastRandom) Random.Range(0, All.Count);
             lastRandom = index;
             return Get(index);
+        }
+
+        public static PatternConfig GetPatternByName(string name)
+        {
+            return Resources.Load<PatternConfig>("Game/Levels/" + name);
         }
     }
 
@@ -155,6 +168,40 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         public static SeasonConfig Get(int id)
         {
             return All.Find(x => x.Id == id);
+        }
+    }
+
+    public static class Leagues
+    {
+        public static Sprite GetMedalSprite(int index)
+        {
+            index = Mathf.Clamp(index, 0, Instance.leagueMedals.Length);
+            return Instance.leagueMedals[index];
+        }
+
+        public static Sprite GetMedal(GlobalConfig.Data.League league, int score)
+        {
+            return GetMedalSprite(GetSubIndex(league, score));
+        }
+
+        public static GlobalConfig.Data.League GetById(int id)
+        {
+            return GlobalConfig.Leagues.Find(x => x.id == id);
+        }
+
+        public static int GetSubIndex(GlobalConfig.Data.League league, int score)
+        {
+            int res = 0;
+            for (int i = 1; i < league.subleagus.Count; i++)
+                if (score >= league.subleagus[i].startScore)
+                    res = i;
+            return res;
+        }
+
+        public static GlobalConfig.Data.League.SubLeague GetByScore(GlobalConfig.Data.League league, int score)
+        {
+            var index = Mathf.Clamp(GetSubIndex(league, score), 0, league.subleagus.Count);
+            return league.subleagus[index];
         }
     }
 }

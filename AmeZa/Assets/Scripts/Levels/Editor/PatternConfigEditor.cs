@@ -20,6 +20,13 @@ public class PatternConfigEditor : Editor
         set { EditorPrefs.SetInt("PatternConfigEditor.brushValue", value); }
     }
 
+    private static int gridOffset
+    {
+        get { return EditorPrefs.GetInt("PatternConfigEditor.gridOffset", 0); }
+        set { EditorPrefs.SetInt("PatternConfigEditor.gridOffset", value); }
+    }
+
+
     public override void OnInspectorGUI()
     {
         var obj = target as PatternConfig;
@@ -38,6 +45,8 @@ public class PatternConfigEditor : Editor
         if (brush == BlockType.Value)
             brushValue = EditorGUILayout.IntField("Value", brushValue);
 
+        gridOffset = EditorGUILayout.IntSlider("Grid Offset", gridOffset, 0, obj.height);
+
         style.normal.textColor = Color.red;
         style.stretchHeight = style.stretchWidth = true;
         style.alignment = TextAnchor.MiddleCenter;
@@ -46,10 +55,13 @@ public class PatternConfigEditor : Editor
         var rect = EditorGUILayout.GetControlRect();
         var w = rect.width / PatternConfig.width;
         var r = new Rect(0, 0, w, w);
+        var offset = gridOffset * PatternConfig.width;
         for (int i = 0; i < obj.blocks.Count; i++)
         {
-            r.x = rect.x + (i % PatternConfig.width) * w;
-            r.y = rect.y + (i / PatternConfig.width) * w;
+            if (i < offset) continue;
+            var ioffset = i - offset;
+            r.x = rect.x + (ioffset % PatternConfig.width) * w;
+            r.y = rect.y + (ioffset / PatternConfig.width) * w;
 
             if (obj.blocks[i] > 0)
             {

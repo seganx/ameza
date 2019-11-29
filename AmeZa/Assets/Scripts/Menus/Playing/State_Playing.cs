@@ -33,7 +33,26 @@ public class State_Playing : GameState
 
     private void CheckMission()
     {
-        if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
+        bool isPlayerWins = false;
+        bool isTurnOut = PlayModel.IsTurnsFinished;
+        bool blocksOut = PlayModel.IsBlockTargeted && BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
+        bool targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
+
+        if (isTurnOut || blocksOut || targetOut) // no blocks or target remained
+        {
+            // now check if player wins
+            isPlayerWins = PlayModel.IsTargetExist == false || PlayModel.IsTargetsReached;
+            if (isPlayerWins)
+            {
+                if (PlayModel.onWin != null)
+                    PlayModel.onWin();
+                else
+                    gameManager.OpenPopup<Popup_Win>().SetNextTask(() => base.Back());
+            }
+            else PlayerLose();
+        }
+
+        if (BlockManager.IsBlockReachedDown && isPlayerWins == false) // player is losing becase a block reached down
         {
             gameManager.OpenPopup<Popup_Lose>().Setup(ability => // check if player wants to use abilities
             {
@@ -42,33 +61,25 @@ public class State_Playing : GameState
                     transform.Broadcast(Messages.Type.UseAbility, ability);
                     CheckMission();
                 }
-                else Back();
+                else PlayerLose();
             });
-        }
-        else
-        {
-            var isTurnOut = PlayModel.IsTurnsFinished;
-            var blocksOut = BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
-            var targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
-
-            if (isTurnOut || blocksOut || targetOut) // no blocks or target remained
-            {
-                // now check if player wins
-                var playerWin = PlayModel.IsTargetExist == false || PlayModel.IsTargetsReached;
-                if (playerWin)
-                {
-                    if (PlayModel.onWin != null)
-                        PlayModel.onWin();
-                    else
-                        gameManager.OpenPopup<Popup_Win>().SetNextTask(() => base.Back());
-                }
-                else Back();
-            }
         }
     }
 
     public override void Back()
     {
+        gameManager.OpenPopup<Popup_Confirm>().Setup(111005, true, true, yes =>
+        {
+            if (yes)
+                PlayerLose();
+        });
+    }
+
+    public void PlayerLose()
+    {
+        if (Profile.Hearts > 0)
+            Profile.Hearts--;
+        base.Back();
         if (PlayModel.onLose != null)
             PlayModel.onLose();
     }

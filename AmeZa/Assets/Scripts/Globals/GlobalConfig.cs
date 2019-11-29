@@ -45,8 +45,23 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class League
         {
-            public int startScore = 0;
-            public int rewardCoins = 0;
+            [System.Serializable]
+            public class SubLeague
+            {
+                [PersianPreview]
+                public string name = string.Empty;
+                public int startScore = 0;
+                public int rewardGems = 0;
+            }
+
+            public int id = 0;
+            public PlayModel.Type playType = PlayModel.Type.LeagueBalls;
+            [PersianPreview]
+            public string name = string.Empty;
+            [PersianPreview]
+            public string desc = string.Empty;
+
+            public List<SubLeague> subleagus = new List<SubLeague>();
         }
 
         [System.Serializable]
@@ -57,15 +72,34 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         }
 
         [System.Serializable]
+        public class Timers
+        {
+            [System.Serializable]
+            public class Timer
+            {
+                public int id = 0;
+                public int duration = 90;
+            }
+
+            public Timer heart = new Timer() { id = 1, duration = 600 };
+        }
+
+
+        [System.Serializable]
         public class Shop
         {
             [System.Serializable]
-            public class CoinPackage
+            public class Package
             {
                 public string sku = string.Empty;
-                public int price = 0;
-                public int coins = 0;
+                [PersianPreview]
+                public string title = string.Empty;
                 public int image = 0;
+                public int gems = 0;
+                public int bombs = 0;
+                public int hammers = 0;
+                public int missiles = 0;
+                public int price = 0;
             }
 
             public int nicknamePrice = 1200;
@@ -75,12 +109,13 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int bombPrice = 20;
             public int misslePrice = 10;
             public int hammerPrice = 5;
-            public List<CoinPackage> coinPackages = new List<CoinPackage>();
+            public List<Package> packages = new List<Package>();
         }
 
         public Update forceUpdate = new Update();
         public Socials socials = new Socials();
         public Difficulty difficulty = new Difficulty();
+        public Timers timers = new Timers();
         public List<League> leagues = new List<League>();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
@@ -117,7 +152,10 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
     public void OnExport(object sender)
     {
-        var filename = UnityEditor.EditorUtility.SaveFilePanel("Save exported data", System.IO.Path.GetDirectoryName(Application.dataPath), "config", "txt");
+        var path = System.IO.Directory.GetParent(Application.dataPath).Parent.FullName + "/Configs/" + version;
+        if (System.IO.Directory.Exists(path) == false)
+            System.IO.Directory.CreateDirectory(path);
+        var filename = UnityEditor.EditorUtility.SaveFilePanel("Save exported data", path, "config", "txt");
         if (filename.HasContent(4))
             System.IO.File.WriteAllText(filename, JsonUtility.ToJson(data, false), System.Text.Encoding.UTF8);
     }
@@ -129,8 +167,11 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Update ForceUpdate { get { return Instance.data.forceUpdate; } }
     public static Data.Socials Socials { get { return Instance.data.socials; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty; } }
+    public static Data.Timers Timers { get { return Instance.data.timers; } }
     public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
+    public static List<Data.League> Leagues { get { return Instance.data.leagues; } }
+
 
     private static int Cohort { get; set; }
 
@@ -170,35 +211,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             PlayerPrefsEx.SetInt("GlobalConfig.Cohort", Cohort);
         }
         return true;
-    }
-
-
-    public static class Leagues
-    {
-        public static List<Data.League> list { get { return Instance.data.leagues; } }
-
-        public static Data.League GetByScore(int score)
-        {
-            var index = Mathf.Clamp(GetIndex(score), 0, list.Count);
-            return list[index];
-        }
-
-
-        public static Data.League GetByIndex(int index)
-        {
-            index = Mathf.Clamp(index, 0, list.Count);
-            return list[index];
-        }
-
-        public static int GetIndex(int score)
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (score >= list[i].startScore)
-                    return i;
-            }
-            return 0;
-        }
     }
 
 }

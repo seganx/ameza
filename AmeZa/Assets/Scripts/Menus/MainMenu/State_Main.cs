@@ -13,12 +13,7 @@ public class State_Main : GameState
 
     private void Start()
     {
-        onlineButton.onClick.AddListener(() =>
-        {
-            gameManager.OpenPopup<Popup_Rewards>().Setup(100, 0);
-            gameManager.OpenState<State_SelectLeague>();
-        });
-
+        onlineButton.onClick.AddListener(() => gameManager.OpenState<State_SelectLeague>());
         levelsButton.onClick.AddListener(() => gameManager.OpenState<State_Levels>());
         shopButton.onClick.AddListener(() => { gameManager.OpenPopup<Popup_Shop>(); });
 

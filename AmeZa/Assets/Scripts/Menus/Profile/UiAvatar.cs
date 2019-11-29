@@ -10,6 +10,17 @@ public class UiAvatar : MonoBehaviour
 
     private ProfileData.AvatarData data = null;
 
+    public UiAvatar Setup(string json)
+    {
+        try
+        {
+            data = json.HasContent(3) ? JsonUtility.FromJson<ProfileData.AvatarData>(json) : new ProfileData.AvatarData();
+        }
+        catch { }
+
+        return Setup(data == null ? new ProfileData.AvatarData() : data);
+    }
+
     public UiAvatar Setup(ProfileData.AvatarData avatar)
     {
         data = avatar;
