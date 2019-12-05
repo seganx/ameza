@@ -85,6 +85,9 @@ public class BlockManager : MonoBehaviour
     {
         int additionalHealth = PlayModel.stats.totalTurn * GlobalConfig.Difficulty.turnsFactor / 100 + PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
 
+        if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1)
+            additionalHealth = 0;
+
         switch (typeValue)
         {
             case BlockType.BoxKill: return null;

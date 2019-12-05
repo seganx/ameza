@@ -28,7 +28,7 @@ public class Popup_Profile : GameState
 
     private void Awake()
     {
-        lastAvatar = JsonUtility.ToJson(Profile.Avatar);
+        lastAvatar = Profile.Avatar.Json;
         itemPrefab = ballsScroller.content.GetComponent<UiProfileBallItem>(true, true);
         itemPrefab.gameObject.SetActive(false);
     }
@@ -37,7 +37,7 @@ public class Popup_Profile : GameState
     private IEnumerator Start()
     {
         UiShowHide.ShowAll(transform);
-        avatar.Setup(Profile.Avatar);
+        avatar.Setup(Profile.Avatar.Current);
 
         nicknameInput.text = Profile.HasNickname ? Profile.Nickname : Profile.Username;
         nicknamePrice.transform.parent.gameObject.SetActive(Profile.HasNickname);
@@ -77,12 +77,12 @@ public class Popup_Profile : GameState
 
         hairSlider.minValue = 0;
         hairSlider.maxValue = 360;
-        hairSlider.value = Profile.Avatar.angle;
+        hairSlider.value = Profile.Avatar.Angle;
         hairSlider.onValueChanged.AddListener(value =>
         {
-            Profile.Avatar.angle = value.ToInt();
-            avatar.Setup(Profile.Avatar);
-            gameManager.CurrentState.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar);
+            Profile.Avatar.Angle = value.ToInt();
+            avatar.Setup(Profile.Avatar.Current);
+            gameManager.CurrentState.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
         });
 
         for (int i = 0; i < GlobalFactory.Balls.Count; i++)
@@ -93,6 +93,14 @@ public class Popup_Profile : GameState
 
         yield return new WaitForSeconds(0.1f);
         ballsScroller.content.anchoredPosition = Vector2.down * (UiProfileBallItem.unlockedPosition.y + 100);
+    }
+
+    private void OnMessage(Messages.Param param)
+    {
+        if (param.Is(Messages.Type.AvatarChanged))
+        {
+            avatar.Setup(Profile.Avatar.Current);
+        }
     }
 
     private void SendNickname(string nickname)
@@ -125,7 +133,7 @@ public class Popup_Profile : GameState
 
     private void SendAvatar()
     {
-        var newAvatar = JsonUtility.ToJson(Profile.Avatar);
+        var newAvatar = JsonUtility.ToJson(Profile.Avatar.Current);
         if (lastAvatar == newAvatar) return;
         Online.Profile.SetAvatar(newAvatar, res => { });
     }

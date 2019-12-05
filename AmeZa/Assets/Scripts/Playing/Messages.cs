@@ -16,6 +16,7 @@ public static class Messages
         EndTurn,
         TurnStarted,
         TurnEnded,
+        BallCount,
         OnBlockHit,
         OnBlockDeath,
         BlockDead,

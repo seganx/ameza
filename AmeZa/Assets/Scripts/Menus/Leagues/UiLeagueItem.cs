@@ -23,6 +23,27 @@ public class UiLeagueItem : Base
         var league = GlobalConfig.Leagues[index];
         nameLabel.SetText(league.name);
         descLabel.SetText(league.desc);
-        button.onClick.AddListener(() => gameManager.OpenState<State_LeagueInfo>().SetLeagueIndex(index));
+
+        button.onClick.AddListener(() =>
+        {
+            if (Profile.HasNickname)
+            {
+                if (Profile.Hearts > 0)
+                    gameManager.OpenState<State_LeagueInfo>().SetLeagueIndex(index);
+                else
+                    Game.Instance.OpenPopup<Popup_BuyHearts>();
+            }
+            else
+            {
+                gameManager.OpenPopup<Popup_Confirm>().Setup(111011, true, false, ok =>
+                {
+                    if (ok) gameManager.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                    {
+                        if (Profile.HasNickname)
+                            gameManager.OpenPopup<Popup_Confirm>().Setup(111012, true, false, null);
+                    });
+                });
+            }
+        });
     }
 }

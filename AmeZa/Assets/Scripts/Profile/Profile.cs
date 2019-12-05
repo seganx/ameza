@@ -15,7 +15,7 @@ public class Profile : MonoBehaviour
             Hearts = GlobalConfig.ProfilePreset.heats;
             Bombs = GlobalConfig.ProfilePreset.bombs;
             Hammers = GlobalConfig.ProfilePreset.hammers;
-            Missles = GlobalConfig.ProfilePreset.missles;
+            Missiles = GlobalConfig.ProfilePreset.missles;
         }
     }
 
@@ -45,14 +45,16 @@ public class Profile : MonoBehaviour
 
     private void OnApplicationPause(bool pause)
     {
-        if (pause) SaveLocal();
+        if (pause)
+        {
+            SaveLocal();
+        }
     }
 
     private void OnApplicationQuit()
     {
         SaveLocal();
     }
-
 
     ////////////////////////////////////////////
     /// STATIC MEMBERS
@@ -105,7 +107,7 @@ public class Profile : MonoBehaviour
         set { data.privateData.hammers = value; }
     }
 
-    public static int Missles
+    public static int Missiles
     {
         get { return data.privateData.missles; }
         set { data.privateData.missles = value; }
@@ -115,12 +117,6 @@ public class Profile : MonoBehaviour
     {
         get { return data.privateData.plusballs; }
         set { data.privateData.plusballs = value; }
-    }
-
-    public static ProfileData.AvatarData Avatar
-    {
-        get { return data.avatar; }
-        set { data.avatar = value; }
     }
 
     private static string LastHashdata
@@ -254,7 +250,7 @@ public class Profile : MonoBehaviour
             return;
         }
 
-        Online.Login(GlobalConfig.Instance.gameId, Core.DeviceId, success =>
+        Online.Login(Core.GameId, Core.DeviceId, success =>
         {
             IsLoggedIn = success;
             if (IsLoggedIn)
@@ -336,5 +332,33 @@ public class Profile : MonoBehaviour
             }
             else nextTask(false);
         });
+    }
+
+
+
+    public static class Avatar
+    {
+        public static int BallId
+        {
+            get { return data.avatar.ballId; }
+            set
+            {
+                data.avatar.ballId = value;
+                data.info.avatar = JsonUtility.ToJson(data.avatar);
+            }
+        }
+
+        public static int Angle
+        {
+            get { return data.avatar.angle; }
+            set
+            {
+                data.avatar.angle = value;
+                data.info.avatar = JsonUtility.ToJson(data.avatar);
+            }
+        }
+
+        public static string Json { get { return data.info.avatar; } }
+        public static ProfileData.AvatarData Current { get { return data.avatar; } }
     }
 }

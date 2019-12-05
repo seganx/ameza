@@ -21,21 +21,30 @@ public class Popup_Win : GameState
     // Use this for initialization
     private IEnumerator Start()
     {
-        int rewardGems = PlayModel.GetRewardGems();
+        var rewards = PlayModel.GetReward();
         int rewardStars = PlayModel.GetRewardStars();
+
+        // verify that player has been passed this level
         if (Profile.IsLevelPassed(PlayModel.level.season, PlayModel.level.index))
-            rewardGems /= 2;
+        {
+            rewards.gems /= 2;
+            rewards.bombs = rewards.hammers = rewards.missiles = 0;
+        }
+
         Profile.SetLevelStars(PlayModel.level.season, PlayModel.level.index, rewardStars);
 
         int totalBalls = PlayModel.stats.totalBalls + PlayModel.level.startBallCount;
         desc.SetFormatedText(PlayModel.stats.totalTurn.ToString(), PlayModel.stats.totalBlocks.ToString(), totalBalls);
 
-        rewardButton.gameObject.SetActive(rewardGems > 0);
+        rewardButton.gameObject.SetActive(rewards.exist);
         rewardButton.onClick.AddListener(() =>
         {
             rewardButton.gameObject.SetActive(false);
-            Profile.EarnGems(rewardGems);
-            gameManager.OpenPopup<Popup_Rewards>().Setup(0, rewardGems, 0, 0, 0, true);
+            Profile.EarnGems(rewards.gems);
+            Profile.Bombs += rewards.bombs;
+            Profile.Hammers += rewards.hammers;
+            Profile.Missiles += rewards.missiles;
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true);
         });
 
         UiShowHide.ShowAll(transform);

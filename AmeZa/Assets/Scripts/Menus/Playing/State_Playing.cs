@@ -6,15 +6,19 @@ using UnityEngine.UI;
 
 public class State_Playing : GameState
 {
+    [SerializeField] private Text ballsLabel = null;
     [SerializeField] private Button endTurnButton = null;
+    [SerializeField] private Button pauseButton = null;
 
     private void Start()
     {
-        endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         endTurnButton.gameObject.SetActive(false);
+        endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
+        pauseButton.onClick.AddListener(() => gameManager.OpenPopup<Popup_Settings>());
 
         UIBackground.Hide();
         UiShowHide.ShowAll(transform);
+        AudioManager.PlayRandom(1, 5, 0.25f, 2, 2);
     }
 
     private void OnMessage(Messages.Param param)
@@ -23,12 +27,25 @@ public class State_Playing : GameState
         {
             case Messages.Type.TurnStarted:
                 endTurnButton.gameObject.SetActive(true);
+                UpdateBallText(BallManager.balls.Count);
                 break;
 
             case Messages.Type.TurnEnded:
                 endTurnButton.gameObject.SetActive(false);
+                UpdateBallText(BallManager.balls.Count);
+                break;
+
+            case Messages.Type.BallCount:
+                UpdateBallText(param.As<int>());
                 break;
         }
+    }
+
+    private void UpdateBallText(int i)
+    {
+        ballsLabel.transform.position = BallManager.SpawnPoint;
+        ballsLabel.text = i.ToString();
+        ballsLabel.gameObject.SetActive(i > 0);
     }
 
     private void CheckMission()
@@ -44,16 +61,20 @@ public class State_Playing : GameState
             isPlayerWins = PlayModel.IsTargetExist == false || PlayModel.IsTargetsReached;
             if (isPlayerWins)
             {
-                if (PlayModel.onWin != null)
-                    PlayModel.onWin();
-                else
-                    gameManager.OpenPopup<Popup_Win>().SetNextTask(() => base.Back());
+                gameManager.ClosePopup(true);
+                gameManager.OpenPopup<Popup_Win>().SetNextTask(() =>
+                {
+                    base.Back();
+                    if (PlayModel.onWin != null)
+                        PlayModel.onWin();
+                });
             }
             else PlayerLose();
         }
 
         if (BlockManager.IsBlockReachedDown && isPlayerWins == false) // player is losing becase a block reached down
         {
+            gameManager.ClosePopup(true);
             gameManager.OpenPopup<Popup_Lose>().Setup(ability => // check if player wants to use abilities
             {
                 if (ability != AbilityType.Null)

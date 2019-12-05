@@ -28,8 +28,8 @@ public class UiProfileBallItem : MonoBehaviour
             {
                 case State.Owned:
                     {
-                        Profile.Avatar.ballId = ballId;
-                        transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar);
+                        Profile.Avatar.BallId = ballId;
+                        transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
                     }
                     break;
 
@@ -39,11 +39,11 @@ public class UiProfileBallItem : MonoBehaviour
                         Game.SpendGems(price, () =>
                         {
                             Profile.AddBall(ballId);
-                            Profile.Avatar.ballId = ballId;
+                            Profile.Avatar.BallId = ballId;
                             Game.Instance.OpenPopup<Popup_Rewards>().Setup(ballId, 0, 0, 0, 0, true, () =>
                             {
                                 transform.parent.Broadcast(Messages.Type.BallPurchased);
-                                transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar);
+                                transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
                             });
                         });
                     }

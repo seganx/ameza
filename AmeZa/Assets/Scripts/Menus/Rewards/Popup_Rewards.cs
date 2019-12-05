@@ -29,7 +29,7 @@ public class Popup_Rewards : GameState
 
         if (ballId > 0)
         {
-            var tmp = new ProfileData.AvatarData() { angle = Profile.Avatar.angle };
+            var tmp = new ProfileData.AvatarData() { angle = Profile.Avatar.Angle };
             tmp.ballId = ballId;
             avatar.Setup(tmp);
         }

@@ -45,13 +45,13 @@ public class Popup_Lose : GameState
 
         missleButton.onClick.AddListener(() =>
         {
-            if (Profile.Missles > 0)
+            if (Profile.Missiles > 0)
             {
-                Profile.Missles--;
+                Profile.Missiles--;
                 callback(AbilityType.Missle);
                 base.Back();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, count => Profile.Missles += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, count => Profile.Missiles += count);
         });
 
         UiShowHide.ShowAll(transform);
@@ -68,7 +68,7 @@ public class Popup_Lose : GameState
     {
         bombLabel.SetText(Profile.Bombs > 0 ? Profile.Bombs.ToString() : "+");
         hammerLabel.SetText(Profile.Hammers > 0 ? Profile.Hammers.ToString() : "+");
-        missleLabel.SetText(Profile.Missles > 0 ? Profile.Missles.ToString() : "+");
+        missleLabel.SetText(Profile.Missiles > 0 ? Profile.Missiles.ToString() : "+");
     }
 
     private void BuyBooster(int count, int price, System.Action<int> onSuccess)

@@ -23,6 +23,10 @@ public class Popup_Leaderboards : GameState
             Loading.Hide();
             if (succeed)
             {
+                list.Sort((x, y) => y.score - x.score);
+                for (int i = 0; i < list.Count; i++)
+                    list[i].rank = i + 1;
+
                 foreach (var item in list)
                     prefabItem.Clone<UiLeaderboardItem>().Setup(leagueId, item);
                 Destroy(prefabItem.gameObject);

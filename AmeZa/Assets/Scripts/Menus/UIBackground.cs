@@ -21,6 +21,8 @@ public class UIBackground : MonoBehaviour
     // Use this for initialization
     private IEnumerator Start()
     {
+        AudioManager.PlayMusic(0, 1, 2, 2);
+
         instance = this;
         transform.SetAsFirstSibling();
 
@@ -40,7 +42,7 @@ public class UIBackground : MonoBehaviour
         var wait = new WaitForSeconds(0.5f);
         while (true)
         {
-            avatar.Setup(Profile.Avatar);
+            avatar.Setup(Profile.Avatar.Current);
             nickNameLabel.SetText(Profile.Nickname);
             gems.SetText(Profile.Gems.ToString("#,0"));
             heartsCount.SetText(Profile.Hearts.ToString());

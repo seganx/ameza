@@ -103,7 +103,8 @@ public class State_LeagueInfo : GameState
     private void StartGame(GlobalConfig.Data.League info)
     {
         PlayModel.Reset(info.playType);
-        PlayModel.ballId = Profile.Avatar.ballId;
+        PlayModel.ballId = Profile.Avatar.BallId;
+        PlayModel.level.name = info.name;
         PlayModel.level.theme = Random.Range(0, GlobalFactory.Theme.Count);
         PlayModel.level.pattern = GlobalFactory.Patterns.GetPatternByName(info.playType.ToString());
         PlayModel.onLose = () => OnPlayerLose(info.id);
@@ -124,7 +125,7 @@ public class State_LeagueInfo : GameState
             {
                 var subleague = GlobalFactory.Leagues.GetByScore(info, data.end_score);
                 Profile.EarnGems(subleague.rewardGems);
-                gameManager.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true);
+                gameManager.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.Joy += 2);
                 data.end_score = data.end_rank = 0;
             }
             else rewardButton.SetInteractable(true);

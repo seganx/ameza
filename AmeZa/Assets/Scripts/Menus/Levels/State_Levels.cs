@@ -29,9 +29,17 @@ public class State_Levels : GameState
 
         claimRewardButton.onClick.AddListener(() =>
         {
+            var reward = season.finalReward.GetResult();
             Profile.SetSeasonRewarded(season.Id, 1);
-            Profile.EarnGems(season.rewardGems);
-            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, season.rewardGems, 0, 0, 0, false, () => nextButton.onClick.Invoke());
+            Profile.EarnGems(reward.gems);
+            Profile.Bombs += reward.bombs;
+            Profile.Hammers += reward.hammers;
+            Profile.Missiles += reward.missiles;
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () =>
+            {
+                Rateus.Joy += 4;
+                nextButton.onClick.Invoke();
+            });
             UpdateVisual();
         });
 
@@ -68,7 +76,7 @@ public class State_Levels : GameState
         var canClaimReward = season == null ? false : Profile.GetLevelStars(CurrentSeason, season.levelCount - 1) > 0;
         claimRewardButton.gameObject.SetActive(canClaimReward);
         comingSoon.SetActive(season == null);
-        nextButton.SetInteractable(season != null);
+        nextButton.SetInteractable(season != null && Profile.GetSeasonRewarded(season.Id) > 0);
         prevButton.SetInteractable(CurrentSeason > 0);
     }
 
@@ -76,8 +84,16 @@ public class State_Levels : GameState
     {
         content.RemoveChildrenBut(0);
         if (season == null) return;
+        int enabledIndex = 0;
         for (int i = 0; i < season.levelCount; i++)
-            levelItem.Clone<UiLevelItem>().Setup(season, i).gameObject.SetActive(true);
+        {
+            var canOpen = Profile.CanOpenLevel(season.Id, i);
+            levelItem.Clone<UiLevelItem>().Setup(season, i, canOpen).gameObject.SetActive(true);
+            if (canOpen) enabledIndex = i;
+        }
+
+        if (enabledIndex > 15)
+            DelayCall(0.1f, () => content.SetAnchordPositionY((enabledIndex - 12) * 110 / 4));
     }
 
     ////////////////////////////////////////////////////////////

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +18,8 @@ public static class PlayModel
 
     public static Type type = Type.Levels;
     public static int ballId = 0;
-    public static Action onWin = null;
-    public static Action onLose = null;
+    public static System.Action onWin = null;
+    public static System.Action onLose = null;
     public static Stats stats = new Stats();
     public static LevelModel level = new LevelModel();
 
@@ -60,7 +59,7 @@ public static class PlayModel
     public static int GetRewardStars()
     {
         var factor = stats.totalTurn / (stats.totalBlocks + 0.1f);
-        if (factor < 0.335) return 3;
+        if (factor < 0.35) return 3;
         if (factor < 0.66f) return 2;
         return 1;
 #if OFF
@@ -72,17 +71,9 @@ public static class PlayModel
 #endif
     }
 
-    public static int GetRewardGems()
+    public static RewardModel.Result GetReward()
     {
-        if (type == Type.Levels)
-        {
-            var stars = GetRewardStars();
-            if (stars == 3)
-                return level.rewardGems;
-            else if (stars == 2)
-                return level.rewardGems * 75 / 100;
-            return level.rewardGems * 50 / 100;
-        }
-        return 0;
+        return level.reward.GetResult(level.progress);
+
     }
 }

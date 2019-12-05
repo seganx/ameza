@@ -37,8 +37,8 @@ public class UiShopItem : MonoBehaviour
                     Profile.EarnGems(pack.gems);
                     Profile.Bombs += pack.bombs;
                     Profile.Hammers += pack.hammers;
-                    Profile.Missles += pack.missiles;
-
+                    Profile.Missiles += pack.missiles;
+                    PurchaseSystem.Consume(pack.sku);
                     Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true);
                 }
             });

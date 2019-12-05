@@ -121,7 +121,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
     }
 
-    public int gameId = 0;
     public Market market = 0;
     public string address = "http://seganx.com/games/ameza/";
     public string cafeBazaarKey = "";

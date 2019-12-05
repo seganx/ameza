@@ -33,7 +33,7 @@ public class UiAvatar : MonoBehaviour
     {
         if (data == null)
         {
-            data = Profile.Avatar;
+            data = Profile.Avatar.Current;
             UpdateVisual();
         }
     }

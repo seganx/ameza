@@ -23,6 +23,8 @@ public class BallManager : MonoBehaviour
 
         for (int i = 0; i < PlayModel.level.startBallCount; i++)
             SpawnBall(SpawnPoint);
+
+        transform.root.Broadcast(Messages.Type.BallCount, PlayModel.level.startBallCount);
     }
 
     public Ball SpawnBall(Vector3 position)
@@ -97,8 +99,9 @@ public class BallManager : MonoBehaviour
         tmp.AddRange(balls);
         for (int i = 0; i < tmp.Count; i++)
         {
-            tmp[i].Rigidbody.velocity = direction;
             yield return new WaitForSeconds(0.1f);
+            tmp[i].Rigidbody.velocity = direction;
+            transform.root.Broadcast(Messages.Type.BallCount, tmp.Count - i - 1);
         }
         ballsShooting = false;
     }

@@ -15,6 +15,7 @@ public class PlayerController : Base
     private ContactFilter2D previewFilter = new ContactFilter2D();
     private float ballRadius = 0.1f;
 
+    //private float activeDelay
     private bool isShooting = false;
     private bool isDown = false;
     private bool isHold = false;
@@ -24,6 +25,7 @@ public class PlayerController : Base
 
     private void Awake()
     {
+        Input.multiTouchEnabled = false;
         ballRadius = GlobalFactory.Balls.GetPrefab(0).transform.localScale.y;
         previewArrow.localScale = Vector3.one * ballRadius;
 
@@ -36,42 +38,43 @@ public class PlayerController : Base
 
     private void Update()
     {
-        if (gameManager.CurrentPopup != null) return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return;
 
         if (isUp)
         {
             isUp = false;
             isHold = false;
             isDown = false;
-            previewArrow.gameObject.SetActive(false);
-
-            var angle = Vector2.SignedAngle(Vector2.up, direction);
-            if (-rangeAngle < angle && angle < rangeAngle)
+            if (previewArrow.gameObject.activeSelf)
             {
                 isShooting = true;
-                transform.root.Broadcast(Messages.Type.StartTurn, direction);
+                transform.root.Broadcast(Messages.Type.StartTurn, direction.normalized);
             }
+            previewArrow.gameObject.SetActive(false);
         }
         else if (isHold)
         {
             isUp = Input.GetMouseButtonUp(0);
-            var hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition), 20, 1 << 8);
-            Vector3 currentPoint = hit.point;
-            var distance = (currentPoint - BallManager.SpawnPoint);
-            if (distance.magnitude > 0.1f)
+            Vector3 hitpoint = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition), 20, 1 << 8).point;
+            var distance = (hitpoint - BallManager.SpawnPoint);
+            var angle = Vector2.SignedAngle(Vector2.up, distance);
+
+            if (distance.magnitude >= 1)
+                previewArrow.gameObject.SetActive(true);
+            else if (distance.magnitude < 0.5f)
+                previewArrow.gameObject.SetActive(false);
+
+            if (-rangeAngle < angle && angle < rangeAngle)
             {
-                var angle = Vector2.SignedAngle(Vector2.up, distance);
-                if (-rangeAngle < angle && angle < rangeAngle)
-                {
-                    direction = distance.normalized;
-                    DisplayPreview(angle);
-                }
+                direction = distance.normalized;
+                DisplayPreview(angle);
             }
         }
         else if (isDown)
         {
-            isHold = Input.GetMouseButton(0);
             direction = Vector2.down;
+            isHold = Input.GetMouseButton(0);
             previewArrow.transform.position = BallManager.SpawnPoint;
         }
         else if (CanShoot)
@@ -80,12 +83,12 @@ public class PlayerController : Base
         }
     }
 
+
     private void DisplayPreview(float angle)
     {
-        previewArrow.gameObject.SetActive(true);
         previewArrow.localPosition = BallManager.SpawnPoint;
         previewArrow.localEulerAngles = Vector3.forward * (90 + angle);
-        Physics2D.CircleCast(BallManager.SpawnPoint, ballRadius, direction, previewFilter, previewHits, 20);
+        Physics2D.CircleCast(BallManager.SpawnPoint + direction * 0.01f, ballRadius, direction, previewFilter, previewHits, 20);
         previewBall.position = previewHits[0].point + previewHits[0].normal * ballRadius;
         previewLine.SetPosition(0, BallManager.SpawnPoint + direction * ballRadius);
         previewLine.SetPosition(1, previewBall.position);

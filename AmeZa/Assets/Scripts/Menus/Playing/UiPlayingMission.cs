@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UiPlayingMission : MonoBehaviour
 {
-    [SerializeField] private LocalText levelNumberLabel = null;
+    [SerializeField] private LocalText levelNameLabel = null;
     [SerializeField] private LocalText blocksLabel = null;
     [SerializeField] private GameObject blocksChecked = null;
     [SerializeField] private Image ballsImage = null;
@@ -33,38 +33,43 @@ public class UiPlayingMission : MonoBehaviour
 
     private IEnumerator Start()
     {
-        blocksLabel.transform.parent.gameObject.SetActive(PlayModel.level.targetBlocks > 0);
+        levelNameLabel.SetText(PlayModel.level.name);
         scoreBallsLabel.transform.parent.gameObject.SetActive(PlayModel.type == PlayModel.Type.LeagueBalls);
         scoreBlocksLabel.transform.parent.gameObject.SetActive(PlayModel.type == PlayModel.Type.LeagueBlocks);
 
-        if (PlayModel.type == PlayModel.Type.Levels)
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        // enable or disbale information billboards
+        if (PlayModel.level.targetBlocks > 0)
         {
-            levelNumberLabel.gameObject.SetActive(true);
-            levelNumberLabel.SetFormatedText(PlayModel.level.index + 1);
+            blocksLabel.transform.parent.gameObject.SetActive(true);
         }
-        else levelNumberLabel.gameObject.SetActive(false);
+        else blocksLabel.transform.parent.gameObject.SetActive(false);
 
         if (PlayModel.level.targetBalls > 0)
         {
-            ballsImage.transform.parent.gameObject.SetActive(true);
+            ballsLabel.transform.parent.gameObject.SetActive(true);
             ballsImage.sprite = GlobalFactory.Balls.GetSprite(PlayModel.ballId);
         }
-        else ballsImage.transform.parent.gameObject.SetActive(false);
+        else ballsLabel.transform.parent.gameObject.SetActive(false);
 
         if (PlayModel.level.targetItem0 > 0)
         {
-            item0Image.gameObject.SetActive(true);
+            item0Label.transform.parent.gameObject.SetActive(true);
             item0Image.sprite = GlobalFactory.Theme.GetSprite(PlayModel.level.theme, 0);
         }
-        else item0Image.gameObject.SetActive(false);
+        else item0Label.transform.parent.gameObject.SetActive(false);
 
         if (PlayModel.level.targetItem1 > 0)
         {
-            item1Image.gameObject.SetActive(true);
+            item1Label.transform.parent.gameObject.SetActive(true);
             item1Image.sprite = GlobalFactory.Theme.GetSprite(PlayModel.level.theme, 1);
         }
-        else item1Image.gameObject.SetActive(false);
+        else item1Label.transform.parent.gameObject.SetActive(false);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// entering loop and update information billboards
         var wait = new WaitForSeconds(0.1f);
         while (true)
         {
@@ -113,10 +118,10 @@ public class UiPlayingMission : MonoBehaviour
             }
 
             if (PlayModel.type == PlayModel.Type.LeagueBalls)
-                scoreBallsLabel.SetText(PlayModel.stats.totalBalls.ToString() + "x");
+                scoreBallsLabel.SetText(PlayModel.stats.totalBalls.ToString());
 
             if (PlayModel.type == PlayModel.Type.LeagueBlocks)
-                scoreBlocksLabel.SetText(PlayModel.stats.totalBlocks.ToString() + "x");
+                scoreBlocksLabel.SetText(PlayModel.stats.totalBlocks.ToString());
 
             yield return wait;
         }

@@ -19,7 +19,7 @@ public class UiCharacter : MonoBehaviour
             if (Random.Range(0, 100) < 60)
                 StartCoroutine(BlinkEyes());
 
-            if (Random.Range(0, 100) < 60)
+            if (Random.Range(0, 100) < 80)
                 hand.PlayRandom(0, SimpleAnimation.Mode.DiscardNext);
 
             yield return wait;
