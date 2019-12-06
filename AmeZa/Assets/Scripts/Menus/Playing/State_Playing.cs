@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class State_Playing : GameState
 {
+    [SerializeField] private Image backgroundImage = null;
     [SerializeField] private Text ballsLabel = null;
     [SerializeField] private Button endTurnButton = null;
     [SerializeField] private Button pauseButton = null;
 
     private void Start()
     {
+        backgroundImage.sprite = GlobalFactory.Theme.GetBackground(PlayModel.level.theme);
         endTurnButton.gameObject.SetActive(false);
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         pauseButton.onClick.AddListener(() => gameManager.OpenPopup<Popup_Settings>());

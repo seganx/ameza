@@ -149,7 +149,7 @@ public class UiPlayingMission : MonoBehaviour
         var startScale = subject.transform.localScale;
         while (time < 1)
         {
-            time += Time.deltaTime * 2;
+            time += Time.deltaTime;
             subject.position = Vector3.Lerp(startPosit, dest, itemMoveCurve.Evaluate(time));
             subject.localScale = Vector3.Lerp(startScale, Vector3.zero, itemScaleCurve.Evaluate(time));
             subject.Rotate(0, 0, 10);

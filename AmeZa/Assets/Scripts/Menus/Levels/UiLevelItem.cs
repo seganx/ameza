@@ -16,8 +16,10 @@ public class UiLevelItem : MonoBehaviour
         var earnstars = Profile.GetLevelStars(season.Id, index);
         for (int i = 0; i < stars.Length; i++)
             stars[i].SetActive(earnstars > i);
-
+#if UNITY_EDITOR
+#else
         button.SetInteractable(enabled);
+#endif
         button.onClick.AddListener(() =>
         {
             if (Profile.Hearts > 0)

@@ -76,8 +76,14 @@ public class State_Levels : GameState
         var canClaimReward = season == null ? false : Profile.GetLevelStars(CurrentSeason, season.levelCount - 1) > 0;
         claimRewardButton.gameObject.SetActive(canClaimReward);
         comingSoon.SetActive(season == null);
+
+#if UNITY_EDITOR
+        nextButton.SetInteractable(season != null);
+        prevButton.SetInteractable(CurrentSeason > 0);
+#else
         nextButton.SetInteractable(season != null && Profile.GetSeasonRewarded(season.Id) > 0);
         prevButton.SetInteractable(CurrentSeason > 0);
+#endif
     }
 
     private void DisplayLevels()

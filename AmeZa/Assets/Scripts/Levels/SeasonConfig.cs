@@ -10,11 +10,16 @@ public class SeasonConfig : ScriptableObject, IResource
     public class SpecialLevel
     {
         public int index = 0;
-        public LevelConfig config = null;
+        public int targetBalls = 0;
+        public int targetBlocks = 0;
+        public int targetItem0 = 0;
+        public int targetItem1 = 0;
+        public PatternConfig pattern = null;
     }
 
     public int theme = 0;
     public int levelCount = 100;
+    public AnimationCurve progressCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0), new Keyframe(1, 1) });
     public Vector2Int startBallCount = Vector2Int.zero;
     public Vector2Int minBlockHealth = Vector2Int.zero;
     public Vector2Int maxBlockHealth = Vector2Int.zero;
@@ -29,9 +34,10 @@ public class SeasonConfig : ScriptableObject, IResource
     {
         var res = new LevelModel();
         res.season = Id;
+        res.theme = theme;
         res.index = index;
-        res.progress = index / (float)levelCount;
         res.name = (index + 1).ToString();
+        res.progress = progressCurve.Evaluate(index / (float)levelCount);
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
         res.minBlockHealth = Mathf.RoundToInt(Mathf.Lerp(minBlockHealth.x, minBlockHealth.y, res.progress));
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, res.progress));
@@ -40,10 +46,15 @@ public class SeasonConfig : ScriptableObject, IResource
         var specialLevel = specialLevels.Find(x => x.index == index);
         if (specialLevel != null)
         {
-            specialLevel.config.SetToModel(res);
+            res.pattern = specialLevel.pattern;
+            res.targetBalls = specialLevel.targetBalls;
+            res.targetBlocks = specialLevel.targetBlocks;
+            res.targetItem0 = specialLevel.targetItem0;
+            res.targetItem1 = specialLevel.targetItem1;
         }
         else
         {
+            res.pattern = GlobalFactory.Patterns.GetClamp(index + Id * 4);
             res.targetTurns = 0;
         }
 

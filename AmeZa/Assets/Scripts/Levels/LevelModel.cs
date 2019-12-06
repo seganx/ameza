@@ -64,8 +64,8 @@ public class LevelModel
     public PatternConfig pattern = null;
     public int season = 0;
     public int index = 0;
-    public float progress = 0;
     public string name = string.Empty;
+    public float progress = 0;
     public int startBallCount = 1;
     public int startBallSpeed = 15;
     public int minBlockHealth = 1;
@@ -76,12 +76,4 @@ public class LevelModel
     public int targetItem0 = 0;
     public int targetItem1 = 0;
     public RewardModel reward = new RewardModel();
-
-    public PatternConfig GetPattern()
-    {
-        if (pattern != null)
-            return pattern;
-        else
-            return GlobalFactory.Patterns.Get(index + season * 4);
-    }
 }

@@ -26,10 +26,7 @@ public class Popup_Win : GameState
 
         // verify that player has been passed this level
         if (Profile.IsLevelPassed(PlayModel.level.season, PlayModel.level.index))
-        {
-            rewards.gems /= 2;
-            rewards.bombs = rewards.hammers = rewards.missiles = 0;
-        }
+            rewards.gems = rewards.bombs = rewards.hammers = rewards.missiles = 0;
 
         Profile.SetLevelStars(PlayModel.level.season, PlayModel.level.index, rewardStars);
 

@@ -65,8 +65,7 @@ public class BlockManager : MonoBehaviour
 
     public void SpawnBlocks(int step)
     {
-        var patt = PlayModel.level.GetPattern();
-        var list = patt.GetBlocks(step);
+        var list = PlayModel.level.pattern.GetBlocks(step);
         DisplayBlocks(list);
     }
 

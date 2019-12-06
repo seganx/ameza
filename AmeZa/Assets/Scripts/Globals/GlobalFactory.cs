@@ -25,7 +25,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     ////////////////////////////////////////////////////////////
     public static class Theme
     {
-        public const int Count = 1;
+        public const int Count = 2;
 
         public static int GetSpriteCount(int themeId)
         {
@@ -97,38 +97,25 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
     public static class Patterns
     {
-        private static List<PatternConfig> all = new List<PatternConfig>();
-        private static int lastRandom = -1;
-
-        public static List<PatternConfig> All
+        private static List<PatternConfig> allClamps = new List<PatternConfig>();
+        public static List<PatternConfig> AllClamps
         {
             get
             {
-                if (all.Count < 1)
-                    all = ResourceEx.LoadAll<PatternConfig>("Game/Patterns/", false);
-                return all;
+                if (allClamps.Count < 1)
+                    allClamps = ResourceEx.LoadAll<PatternConfig>("Game/Patterns/Clamps/", false);
+                return allClamps;
             }
         }
 
-        public static PatternConfig Get(int index)
+        public static PatternConfig GetClamp(int index)
         {
-            return All[index % All.Count];
-        }
-
-        public static PatternConfig GetRandom()
-        {
-            var index = Random.Range(0, All.Count);
-            if (index == lastRandom) Random.Range(0, All.Count);
-            if (index == lastRandom) Random.Range(0, All.Count);
-            if (index == lastRandom) Random.Range(0, All.Count);
-            if (index == lastRandom) Random.Range(0, All.Count);
-            lastRandom = index;
-            return Get(index);
+            return AllClamps[index % AllClamps.Count];
         }
 
         public static PatternConfig GetPatternByName(string name)
         {
-            return Resources.Load<PatternConfig>("Game/Levels/" + name);
+            return Resources.Load<PatternConfig>("Game/Patterns/" + name);
         }
     }
 

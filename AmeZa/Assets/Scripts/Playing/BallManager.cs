@@ -39,14 +39,16 @@ public class BallManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.contacts.Length < 1) return;
-
+        float contactX = (collision.contacts.Length < 1) ? collision.transform.position.x : collision.contacts[0].point.x;
         collision.rigidbody.velocity = Vector3.zero;
-        collision.transform.position = new Vector2(collision.contacts[0].point.x, SpawnPoint.y);
-        if (collision.transform == mainBall.transform)
-            SpawnPoint.x = collision.contacts[0].point.x;
+        collision.transform.position = new Vector2(contactX, SpawnPoint.y);
         collision.rigidbody.Sleep();
 
+        // update spawn point
+        if (collision.transform == mainBall.transform)
+            SpawnPoint.x = contactX;
+
+        // check balls for turn over
         if (turnStarted && ballsShooting == false)
         {
             bool turnOver = true;
@@ -85,7 +87,7 @@ public class BallManager : MonoBehaviour
                     if (param.Is<BlockBall>())
                     {
                         var newball = SpawnBall(param.As<BlockBall>().transform.localPosition);
-                        newball.Rigidbody.velocity = Vector2.down * PlayModel.level.startBallSpeed;
+                        newball.Rigidbody.velocity = PlayModel.level.startBallSpeed * new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
                     }
                 }
                 break;

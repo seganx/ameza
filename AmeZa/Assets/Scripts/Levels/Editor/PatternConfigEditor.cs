@@ -34,12 +34,15 @@ public class PatternConfigEditor : Editor
         obj.height = EditorGUILayout.DelayedIntField("Height", obj.height);
         obj.startLength = EditorGUILayout.IntField("Start Length", obj.startLength);
         obj.wrapMode = (PatternConfig.WrapMode)EditorGUILayout.EnumPopup("Wrap Mode", obj.wrapMode);
+
         obj.verticalRandom.activated = EditorGUILayout.Toggle("Vertical Random", obj.verticalRandom.activated);
         if (obj.verticalRandom.activated)
             obj.verticalRandom.startStep = EditorGUILayout.IntField(" Start Step", obj.verticalRandom.startStep);
+
         obj.horizontalRandom.activated = EditorGUILayout.Toggle("Horizontal Random", obj.horizontalRandom.activated);
         if (obj.horizontalRandom.activated)
             obj.horizontalRandom.startStep = EditorGUILayout.IntField(" Start Step", obj.horizontalRandom.startStep);
+
         SetHeight(obj, obj.height);
         brush = (BlockType)EditorGUILayout.EnumPopup("Brush", brush);
         if (brush == BlockType.Value)
@@ -70,7 +73,6 @@ public class PatternConfigEditor : Editor
                 if (GUI.Button(r, value.ToString().Persian(), style))
                 {
                     obj.blocks[i] = brush == BlockType.Value ? (BlockType)brushValue : brush;
-                    EditorUtility.SetDirty(obj);
                 }
             }
             else
@@ -79,10 +81,10 @@ public class PatternConfigEditor : Editor
                 if (GUI.Button(r, string.Empty, style))
                 {
                     obj.blocks[i] = brush == BlockType.Value ? (BlockType)brushValue : brush;
-                    EditorUtility.SetDirty(obj);
                 }
             }
         }
+        EditorUtility.SetDirty(obj);
     }
 
     private static void SetHeight(PatternConfig obj, int height)
