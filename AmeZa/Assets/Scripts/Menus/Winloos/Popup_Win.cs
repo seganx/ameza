@@ -8,7 +8,7 @@ public class Popup_Win : GameState
 {
     [SerializeField] private GameObject[] stars = null;
     [SerializeField] private LocalText desc = null;
-    [SerializeField] private Button rewardButton = null;
+    [SerializeField] private Button continueButton = null;
 
     private System.Action nextTaskFunc = null;
 
@@ -33,15 +33,28 @@ public class Popup_Win : GameState
         int totalBalls = PlayModel.stats.totalBalls + PlayModel.level.startBallCount;
         desc.SetFormatedText(PlayModel.stats.totalTurn.ToString(), PlayModel.stats.totalBlocks.ToString(), totalBalls);
 
-        rewardButton.gameObject.SetActive(rewards.exist);
-        rewardButton.onClick.AddListener(() =>
+        continueButton.onClick.AddListener(() =>
         {
-            rewardButton.gameObject.SetActive(false);
-            Profile.EarnGems(rewards.gems);
-            Profile.Bombs += rewards.bombs;
-            Profile.Hammers += rewards.hammers;
-            Profile.Missiles += rewards.missiles;
-            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true);
+            continueButton.gameObject.SetActive(false);
+            if (rewards.exist)
+            {
+                Profile.EarnGems(rewards.gems);
+                Profile.Bombs += rewards.bombs;
+                Profile.Hammers += rewards.hammers;
+                Profile.Missiles += rewards.missiles;
+                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true, () =>
+                {
+                    base.Back();
+                    if (nextTaskFunc != null)
+                        nextTaskFunc();
+                });
+            }
+            else
+            {
+                base.Back();
+                if (nextTaskFunc != null)
+                    nextTaskFunc();
+            }
         });
 
         UiShowHide.ShowAll(transform);
@@ -64,8 +77,6 @@ public class Popup_Win : GameState
 
     public override void Back()
     {
-        base.Back();
-        if (nextTaskFunc != null)
-            nextTaskFunc();
+        continueButton.onClick.Invoke();
     }
 }

@@ -24,16 +24,7 @@ public class UiLevelItem : MonoBehaviour
         {
             if (Profile.Hearts > 0)
             {
-                PlayModel.Reset(PlayModel.Type.Levels);
-                PlayModel.ballId = Profile.Avatar.BallId;
-                PlayModel.level = season.GetLevelModel(index);
-
-                UIBackground.Hide();
-                Game.Instance.OpenState<State_Playing>();
-
-                GlobalAnalytics.LevelStart(season.Id, index);
-                PlayModel.onWin = () => GlobalAnalytics.LevelWin(season.Id, index, PlayModel.GetRewardStars());
-                PlayModel.onLose = () => GlobalAnalytics.LevelFailed(season.Id, index);
+                Game.Instance.OpenPopup<Popup_LevelInfo>().Setup(season, index);
             }
             else Game.Instance.OpenPopup<Popup_BuyHearts>();
         });

@@ -9,6 +9,7 @@ public class State_Levels : GameState
     [SerializeField] private LocalText title = null;
     [SerializeField] private GameObject chestObject = null;
     [SerializeField] private Button claimRewardButton = null;
+    [SerializeField] private Image themeImage = null;
     [SerializeField] private UiLevelItem levelItem = null;
     [SerializeField] private GameObject comingSoon = null;
     [SerializeField] private Button nextButton = null;
@@ -76,6 +77,7 @@ public class State_Levels : GameState
         var canClaimReward = season == null ? false : Profile.GetLevelStars(CurrentSeason, season.levelCount - 1) > 0;
         claimRewardButton.gameObject.SetActive(canClaimReward);
         comingSoon.SetActive(season == null);
+        if (season != null) themeImage.sprite = GlobalFactory.Theme.GetBackground(season.theme);
 
 #if UNITY_EDITOR
         nextButton.SetInteractable(season != null);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SeganX;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class BlockManager : MonoBehaviour
     public const int BottomEdge = -TopEdge + 1;
     public static List<BlockBase> blocks = new List<BlockBase>(64);
     public static bool IsBlockReachedDown { get; private set; }
+
+    private int usedAbilityCount = 0;
 
     private void Awake()
     {
@@ -49,6 +52,12 @@ public class BlockManager : MonoBehaviour
                     foreach (var block in tmplist)
                         block.UsedAbility(ability);
                     IsBlockReachedDown = CheckBlocksReached(1);
+                    switch (ability)
+                    {
+                        case AbilityType.Bomb: usedAbilityCount += 30; break;
+                        case AbilityType.Missle: usedAbilityCount += 15; break;
+                        case AbilityType.Hammer: usedAbilityCount += 5; break;
+                    }
                 }
                 break;
         }
@@ -66,6 +75,50 @@ public class BlockManager : MonoBehaviour
     public void SpawnBlocks(int step)
     {
         var list = PlayModel.level.pattern.GetBlocks(step);
+
+        int list_rows = (list.Count / PatternConfig.width);
+        if (list_rows > 1)
+        {
+            int healthdelta = PlayModel.level.maxBlockHealth - PlayModel.level.minBlockHealth;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == BlockType.RandomValue)
+                {
+                    int row = (i / PatternConfig.width);
+                    int max = (healthdelta * (list_rows - row + 3) / (list_rows + 3));
+                    int min = Mathf.Max(0, (healthdelta * (list_rows - row - 3) / list_rows));
+                    list[i] = (BlockType)PlayModel.level.minBlockHealth + Random.Range(min, max + 1);
+                }
+                else if (list[i] == BlockType.Value)
+                {
+                    list[i] += PlayModel.level.minBlockHealth;
+                }
+            }
+        }
+        else
+        {
+            int turnFactor = (PlayModel.stats.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
+            int ballFactor = PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
+            int difficultyHealth = turnFactor + ballFactor;
+            if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1)
+                difficultyHealth = 0;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == BlockType.RandomValue)
+                {
+                    int min = PlayModel.level.minBlockHealth;
+                    int max = PlayModel.level.maxBlockHealth + difficultyHealth;
+                    list[i] = (BlockType)Utilities.RandomDoubleHigh(min, max + 1);
+                }
+                else if (list[i] == BlockType.Value)
+                {
+                    list[i] += PlayModel.level.minBlockHealth;
+                }
+            }
+        }
+
         DisplayBlocks(list);
     }
 
@@ -82,11 +135,6 @@ public class BlockManager : MonoBehaviour
 
     private BlockBase CreateBlock(int x, int y, BlockType typeValue)
     {
-        int additionalHealth = PlayModel.stats.totalTurn * GlobalConfig.Difficulty.turnsFactor / 100 + PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
-
-        if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1)
-            additionalHealth = 0;
-
         switch (typeValue)
         {
             case BlockType.BoxKill: return null;
@@ -99,16 +147,9 @@ public class BlockManager : MonoBehaviour
             case BlockType.Ball: return GlobalFactory.Blocks.CreateBall(transform, x, y);
             case BlockType.Null: return null;
 
-            case BlockType.RandomValue:
-                {
-                    var health = Random.Range(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth + additionalHealth);
-                    PlayModel.stats.totalLevelHealth += health;
-                    return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), health);
-                }
-
             default:
                 {
-                    var health = PlayModel.level.minBlockHealth + additionalHealth + (int)typeValue;
+                    var health = (int)typeValue;
                     PlayModel.stats.totalLevelHealth += health;
                     return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), health);
                 }

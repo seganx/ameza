@@ -105,8 +105,8 @@ public class State_LeagueInfo : GameState
         PlayModel.Reset(info.playType);
         PlayModel.ballId = Profile.Avatar.BallId;
         PlayModel.level.name = info.name;
-        PlayModel.level.theme = Random.Range(0, GlobalFactory.Theme.Count);
-        PlayModel.level.pattern = GlobalFactory.Patterns.GetPatternByName(info.playType.ToString());
+        PlayModel.level.theme = Random.Range(0, 1000);
+        PlayModel.level.pattern = GlobalFactory.Patterns.GetLeaguePattern();
         PlayModel.onLose = () => OnPlayerLose(info.id);
 
         UIBackground.Hide();

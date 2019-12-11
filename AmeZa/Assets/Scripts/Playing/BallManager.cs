@@ -48,20 +48,7 @@ public class BallManager : MonoBehaviour
         if (collision.transform == mainBall.transform)
             SpawnPoint.x = contactX;
 
-        // check balls for turn over
-        if (turnStarted && ballsShooting == false)
-        {
-            bool turnOver = true;
-            for (int i = 0; i < balls.Count; i++)
-                if (balls[i].Rigidbody.velocity.sqrMagnitude > 0.05f)
-                    turnOver = false;
-
-            if (turnOver)
-            {
-                turnStarted = false;
-                transform.root.Broadcast(Messages.Type.TurnEnded, this);
-            }
-        }
+        CheckAllBalls();
     }
 
 
@@ -80,6 +67,7 @@ public class BallManager : MonoBehaviour
                 {
                     StopAllCoroutines();
                     ballsShooting = false;
+                    CheckAllBalls();
                 }
                 break;
             case Messages.Type.BlockDead:
@@ -106,5 +94,23 @@ public class BallManager : MonoBehaviour
             transform.root.Broadcast(Messages.Type.BallCount, tmp.Count - i - 1);
         }
         ballsShooting = false;
+    }
+
+    private void CheckAllBalls()
+    {
+        // check balls for turn over
+        if (turnStarted && ballsShooting == false)
+        {
+            bool turnOver = true;
+            for (int i = 0; i < balls.Count; i++)
+                if (balls[i].Rigidbody.velocity.sqrMagnitude > 0.05f)
+                    turnOver = false;
+
+            if (turnOver)
+            {
+                turnStarted = false;
+                transform.root.Broadcast(Messages.Type.TurnEnded, this);
+            }
+        }
     }
 }

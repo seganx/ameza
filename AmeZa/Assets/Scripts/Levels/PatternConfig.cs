@@ -54,6 +54,12 @@ public class PatternConfig : ScriptableObject
 
     private void AddToResult(int step)
     {
+        if (wrapMode == WrapMode.Clamp && (step < 0 || step >= height))
+        {
+            resultList.AddRange(new List<BlockType>(width));
+            return;
+        }
+
         List<BlockType> tmp = null;
 
         if (verticalRandom.activated && verticalRandom.startStep < step)

@@ -60,8 +60,12 @@ namespace SeganX
         }
 
 
+        private bool localPushScheduled = false;
         private void ScheduleLocalPush()
         {
+            if (localPushScheduled) return;
+            localPushScheduled = true;
+
             // schedule hearts push
 #if LOCALPUSH
             if (Profile.Hearts < GlobalConfig.ProfilePreset.heats)

@@ -113,9 +113,10 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             return AllClamps[index % AllClamps.Count];
         }
 
-        public static PatternConfig GetPatternByName(string name)
+        public static PatternConfig GetLeaguePattern()
         {
-            return Resources.Load<PatternConfig>("Game/Patterns/" + name);
+            var list = ResourceEx.LoadAll("Game/Patterns/Leagues/", true);
+            return Resources.Load<PatternConfig>(list.RandomOne().path);
         }
     }
 

@@ -76,4 +76,5 @@ public class LevelModel
     public int targetItem0 = 0;
     public int targetItem1 = 0;
     public RewardModel reward = new RewardModel();
+    public bool IsTargetExist { get { return targetBalls > 0 || targetBlocks > 0 || targetItem0 > 0 || targetItem1 > 0; } }
 }

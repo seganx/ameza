@@ -28,11 +28,13 @@ public class State_Playing : GameState
         switch (param.type)
         {
             case Messages.Type.TurnStarted:
+                ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(true);
                 UpdateBallText(BallManager.balls.Count);
                 break;
 
             case Messages.Type.TurnEnded:
+                ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(false);
                 UpdateBallText(BallManager.balls.Count);
                 break;
@@ -45,7 +47,6 @@ public class State_Playing : GameState
 
     private void UpdateBallText(int i)
     {
-        ballsLabel.transform.position = BallManager.SpawnPoint;
         ballsLabel.text = i.ToString();
         ballsLabel.gameObject.SetActive(i > 0);
     }
@@ -80,11 +81,9 @@ public class State_Playing : GameState
             gameManager.OpenPopup<Popup_Lose>().Setup(ability => // check if player wants to use abilities
             {
                 if (ability != AbilityType.Null)
-                {
-                    transform.Broadcast(Messages.Type.UseAbility, ability);
-                    CheckMission();
-                }
-                else PlayerLose();
+                    gameManager.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+                else
+                    PlayerLose();
             });
         }
     }

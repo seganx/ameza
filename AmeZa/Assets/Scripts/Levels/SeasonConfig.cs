@@ -20,9 +20,8 @@ public class SeasonConfig : ScriptableObject, IResource
     public int theme = 0;
     public int levelCount = 100;
     public AnimationCurve progressCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0), new Keyframe(1, 1) });
-    public Vector2Int startBallCount = Vector2Int.zero;
-    public Vector2Int minBlockHealth = Vector2Int.zero;
     public Vector2Int maxBlockHealth = Vector2Int.zero;
+    public Vector2Int startBallCount = Vector2Int.zero;
     public RewardModel levelReward = new RewardModel();
     public RewardModel finalReward = new RewardModel();
 
@@ -37,9 +36,9 @@ public class SeasonConfig : ScriptableObject, IResource
         res.theme = theme;
         res.index = index;
         res.name = (index + 1).ToString();
-        res.progress = progressCurve.Evaluate(index / (float)levelCount);
+        res.progress = progressCurve.Evaluate((index + 1) / (float)levelCount);
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
-        res.minBlockHealth = Mathf.RoundToInt(Mathf.Lerp(minBlockHealth.x, minBlockHealth.y, res.progress));
+        res.minBlockHealth = res.startBallCount;
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, res.progress));
         res.reward = levelReward;
 
