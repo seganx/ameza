@@ -32,18 +32,24 @@ public class ThemeSounds : MonoBehaviour
     private void PlayHit()
     {
         var index = Random.Range(0, 1000);
-        hitSounds[index % hitSounds.Length].Play();
+        var source = hitSounds[index % hitSounds.Length];
+        source.PlayOneShot(source.clip, 0.75f);
+        //source.Play();
     }
 
     private void PlayBreak()
     {
         var index = Random.Range(0, 1000);
-        breakSounds[index % breakSounds.Length].Play();
+        var source = breakSounds[index % breakSounds.Length];
+        //source.PlayOneShot(source.clip);
+        source.Play();
     }
 
     private void PlayReleaseBall()
     {
         var index = Random.Range(0, 1000);
-        releaseBallSounds[index % releaseBallSounds.Length].Play();
+        var source = releaseBallSounds[index % releaseBallSounds.Length];
+        //source.PlayOneShot(source.clip);
+        source.Play();
     }
 }

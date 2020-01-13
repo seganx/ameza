@@ -26,6 +26,12 @@ public class Popup_Shop : GameState
 
     private IEnumerator Start()
     {
+        var index = PurchaseOffer.GetOfferIndex(Profile.Gems);
+        if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
+        {
+            combinedItem.Clone<UiShopItem>().Setup(GlobalConfig.Shop.offers[index]);
+        }
+
         foreach (var item in GlobalConfig.Shop.packages)
         {
             if (item.bombs > 0)
@@ -33,6 +39,7 @@ public class Popup_Shop : GameState
             else
                 gemsItem.Clone<UiShopItem>().Setup(item);
         }
+
         Destroy(combinedItem.gameObject);
         Destroy(gemsItem.gameObject);
 

@@ -102,11 +102,20 @@ public class State_LeagueInfo : GameState
 
     private void StartGame(GlobalConfig.Data.League info)
     {
+        if (Profile.Hearts < 1)
+        {
+            Game.Instance.OpenPopup<Popup_BuyHearts>();
+            return;
+        }
+
         PlayModel.Reset(info.playType);
         PlayModel.ballId = Profile.Avatar.BallId;
         PlayModel.level.name = info.name;
         PlayModel.level.theme = Random.Range(0, 1000);
         PlayModel.level.pattern = GlobalFactory.Patterns.GetLeaguePattern();
+        PlayModel.level.startBallCount = Random.Range(info.startBallCount.x, info.startBallCount.y);
+        PlayModel.level.minBlockHealth = PlayModel.level.startBallCount / 2;
+        PlayModel.level.maxBlockHealth = PlayModel.level.startBallCount * 3 / 2;
         PlayModel.onLose = () => OnPlayerLose(info.id);
 
         UIBackground.Hide();

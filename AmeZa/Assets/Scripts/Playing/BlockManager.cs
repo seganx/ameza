@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockManager : MonoBehaviour
+public class BlockManager : Base
 {
     public const int LeftEdge = -3;
     public const int TopEdge = 5;
@@ -21,7 +21,7 @@ public class BlockManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.5f);
-        SpawnBlocks(PlayModel.stats.totalTurn++);
+        SpawnBlocks(PlayModel.stats.totalTurn);
     }
 
     private void OnMessage(Messages.Param param)
@@ -36,7 +36,7 @@ public class BlockManager : MonoBehaviour
                 {
                     for (int i = 0; i < blocks.Count; i++)
                         blocks[i].GoDown();
-                    SpawnBlocks(PlayModel.stats.totalTurn++);
+                    SpawnBlocks(++PlayModel.stats.totalTurn);
                 }
                 SendMessageUpwards("CheckMission");
                 break;
@@ -54,7 +54,10 @@ public class BlockManager : MonoBehaviour
                     IsBlockReachedDown = CheckBlocksReached(1);
                     switch (ability)
                     {
-                        case AbilityType.Bomb: usedAbilityCount += 30; break;
+                        case AbilityType.Bomb:
+                            usedAbilityCount += 30;
+                            DelayCall(1, () => SpawnBlocks(++PlayModel.stats.totalTurn));
+                            break;
                         case AbilityType.Missle: usedAbilityCount += 15; break;
                         case AbilityType.Hammer: usedAbilityCount += 5; break;
                     }
@@ -87,7 +90,7 @@ public class BlockManager : MonoBehaviour
                 {
                     int row = (i / PatternConfig.width);
                     int max = (healthdelta * (list_rows - row + 3) / (list_rows + 3));
-                    int min = Mathf.Max(0, (healthdelta * (list_rows - row - 3) / list_rows));
+                    int min = Mathf.Max(1, (healthdelta * (list_rows - row - 3) / list_rows));
                     list[i] = (BlockType)PlayModel.level.minBlockHealth + Random.Range(min, max + 1);
                 }
                 else if (list[i] == BlockType.Value)

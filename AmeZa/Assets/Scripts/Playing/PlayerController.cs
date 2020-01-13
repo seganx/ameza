@@ -8,6 +8,7 @@ public class PlayerController : Base
     [SerializeField] private float rangeAngle = 83;
     [SerializeField] private Transform previewArrow = null;
     [SerializeField] private LineRenderer previewLine = null;
+    [SerializeField] private LineRenderer previewReflect = null;
     [SerializeField] private Transform previewBall = null;
 
     private Vector3 direction = Vector3.zero;
@@ -22,6 +23,15 @@ public class PlayerController : Base
     private bool isUp = false;
     private bool CanShoot { get { return isShooting == false && isDown == false && isHold == false && isUp == false; } }
 
+    private bool CanHandleInput
+    {
+        get
+        {
+            if (EventSystem.current.IsPointerOverGameObject()) return false;
+            if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return false;
+            return true;
+        }
+    }
 
     private void Awake()
     {
@@ -38,9 +48,6 @@ public class PlayerController : Base
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) return;
-
         if (isUp)
         {
             isUp = false;
@@ -60,7 +67,7 @@ public class PlayerController : Base
             var distance = (hitpoint - BallManager.SpawnPoint);
             var angle = Vector2.SignedAngle(Vector2.up, distance);
 
-            if (distance.magnitude >= 1)
+            if (distance.magnitude >= 1 && -rangeAngle < angle && angle < rangeAngle)
                 previewArrow.gameObject.SetActive(true);
             else if (distance.magnitude < 0.5f)
                 previewArrow.gameObject.SetActive(false);
@@ -77,7 +84,7 @@ public class PlayerController : Base
             isHold = Input.GetMouseButton(0);
             previewArrow.transform.position = BallManager.SpawnPoint;
         }
-        else if (CanShoot)
+        else if (CanShoot && CanHandleInput)
         {
             isDown = Input.GetMouseButtonDown(0);
         }
@@ -92,6 +99,8 @@ public class PlayerController : Base
         previewBall.position = previewHits[0].point + previewHits[0].normal * ballRadius;
         previewLine.SetPosition(0, BallManager.SpawnPoint + direction * ballRadius);
         previewLine.SetPosition(1, previewBall.position);
+        previewReflect.SetPosition(0, previewBall.position);
+        previewReflect.SetPosition(1, previewBall.position + Vector3.Reflect(direction, previewHits[0].normal) * 5);
     }
 
     private void OnMessage(Messages.Param param)

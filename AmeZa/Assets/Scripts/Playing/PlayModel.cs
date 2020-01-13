@@ -24,7 +24,7 @@ public static class PlayModel
     public static LevelModel level = new LevelModel();
 
 
-    public static bool IsBlockTargeted { get { return type == Type.Levels; } }
+    public static bool IsClearBlocks { get { return type == Type.Levels && IsTargetExist == false; } }
 
     public static bool IsTurnsFinished { get { return level.targetTurns > 0 && stats.totalTurn >= level.targetTurns; } }
 
@@ -58,7 +58,8 @@ public static class PlayModel
 
     public static int GetRewardStars()
     {
-        var factor = stats.totalTurn / (stats.totalBlocks + 0.1f);
+        var blocks = Mathf.Max(4, stats.totalBlocks);
+        var factor = stats.totalTurn / (blocks + 0.1f);
         if (factor < 0.35) return 3;
         if (factor < 0.66f) return 2;
         return 1;

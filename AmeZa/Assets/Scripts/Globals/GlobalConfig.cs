@@ -14,23 +14,25 @@ public enum Market : int
 
 public class GlobalConfig : StaticConfig<GlobalConfig>
 {
+
     [System.Serializable]
     public class Data
     {
+        public enum Update : int
+        {
+            Null = 0,
+            Soft = 1,
+            Force = 2,
+        }
+
         [System.Serializable]
         public class ProfilePreset
         {
             public int gems = 100;
             public int heats = 3;
             public int bombs = 3;
-            public int hammers = 3;
+            public int hammers = 5;
             public int missles = 3;
-        }
-
-        [System.Serializable]
-        public class Update
-        {
-            public bool whole = false;
         }
 
         [System.Serializable]
@@ -56,6 +58,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
             public int id = 0;
             public PlayModel.Type playType = PlayModel.Type.LeagueBalls;
+            public Vector2Int startBallCount = new Vector2Int(10, 30);
             [PersianPreview]
             public string name = string.Empty;
             [PersianPreview]
@@ -82,8 +85,19 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             }
 
             public Timer heart = new Timer() { id = 1, duration = 600 };
+            public Timer luckySpin = new Timer() { id = 2, duration = 86400 };
         }
 
+        [System.Serializable]
+        public class OfferConfig
+        {
+            public int startIndex = 2;
+            public int coolTime = 24 * 60 * 60;
+            public int minResource = 2400;
+            public int resourceTime = 3 * 60 * 60;
+            public int offerDuration = 24 * 60 * 60;
+            public int lastPurchaseTime = 5 * 24 * 60 * 60;
+        }
 
         [System.Serializable]
         public class Shop
@@ -100,6 +114,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
                 public int hammers = 0;
                 public int missiles = 0;
                 public int price = 0;
+                public int lastPrice = 0;
+                public int discount = 0;
             }
 
             public int nicknamePrice = 1200;
@@ -110,12 +126,14 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int misslePrice = 10;
             public int hammerPrice = 5;
             public List<Package> packages = new List<Package>();
+            public List<Package> offers = new List<Package>();
         }
 
-        public Update forceUpdate = new Update();
+        public Update update = Update.Null;
         public Socials socials = new Socials();
         public Difficulty difficulty = new Difficulty();
         public Timers timers = new Timers();
+        public OfferConfig offerConfig = new OfferConfig();
         public List<League> leagues = new List<League>();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
@@ -163,10 +181,11 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     ////////////////////////////////////////////////////////////
     /// STATIC MEMBERS
     ////////////////////////////////////////////////////////////
-    public static Data.Update ForceUpdate { get { return Instance.data.forceUpdate; } }
+    public static Data.Update Update { get { return Instance.data.update; } }
     public static Data.Socials Socials { get { return Instance.data.socials; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty; } }
     public static Data.Timers Timers { get { return Instance.data.timers; } }
+    public static Data.OfferConfig OfferConfig { get { return Instance.data.offerConfig; } }
     public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
     public static List<Data.League> Leagues { get { return Instance.data.leagues; } }

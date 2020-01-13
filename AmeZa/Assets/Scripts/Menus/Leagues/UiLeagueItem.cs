@@ -28,10 +28,7 @@ public class UiLeagueItem : Base
         {
             if (Profile.HasNickname)
             {
-                if (Profile.Hearts > 0)
-                    gameManager.OpenState<State_LeagueInfo>().SetLeagueIndex(index);
-                else
-                    Game.Instance.OpenPopup<Popup_BuyHearts>();
+                gameManager.OpenState<State_LeagueInfo>().SetLeagueIndex(index);
             }
             else
             {

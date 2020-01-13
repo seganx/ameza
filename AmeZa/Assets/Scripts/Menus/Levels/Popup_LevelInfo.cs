@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Popup_LevelInfo : GameState
 {
     [SerializeField] private LocalText title = null;
-    [SerializeField] private Image ballImage = null;
+    [SerializeField] private Image[] ballImages = null;
     [SerializeField] private LocalText ballsLabel = null;
     [SerializeField] private GameObject targetItemsDesc = null;
     [SerializeField] private GameObject allitemsDesc = null;
@@ -22,10 +22,13 @@ public class Popup_LevelInfo : GameState
         var levelmodel = season.GetLevelModel(index);
 
         title.SetFormatedText(season.Id + 1, index + 1);
-        ballImage.sprite = GlobalFactory.Balls.GetSprite(Profile.Avatar.BallId);
         ballsLabel.SetFormatedText(levelmodel.startBallCount);
         allitemsDesc.SetActive(levelmodel.IsTargetExist == false);
         targetItemsDesc.SetActive(levelmodel.IsTargetExist == true);
+
+        var ballsprite = GlobalFactory.Balls.GetSprite(Profile.Avatar.BallId);
+        foreach (var ballimage in ballImages)
+            ballimage.sprite = ballsprite;
 
         targetItem0Label.text = levelmodel.targetItem0.ToString();
         targetItem1Label.text = levelmodel.targetItem1.ToString();

@@ -16,12 +16,13 @@ public class UIBackground : MonoBehaviour
     [SerializeField] private Button heartsButton = null;
     [SerializeField] private Button gemsButton = null;
     [SerializeField] private Button profileButton = null;
+    [SerializeField] private Button updateButton = null;
     [SerializeField] private Button settingsButton = null;
 
     // Use this for initialization
     private IEnumerator Start()
     {
-        AudioManager.PlayMusic(0, 1, 2, 2);
+        AudioManager.PlayMusic(0, 0.5f, 2, 2);
 
         instance = this;
         transform.SetAsFirstSibling();
@@ -35,6 +36,7 @@ public class UIBackground : MonoBehaviour
         heartsButton.onClick.AddListener(() => { if (Profile.Hearts < GlobalConfig.ProfilePreset.heats) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
+        updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Socials.storeUrl); });
         settingsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Settings>(); });
 
         UiShowHide.ShowAll(transform);
@@ -43,13 +45,14 @@ public class UIBackground : MonoBehaviour
         while (true)
         {
             avatar.Setup(Profile.Avatar.Current);
+            updateButton.gameObject.SetActive(GlobalConfig.Update != GlobalConfig.Data.Update.Null);
             nickNameLabel.SetText(Profile.Nickname);
             gems.SetText(Profile.Gems.ToString("#,0"));
             heartsCount.SetText(Profile.Hearts.ToString());
 
             if (Profile.Hearts < GlobalConfig.ProfilePreset.heats)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id);
+                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
                 heartsTime.text = (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00");
                 heartsTime.gameObject.SetActive(true);
                 heartsFull.gameObject.SetActive(false);

@@ -24,8 +24,8 @@ public class Popup_Loading : GameState
 
     private void Update()
     {
-        updateObject.SetActive(GlobalConfig.ForceUpdate.whole);
-        defaultObject.SetActive(GlobalConfig.ForceUpdate.whole == false);
+        updateObject.SetActive(GlobalConfig.Update == GlobalConfig.Data.Update.Force);
+        defaultObject.SetActive(GlobalConfig.Update != GlobalConfig.Data.Update.Force);
         transform.SetAsLastSibling();
     }
 
@@ -50,7 +50,7 @@ public class Popup_Loading : GameState
     public static void Hide()
     {
         if (instance == null) return;
-        if (GlobalConfig.ForceUpdate.whole) return;
+        if (GlobalConfig.Update == GlobalConfig.Data.Update.Force) return;
         count--;
         if (count > 0) return;
         gameManager.Back(instance);

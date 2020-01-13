@@ -7,9 +7,18 @@ namespace SeganX
     [DefaultExecutionOrder(-1)]
     public class Game : GameManager<Game>
     {
+#if UNITY_EDITOR
+        [SerializeField] private bool stopLoading = false;
+#endif
+
         // Use this for initialization
         private IEnumerator Start()
         {
+#if UNITY_EDITOR
+            if (stopLoading)
+                yield break;
+#endif
+
 #if LOCALPUSH
             LocalPush.NotificationManager.CancelAll();
 #endif
@@ -56,7 +65,7 @@ namespace SeganX
             PlayerPrefs.SetInt(name + ".Inited", 1);
 
             // init timers
-            Online.Timer.SetTimer(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+            //Online.Timer.SetTimer(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
         }
 
 
@@ -66,12 +75,18 @@ namespace SeganX
             if (localPushScheduled) return;
             localPushScheduled = true;
 
-            // schedule hearts push
 #if LOCALPUSH
+            // schedule hearts push
             if (Profile.Hearts < GlobalConfig.ProfilePreset.heats)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id);
+                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
                 LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(seconds), LocalizationService.Get(111015), LocalizationService.Get(111016), Color.green, LocalPush.NotificationIcon.Heart);
+            }
+
+            // schedule lucky spin push
+            {
+                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
+                LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(seconds), LocalizationService.Get(111019), LocalizationService.Get(111020), Color.green, LocalPush.NotificationIcon.Clock);
             }
 #endif
         }

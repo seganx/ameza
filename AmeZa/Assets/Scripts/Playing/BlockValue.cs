@@ -9,6 +9,7 @@ public class BlockValue : BlockBase
     [SerializeField] private SpriteRenderer effector = null;
     [SerializeField] private Animation animator = null;
     [SerializeField] private TextMesh numberLabel = null;
+    [SerializeField] private BlockWarning warning = null;
 
     public int ItemIndex { get; set; }
     public int Health { get; set; }
@@ -18,6 +19,7 @@ public class BlockValue : BlockBase
     private void Awake()
     {
         effector.gameObject.SetActive(false);
+        warning.gameObject.SetActive(false);
     }
 
     public BlockValue Setup(int itemIndex, int health)
@@ -43,6 +45,7 @@ public class BlockValue : BlockBase
             PlayModel.stats.totalBlocks++;
             spriter.sortingOrder++;
             Destroy(GetComponent<Collider2D>());
+            Destroy(warning.gameObject);
             Destroy(effector.gameObject);
             Destroy(numberLabel.gameObject);
 
@@ -68,9 +71,18 @@ public class BlockValue : BlockBase
     {
         switch (ability)
         {
-            case AbilityType.Hammer: Hit(1); break;
-            case AbilityType.Bomb: Hit(100); break;
+            case AbilityType.Hammer: Hit(10); break;
+            case AbilityType.Bomb: Hit(999999); break;
             case AbilityType.Missle: if (Position.y < (BlockManager.BottomEdge + 3)) Hit(999999); break;
+        }
+    }
+
+    public override void GoDown(int step = 1)
+    {
+        base.GoDown(step);
+        if (Position.y < BlockManager.BottomEdge + 1)
+        {
+            warning.gameObject.SetActive(true);
         }
     }
 }

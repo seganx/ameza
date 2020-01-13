@@ -47,7 +47,7 @@ public class Popup_Profile : GameState
             if (nicknameInput.text.ComputeMD5(Core.Salt) != "AC9CD53769E38CBBD8707CA1108BA10D")
             {
                 var nickname = nicknameInput.text.Trim().CleanFromCode().CleanForPersian();
-                if (nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
+                if (nickname != Profile.Username && nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
                 {
                     if (Profile.HasNickname)
                         Game.SpendGems(GlobalConfig.Shop.nicknamePrice, () => SendNickname(nickname));

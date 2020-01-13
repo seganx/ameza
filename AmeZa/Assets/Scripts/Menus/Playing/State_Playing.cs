@@ -10,8 +10,9 @@ public class State_Playing : GameState
     [SerializeField] private Text ballsLabel = null;
     [SerializeField] private Button endTurnButton = null;
     [SerializeField] private Button pauseButton = null;
+    [SerializeField] private UiTutorial tutorial = null;
 
-    private void Start()
+    private IEnumerator Start()
     {
         backgroundImage.sprite = GlobalFactory.Theme.GetBackground(PlayModel.level.theme);
         endTurnButton.gameObject.SetActive(false);
@@ -20,7 +21,21 @@ public class State_Playing : GameState
 
         UIBackground.Hide();
         UiShowHide.ShowAll(transform);
-        AudioManager.PlayRandom(1, 5, 0.25f, 2, 2);
+        AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
+
+        yield return new WaitForSeconds(0.5f);
+        if (PlayModel.level.season == 0 && PlayModel.level.index < 3)
+        {
+            tutorial.transform.GetChild(0).gameObject.SetActive(true);
+            tutorial.transform.GetChild(1).gameObject.SetActive(false);
+            tutorial.Display(true, 111037, () => tutorial.transform.GetChild(0).gameObject.SetActive(false));
+        }
+        else
+        {
+            tutorial.transform.GetChild(0).gameObject.SetActive(false);
+            tutorial.transform.GetChild(1).gameObject.SetActive(true);
+            tutorial.Display(true, 111038, () => tutorial.transform.GetChild(1).gameObject.SetActive(false));
+        }
     }
 
     private void OnMessage(Messages.Param param)
@@ -55,7 +70,7 @@ public class State_Playing : GameState
     {
         bool isPlayerWins = false;
         bool isTurnOut = PlayModel.IsTurnsFinished;
-        bool blocksOut = PlayModel.IsBlockTargeted && BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
+        bool blocksOut = PlayModel.IsClearBlocks && BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
         bool targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
 
         if (isTurnOut || blocksOut || targetOut) // no blocks or target remained

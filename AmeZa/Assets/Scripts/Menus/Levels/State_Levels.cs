@@ -14,6 +14,7 @@ public class State_Levels : GameState
     [SerializeField] private GameObject comingSoon = null;
     [SerializeField] private Button nextButton = null;
     [SerializeField] private Button prevButton = null;
+    [SerializeField] private UiTutorial tutorial = null;
 
     private RectTransform content = null;
     private SeasonConfig season = null;
@@ -78,6 +79,13 @@ public class State_Levels : GameState
         claimRewardButton.gameObject.SetActive(canClaimReward);
         comingSoon.SetActive(season == null);
         if (season != null) themeImage.sprite = GlobalFactory.Theme.GetBackground(season.theme);
+
+        if (rewarded < 1 && canClaimReward)
+            DelayCall(1, () => tutorial.Display(true, 111035, () => tutorial.Display(true, 111036, null)));
+        else if (CurrentSeason == 0)
+            DelayCall(1, () => tutorial.Display(true, 111041, null));
+        else if (CurrentSeason == 1)
+            DelayCall(1, () => tutorial.Display(true, 111039, () => tutorial.Display(true, 111040, null)));
 
 #if UNITY_EDITOR
         nextButton.SetInteractable(season != null);

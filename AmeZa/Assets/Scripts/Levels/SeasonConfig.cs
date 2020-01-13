@@ -38,7 +38,7 @@ public class SeasonConfig : ScriptableObject, IResource
         res.name = (index + 1).ToString();
         res.progress = progressCurve.Evaluate((index + 1) / (float)levelCount);
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
-        res.minBlockHealth = res.startBallCount;
+        res.minBlockHealth = res.startBallCount / 2;
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, res.progress));
         res.reward = levelReward;
 

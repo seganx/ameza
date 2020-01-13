@@ -65,7 +65,7 @@ public class Popup_Rewards : GameState
         window.GoToAnchordPosition(0, 0, 0, 10);
         yield return new WaitForSeconds(0.5f);
 
-        if (rgems > 0)
+        //if (rgems > 0)
         {
             float t = 0;
             var wait = new WaitForEndOfFrame();

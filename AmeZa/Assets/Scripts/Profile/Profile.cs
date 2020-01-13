@@ -29,12 +29,12 @@ public class Profile : MonoBehaviour
             yield return wait;
 
             // update hearts
-            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id);
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
             if (seconds < 0)
             {
                 int addhearts = 1 - seconds / GlobalConfig.Timers.heart.duration;
                 Hearts = Mathf.Clamp(Hearts + addhearts, 0, GlobalConfig.ProfilePreset.heats);
-                Online.Timer.SetTimer(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+                Online.Timer.Set(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
             }
 
             syncSeconds++;
@@ -223,6 +223,7 @@ public class Profile : MonoBehaviour
 
 
 
+
     public static void Sync(bool sendProfile, System.Action<bool> nextTask)
     {
         SaveLocal();
@@ -301,6 +302,7 @@ public class Profile : MonoBehaviour
             }
             else
             {
+                RunFirstSission();
                 SendProfileData(sendProfile, nextTask);
             }
         }
@@ -334,6 +336,13 @@ public class Profile : MonoBehaviour
         });
     }
 
+    private static void RunFirstSission()
+    {
+        if (IsFirstSession)
+        {
+            Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, 10);
+        }
+    }
 
 
     public static class Avatar
