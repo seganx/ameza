@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UiLeaderboardItem : MonoBehaviour
 {
+    [SerializeField] private Image background = null;
+    [SerializeField] private Color playerColor = Color.red;
     [SerializeField] private UiAvatar avatar = null;
     [SerializeField] private LocalText nicknameLabel = null;
     [SerializeField] private LocalText descLabel = null;
@@ -15,17 +17,23 @@ public class UiLeaderboardItem : MonoBehaviour
     [SerializeField] private Image cupImage = null;
     [SerializeField] private Button button = null;
 
-
-    public UiLeaderboardItem Setup(int leagueId, Online.League.Profile profile)
+    public UiLeaderboardItem Setup(int leagueId, Online.League.Profile profile, bool setCupMaterial = true)
     {
-        avatar.Setup(profile.avatar);
-        nicknameLabel.SetText(profile.nickname);
-        descLabel.SetText(profile.status);
-        scoreLabel.SetText(profile.score.ToString());
-        rankLabel.SetText(profile.rank > 0 ? profile.rank.ToString() : "-");
-        if (profile.rank < 4) cupImage.material = null;
         var info = GlobalFactory.Leagues.GetById(leagueId);
-        medalImage.sprite = GlobalFactory.Leagues.GetMedal(info, profile.score);
+
+        if (background) background.color = profile.username == Profile.Username ? playerColor : Color.white;
+        if (avatar) avatar.Setup(profile.avatar);
+        if (nicknameLabel) nicknameLabel.SetText(profile.nickname);
+        if (descLabel) descLabel.SetText(profile.status);
+        if (scoreLabel) scoreLabel.SetText(profile.score.ToString());
+        if (rankLabel) rankLabel.SetText(profile.rank > 0 ? profile.rank.ToString() : "-");
+        if (medalImage) medalImage.sprite = GlobalFactory.Leagues.GetMedal(info, profile.score);
+
+        if (cupImage)
+        {
+            cupImage.sprite = GlobalFactory.Leagues.GetCupSprite(info.playType);
+            if (setCupMaterial && profile.rank < 4) cupImage.material = null;
+        }
 
         button.onClick.AddListener(() =>
         {

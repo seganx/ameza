@@ -13,6 +13,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
     [SerializeField] private BlocksInfo blocks = new BlocksInfo();
     [SerializeField] private Sprite[] leagueMedals = null;
+    [SerializeField] private Sprite[] leagueCups = null;
 
     protected override void OnInitialize()
     {
@@ -161,6 +162,18 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
     public static class Leagues
     {
+        public static Sprite GetCupSprite(PlayModel.Type type)
+        {
+            switch (type)
+            {
+                case PlayModel.Type.Levels: return Instance.leagueCups[0];
+                case PlayModel.Type.OneShot: return Instance.leagueCups[1];
+                case PlayModel.Type.LeagueBalls: return Instance.leagueCups[0];
+                case PlayModel.Type.LeagueBlocks: return Instance.leagueCups[1];
+            }
+            return Instance.leagueCups[0];
+        }
+
         public static Sprite GetMedalSprite(int index)
         {
             index = Mathf.Clamp(index, 0, Instance.leagueMedals.Length);

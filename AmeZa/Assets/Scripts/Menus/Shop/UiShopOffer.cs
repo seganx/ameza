@@ -33,16 +33,16 @@ public class UiShopOffer : MonoBehaviour
 #if UNITY_EDITOR
         PurchaseOffer.Setup(0, GlobalConfig.Shop.offers.Count, 65, 5, 99999999, 5, 20);
 #endif
-        pack = GetPackage();
+        pack = Game.GetOfferPackage();
         if (pack != null)
-            PopupQueue.Add(1, () => Game.Instance.OpenPopup<Popup_Offer>().Setup(pack));
+            PopupQueue.Add(0.5f, () => Game.Instance.OpenPopup<Popup_Offer>().Setup(pack));
 
         button.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Offer>().Setup(pack));
 
         var wait = new WaitForSeconds(1);
         while (true)
         {
-            pack = GetPackage();
+            pack = Game.GetOfferPackage();
             if (pack != null)
             {
                 discountLabel.SetFormatedText(pack.discount);
@@ -52,16 +52,5 @@ public class UiShopOffer : MonoBehaviour
 
             yield return wait;
         }
-    }
-
-    private static GlobalConfig.Data.Shop.Package GetPackage()
-    {
-        var index = PurchaseOffer.GetOfferIndex(Profile.Gems);
-        if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
-        {
-            var pack = GlobalConfig.Shop.offers[index];
-            return (pack.discount > 0) ? pack : null;
-        }
-        return null;
     }
 }

@@ -9,28 +9,43 @@ public class Popup_Offer : GameState
     [SerializeField] private UiShopItem presenter = null;
     [SerializeField] private LocalText hint = null;
 
+    private System.Action<bool> onCloseFunc = null;
+
     private static int HintId
     {
         get { return PlayerPrefs.GetInt("Popup_Offer.HintId", 0); }
         set { PlayerPrefs.SetInt("Popup_Offer.HintId", value); }
     }
 
-    public Popup_Offer Setup(GlobalConfig.Data.Shop.Package pack)
+    public Popup_Offer Setup(GlobalConfig.Data.Shop.Package pack, System.Action<bool> onClose = null)
     {
+        onCloseFunc = onClose;
+
         if (pack != null)
         {
             presenter.Setup(pack, success =>
             {
                 PurchaseOffer.SetPurchaseResult(success);
-                if (success) Back();
+                if (success) Exit(true);
             });
         }
         else
         {
-            Back();
+            Exit(false);
         }
 
         return this;
+    }
+
+    private void Exit(bool success)
+    {
+        base.Back();
+        if (onCloseFunc != null) onCloseFunc(success);
+    }
+
+    public override void Back()
+    {
+        Exit(false);
     }
 
     private void Awake()
@@ -52,7 +67,7 @@ public class Popup_Offer : GameState
         {
             if (PurchaseOffer.RemainedTime < 0)
             {
-                Back();
+                Exit(false);
             }
             yield return wait;
         }

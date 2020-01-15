@@ -31,6 +31,12 @@ public class PatternConfigEditor : Editor
     {
         var obj = target as PatternConfig;
 
+        if (GUILayout.Button("Clear"))
+        {
+            for (int i = 0; i < obj.blocks.Count; i++)
+                obj.blocks[i] = BlockType.Null;
+        }
+
         obj.height = EditorGUILayout.DelayedIntField("Height", obj.height);
         obj.startLength = EditorGUILayout.IntField("Start Length", obj.startLength);
         obj.wrapMode = (PatternConfig.WrapMode)EditorGUILayout.EnumPopup("Wrap Mode", obj.wrapMode);
@@ -43,7 +49,7 @@ public class PatternConfigEditor : Editor
         if (obj.horizontalRandom.activated)
             obj.horizontalRandom.startStep = EditorGUILayout.IntField(" Start Step", obj.horizontalRandom.startStep);
 
-        SetHeight(obj, obj.height);
+        SetHeight(obj);
         brush = (BlockType)EditorGUILayout.EnumPopup("Brush", brush);
         if (brush == BlockType.Value)
             brushValue = EditorGUILayout.IntField("Value", brushValue);
@@ -87,7 +93,7 @@ public class PatternConfigEditor : Editor
         EditorUtility.SetDirty(obj);
     }
 
-    private static void SetHeight(PatternConfig obj, int height)
+    private static void SetHeight(PatternConfig obj)
     {
         int length = PatternConfig.width * obj.height;
         while (obj.blocks.Count < length)

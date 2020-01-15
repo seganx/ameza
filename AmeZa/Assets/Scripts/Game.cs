@@ -98,11 +98,42 @@ namespace SeganX
             {
                 onSuccess();
             }
-            else Instance.OpenPopup<Popup_Shop>().SetOnClose(() =>
+            else
             {
-                if (Profile.SpendGems(value))
-                    onSuccess();
-            });
+                var pack = GetOfferPackage();
+                if (pack != null)
+                {
+                    Instance.OpenPopup<Popup_Offer>().Setup(pack, sucess =>
+                    {
+                        if (sucess)
+                        {
+                            if (Profile.SpendGems(value))
+                                onSuccess();
+                        }
+                        else Instance.OpenPopup<Popup_Shop>().SetOnClose(() =>
+                        {
+                            if (Profile.SpendGems(value))
+                                onSuccess();
+                        });
+                    });
+                }
+                else Instance.OpenPopup<Popup_Shop>().SetOnClose(() =>
+                {
+                    if (Profile.SpendGems(value))
+                        onSuccess();
+                });
+            }
+        }
+
+        public static GlobalConfig.Data.Shop.Package GetOfferPackage()
+        {
+            var index = PurchaseOffer.GetOfferIndex(Profile.Gems);
+            if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
+            {
+                var pack = GlobalConfig.Shop.offers[index];
+                return (pack.discount > 0) ? pack : null;
+            }
+            return null;
         }
     }
 }

@@ -122,7 +122,7 @@ public class Profile : MonoBehaviour
     private static string LastHashdata
     {
         get { return PlayerPrefs.GetString("Profile.LastHashdata", string.Empty); }
-        set { PlayerPrefs.GetString("Profile.LastHashdata", value); }
+        set { PlayerPrefs.SetString("Profile.LastHashdata", value); }
     }
 
     public static int Sessions

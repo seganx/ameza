@@ -53,10 +53,12 @@ public class UiShopItem : MonoBehaviour
                     Profile.Hammers += pack.hammers;
                     Profile.Missiles += pack.missiles;
                     PurchaseSystem.Consume(pack.sku);
-                    Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true);
+                    Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, () =>
+                    {
+                        if (onClick != null) onClick(true);
+                    });
                 }
-
-                if (onClick != null) onClick(succeed);
+                else if (onClick != null) onClick(false);
             });
         });
 
