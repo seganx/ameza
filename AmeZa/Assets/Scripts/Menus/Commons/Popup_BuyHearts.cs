@@ -20,7 +20,7 @@ public class Popup_BuyHearts : GameState
         {
             Game.SpendGems(GlobalConfig.Shop.heartPrice, () =>
             {
-                Profile.Hearts += GlobalConfig.ProfilePreset.heats;
+                Profile.Hearts += GlobalConfig.ProfilePreset.hearts;
                 Back();
             });
         });

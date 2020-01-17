@@ -8,6 +8,7 @@ public class State_Playing : GameState
 {
     [SerializeField] private Image backgroundImage = null;
     [SerializeField] private Text ballsLabel = null;
+    [SerializeField] private Button abilityButton = null;
     [SerializeField] private Button endTurnButton = null;
     [SerializeField] private Button pauseButton = null;
     [SerializeField] private UiTutorial tutorial = null;
@@ -18,6 +19,18 @@ public class State_Playing : GameState
         endTurnButton.gameObject.SetActive(false);
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         pauseButton.onClick.AddListener(() => gameManager.OpenPopup<Popup_Settings>());
+
+        abilityButton.transform.SetActiveChild(0);
+        abilityButton.onClick.AddListener(() =>
+        {
+            gameManager.ClosePopup(true);
+            gameManager.OpenPopup<Popup_Lose>().Setup(false, ability => // check if player wants to use abilities
+            {
+                if (ability != AbilityType.Null)
+                    gameManager.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+            });
+
+        });
 
         UIBackground.Hide();
         UiShowHide.ShowAll(transform);
@@ -45,17 +58,23 @@ public class State_Playing : GameState
             case Messages.Type.TurnStarted:
                 ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(true);
+                abilityButton.gameObject.SetActive(false);
                 UpdateBallText(BallManager.balls.Count);
                 break;
 
             case Messages.Type.TurnEnded:
                 ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(false);
+                abilityButton.gameObject.SetActive(true);
                 UpdateBallText(BallManager.balls.Count);
                 break;
 
             case Messages.Type.BallCount:
                 UpdateBallText(param.As<int>());
+                break;
+
+            case Messages.Type.UseAbility:
+                abilityButton.transform.SetActiveChild(BlockManager.IsBlockReachedWarn ? 1 : 0);
                 break;
         }
     }
@@ -90,17 +109,22 @@ public class State_Playing : GameState
             else PlayerLose();
         }
 
-        if (BlockManager.IsBlockReachedDown && isPlayerWins == false) // player is losing becase a block reached down
+        if (isPlayerWins == false)
         {
-            gameManager.ClosePopup(true);
-            gameManager.OpenPopup<Popup_Lose>().Setup(ability => // check if player wants to use abilities
+            if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
             {
-                if (ability != AbilityType.Null)
-                    gameManager.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
-                else
-                    PlayerLose();
-            });
+                gameManager.ClosePopup(true);
+                gameManager.OpenPopup<Popup_Lose>().Setup(true, ability => // check if player wants to use abilities
+                {
+                    if (ability != AbilityType.Null)
+                        gameManager.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+                    else
+                        PlayerLose();
+                });
+            }
         }
+
+        abilityButton.transform.SetActiveChild(BlockManager.IsBlockReachedWarn ? 1 : 0);
     }
 
     public override void Back()

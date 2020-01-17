@@ -104,7 +104,11 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             get
             {
                 if (allClamps.Count < 1)
-                    allClamps = ResourceEx.LoadAll<PatternConfig>("Game/Patterns/Clamps/", false);
+                {
+                    allClamps = ResourceEx.LoadAllWithId<PatternConfig>("Game/Patterns/Clamps/", false);
+                    allClamps.Sort((x, y) => x.Id - y.Id);
+                }
+
                 return allClamps;
             }
         }

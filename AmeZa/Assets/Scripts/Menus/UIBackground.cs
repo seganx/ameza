@@ -33,7 +33,7 @@ public class UIBackground : MonoBehaviour
             break;
         }
 
-        heartsButton.onClick.AddListener(() => { if (Profile.Hearts < GlobalConfig.ProfilePreset.heats) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
+        heartsButton.onClick.AddListener(() => { if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Socials.storeUrl); });
@@ -50,7 +50,7 @@ public class UIBackground : MonoBehaviour
             gems.SetText(Profile.Gems.ToString("#,0"));
             heartsCount.SetText(Profile.Hearts.ToString());
 
-            if (Profile.Hearts < GlobalConfig.ProfilePreset.heats)
+            if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts)
             {
                 int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
                 heartsTime.text = (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00");

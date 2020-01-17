@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using SeganX;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Pattern")]
-public class PatternConfig : ScriptableObject
+public class PatternConfig : ScriptableObject, IResource
 {
     public enum WrapMode { Clamp, Repeat, Mirror }
 
@@ -24,6 +25,8 @@ public class PatternConfig : ScriptableObject
 
     private int resultStep = -1;
     private List<BlockType> resultList = new List<BlockType>(width * width);
+
+    public int Id { get; set; }
 
     public List<BlockType> GetBlocks(int step)
     {

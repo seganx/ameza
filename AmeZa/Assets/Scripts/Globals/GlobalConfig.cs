@@ -29,7 +29,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public class ProfilePreset
         {
             public int gems = 100;
-            public int heats = 3;
+            public int hearts = 3;
             public int bombs = 3;
             public int hammers = 5;
             public int missles = 3;

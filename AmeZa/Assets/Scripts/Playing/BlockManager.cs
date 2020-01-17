@@ -10,6 +10,7 @@ public class BlockManager : Base
     public const int BottomEdge = -TopEdge + 1;
     public static List<BlockBase> blocks = new List<BlockBase>(64);
     public static bool IsBlockReachedDown { get; private set; }
+    public static bool IsBlockReachedWarn { get; private set; }
 
     private int usedAbilityCount = 0;
 
@@ -31,6 +32,7 @@ public class BlockManager : Base
         switch (param.type)
         {
             case Messages.Type.TurnEnded:
+                IsBlockReachedWarn = CheckBlocksReached(2);
                 IsBlockReachedDown = CheckBlocksReached(1);
                 if (IsBlockReachedDown == false)
                 {
@@ -51,15 +53,16 @@ public class BlockManager : Base
                     var tmplist = new List<BlockBase>(blocks);
                     foreach (var block in tmplist)
                         block.UsedAbility(ability);
+                    IsBlockReachedWarn = CheckBlocksReached(2);
                     IsBlockReachedDown = CheckBlocksReached(1);
                     switch (ability)
                     {
                         case AbilityType.Bomb:
-                            usedAbilityCount += 30;
+                            usedAbilityCount += 15;
                             DelayCall(1, () => SpawnBlocks(++PlayModel.stats.totalTurn));
                             break;
-                        case AbilityType.Missle: usedAbilityCount += 15; break;
-                        case AbilityType.Hammer: usedAbilityCount += 5; break;
+                        case AbilityType.Missle: usedAbilityCount += 7; break;
+                        case AbilityType.Hammer: usedAbilityCount += 3; break;
                     }
                 }
                 break;

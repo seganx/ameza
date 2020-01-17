@@ -77,15 +77,17 @@ namespace SeganX
 
 #if LOCALPUSH
             // schedule hearts push
-            if (Profile.Hearts < GlobalConfig.ProfilePreset.heats)
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+            if (seconds > 10 && Profile.Hearts < GlobalConfig.ProfilePreset.hearts)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
-                LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(seconds), LocalizationService.Get(111015), LocalizationService.Get(111016), Color.green, LocalPush.NotificationIcon.Heart);
+                int totalSeconds = seconds + (GlobalConfig.ProfilePreset.hearts - Profile.Hearts - 1) * GlobalConfig.Timers.heart.duration;
+                LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(totalSeconds), LocalizationService.Get(111015), LocalizationService.Get(111016), Color.green, LocalPush.NotificationIcon.Heart);
             }
 
             // schedule lucky spin push
+            seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
+            if (seconds > 10)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
                 LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(seconds), LocalizationService.Get(111019), LocalizationService.Get(111020), Color.green, LocalPush.NotificationIcon.Clock);
             }
 #endif

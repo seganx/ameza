@@ -36,7 +36,7 @@ public class ProfileData
 
         public string Datahash
         {
-            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" +  missles.Value + "|" + hammers.Value + "|" + plusballs.Value + "|" + balls.Count; }
+            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" +  missles.Value + "|" + hammers.Value + "|" + plusballs.Value + "|" + balls.Count + "|" + Http.userheader; }
         }
     }
 

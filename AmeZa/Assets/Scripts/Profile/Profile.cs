@@ -12,7 +12,7 @@ public class Profile : MonoBehaviour
         if (IsFirstSession)
         {
             EarnGems(GlobalConfig.ProfilePreset.gems);
-            Hearts = GlobalConfig.ProfilePreset.heats;
+            Hearts = GlobalConfig.ProfilePreset.hearts;
             Bombs = GlobalConfig.ProfilePreset.bombs;
             Hammers = GlobalConfig.ProfilePreset.hammers;
             Missiles = GlobalConfig.ProfilePreset.missles;
@@ -33,7 +33,7 @@ public class Profile : MonoBehaviour
             if (seconds < 0)
             {
                 int addhearts = 1 - seconds / GlobalConfig.Timers.heart.duration;
-                Hearts = Mathf.Clamp(Hearts + addhearts, 0, GlobalConfig.ProfilePreset.heats);
+                Hearts = Mathf.Clamp(Hearts + addhearts, 0, GlobalConfig.ProfilePreset.hearts);
                 Online.Timer.Set(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
             }
 

@@ -46,7 +46,7 @@ public class Popup_Effects : GameState
         onActionFunc();
 
         yield return new WaitForSeconds(1);
-        onCloseFunc();
+        if (onCloseFunc != null) onCloseFunc();
         base.Back();
     }
 
