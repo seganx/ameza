@@ -11,6 +11,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         public AnimationCurve moveDownCurve = new AnimationCurve(new Keyframe[2] { new Keyframe(0, 0), new Keyframe(1, 1) });
     }
 
+    [SerializeField] private int themeCount = 3;
     [SerializeField] private BlocksInfo blocks = new BlocksInfo();
     [SerializeField] private Sprite[] leagueMedals = null;
     [SerializeField] private Sprite[] leagueCups = null;
@@ -26,30 +27,28 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     ////////////////////////////////////////////////////////////
     public static class Theme
     {
-        public const int Count = 2;
-
         public static int GetSpriteCount(int themeId)
         {
-            themeId = themeId % Count;
+            themeId = themeId % Instance.themeCount;
             return Resources.LoadAll<Sprite>("Game/Themes/" + themeId + "/Items").Length;
         }
 
         public static Sprite GetSprite(int themeId, int index)
         {
-            themeId = themeId % Count;
+            themeId = themeId % Instance.themeCount;
             var sprites = Resources.LoadAll<Sprite>("Game/Themes/" + themeId + "/Items");
             return sprites[index % sprites.Length];
         }
 
         public static Sprite GetBackground(int themeId)
         {
-            themeId = themeId % Count;
+            themeId = themeId % Instance.themeCount;
             return Resources.Load<Sprite>("Game/Themes/" + themeId + "/Background");
         }
 
         public static ThemeSounds GetSounds(int themeId)
         {
-            themeId = themeId % Count;
+            themeId = themeId % Instance.themeCount;
             return Resources.Load<ThemeSounds>("Game/Themes/" + themeId + "/Sounds");
         }
     }

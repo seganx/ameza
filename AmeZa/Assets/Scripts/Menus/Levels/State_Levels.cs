@@ -86,6 +86,8 @@ public class State_Levels : GameState
             DelayCall(1, () => tutorial.Display(true, 111041, null));
         else if (CurrentSeason == 1)
             DelayCall(1, () => tutorial.Display(true, 111039, () => tutorial.Display(true, 111040, null)));
+        else if (CurrentSeason == 2)
+            DelayCall(1, () => tutorial.Display(true, 111042, () => tutorial.Display(true, 111043, null)));
 
 #if UNITY_EDITOR
         nextButton.SetInteractable(season != null);

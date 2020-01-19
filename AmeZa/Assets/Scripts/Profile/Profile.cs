@@ -13,9 +13,9 @@ public class Profile : MonoBehaviour
         {
             EarnGems(GlobalConfig.ProfilePreset.gems);
             Hearts = GlobalConfig.ProfilePreset.hearts;
-            Bombs = GlobalConfig.ProfilePreset.bombs;
-            Hammers = GlobalConfig.ProfilePreset.hammers;
-            Missiles = GlobalConfig.ProfilePreset.missles;
+            Bombs = GlobalConfig.ProfilePreset.bombs / 2;
+            Hammers = GlobalConfig.ProfilePreset.hammers / 2;
+            Missiles = GlobalConfig.ProfilePreset.missles / 2;
         }
     }
 

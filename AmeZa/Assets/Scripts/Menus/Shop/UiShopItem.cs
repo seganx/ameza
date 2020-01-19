@@ -57,6 +57,8 @@ public class UiShopItem : MonoBehaviour
                     {
                         if (onClick != null) onClick(true);
                     });
+
+                    GlobalAnalytics.NewBuisinessEvent(pack.sku, pack.price);
                 }
                 else if (onClick != null) onClick(false);
             });
