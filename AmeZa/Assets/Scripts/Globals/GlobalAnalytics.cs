@@ -1,5 +1,6 @@
 ﻿using GameAnalyticsSDK;
 using GameAnalyticsSDK.Events;
+using SeganX;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,9 @@ public class GlobalAnalytics : MonoBehaviour
         GameAnalytics.Initialize();
     }
 
-    public static void NewBuisinessEvent(string sku, int price)
+    public static void NewBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
     {
-        GameAnalytics.NewBusinessEvent("USD", price / 100, sku, "1", "cartType");
+        Online.Purchase.Verify(provider, sku, token, (success, msg) => GameAnalytics.NewBusinessEvent("USD", price / 100, sku, "1", "cartType"));
     }
 
     public static void LevelStart(int season, int level)

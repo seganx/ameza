@@ -11,7 +11,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         public AnimationCurve moveDownCurve = new AnimationCurve(new Keyframe[2] { new Keyframe(0, 0), new Keyframe(1, 1) });
     }
 
-    [SerializeField] private int themeCount = 3;
+    [SerializeField] private int themeCount = 4;
     [SerializeField] private BlocksInfo blocks = new BlocksInfo();
     [SerializeField] private Sprite[] leagueMedals = null;
     [SerializeField] private Sprite[] leagueCups = null;
@@ -161,6 +161,18 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         {
             return All.Find(x => x.Id == id);
         }
+
+        public static int GetLevelNumber(int seasonId, int levelIndex)
+        {
+            int res = 0;
+            for (int i = 0; i < seasonId; i++)
+            {
+                var config = Get(i);
+                if (config != null)
+                    res += config.levelCount;
+            }
+            return res + levelIndex;
+        }
     }
 
     public static class Leagues
@@ -206,6 +218,51 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         {
             var index = Mathf.Clamp(GetSubIndex(league, score), 0, league.subleagus.Count);
             return league.subleagus[index];
+
+        }
+    }
+
+    public static class Joke
+    {
+        private static System.DateTime lastTime = new System.DateTime(0);
+        private static string[] current = null;
+
+        public static bool Exist
+        {
+            get
+            {
+                // verify that current one is consumed
+                if (current != null) return true;
+
+                // verification and chance
+#if UNITY_EDITOR
+#else
+                if (GlobalConfig.Jokes == null || GlobalConfig.Jokes.Length < 1) return false;
+                var deltatime = System.DateTime.Now - lastTime;
+                if (deltatime.TotalMinutes < 2) return false;
+                if (Random.Range(0, 100) > 30) return false;
+#endif
+
+                // save time and return new one
+                lastTime = System.DateTime.Now;
+                var i = Index++ % GlobalConfig.Jokes.Length;
+                var joke = GlobalConfig.Jokes[i];
+                current = joke.Split('_');
+                return true;
+            }
+        }
+
+        private static int Index
+        {
+            get { return PlayerPrefs.GetInt("Joke.Index", 0); }
+            set { PlayerPrefs.SetInt("Joke.Index", value); }
+        }
+
+        public static string[] Pick()
+        {
+            var res = current;
+            current = null;
+            return res;
         }
     }
 }

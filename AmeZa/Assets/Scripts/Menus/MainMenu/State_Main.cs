@@ -24,9 +24,10 @@ public class State_Main : GameState
             if (Profile.GetSeasonRewarded(0) > 0)
                 gameManager.OpenState<State_SelectLeague>();
             else
-                tutorial.Display(false, 111034, null);
+                tutorial.Display(0, false, 111034, null);
         });
 
+        if (Profile.IsFirstSession) levelsButton.GetComponent<Animation>().Play();
         levelsButton.onClick.AddListener(() => gameManager.OpenState<State_Levels>());
 
         luckyButton.onClick.AddListener(() =>
@@ -44,6 +45,9 @@ public class State_Main : GameState
             }
         });
 
+        var displayed = tutorial.Display(1, true, 111031, () => tutorial.Display(0, true, 111032, () => tutorial.Display(0, true, 111033, () => tutorial.Display(0, true, 111053, null))));
+        if (displayed == false)
+            tutorial.DisplayJoke(1);
 
         var wait = new WaitForSeconds(1);
         while (true)
@@ -63,7 +67,6 @@ public class State_Main : GameState
             }
 
             yield return wait;
-            tutorial.Display(true, 111031, () => tutorial.Display(true, 111032, () => tutorial.Display(true, 111033, null)));
         }
     }
 

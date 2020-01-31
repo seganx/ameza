@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
                 var speed = rigid.velocity.magnitude;
                 if (speed > 0.1f)
                 {
-                    var dir = BallManager.SpawnPoint - transform.localPosition + Vector3.down * 0.1f;
+                    var dir = BallManager.SpawnPoint - transform.localPosition + new Vector3(Random.Range(-0.5f, 0.5f), -1, 0);
                     rigid.velocity = dir.normalized * speed;
                 }
                 break;

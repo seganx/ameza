@@ -35,7 +35,7 @@ public class SeasonConfig : ScriptableObject, IResource
         res.season = Id;
         res.theme = theme;
         res.index = index;
-        res.name = (index + 1).ToString();
+        res.name = GlobalFactory.Seasons.GetLevelNumber(Id, index + 1).ToString();
         res.progress = (index + 1) / (float)levelCount;
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
         res.minBlockHealth = res.startBallCount / 2;

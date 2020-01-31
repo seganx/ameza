@@ -43,7 +43,7 @@ public class UiShopItem : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             button.SetInteractable(false);
-            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, pack.sku, (succeed, msg) =>
+            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, pack.sku, (succeed, token) =>
             {
                 button.SetInteractable(true);
                 if (succeed)
@@ -58,7 +58,7 @@ public class UiShopItem : MonoBehaviour
                         if (onClick != null) onClick(true);
                     });
 
-                    GlobalAnalytics.NewBuisinessEvent(pack.sku, pack.price);
+                    GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
                 }
                 else if (onClick != null) onClick(false);
             });

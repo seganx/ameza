@@ -6,9 +6,14 @@ using UnityEngine.UI;
 
 public class State_Levels : GameState
 {
+    private enum SeasonState { Null, Progressing, CanClaimReward, Completed }
+
     [SerializeField] private LocalText title = null;
-    [SerializeField] private GameObject chestObject = null;
-    [SerializeField] private Button claimRewardButton = null;
+    [SerializeField] private Button chestButton = null;
+    [SerializeField] private Animation chestAnimation = null;
+    [SerializeField] private Image progressImage = null;
+    [SerializeField] private GameObject progressHighlight = null;
+    [SerializeField] private GameObject claimReward = null;
     [SerializeField] private Image themeImage = null;
     [SerializeField] private UiLevelItem levelItem = null;
     [SerializeField] private GameObject comingSoon = null;
@@ -18,6 +23,8 @@ public class State_Levels : GameState
 
     private RectTransform content = null;
     private SeasonConfig season = null;
+    private float seasonProgress = 0;
+    private SeasonState seasonState = SeasonState.Null;
 
     private void Awake()
     {
@@ -29,20 +36,24 @@ public class State_Levels : GameState
     {
         season = GlobalFactory.Seasons.Get(CurrentSeason);
 
-        claimRewardButton.onClick.AddListener(() =>
+        chestButton.onClick.AddListener(() =>
         {
-            var reward = season.finalReward.GetResult();
-            Profile.SetSeasonRewarded(season.Id, 1);
-            Profile.EarnGems(reward.gems);
-            Profile.Bombs += reward.bombs;
-            Profile.Hammers += reward.hammers;
-            Profile.Missiles += reward.missiles;
-            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () =>
+            if (seasonState == SeasonState.CanClaimReward)
             {
-                Rateus.Joy += 4;
-                nextButton.onClick.Invoke();
-            });
-            UpdateVisual();
+                var reward = season.finalReward.GetResult();
+                Profile.SetSeasonRewarded(season.Id, 1);
+                Profile.EarnGems(reward.gems);
+                Profile.Bombs += reward.bombs;
+                Profile.Hammers += reward.hammers;
+                Profile.Missiles += reward.missiles;
+                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () =>
+                {
+                    Rateus.Joy += 4;
+                    nextButton.onClick.Invoke();
+                });
+                UpdateVisual();
+            }
+            else tutorial.Display(0, false, 111041, null);
         });
 
         nextButton.onClick.AddListener(() =>
@@ -72,22 +83,62 @@ public class State_Levels : GameState
 
     private void UpdateVisual()
     {
-        title.SetFormatedText(CurrentSeason + 1);
-        var rewarded = Profile.GetSeasonRewarded(CurrentSeason);
-        chestObject.gameObject.SetActive(rewarded < 1);
-        var canClaimReward = season == null ? false : Profile.GetLevelStars(CurrentSeason, season.levelCount - 1) > 0;
-        claimRewardButton.gameObject.SetActive(canClaimReward);
-        comingSoon.SetActive(season == null);
-        if (season != null) themeImage.sprite = GlobalFactory.Theme.GetBackground(season.theme);
+        var openedLevels = Profile.GetSeasonProgress(CurrentSeason);
 
-        if (rewarded < 1 && canClaimReward)
-            DelayCall(1, () => tutorial.Display(true, 111035, () => tutorial.Display(true, 111036, null)));
-        else if (CurrentSeason == 0)
-            DelayCall(1, () => tutorial.Display(true, 111041, null));
-        else if (CurrentSeason == 1)
-            DelayCall(1, () => tutorial.Display(true, 111039, () => tutorial.Display(true, 111040, null)));
-        else if (CurrentSeason == 2)
-            DelayCall(1, () => tutorial.Display(true, 111042, () => tutorial.Display(true, 111043, null)));
+        if (season == null)
+        {
+            seasonState = SeasonState.Null;
+        }
+        else
+        {
+            seasonProgress = openedLevels / (float)season.levelCount;
+            if (openedLevels < season.levelCount)
+                seasonState = SeasonState.Progressing;
+            else if (Profile.GetSeasonRewarded(CurrentSeason) < 1)
+                seasonState = SeasonState.CanClaimReward;
+            else
+                seasonState = SeasonState.Completed;
+
+            themeImage.sprite = GlobalFactory.Theme.GetBackground(season.theme);
+        }
+
+        title.SetFormatedText(CurrentSeason + 1);
+        chestButton.gameObject.SetActive(seasonState == SeasonState.Progressing || seasonState == SeasonState.CanClaimReward);
+        claimReward.SetActive(seasonState == SeasonState.CanClaimReward);
+        comingSoon.SetActive(seasonState == SeasonState.Null);
+
+        progressImage.fillAmount = 0.1f + 0.8f * seasonProgress;
+        progressHighlight.SetActive(seasonProgress > 0.7f);
+
+        if (seasonProgress > 0.8f)
+        {
+            chestAnimation.Play();
+        }
+        else
+        {
+            chestAnimation.Stop();
+            chestAnimation.transform.AsRectTransform().localRotation = Quaternion.identity;
+        }
+
+
+        if (seasonState == SeasonState.Progressing)
+        {
+            bool displayed = false;
+
+            if (CurrentSeason == 0)
+                displayed = tutorial.Display(1, true, 111041, () => tutorial.Display(0, true, 111054, () => tutorial.Display(0, true, 111055, null)));
+            else if (CurrentSeason == 1)
+                displayed = tutorial.Display(1, true, 111039, () => tutorial.Display(0, true, 111040, null));
+            else if (CurrentSeason == 2)
+                displayed = tutorial.Display(1, true, 111042, () => tutorial.Display(0, true, 111043, null));
+            else if (CurrentSeason == 3)
+                displayed = tutorial.Display(1, true, 111050, () => tutorial.Display(0, true, 111051, () => tutorial.Display(0, true, 111052, null)));
+
+            if (displayed == false)
+                tutorial.DisplayJoke(1);
+        }
+        else if (seasonState == SeasonState.CanClaimReward)
+            tutorial.Display(1, false, 111035, () => tutorial.Display(0, true, 111036, null));
 
 #if UNITY_EDITOR
         nextButton.SetInteractable(season != null);

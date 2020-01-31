@@ -21,7 +21,7 @@ public class Popup_LevelInfo : GameState
     {
         var levelmodel = season.GetLevelModel(index);
 
-        title.SetFormatedText(season.Id + 1, index + 1);
+        title.SetFormatedText(season.Id + 1, GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1));
         ballsLabel.SetFormatedText(levelmodel.startBallCount);
         allitemsDesc.SetActive(levelmodel.IsTargetExist == false);
         targetItemsDesc.SetActive(levelmodel.IsTargetExist == true);

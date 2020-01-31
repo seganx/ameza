@@ -8,15 +8,7 @@ public class Profile : MonoBehaviour
     private void Awake()
     {
         LoadLocal();
-        data.privateData.sessions++;
-        if (IsFirstSession)
-        {
-            EarnGems(GlobalConfig.ProfilePreset.gems);
-            Hearts = GlobalConfig.ProfilePreset.hearts;
-            Bombs = GlobalConfig.ProfilePreset.bombs / 2;
-            Hammers = GlobalConfig.ProfilePreset.hammers / 2;
-            Missiles = GlobalConfig.ProfilePreset.missles / 2;
-        }
+        StartSession();
     }
 
     private IEnumerator Start()
@@ -181,6 +173,12 @@ public class Profile : MonoBehaviour
         return index <= season.levels.Count;
     }
 
+    public static int GetSeasonProgress(int seasonId)
+    {
+        var season = data.privateData.seasons.Find(x => x.id == seasonId);
+        return season == null ? 0 : season.levels.Count;
+    }
+
     public static bool IsLevelPassed(int seasonId, int index)
     {
         if (index < 0) return false;
@@ -221,8 +219,26 @@ public class Profile : MonoBehaviour
         data = PlayerPrefsEx.GetObject("Profile.Data", data);
     }
 
+    public static void Reset()
+    {
+        data.privateData = new ProfileData.PrivateData();
+        data.publicData = new ProfileData.PublicData();
+        StartSession();
+        SaveLocal();
+    }
 
-
+    private static void StartSession()
+    {
+        data.privateData.sessions++;
+        if (IsFirstSession)
+        {
+            EarnGems(GlobalConfig.ProfilePreset.gems);
+            Hearts = GlobalConfig.ProfilePreset.hearts;
+            Bombs = GlobalConfig.ProfilePreset.bombs / 2;
+            Hammers = GlobalConfig.ProfilePreset.hammers / 2;
+            Missiles = GlobalConfig.ProfilePreset.missles / 2;
+        }
+    }
 
     public static void Sync(bool sendProfile, System.Action<bool> nextTask)
     {
@@ -340,7 +356,7 @@ public class Profile : MonoBehaviour
     {
         if (IsFirstSession)
         {
-            Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, 10);
+            Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, 3600);
         }
     }
 

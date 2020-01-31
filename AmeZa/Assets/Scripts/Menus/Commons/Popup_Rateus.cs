@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Popup_Rateus : GameState
 {
+    [SerializeField] private Button closeButton = null;
     [SerializeField] private GameObject[] stars = null;
     [SerializeField] private Button sendButton = null;
 
@@ -27,6 +28,7 @@ public class Popup_Rateus : GameState
     {
         Rateus.Current = value;
         sendButton.SetInteractable(true);
+        closeButton.SetInteractable(false);
         UpdateVisual();
     }
 

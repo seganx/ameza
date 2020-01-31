@@ -41,13 +41,22 @@ public class State_Playing : GameState
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(true);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
-            tutorial.Display(true, 111037, () => tutorial.transform.GetChild(0).gameObject.SetActive(false));
+            tutorial.transform.GetChild(2).gameObject.SetActive(false);
+            tutorial.Display(0, true, 111037, () => tutorial.transform.GetChild(0).gameObject.SetActive(false));
+        }
+        else if (PlayModel.level.index < 7)
+        {
+            tutorial.transform.GetChild(0).gameObject.SetActive(false);
+            tutorial.transform.GetChild(1).gameObject.SetActive(true);
+            tutorial.transform.GetChild(2).gameObject.SetActive(false);
+            tutorial.Display(0, true, 111038, () => tutorial.transform.GetChild(1).gameObject.SetActive(false));
         }
         else
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(false);
-            tutorial.transform.GetChild(1).gameObject.SetActive(true);
-            tutorial.Display(true, 111038, () => tutorial.transform.GetChild(1).gameObject.SetActive(false));
+            tutorial.transform.GetChild(1).gameObject.SetActive(false);
+            tutorial.transform.GetChild(2).gameObject.SetActive(true);
+            tutorial.Display(0, true, 111044, () => tutorial.transform.GetChild(2).gameObject.SetActive(false));
         }
     }
 

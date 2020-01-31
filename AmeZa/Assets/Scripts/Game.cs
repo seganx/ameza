@@ -137,5 +137,14 @@ namespace SeganX
             }
             return null;
         }
+
+        [Console("game", "reset", "Clear all progress data from local/server!")]
+        public static void Reset()
+        {
+            Application.Quit();
+            Console.Logger.ClearData();
+            GlobalConfig.DebugMode = true;
+            Profile.Reset();
+        }
     }
 }

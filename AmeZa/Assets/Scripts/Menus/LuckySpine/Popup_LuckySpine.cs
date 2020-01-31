@@ -175,7 +175,7 @@ public class Popup_LuckySpine : GameState
 
         if (items[0] > 1 || items[1] > 1 || items[2] > 1 || items[3] > 1)
         {
-            var gems = items[2] * Random.Range(20, 30);
+            var gems = items[2] * Random.Range(100, 200);
             Profile.EarnGems(gems);
             Profile.Bombs += Mathf.Max(0, items[0] - 1);
             Profile.Missiles += Mathf.Max(0, items[1] - 1);

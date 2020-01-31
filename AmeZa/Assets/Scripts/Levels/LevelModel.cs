@@ -41,18 +41,10 @@ public class RewardModel
     public Result GetResult()
     {
         var res = new Result();
-        if (Random.Range(0, 100) <= gems.x) res.gems = Random.Range(gems.y, gems.z + 1);
+        if (Random.Range(0, 100) <= gems.x) res.gems = Random.Range(gems.y, gems.z + 1) * 50 / 50;
         if (Random.Range(0, 100) <= bombs.x) res.bombs = Random.Range(bombs.y, bombs.z + 1);
         if (Random.Range(0, 100) <= hammers.x) res.hammers = Random.Range(hammers.y, hammers.z + 1);
         if (Random.Range(0, 100) <= missiles.x) res.missiles = Random.Range(missiles.y, missiles.z + 1);
-        return res;
-    }
-
-
-    public Result GetResult(float progress)
-    {
-        var res = GetResult();
-        res.gems = (Random.Range(0, 100) <= gems.x) ? Mathf.RoundToInt(Mathf.Lerp(gems.y, gems.z, progress)) : 0;
         return res;
     }
 }

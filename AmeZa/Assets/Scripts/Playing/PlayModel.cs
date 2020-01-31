@@ -74,7 +74,15 @@ public static class PlayModel
 
     public static RewardModel.Result GetReward()
     {
-        return level.reward.GetResult(level.progress);
+        var stars = GetRewardStars() - 1;
+        var res = stars > 0 ? level.reward.GetResult() : new RewardModel.Result();
 
+        if (Random.Range(0, 100) <= level.reward.gems.x)
+        {
+            res.gems = Mathf.RoundToInt(Mathf.Lerp(level.reward.gems.y, level.reward.gems.z, stars / 2.0f));
+        }
+        else res.gems = 0;
+
+        return res;
     }
 }

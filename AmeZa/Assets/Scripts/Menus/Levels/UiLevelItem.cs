@@ -9,13 +9,16 @@ public class UiLevelItem : MonoBehaviour
     [SerializeField] private Button button = null;
     [SerializeField] private Text numberLabel = null;
     [SerializeField] private GameObject[] stars = null;
+    [SerializeField] private Animation animator = null;
 
     public UiLevelItem Setup(SeasonConfig season, int index, bool enabled)
     {
-        numberLabel.text = (index + 1).ToString();
+        numberLabel.text = GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1).ToString();
         var earnstars = Profile.GetLevelStars(season.Id, index);
         for (int i = 0; i < stars.Length; i++)
             stars[i].SetActive(earnstars > i);
+        if (enabled && earnstars < 1)
+            animator.Play();
 #if UNITY_EDITOR
 #else
         button.SetInteractable(enabled);

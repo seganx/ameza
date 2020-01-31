@@ -137,6 +137,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<League> leagues = new List<League>();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
+        [TextArea(5, 20)]
+        public string jokes = string.Empty;
     }
 
     public Market market = 0;
@@ -157,8 +159,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         else
 #endif
             data = LoadData(data);
-
         if (DebugMode) SeganX.Console.Logger.Enabled = true;
+        jokes = data.jokes.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
     }
 
 #if UNITY_EDITOR
@@ -189,9 +191,11 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
     public static List<Data.League> Leagues { get { return Instance.data.leagues; } }
+    public static string[] Jokes { get { return jokes; } }
 
 
     private static int Cohort { get; set; }
+    private static string[] jokes = null;
 
     public static bool DebugMode
     {
