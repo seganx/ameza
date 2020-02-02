@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SeganX;
 
 public static class PlayModel
 {
@@ -20,6 +21,7 @@ public static class PlayModel
     public static int ballId = 0;
     public static System.Action onWin = null;
     public static System.Action onLose = null;
+    public static System.Action<System.Action<bool>> onPreLose = null;
     public static Stats stats = new Stats();
     public static LevelModel level = new LevelModel();
 
@@ -54,6 +56,18 @@ public static class PlayModel
         level = new LevelModel();
         onWin = null;
         onLose = null;
+        onPreLose = null;
+    }
+
+    public static int GetLeagueScore()
+    {
+        int score = 0;
+        switch (type)
+        {
+            case Type.LeagueBalls: score = stats.totalBalls; break;
+            case Type.LeagueBlocks: score = stats.totalBlocks; break;
+        }
+        return score;
     }
 
     public static int GetRewardStars()
@@ -85,4 +99,5 @@ public static class PlayModel
 
         return res;
     }
+
 }

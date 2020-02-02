@@ -218,7 +218,12 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         {
             var index = Mathf.Clamp(GetSubIndex(league, score), 0, league.subleagus.Count);
             return league.subleagus[index];
+        }
 
+        public static GlobalConfig.Data.League.SubLeague GetNextByScore(GlobalConfig.Data.League league, int score)
+        {
+            var index = Mathf.Clamp(GetSubIndex(league, score) + 1, 0, league.subleagus.Count);
+            return league.subleagus[index];
         }
     }
 

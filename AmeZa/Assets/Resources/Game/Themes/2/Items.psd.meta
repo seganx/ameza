@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca93f55528de3b64e9335c0fde2193b7
+guid: d1a831a883e519e43a585a502d7daec7
 TextureImporter:
   fileIDToRecycleName:
     21300000: Items_0
@@ -8,6 +8,12 @@ TextureImporter:
     21300006: Items_3
     21300008: Items_4
     21300010: Items_5
+    21300012: Items_6
+    21300014: Items_7
+    21300016: Items_8
+    21300018: Items_9
+    21300020: Items_10
+    21300022: Items_11
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -112,7 +118,7 @@ TextureImporter:
       name: Items_1
       rect:
         serializedVersion: 2
-        x: 142
+        x: 141
         y: 403
         width: 100
         height: 100
@@ -126,7 +132,7 @@ TextureImporter:
       name: Items_2
       rect:
         serializedVersion: 2
-        x: 263
+        x: 261
         y: 403
         width: 100
         height: 100
@@ -140,7 +146,7 @@ TextureImporter:
       name: Items_3
       rect:
         serializedVersion: 2
-        x: 384
+        x: 381
         y: 403
         width: 100
         height: 100
@@ -155,7 +161,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 21
-        y: 280
+        y: 273
         width: 100
         height: 100
       alignment: 0
@@ -168,8 +174,92 @@ TextureImporter:
       name: Items_5
       rect:
         serializedVersion: 2
-        x: 142
-        y: 281
+        x: 141
+        y: 273
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Items_6
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 273
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Items_7
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 273
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Items_8
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 153
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Items_9
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 153
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Items_10
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 153
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Items_11
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 153
         width: 100
         height: 100
       alignment: 0

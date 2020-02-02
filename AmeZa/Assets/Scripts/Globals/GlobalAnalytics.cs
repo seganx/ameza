@@ -15,7 +15,10 @@ public class GlobalAnalytics : MonoBehaviour
 
     public static void NewBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
     {
-        Online.Purchase.Verify(provider, sku, token, (success, msg) => GameAnalytics.NewBusinessEvent("USD", price / 100, sku, "1", "cartType"));
+        Online.Purchase.Verify(provider, sku, token, (success, payload) =>
+        {
+            if (success) GameAnalytics.NewBusinessEvent("USD", price / 100, sku, "1", "cartType");
+        });
     }
 
     public static void LevelStart(int season, int level)

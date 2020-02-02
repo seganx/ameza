@@ -28,7 +28,7 @@ public class UiLeagueItem : Base
         {
             if (Profile.HasNickname)
             {
-                gameManager.OpenState<State_LeagueInfo>().SetLeagueIndex(index);
+                gameManager.OpenState<State_Leaderboards>().Setup(index);
             }
             else
             {

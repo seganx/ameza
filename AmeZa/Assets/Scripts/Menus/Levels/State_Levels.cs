@@ -130,9 +130,11 @@ public class State_Levels : GameState
             else if (CurrentSeason == 1)
                 displayed = tutorial.Display(1, true, 111039, () => tutorial.Display(0, true, 111040, null));
             else if (CurrentSeason == 2)
-                displayed = tutorial.Display(1, true, 111042, () => tutorial.Display(0, true, 111043, null));
-            else if (CurrentSeason == 3)
                 displayed = tutorial.Display(1, true, 111050, () => tutorial.Display(0, true, 111051, () => tutorial.Display(0, true, 111052, null)));
+            else if (CurrentSeason == 3)
+                displayed = tutorial.Display(1, true, 111042, () => tutorial.Display(0, true, 111043, null));
+            else
+                displayed = tutorial.Display(1, true, 111056, () => tutorial.Display(0, true, 111057, null));
 
             if (displayed == false)
                 tutorial.DisplayJoke(1);

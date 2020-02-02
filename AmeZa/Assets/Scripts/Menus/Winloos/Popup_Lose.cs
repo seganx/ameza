@@ -12,8 +12,10 @@ public class Popup_Lose : GameState
     [SerializeField] private LocalText hammerLabel = null;
     [SerializeField] private Button missleButton = null;
     [SerializeField] private LocalText missleLabel = null;
-    [SerializeField] private GameObject homeButton = null;
     [SerializeField] private GameObject backButton = null;
+    [SerializeField] private GameObject homeContent = null;
+    [SerializeField] private Button homeButton = null;
+
 
     private System.Action<AbilityType> callbackFunc = null;
 
@@ -56,8 +58,18 @@ public class Popup_Lose : GameState
             else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, count => Profile.Missiles += count);
         });
 
+        homeButton.onClick.AddListener(() =>
+        {
+            var score = PlayModel.GetLeagueScore();
+            if (score > 0)
+            {
+                PlayModel.onPreLose(ok => { if (ok) Back(); });
+            }
+            else Back();
+        });
+
         backButton.SetActive(displayHomeButton == false);
-        homeButton.SetActive(displayHomeButton == true);
+        homeContent.SetActive(displayHomeButton == true);
 
         UiShowHide.ShowAll(transform);
         return this;
