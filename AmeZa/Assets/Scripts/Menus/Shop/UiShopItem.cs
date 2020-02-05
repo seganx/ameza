@@ -19,6 +19,7 @@ public class UiShopItem : MonoBehaviour
     [SerializeField] private Button button = null;
 
     private GlobalConfig.Data.Shop.Package pack = null;
+    private static GlobalConfig.Data.Shop.Package purchasePackage = null;
 
     public UiShopItem Setup(GlobalConfig.Data.Shop.Package pack, System.Action<bool> onClick = null)
     {
@@ -42,25 +43,31 @@ public class UiShopItem : MonoBehaviour
 
         button.onClick.AddListener(() =>
         {
+            purchasePackage = pack;
             button.SetInteractable(false);
-            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, pack.sku, (succeed, token) =>
+            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, purchasePackage.sku, (succeed, token) =>
             {
-                button.SetInteractable(true);
                 if (succeed)
                 {
-                    Profile.EarnGems(pack.gems);
-                    Profile.Bombs += pack.bombs;
-                    Profile.Hammers += pack.hammers;
-                    Profile.Missiles += pack.missiles;
-                    PurchaseSystem.Consume(pack.sku);
-                    Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, () =>
+                    Profile.EarnGems(purchasePackage.gems);
+                    Profile.Bombs += purchasePackage.bombs;
+                    Profile.Hammers += purchasePackage.hammers;
+                    Profile.Missiles += purchasePackage.missiles;
+
+                    PurchaseSystem.Consume(purchasePackage.sku, (cSuccseed, smg) =>
+                    {
+                        if (cSuccseed)
+                            GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, purchasePackage.sku, purchasePackage.price, token);
+                    });
+
+                    Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, purchasePackage.gems, purchasePackage.bombs, purchasePackage.hammers, purchasePackage.missiles, true, () =>
                     {
                         if (onClick != null) onClick(true);
                     });
-
-                    GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
                 }
                 else if (onClick != null) onClick(false);
+
+                button.SetInteractable(true);
             });
         });
 
