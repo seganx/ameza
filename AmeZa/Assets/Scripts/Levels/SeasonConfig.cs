@@ -19,7 +19,6 @@ public class SeasonConfig : ScriptableObject, IResource
 
     public int theme = 0;
     public int levelCount = 100;
-    public AnimationCurve difficultyCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0, 0), new Keyframe(1, 1) });
     public Vector2Int maxBlockHealth = Vector2Int.zero;
     public Vector2Int startBallCount = Vector2Int.zero;
     public RewardModel levelReward = new RewardModel();
@@ -31,6 +30,9 @@ public class SeasonConfig : ScriptableObject, IResource
 
     public LevelModel GetLevelModel(int index)
     {
+        int difficultyCurveId = Mathf.Clamp(Id, 0, GlobalConfig.Difficulty.curves.Length - 1);
+        var difficultyCurve = GlobalConfig.Difficulty.curves[difficultyCurveId];
+
         var res = new LevelModel();
         res.season = Id;
         res.theme = theme;

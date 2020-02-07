@@ -47,6 +47,9 @@ public class Popup_Profile : GameState
             if (nicknameInput.text.ComputeMD5(Core.Salt) != "AC9CD53769E38CBBD8707CA1108BA10D")
             {
                 var nickname = nicknameInput.text.Trim().CleanFromCode().CleanForPersian();
+#if UNITY_EDITOR
+                SendNickname(nickname);
+#else 
                 if (nickname != Profile.Username && nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
                 {
                     if (Profile.HasNickname)
@@ -55,6 +58,7 @@ public class Popup_Profile : GameState
                         SendNickname(nickname);
                 }
                 else gameManager.OpenPopup<Popup_Confirm>().Setup(111001, false, true, null);
+#endif    
             }
             else GlobalConfig.DebugMode = true;
         });
@@ -65,6 +69,9 @@ public class Popup_Profile : GameState
         statusButton.onClick.AddListener(() =>
         {
             var status = statusInput.text.Trim().CleanFromCode().CleanForPersian();
+#if UNITY_EDITOR
+            SendStatus(status);
+#else
             if (status.HasContent(3) && status.IsLetterOrDigit() && BadWordsFinder.HasBadWord(status) == false)
             {
                 if (Profile.HasStatus)
@@ -73,6 +80,7 @@ public class Popup_Profile : GameState
                     SendStatus(status);
             }
             else gameManager.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
+#endif
         });
 
         hairSlider.minValue = 0;

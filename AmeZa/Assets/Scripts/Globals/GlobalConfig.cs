@@ -72,6 +72,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         {
             public int turnsFactor = 50;
             public int ballsFactor = 100;
+            public AnimationCurve[] curves = new AnimationCurve[] { new AnimationCurve() };
         }
 
         [System.Serializable]
@@ -129,6 +130,13 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public List<Package> offers = new List<Package>();
         }
 
+        [System.Serializable]
+        public class Jokes
+        {
+            [TextArea(5, 20)]
+            public string text = string.Empty;
+        }
+
         public Update update = Update.Null;
         public Socials socials = new Socials();
         public Difficulty difficulty = new Difficulty();
@@ -137,8 +145,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<League> leagues = new List<League>();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
-        [TextArea(5, 20)]
-        public string jokes = string.Empty;
+        public Jokes jokes = new Jokes();
     }
 
     public Market market = 0;
@@ -160,7 +167,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 #endif
             data = LoadData(data);
         if (DebugMode) SeganX.Console.Logger.Enabled = true;
-        jokes = data.jokes.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
+        jokes = data.jokes.text.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
     }
 
 #if UNITY_EDITOR
