@@ -90,6 +90,18 @@ namespace SeganX
             {
                 LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(seconds), LocalizationService.Get(111019), LocalizationService.Get(111020), Color.green, LocalPush.NotificationIcon.Clock);
             }
+
+            int pushIndex = PlayerPrefs.GetInt(name + ".PushIndex", 0);
+
+            // schedule mid-time no see
+            LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(2 * 24 * 60 * 60), LocalizationService.Get(111070), LocalizationService.Get(111071 + pushIndex), Color.green, LocalPush.NotificationIcon.Message);
+            pushIndex = (pushIndex + 1) % 9;
+
+            // schedule long time no see
+            LocalPush.NotificationManager.SendWithAppIcon(System.TimeSpan.FromSeconds(5 * 24 * 60 * 60), LocalizationService.Get(111070), LocalizationService.Get(111071 + pushIndex), Color.green, LocalPush.NotificationIcon.Message);
+            pushIndex = (pushIndex + 1) % 9;
+
+            PlayerPrefs.SetInt(name + ".PushIndex", pushIndex);
 #endif
         }
 

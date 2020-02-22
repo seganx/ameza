@@ -19,7 +19,7 @@ public class Popup_LevelInfo : GameState
 
     public Popup_LevelInfo Setup(SeasonConfig season, int index)
     {
-        var levelmodel = season.GetLevelModel(index);
+        var levelmodel = season.GetLevelModel(index, Profile.Skill);
 
         title.SetFormatedText(season.Id + 1, GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1));
         ballsLabel.SetFormatedText(levelmodel.startBallCount);
@@ -37,7 +37,7 @@ public class Popup_LevelInfo : GameState
 
         targetItem0Label.transform.parent.gameObject.SetActive(levelmodel.targetItem0 > 0);
         targetItem1Label.transform.parent.gameObject.SetActive(levelmodel.targetItem1 > 0);
-        targetBallsLabel.transform.parent.gameObject.SetActive(levelmodel.targetBalls> 0);
+        targetBallsLabel.transform.parent.gameObject.SetActive(levelmodel.targetBalls > 0);
         targetBlocksLabel.transform.parent.gameObject.SetActive(levelmodel.targetBlocks > 0);
 
         startButton.onClick.AddListener(() =>
@@ -54,8 +54,22 @@ public class Popup_LevelInfo : GameState
                 Game.Instance.OpenState<State_Playing>();
 
                 GlobalAnalytics.LevelStart(season.Id, index);
-                PlayModel.onWin = () => GlobalAnalytics.LevelWin(season.Id, index, PlayModel.GetRewardStars());
-                PlayModel.onLose = () => GlobalAnalytics.LevelFailed(season.Id, index);
+
+                PlayModel.onWin = () =>
+                {
+                    GlobalAnalytics.LevelWin(season.Id, index, PlayModel.GetRewardStars());
+                    Online.Stats.Set(Profile.Gems, Profile.Skill, GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1), success => { });
+
+                    if (season.Id > 0)
+                        Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;
+                };
+
+                PlayModel.onLose = () =>
+                {
+                    GlobalAnalytics.LevelFailed(season.Id, index);
+                    if (season.Id > 0)
+                        Profile.Skill = Mathf.Max(Profile.Skill - GlobalConfig.Difficulty.loseFactor, -70);
+                };
 
             }
             else Game.Instance.OpenPopup<Popup_BuyHearts>();

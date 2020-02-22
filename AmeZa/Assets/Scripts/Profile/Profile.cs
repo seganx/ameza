@@ -105,10 +105,10 @@ public class Profile : MonoBehaviour
         set { data.privateData.missles = value; }
     }
 
-    public static int Plusballs
+    public static int Skill
     {
-        get { return data.privateData.plusballs; }
-        set { data.privateData.plusballs = value; }
+        get { return data.privateData.skill; }
+        set { data.privateData.skill = value; }
     }
 
     private static string LastHashdata
@@ -221,9 +221,14 @@ public class Profile : MonoBehaviour
 
     public static void Reset()
     {
+        Application.Quit();
+        PlayerPrefs.DeleteAll();
+        PlayerPrefsEx.ClearData();
         data.privateData = new ProfileData.PrivateData();
         data.publicData = new ProfileData.PublicData();
-        StartSession();
+        data.avatar = new ProfileData.AvatarData();
+        data.info.avatar = JsonUtility.ToJson(data.avatar);
+        StartSession();        
         SaveLocal();
     }
 

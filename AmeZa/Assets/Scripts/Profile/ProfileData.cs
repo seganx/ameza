@@ -30,13 +30,13 @@ public class ProfileData
         public CryptoInt bombs = 0;
         public CryptoInt missles = 0;
         public CryptoInt hammers = 0;
-        public CryptoInt plusballs = 0;
+        public CryptoInt skill = 0;
         public List<int> balls = new List<int>() { 0 };
         public List<SeasonData> seasons = new List<SeasonData>();
 
         public string Datahash
         {
-            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" +  missles.Value + "|" + hammers.Value + "|" + plusballs.Value + "|" + balls.Count + "|" + Http.userheader; }
+            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" +  missles.Value + "|" + hammers.Value + "|" + balls.Count + "|" + Http.userheader; }
         }
     }
 

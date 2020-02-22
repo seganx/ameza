@@ -85,6 +85,7 @@ public class BlockManager : Base
         int list_rows = (list.Count / PatternConfig.width);
         if (list_rows > 1)
         {
+            const int range = 2;
             int healthdelta = PlayModel.level.maxBlockHealth - PlayModel.level.minBlockHealth;
 
             for (int i = 0; i < list.Count; i++)
@@ -92,9 +93,9 @@ public class BlockManager : Base
                 if (list[i] == BlockType.RandomValue)
                 {
                     int row = (i / PatternConfig.width);
-                    int max = (healthdelta * (list_rows - row + 3) / (list_rows + 3));
-                    int min = Mathf.Max(1, (healthdelta * (list_rows - row - 3) / list_rows));
-                    list[i] = (BlockType)PlayModel.level.minBlockHealth + Random.Range(min, max + 1);
+                    int max = (healthdelta * (list_rows - row + range) / (list_rows + range));
+                    int min = Mathf.Max(1, (healthdelta * (list_rows - row - range) / list_rows));
+                    list[i] = (BlockType)PlayModel.level.minBlockHealth + Utilities.RandomDoubleHigh(min, max + 1);
                 }
                 else if (list[i] == BlockType.Value)
                 {
@@ -107,6 +108,8 @@ public class BlockManager : Base
             int turnFactor = (PlayModel.stats.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
             int ballFactor = PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
             int difficultyHealth = turnFactor + ballFactor;
+
+            // ignore difficulty for first season on campain
             if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1)
                 difficultyHealth = 0;
 

@@ -11,7 +11,6 @@ public class UiShopOffer : MonoBehaviour
     [SerializeField] private LocalText discountLabel = null;
     [SerializeField] private Button button = null;
 
-    private static bool displayed = false;
     private GlobalConfig.Data.Shop.Package pack = null;
 
     private void Awake()
@@ -25,6 +24,7 @@ public class UiShopOffer : MonoBehaviour
         PurchaseOffer.Setup(
             GlobalConfig.OfferConfig.startIndex,
             GlobalConfig.Shop.offers.Count,
+            GlobalConfig.OfferConfig.firstDelay,
             GlobalConfig.OfferConfig.offerDuration,
             GlobalConfig.OfferConfig.coolTime,
             GlobalConfig.OfferConfig.minResource,
@@ -32,13 +32,12 @@ public class UiShopOffer : MonoBehaviour
             GlobalConfig.OfferConfig.lastPurchaseTime);
 
 #if UNITY_EDITOR
-        PurchaseOffer.Setup(1, GlobalConfig.Shop.offers.Count, 15, 10, 99999999, 5, 60);
+        PurchaseOffer.Setup(1, GlobalConfig.Shop.offers.Count, 10, 15, 10, 99999999, 5, 60);
 #endif
 
         pack = Game.GetOfferPackage();
-        if (pack != null)// && displayed == false)
+        if (pack != null)
         {
-            displayed = true;
             PopupQueue.Add(0.5f, () => Game.Instance.OpenPopup<Popup_Offer>().Setup(pack));
         }
 

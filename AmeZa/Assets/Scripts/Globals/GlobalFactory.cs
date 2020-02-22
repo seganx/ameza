@@ -240,13 +240,10 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 if (current != null) return true;
 
                 // verification and chance
-#if UNITY_EDITOR
-#else
                 if (GlobalConfig.Jokes == null || GlobalConfig.Jokes.Length < 1) return false;
                 var deltatime = System.DateTime.Now - lastTime;
                 if (deltatime.TotalMinutes < 2) return false;
                 if (Random.Range(0, 100) > 30) return false;
-#endif
 
                 // save time and return new one
                 lastTime = System.DateTime.Now;

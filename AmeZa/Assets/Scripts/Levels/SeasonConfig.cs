@@ -28,7 +28,7 @@ public class SeasonConfig : ScriptableObject, IResource
 
     public int Id { get; set; }
 
-    public LevelModel GetLevelModel(int index)
+    public LevelModel GetLevelModel(int index, int skillFactor)
     {
         int difficultyCurveId = Mathf.Clamp(Id, 0, GlobalConfig.Difficulty.curves.Length - 1);
         var difficultyCurve = GlobalConfig.Difficulty.curves[difficultyCurveId];
@@ -43,6 +43,9 @@ public class SeasonConfig : ScriptableObject, IResource
         res.minBlockHealth = res.startBallCount / 2;
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyCurve.Evaluate(res.progress)));
         res.reward = levelReward;
+
+        res.minBlockHealth += res.minBlockHealth * skillFactor / 100;
+        res.maxBlockHealth += res.maxBlockHealth * skillFactor / 100;
 
         var specialLevel = specialLevels.Find(x => x.index == index);
         if (specialLevel != null)

@@ -23,9 +23,9 @@ namespace GameAnalyticsSDK
     {
         #region public values
 
-        private static Settings _settings;
+        private static GameAnalyticsSDK.Setup.Settings _settings;
 
-        public static Settings SettingsGA
+        public static GameAnalyticsSDK.Setup.Settings SettingsGA
         {
             get
             {
@@ -59,6 +59,16 @@ namespace GameAnalyticsSDK
         {
             EditorApplication.hierarchyWindowItemOnGUI -= GameAnalytics.HierarchyWindowCallback;
         }
+        #else
+        void OnEnable()
+        {
+            Application.logMessageReceived += GA_Debug.HandleLog;
+        }
+
+        void OnDisable()
+        {
+            Application.logMessageReceived -= GA_Debug.HandleLog;
+        }
         #endif
 
         public void Awake()
@@ -78,8 +88,6 @@ namespace GameAnalyticsSDK
             _instance = this;
 
             DontDestroyOnLoad(gameObject);
-
-            Application.logMessageReceived += GA_Debug.HandleLog;
         }
 
         void OnDestroy()
@@ -116,7 +124,7 @@ namespace GameAnalyticsSDK
         {
             try
             {
-                _settings = (Settings)Resources.Load("GameAnalytics/Settings", typeof(Settings));
+                _settings = (GameAnalyticsSDK.Setup.Settings)Resources.Load("GameAnalytics/Settings", typeof(GameAnalyticsSDK.Setup.Settings));
                 GameAnalyticsSDK.State.GAState.Init();
 
 #if UNITY_EDITOR
@@ -141,7 +149,7 @@ namespace GameAnalyticsSDK
                         AssetDatabase.Refresh();
                     }
 
-                    var asset = ScriptableObject.CreateInstance<Settings>();
+                    var asset = ScriptableObject.CreateInstance<GameAnalyticsSDK.Setup.Settings>();
                     AssetDatabase.CreateAsset(asset, path);
                     AssetDatabase.Refresh();
 
@@ -177,7 +185,7 @@ namespace GameAnalyticsSDK
 
             int platformIndex = GetPlatformIndex();
 
-            GA_Wrapper.SetUnitySdkVersion("unity " + Settings.VERSION);
+            GA_Wrapper.SetUnitySdkVersion("unity " + GameAnalyticsSDK.Setup.Settings.VERSION);
             GA_Wrapper.SetUnityEngineVersion("unity " + GetUnityVersion());
 
             if(platformIndex >= 0)
@@ -188,8 +196,19 @@ namespace GameAnalyticsSDK
                             GameAnalytics.SettingsGA.Build [i] = Application.version;
                         }
                     }
+                    if (GameAnalytics.SettingsGA.Platforms [platformIndex] == RuntimePlatform.Android || GameAnalytics.SettingsGA.Platforms [platformIndex] == RuntimePlatform.IPhonePlayer)
+                    {
+                        GA_Wrapper.SetAutoDetectAppVersion(true);
+                    }
+                    else
+                    {
+                        GA_Wrapper.SetBuild (SettingsGA.Build [platformIndex]);
+                    }
                 }
-                GA_Wrapper.SetBuild (SettingsGA.Build [platformIndex]);
+                else
+                {
+                    GA_Wrapper.SetBuild (SettingsGA.Build [platformIndex]);
+                }
             }
 
             if(SettingsGA.CustomDimensions01.Count > 0)
@@ -530,33 +549,6 @@ namespace GameAnalyticsSDK
                 return;
             }
             GA_Ads.NewEvent(adAction, adType, adSdkName, adPlacement);
-        }
-
-        /// <summary>
-        /// Set user facebook id.
-        /// </summary>
-        /// <param name="facebookId">Facebook id of user (Persists cross session).</param>
-        public static void SetFacebookId(string facebookId)
-        {
-            GA_Setup.SetFacebookId(facebookId);
-        }
-
-        /// <summary>
-        /// Set user gender.
-        /// </summary>
-        /// <param name="gender">Gender of user (Persists cross session).</param>
-        public static void SetGender(GAGender gender)
-        {
-            GA_Setup.SetGender(gender);
-        }
-
-        /// <summary>
-        /// Set user birth year.
-        /// </summary>
-        /// <param name="birthYear">Birth year of user (Persists cross session).</param>
-        public static void SetBirthYear(int birthYear)
-        {
-            GA_Setup.SetBirthYear(birthYear);
         }
 
         /// <summary>

@@ -72,6 +72,9 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         {
             public int turnsFactor = 50;
             public int ballsFactor = 100;
+            public int winFactorPositive = 5;
+            public int winFactorNegative = 15;
+            public int loseFactor = 10;
             public AnimationCurve[] curves = new AnimationCurve[] { new AnimationCurve() };
         }
 
@@ -93,7 +96,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public class OfferConfig
         {
             public int startIndex = 2;
-            public int coolTime = 24 * 60 * 60;
+            public int firstDelay = 24 * 60 * 60;
+            public int coolTime = 48 * 60 * 60;
             public int minResource = 2400;
             public int resourceTime = 3 * 60 * 60;
             public int offerDuration = 24 * 60 * 60;
@@ -126,8 +130,9 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int bombPrice = 20;
             public int misslePrice = 10;
             public int hammerPrice = 5;
-            public List<Package> packages = new List<Package>();
             public List<Package> offers = new List<Package>();
+            public List<Package> combinedPackages = new List<Package>();
+            public List<Package> gemPackages = new List<Package>();
         }
 
         [System.Serializable]

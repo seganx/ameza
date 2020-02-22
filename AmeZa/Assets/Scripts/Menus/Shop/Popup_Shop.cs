@@ -32,13 +32,12 @@ public class Popup_Shop : GameState
             combinedItem.Clone<UiShopItem>().Setup(GlobalConfig.Shop.offers[index]);
         }
 
-        foreach (var item in GlobalConfig.Shop.packages)
-        {
-            if (item.bombs > 0)
+        foreach (var item in GlobalConfig.Shop.combinedPackages)
                 combinedItem.Clone<UiShopItem>().Setup(item);
-            else
-                gemsItem.Clone<UiShopItem>().Setup(item);
-        }
+
+        foreach (var item in GlobalConfig.Shop.gemPackages)
+            gemsItem.Clone<UiShopItem>().Setup(item);
+        gemsItem.transform.parent.SetAsLastSibling();
 
         Destroy(combinedItem.gameObject);
         Destroy(gemsItem.gameObject);
