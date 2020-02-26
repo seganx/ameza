@@ -80,6 +80,8 @@ public class State_Main : GameState
 
     public override void Back()
     {
+        if (tutorial.Hide()) return;
+
         gameManager.OpenPopup<Popup_Confirm>().Setup(111004, true, true, yes =>
         {
             if (yes)

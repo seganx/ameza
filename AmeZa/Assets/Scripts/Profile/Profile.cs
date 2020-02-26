@@ -221,15 +221,21 @@ public class Profile : MonoBehaviour
 
     public static void Reset()
     {
-        Application.Quit();
-        PlayerPrefs.DeleteAll();
-        PlayerPrefsEx.ClearData();
-        data.privateData = new ProfileData.PrivateData();
-        data.publicData = new ProfileData.PublicData();
-        data.avatar = new ProfileData.AvatarData();
-        data.info.avatar = JsonUtility.ToJson(data.avatar);
-        StartSession();        
-        SaveLocal();
+        Loading.Show();
+        Online.Profile.SetNickname(string.Empty, successName =>
+        Online.Profile.SetStatus(string.Empty, successStatus =>
+        Online.Profile.SetAvatar(string.Empty, successAvatar =>
+        {
+            Application.Quit();
+            PlayerPrefs.DeleteAll();
+            PlayerPrefsEx.ClearData();
+            data.privateData = new ProfileData.PrivateData();
+            data.publicData = new ProfileData.PublicData();
+            data.avatar = new ProfileData.AvatarData();
+            data.info.avatar = JsonUtility.ToJson(data.avatar);
+            StartSession();
+            SaveLocal();
+        })));
     }
 
     private static void StartSession()

@@ -217,4 +217,10 @@ public class Popup_LeagueInfo : GameState
         if (delta <= 0 || delta >= maxScoreDelta) return null;
         return next;
     }
+
+    public override void Back()
+    {
+        if (tutorial.Hide()) return;
+        base.Back();
+    }
 }

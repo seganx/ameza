@@ -9,9 +9,14 @@ public class UiTutorial : MonoBehaviour
     [SerializeField] private LocalText label = null;
     [SerializeField] private Button backButton = null;
 
+    public bool Visible { get; private set; }
+
+    private System.Action onCloseFunc = null;
+
     private void Awake()
     {
         gameObject.SetActive(false);
+        backButton.onClick.AddListener(() => Hide());
     }
 
     public bool Display(float delay, bool displayOnce, int stringId, System.Action onClose)
@@ -28,15 +33,9 @@ public class UiTutorial : MonoBehaviour
 
     public bool Display(float delay, string str, System.Action onClose)
     {
+        Visible = true;
         label.SetText(str);
-
-        backButton.onClick.RemoveAllListeners();
-        backButton.onClick.AddListener(() =>
-        {
-            gameObject.SetActive(false);
-            if (onClose != null) onClose();
-        });
-
+        onCloseFunc = onClose;
         Invoke("Show", delay);
         return true;
     }
@@ -67,5 +66,19 @@ public class UiTutorial : MonoBehaviour
         });
 
         return true;
+    }
+
+    // return true if tutorial was opened and false if not
+    public bool Hide()
+    {
+        CancelInvoke();
+        if (Visible)
+        {
+            Visible = false;
+            gameObject.SetActive(false);
+            if (onCloseFunc != null) onCloseFunc();
+            return true;
+        }
+        else return false;
     }
 }

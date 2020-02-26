@@ -23,7 +23,7 @@ public class Popup_Offer : GameState
 
         if (pack != null)
         {
-            presenter.Setup(pack, success =>
+            presenter.Setup(pack.sku, success =>
             {
                 PurchaseOffer.SetPurchaseResult(success);
                 if (success) Exit(true);

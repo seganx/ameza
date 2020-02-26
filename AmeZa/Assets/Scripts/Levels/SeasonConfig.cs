@@ -30,6 +30,7 @@ public class SeasonConfig : ScriptableObject, IResource
 
     public LevelModel GetLevelModel(int index, int skillFactor)
     {
+        int levelNumber = GlobalFactory.Seasons.GetLevelNumber(Id, index);
         int difficultyCurveId = Mathf.Clamp(Id, 0, GlobalConfig.Difficulty.curves.Length - 1);
         var difficultyCurve = GlobalConfig.Difficulty.curves[difficultyCurveId];
 
@@ -37,10 +38,10 @@ public class SeasonConfig : ScriptableObject, IResource
         res.season = Id;
         res.theme = theme;
         res.index = index;
-        res.name = GlobalFactory.Seasons.GetLevelNumber(Id, index + 1).ToString();
+        res.name = (levelNumber + 1).ToString();
         res.progress = (index + 1) / (float)levelCount;
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
-        res.minBlockHealth = res.startBallCount / 2;
+        res.minBlockHealth = res.startBallCount / 4;
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyCurve.Evaluate(res.progress)));
         res.reward = levelReward;
 
@@ -58,7 +59,7 @@ public class SeasonConfig : ScriptableObject, IResource
         }
         else
         {
-            res.pattern = GlobalFactory.Patterns.GetClamp(index + Id * 4);
+            res.pattern = GlobalFactory.Patterns.GetClamp(levelNumber);
             res.targetTurns = 0;
         }
 

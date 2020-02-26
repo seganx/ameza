@@ -13,7 +13,6 @@ public class UiCharacter : MonoBehaviour
     {
         eyes.SetActive(false);
 
-        var wait = new WaitForSeconds(2);
         while (true)
         {
             if (Random.Range(0, 100) < 60)
@@ -21,14 +20,14 @@ public class UiCharacter : MonoBehaviour
 
             hand.PlayRandom(0, SimpleAnimation.Mode.DiscardNext);
 
-            yield return wait;
+            yield return new WaitForSecondsRealtime(2);
         }
     }
 
     private IEnumerator BlinkEyes()
     {
         eyes.SetActive(true);
-        yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+        yield return new WaitForSecondsRealtime(Random.Range(0.2f, 0.5f));
         eyes.SetActive(false);
     }
 }

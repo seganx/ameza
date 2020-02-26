@@ -173,20 +173,21 @@ public class Popup_LuckySpine : GameState
         d += "hearts[" + items[4] + "] ";
         Debug.Log(d);
 
-        if (items[0] > 1 || items[1] > 1 || items[2] > 1 || items[3] > 1)
+        if (items[0] > 1 || items[1] > 1 || items[2] > 1 || items[3] > 1 || items[4] > 1)
         {
             var gems = items[2] * Random.Range(100, 200);
             Profile.EarnGems(gems);
-            Profile.Bombs += Mathf.Max(0, items[0] - 1);
-            Profile.Missiles += Mathf.Max(0, items[1] - 1);
-            Profile.Hammers += Mathf.Max(0, items[3] - 1);
-            gameManager.OpenPopup<Popup_Rewards>().Setup(0, gems, Mathf.Max(0, items[0] - 1), Mathf.Max(0, items[3] - 1), Mathf.Max(0, items[1] - 1), true);
-            descAgain.SetActive(false);
-        }
-        else if (items[4] > 1)
-        {
-            Profile.Hearts += items[4] - 1;
-            gameManager.OpenPopup<Popup_Confirm>().SetText(111017, items[4] - 1).Setup(true, false, null);
+            Profile.Bombs += items[0];
+            Profile.Missiles += items[1];
+            Profile.Hammers += items[3];
+            gameManager.OpenPopup<Popup_Rewards>().Setup(0, gems, items[0], items[3], items[1], true, () =>
+            {
+                if (items[4] > 0)
+                {
+                    Profile.Hearts += items[4];
+                    gameManager.OpenPopup<Popup_Confirm>().SetText(111017, items[4]).Setup(true, false, null);
+                }
+            });
             descAgain.SetActive(false);
         }
         else

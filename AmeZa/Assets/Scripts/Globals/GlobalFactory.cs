@@ -122,6 +122,30 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             var list = ResourceEx.LoadAll("Game/Patterns/Leagues/", true);
             return Resources.Load<PatternConfig>(list.RandomOne().path);
         }
+
+#if UNITY_EDITOR
+        [UnityEditor.MenuItem("SeganX/Game/Rename All Patterns")]
+        public static void RenameAllPatterns()
+        {
+            // avoid name confilict
+            for (int i = 0; i < AllClamps.Count; i++)
+            {
+                var item = allClamps[i];
+                item.name = ((i + 1) * 10000).ToString();
+                string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
+                UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
+            }
+
+            for (int i = 0; i < allClamps.Count; i++)
+            {
+                var item = allClamps[i];
+                item.name = ((i + 1) * 10).ToString();
+                string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
+                UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
+            }
+            UnityEditor.AssetDatabase.SaveAssets();
+        }
+#endif
     }
 
     public static class Blocks
@@ -240,14 +264,14 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 if (current != null) return true;
 
                 // verification and chance
-                if (GlobalConfig.Jokes == null || GlobalConfig.Jokes.Length < 1) return false;
+                if (GlobalConfig.Jokes == null || GlobalConfig.Jokes.Count < 1) return false;
                 var deltatime = System.DateTime.Now - lastTime;
                 if (deltatime.TotalMinutes < 2) return false;
                 if (Random.Range(0, 100) > 30) return false;
 
                 // save time and return new one
                 lastTime = System.DateTime.Now;
-                var i = Index++ % GlobalConfig.Jokes.Length;
+                var i = Index++ % GlobalConfig.Jokes.Count;
                 var joke = GlobalConfig.Jokes[i];
                 current = joke.Split('_');
                 return true;

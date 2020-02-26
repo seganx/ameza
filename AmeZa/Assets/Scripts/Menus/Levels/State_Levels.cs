@@ -167,6 +167,12 @@ public class State_Levels : GameState
             DelayCall(0.1f, () => content.SetAnchordPositionY((enabledIndex - 12) * 110 / 4));
     }
 
+    public override void Back()
+    {
+        if (tutorial.Hide()) return;
+        base.Back();
+    }
+
     ////////////////////////////////////////////////////////////
     /// STATIC MEMBERS
     ////////////////////////////////////////////////////////////

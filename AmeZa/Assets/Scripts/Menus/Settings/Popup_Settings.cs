@@ -11,6 +11,7 @@ public class Popup_Settings : GameState
     [SerializeField] private Button resetButton = null;
     [SerializeField] private Button surveyButton = null;
     [SerializeField] private Button supportButton = null;
+    [SerializeField] private Button purchasedButton = null;
 
     private void Start()
     {
@@ -28,10 +29,32 @@ public class Popup_Settings : GameState
         surveyButton.onClick.AddListener(() => Application.OpenURL(GlobalConfig.Socials.contactSurveyUrl));
 
         supportButton.onClick.AddListener(() => SocialAndSharing.SendEmail(
-            GlobalConfig.Socials.contactEmailUrl, 
-            "Support - " + Application.identifier + " - " + Application.version, 
+            GlobalConfig.Socials.contactEmailUrl,
+            "Support - " + Application.identifier + " - " + Application.version,
             "OS:" + SystemInfo.operatingSystem + "|<br>Model:" + SystemInfo.deviceModel + "|<br>Username:" + Profile.Username + "|<br>DeviceId:" + Core.DeviceId + "|_____________________<br><br><br><br>"));
 
+        purchasedButton.onClick.AddListener(() =>
+        {
+            Loading.Show();
+            PurchaseSystem.QueryPurchases(PurchaseProvider.Bazaar, (success, json) =>
+            {
+                Loading.Hide();
+                if (success)
+                {
+                    var data = JsonUtility.FromJson<PurchasedData>(json);
+                    CheckPurchasedList(data, 0);
+                }
+            });
+        });
+
         UiShowHide.ShowAll(transform);
+    }
+
+    private void CheckPurchasedList(PurchasedData data, int index)
+    {
+        if (data.list.Count > index)
+            UiShopItem.Purchased(data.list[index].sku, data.list[index].token, () => CheckPurchasedList(data, index + 1));
+        else
+            gameManager.OpenPopup<Popup_Confirm>().Setup(111062, true, false, null);
     }
 }

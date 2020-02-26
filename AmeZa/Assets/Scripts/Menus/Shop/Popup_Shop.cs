@@ -28,15 +28,13 @@ public class Popup_Shop : GameState
     {
         var index = PurchaseOffer.GetOfferIndex(Profile.Gems);
         if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
-        {
-            combinedItem.Clone<UiShopItem>().Setup(GlobalConfig.Shop.offers[index]);
-        }
+            combinedItem.Clone<UiShopItem>().Setup(GlobalConfig.Shop.offers[index].sku);
 
         foreach (var item in GlobalConfig.Shop.combinedPackages)
-                combinedItem.Clone<UiShopItem>().Setup(item);
+                combinedItem.Clone<UiShopItem>().Setup(item.sku);
 
         foreach (var item in GlobalConfig.Shop.gemPackages)
-            gemsItem.Clone<UiShopItem>().Setup(item);
+            gemsItem.Clone<UiShopItem>().Setup(item.sku);
         gemsItem.transform.parent.SetAsLastSibling();
 
         Destroy(combinedItem.gameObject);

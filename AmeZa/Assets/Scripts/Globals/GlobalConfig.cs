@@ -133,14 +133,19 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public List<Package> offers = new List<Package>();
             public List<Package> combinedPackages = new List<Package>();
             public List<Package> gemPackages = new List<Package>();
+
+            public Package GetPackage(string sku)
+            {
+                var res = offers.Find(x => x.sku == sku);
+                if (res != null) return res;
+                res = combinedPackages.Find(x => x.sku == sku);
+                if (res != null) return res;
+                res = gemPackages.Find(x => x.sku == sku);
+                if (res != null) return res;
+                return null;
+            }
         }
 
-        [System.Serializable]
-        public class Jokes
-        {
-            [TextArea(5, 20)]
-            public string text = string.Empty;
-        }
 
         public Update update = Update.Null;
         public Socials socials = new Socials();
@@ -150,7 +155,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<League> leagues = new List<League>();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
-        public Jokes jokes = new Jokes();
+        public List<string> jokes = new List<string>();
     }
 
     public Market market = 0;
@@ -172,7 +177,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 #endif
             data = LoadData(data);
         if (DebugMode) SeganX.Console.Logger.Enabled = true;
-        jokes = data.jokes.text.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
     }
 
 #if UNITY_EDITOR
@@ -203,11 +207,10 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
     public static List<Data.League> Leagues { get { return Instance.data.leagues; } }
-    public static string[] Jokes { get { return jokes; } }
+    public static List<string> Jokes { get { return Instance.data.jokes; } }
 
 
     private static int Cohort { get; set; }
-    private static string[] jokes = null;
 
     public static bool DebugMode
     {
@@ -244,6 +247,20 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             Cohort = Random.Range(0, 100) % Instance.data.shop.Count;
             PlayerPrefsEx.SetInt("GlobalConfig.Cohort", Cohort);
         }
+
+        var address = Instance.address + "jokes.txt?" + System.DateTime.Now.Ticks;
+        Http.DownloadText(address, null, null, jokes =>
+        {
+            var array = jokes.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
+            if (array.Length > 0 && array[0] == "seganx_jokes")
+            {
+                Instance.data.jokes.Clear();
+                Instance.data.jokes.AddRange(array);
+                Instance.data.jokes.RemoveAt(0);
+                SaveData(Instance.data);
+            }
+        });
+
         return true;
     }
 

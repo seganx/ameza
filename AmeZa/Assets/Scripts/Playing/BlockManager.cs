@@ -97,10 +97,6 @@ public class BlockManager : Base
                     int min = Mathf.Max(1, (healthdelta * (list_rows - row - range) / list_rows));
                     list[i] = (BlockType)PlayModel.level.minBlockHealth + Utilities.RandomDoubleHigh(min, max + 1);
                 }
-                else if (list[i] == BlockType.Value)
-                {
-                    list[i] += PlayModel.level.minBlockHealth;
-                }
             }
         }
         else
@@ -120,10 +116,6 @@ public class BlockManager : Base
                     int min = PlayModel.level.minBlockHealth;
                     int max = PlayModel.level.maxBlockHealth + difficultyHealth;
                     list[i] = (BlockType)Utilities.RandomDoubleHigh(min, max + 1);
-                }
-                else if (list[i] == BlockType.Value)
-                {
-                    list[i] += PlayModel.level.minBlockHealth;
                 }
             }
         }

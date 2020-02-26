@@ -19,11 +19,11 @@ public class UiShopItem : MonoBehaviour
     [SerializeField] private Button button = null;
 
     private GlobalConfig.Data.Shop.Package pack = null;
-    private static GlobalConfig.Data.Shop.Package purchasePackage = null;
 
-    public UiShopItem Setup(GlobalConfig.Data.Shop.Package pack, System.Action<bool> onClick = null)
+    public UiShopItem Setup(string sku, System.Action<bool> onClick = null)
     {
-        this.pack = pack;
+        pack = GlobalConfig.Shop.GetPackage(sku);
+        if (pack == null) return this;
 
         images.SetActiveChild(pack.image);
         if (title) title.SetText(pack.title);
@@ -43,24 +43,12 @@ public class UiShopItem : MonoBehaviour
 
         button.onClick.AddListener(() =>
         {
-            purchasePackage = pack;
             button.SetInteractable(false);
-            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, purchasePackage.sku, (succeed, token) =>
+            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, sku, (succeed, token) =>
             {
                 if (succeed)
                 {
-                    Profile.EarnGems(purchasePackage.gems);
-                    Profile.Bombs += purchasePackage.bombs;
-                    Profile.Hammers += purchasePackage.hammers;
-                    Profile.Missiles += purchasePackage.missiles;
-
-                    PurchaseSystem.Consume(purchasePackage.sku, (cSuccseed, smg) =>
-                    {
-                        if (cSuccseed)
-                            GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, purchasePackage.sku, purchasePackage.price, token);
-                    });
-
-                    Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, purchasePackage.gems, purchasePackage.bombs, purchasePackage.hammers, purchasePackage.missiles, true, () =>
+                    Purchased(sku, token, () =>
                     {
                         if (onClick != null) onClick(true);
                     });
@@ -79,7 +67,7 @@ public class UiShopItem : MonoBehaviour
     private IEnumerator Start()
     {
         var wait = new WaitForSeconds(0.5f);
-        while (timeLabel && pack.discount > 0)
+        while (pack != null && timeLabel && pack.discount > 0)
         {
             int seconds = PurchaseOffer.RemainedTime;
             if (seconds < 0)
@@ -92,5 +80,29 @@ public class UiShopItem : MonoBehaviour
             }
             yield return wait;
         }
+    }
+
+
+    public static void Purchased(string sku, string token, System.Action nextTask)
+    {
+        var pack = GlobalConfig.Shop.GetPackage(sku);
+        if (pack == null)
+        {
+            if (nextTask != null) nextTask();
+            return;
+        }
+
+        Profile.EarnGems(pack.gems);
+        Profile.Bombs += pack.bombs;
+        Profile.Hammers += pack.hammers;
+        Profile.Missiles += pack.missiles;
+
+        Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, nextTask);
+
+        PurchaseSystem.Consume(pack.sku, (success, msg) =>
+        {
+            if (success)
+                GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
+        });
     }
 }
