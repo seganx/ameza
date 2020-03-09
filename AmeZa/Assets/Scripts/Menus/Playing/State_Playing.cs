@@ -15,7 +15,8 @@ public class State_Playing : GameState
 
     private IEnumerator Start()
     {
-        backgroundImage.sprite = GlobalFactory.Theme.GetBackground(PlayModel.level.theme);
+        GlobalFactory.Theme.Select(PlayModel.level.theme);
+        backgroundImage.sprite = GlobalFactory.Theme.Selected.playingBackground;
         endTurnButton.gameObject.SetActive(false);
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         pauseButton.onClick.AddListener(() => gameManager.OpenPopup<Popup_Settings>());
@@ -149,7 +150,7 @@ public class State_Playing : GameState
         {
             if (yes)
                 PlayerLose();
-        });
+        }).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
     }
 
     public void PlayerLose()
@@ -159,5 +160,10 @@ public class State_Playing : GameState
         base.Back();
         if (PlayModel.onLose != null)
             PlayModel.onLose();
+    }
+
+    private void OnDestroy()
+    {
+        Online.Stats.Set(Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), success => { });
     }
 }

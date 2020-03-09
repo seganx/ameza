@@ -25,8 +25,8 @@ public class BlockValue : BlockBase
     public BlockValue Setup(int itemIndex, int health)
     {
         Health = health;
-        ItemIndex = itemIndex % GlobalFactory.Theme.GetSpriteCount(PlayModel.level.theme);
-        spriter.sprite = effector.sprite = GlobalFactory.Theme.GetSprite(PlayModel.level.theme, ItemIndex);
+        ItemIndex = itemIndex % GlobalFactory.Theme.Selected.items.Length;
+        spriter.sprite = effector.sprite = GlobalFactory.Theme.Selected.items[ItemIndex];
         numberLabel.text = Health.ToString().Persian();
         return this;
     }

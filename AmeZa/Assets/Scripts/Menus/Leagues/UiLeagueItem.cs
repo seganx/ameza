@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class UiLeagueItem : Base
 {
     [SerializeField] private int index = 0;
+    [SerializeField] private Image image = null;
     [SerializeField] private LocalText nameLabel = null;
     [SerializeField] private LocalText descLabel = null;
+    [SerializeField] private LocalText ribbonLabel = null;
     [SerializeField] private Button button = null;
 
     private void Awake()
@@ -21,8 +23,14 @@ public class UiLeagueItem : Base
     private void Start()
     {
         var league = GlobalConfig.Leagues[index];
+        image.sprite = GlobalFactory.Leagues.GetCupSprite(league.playType);
         nameLabel.SetText(league.name);
         descLabel.SetText(league.desc);
+
+        if (league.ribbon.HasContent())
+            ribbonLabel.SetText(league.ribbon);
+        else
+            ribbonLabel.gameObject.SetActive(false);
 
         button.onClick.AddListener(() =>
         {

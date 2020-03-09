@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Popup_LeagueInfo : GameState
 {
     [SerializeField] private LocalText title = null;
-    [SerializeField] private Transform icons = null;
+    [SerializeField] private Image iconImage = null;
     [SerializeField] private LocalText descLabel = null;
     [SerializeField] private LocalText timeLabel = null;
     [SerializeField] private LocalText scoreLabel = null;
@@ -43,7 +43,7 @@ public class Popup_LeagueInfo : GameState
 
         title.SetText(info.name);
         descLabel.SetText(info.desc);
-        icons.SetActiveChild(index);
+        iconImage.sprite = GlobalFactory.Leagues.GetCupSprite(info.playType);
         rewardButton.SetInteractable(false);
         boardButton.SetInteractable(false);
         playButton.SetInteractable(false);
@@ -192,7 +192,7 @@ public class Popup_LeagueInfo : GameState
             confirmStr = string.Format(strformat, Profile.Nickname, nextProfile.nickname, scoreDelta);
         }
 
-        gameManager.OpenPopup<Popup_Confirm>().Setup(confirmStr, true, true, ok => callback(ok));
+        gameManager.OpenPopup<Popup_Confirm>().Setup(confirmStr, true, true, ok => callback(ok)).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
     }
 
     public static Online.League.Profile GetNextNearProfile(int score, int maxScoreDistance)

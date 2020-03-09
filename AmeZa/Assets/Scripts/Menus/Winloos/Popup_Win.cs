@@ -9,13 +9,21 @@ public class Popup_Win : GameState
     [SerializeField] private GameObject[] stars = null;
     [SerializeField] private LocalText desc = null;
     [SerializeField] private Button continueButton = null;
+    [SerializeField] private LocalText baloon = null;
 
     private System.Action nextTaskFunc = null;
+
+    private static int BaloonIndex
+    {
+        get { return PlayerPrefs.GetInt("Popup_Win.BaloonIndex", 0); }
+        set { PlayerPrefs.SetInt("Popup_Win.BaloonIndex", value); }
+    }
 
     private void Awake()
     {
         foreach (var star in stars)
             star.SetActive(false);
+        baloon.gameObject.SetActive(false);
     }
 
     // Use this for initialization
@@ -67,6 +75,18 @@ public class Popup_Win : GameState
         stars[1].SetActive(rewardStars > 1);
         yield return wait;
         stars[2].SetActive(rewardStars > 2);
+        yield return wait;
+
+        // Incentive  text
+        {
+            var index = BaloonIndex++ % 25;
+            var incentiveStr = LocalizationService.Get(111090 + index);
+            if (BaloonIndex < 25 || Random.Range(0, 100) < rewardStars * 25)
+            {
+                baloon.SetText(incentiveStr);
+                baloon.gameObject.SetActive(true);
+            }
+        }
     }
 
     public Popup_Win SetNextTask(System.Action nextTask)

@@ -18,8 +18,8 @@ public class UiPlayingMission : MonoBehaviour
     [SerializeField] private Image item1Image = null;
     [SerializeField] private LocalText item1Label = null;
     [SerializeField] private GameObject item1Checked = null;
-    [SerializeField] private LocalText scoreBallsLabel = null;
-    [SerializeField] private LocalText scoreBlocksLabel = null;
+    [SerializeField] private Image leagueScoreImage = null;
+    [SerializeField] private LocalText leagueScoreLabel = null;
     [SerializeField] private AnimationCurve itemMoveCurve = null;
     [SerializeField] private AnimationCurve itemScaleCurve = null;
 
@@ -34,11 +34,16 @@ public class UiPlayingMission : MonoBehaviour
     private IEnumerator Start()
     {
         levelNameLabel.SetText(PlayModel.level.name);
-        scoreBallsLabel.transform.parent.gameObject.SetActive(PlayModel.type == PlayModel.Type.LeagueBalls);
-        scoreBlocksLabel.transform.parent.gameObject.SetActive(PlayModel.type == PlayModel.Type.LeagueBlocks);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         // enable or disbale information billboards
+        if (PlayModel.IsLeague)
+        {
+            leagueScoreImage.sprite = GlobalFactory.Leagues.GetCupSprite(PlayModel.type);
+            leagueScoreImage.gameObject.SetActive(true);
+        }
+        else leagueScoreImage.gameObject.SetActive(false);
+
         if (PlayModel.level.targetBlocks > 0)
         {
             blocksLabel.transform.parent.gameObject.SetActive(true);
@@ -55,14 +60,14 @@ public class UiPlayingMission : MonoBehaviour
         if (PlayModel.level.targetItem0 > 0)
         {
             item0Label.transform.parent.gameObject.SetActive(true);
-            item0Image.sprite = GlobalFactory.Theme.GetSprite(PlayModel.level.theme, 0);
+            item0Image.sprite = GlobalFactory.Theme.Selected.items[0];
         }
         else item0Label.transform.parent.gameObject.SetActive(false);
 
         if (PlayModel.level.targetItem1 > 0)
         {
             item1Label.transform.parent.gameObject.SetActive(true);
-            item1Image.sprite = GlobalFactory.Theme.GetSprite(PlayModel.level.theme, 1);
+            item1Image.sprite = GlobalFactory.Theme.Selected.items[1];
         }
         else item1Label.transform.parent.gameObject.SetActive(false);
         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,11 +122,18 @@ public class UiPlayingMission : MonoBehaviour
                 else item1Label.SetText(diff.ToString());
             }
 
-            if (PlayModel.type == PlayModel.Type.LeagueBalls)
-                scoreBallsLabel.SetText(PlayModel.stats.totalBalls.ToString());
-
-            if (PlayModel.type == PlayModel.Type.LeagueBlocks)
-                scoreBlocksLabel.SetText(PlayModel.stats.totalBlocks.ToString());
+            switch (PlayModel.type)
+            {
+                case PlayModel.Type.LeagueBalls:
+                    leagueScoreLabel.SetText(PlayModel.stats.totalBalls.ToString());
+                    break;
+                case PlayModel.Type.LeagueBlocks:
+                    leagueScoreLabel.SetText(PlayModel.stats.totalBlocks.ToString());
+                    break;
+                case PlayModel.Type.LeagueLegends:
+                    leagueScoreLabel.SetText(PlayModel.stats.totalLegends.ToString());
+                    break;
+            }
 
             yield return wait;
         }

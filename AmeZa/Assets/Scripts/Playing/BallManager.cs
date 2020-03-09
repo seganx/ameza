@@ -74,8 +74,12 @@ public class BallManager : MonoBehaviour
                 {
                     if (param.Is<BlockBall>())
                     {
-                        var newball = SpawnBall(param.As<BlockBall>().transform.localPosition);
-                        newball.Rigidbody.velocity = PlayModel.level.startBallSpeed * new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+                        var ball = param.As<BlockBall>();
+                        if (ball.IsPregnant)
+                        {
+                            var newball = SpawnBall(ball.transform.localPosition);
+                            newball.Rigidbody.velocity = PlayModel.level.startBallSpeed * new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+                        }
                     }
                 }
                 break;

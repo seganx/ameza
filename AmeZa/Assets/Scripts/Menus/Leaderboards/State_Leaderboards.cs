@@ -71,7 +71,7 @@ public class State_Leaderboards : GameState
         if (leaguescore < 1) return;
 
         board.current.Sort((x, y) => y.score - x.score);
-        if (leaguescore < board.current.LastOne().score) return;
+        if (board.current.Count < 1 || leaguescore < board.current.LastOne().score) return;
 
         var mine = board.current.Find(x => x.username == Profile.Username);
         if (mine == null)

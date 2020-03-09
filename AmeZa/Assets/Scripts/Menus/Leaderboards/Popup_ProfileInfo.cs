@@ -43,6 +43,32 @@ public class Popup_ProfileInfo : GameState
         return this;
     }
 
+    public Popup_ProfileInfo Setup(Online.Friends.Friendship friend, string userdata, int rank)
+    {
+        avatar.Setup(friend.avatar);
+        nicknameLabel.SetText(friend.nickname);
+        statusLabel.SetText(friend.status);
+        scoreLabel.SetText(friend.level);
+        rankLabel.SetText(rank.ToString());
+
+        int leagueIndex = GlobalFactory.Friends.GetLeagueIndex(friend.level.ToInt());
+        medalImage.sprite = GlobalFactory.Friends.GetMedalSprite(leagueIndex);
+        medalLabel.SetText(GlobalFactory.Friends.GetMedalName(leagueIndex));
+
+        if (userdata != null)
+        {
+            var data = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(userdata, "{}"));
+            data.balls.Reverse();
+            foreach (var ballId in data.balls)
+                ballPrefab.Clone<Image>().sprite = GlobalFactory.Balls.GetSprite(ballId);
+            Destroy(ballPrefab.gameObject);
+        }
+        else ballPrefab.sprite = GlobalFactory.Balls.GetSprite(0);
+
+        return this;
+    }
+
+
     private void Start()
     {
         UiShowHide.ShowAll(transform);

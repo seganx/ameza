@@ -17,7 +17,7 @@ public class SeasonConfig : ScriptableObject, IResource
         public PatternConfig pattern = null;
     }
 
-    public int theme = 0;
+    [SerializeField] private int theme = 0;
     public int levelCount = 100;
     public Vector2Int maxBlockHealth = Vector2Int.zero;
     public Vector2Int startBallCount = Vector2Int.zero;
@@ -27,6 +27,7 @@ public class SeasonConfig : ScriptableObject, IResource
     public List<SpecialLevel> specialLevels = new List<SpecialLevel>();
 
     public int Id { get; set; }
+    public int Theme { get { return theme < 0 ? Id : theme; } }
 
     public LevelModel GetLevelModel(int index, int skillFactor)
     {
@@ -36,7 +37,7 @@ public class SeasonConfig : ScriptableObject, IResource
 
         var res = new LevelModel();
         res.season = Id;
-        res.theme = theme;
+        res.theme = Theme;
         res.index = index;
         res.name = (levelNumber + 1).ToString();
         res.progress = (index + 1) / (float)levelCount;

@@ -34,6 +34,8 @@ TextureImporter:
     21300058: Icon_Set_0_29
     21300060: Icon_Set_0_30
     21300062: Icon_Set_0_31
+    21300064: Icon_Set_0_32
+    21300066: Icon_Set_0_33
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -563,7 +565,35 @@ TextureImporter:
         width: 53
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Icon_Set_0_32
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 311
+        width: 52
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Icon_Set_0_33
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 312
+        width: 62
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

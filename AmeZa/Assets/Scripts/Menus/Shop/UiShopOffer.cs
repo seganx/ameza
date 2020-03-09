@@ -22,14 +22,14 @@ public class UiShopOffer : MonoBehaviour
     private IEnumerator Start()
     {
         PurchaseOffer.Setup(
-            GlobalConfig.OfferConfig.startIndex,
+            GlobalConfig.Offers.startIndex,
             GlobalConfig.Shop.offers.Count,
-            GlobalConfig.OfferConfig.firstDelay,
-            GlobalConfig.OfferConfig.offerDuration,
-            GlobalConfig.OfferConfig.coolTime,
-            GlobalConfig.OfferConfig.minResource,
-            GlobalConfig.OfferConfig.resourceTime,
-            GlobalConfig.OfferConfig.lastPurchaseTime);
+            GlobalConfig.Offers.firstDelay,
+            GlobalConfig.Offers.offerDuration,
+            GlobalConfig.Offers.coolTime,
+            GlobalConfig.Offers.minResource,
+            GlobalConfig.Offers.resourceTime,
+            GlobalConfig.Offers.lastPurchaseTime);
 
 #if UNITY_EDITOR
         PurchaseOffer.Setup(1, GlobalConfig.Shop.offers.Count, 10, 15, 10, 99999999, 5, 60);

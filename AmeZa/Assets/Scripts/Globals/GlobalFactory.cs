@@ -11,7 +11,6 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         public AnimationCurve moveDownCurve = new AnimationCurve(new Keyframe[2] { new Keyframe(0, 0), new Keyframe(1, 1) });
     }
 
-    [SerializeField] private int themeCount = 4;
     [SerializeField] private BlocksInfo blocks = new BlocksInfo();
     [SerializeField] private Sprite[] leagueMedals = null;
     [SerializeField] private Sprite[] leagueCups = null;
@@ -27,29 +26,26 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     ////////////////////////////////////////////////////////////
     public static class Theme
     {
-        public static int GetSpriteCount(int themeId)
+        private static ThemeConfig selected = null;
+        private static List<ResourceEx.File> all = new List<ResourceEx.File>();
+
+        public static ThemeConfig Selected { get { return selected; } }
+
+        public static List<ResourceEx.File> All
         {
-            themeId = themeId % Instance.themeCount;
-            return Resources.LoadAll<Sprite>("Game/Themes/" + themeId + "/Items").Length;
+            get
+            {
+                if (all.Count < 1)
+                    all = ResourceEx.LoadAll("Game/Themes/", false);
+                return all;
+            }
         }
 
-        public static Sprite GetSprite(int themeId, int index)
+        public static ThemeConfig Select(int index)
         {
-            themeId = themeId % Instance.themeCount;
-            var sprites = Resources.LoadAll<Sprite>("Game/Themes/" + themeId + "/Items");
-            return sprites[index % sprites.Length];
-        }
-
-        public static Sprite GetBackground(int themeId)
-        {
-            themeId = themeId % Instance.themeCount;
-            return Resources.Load<Sprite>("Game/Themes/" + themeId + "/Background");
-        }
-
-        public static ThemeSounds GetSounds(int themeId)
-        {
-            themeId = themeId % Instance.themeCount;
-            return Resources.Load<ThemeSounds>("Game/Themes/" + themeId + "/Sounds");
+            var file = All[index % All.Count];
+            selected = ResourceEx.Load<ThemeConfig>(file.path);
+            return selected;
         }
     }
 
@@ -155,14 +151,14 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         public static BlockBase CreateSimple(Transform parent, int x, int y, int itemIndex, int health)
         {
             var res = Resources.Load<BlockValue>("Blocks/Value").Clone<BlockValue>(parent).Setup(itemIndex, health).SetPosition(x, y);
-            Theme.GetSounds(PlayModel.level.theme).Clone<ThemeSounds>(res.transform);
+            Theme.Selected.sounds.Clone<ThemeSounds>(res.transform);
             return res;
         }
 
         public static BlockBase CreateBall(Transform parent, int x, int y)
         {
             var res = Resources.Load<BlockBall>("Blocks/Ball").Clone<BlockBall>(parent).SetPosition(x, y);
-            Theme.GetSounds(PlayModel.level.theme).Clone<ThemeSounds>(res.transform);
+            Theme.Selected.sounds.Clone<ThemeSounds>(res.transform);
             return res;
         }
     }
@@ -178,6 +174,17 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 if (all.Count < 1)
                     all = ResourceEx.LoadAllWithId<SeasonConfig>("Game/Seasons/", false);
                 return all;
+            }
+        }
+
+        public static int TotalLevels
+        {
+            get
+            {
+                int res = 0;
+                foreach (var season in all)
+                    res += season.levelCount;
+                return res;
             }
         }
 
@@ -209,6 +216,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 case PlayModel.Type.OneShot: return Instance.leagueCups[1];
                 case PlayModel.Type.LeagueBalls: return Instance.leagueCups[0];
                 case PlayModel.Type.LeagueBlocks: return Instance.leagueCups[1];
+                case PlayModel.Type.LeagueLegends: return Instance.leagueCups[2];
             }
             return Instance.leagueCups[0];
         }
@@ -251,7 +259,31 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         }
     }
 
-    public static class Joke
+    public static class Friends
+    {
+        public static string GetMedalName(int index)
+        {
+            index = Mathf.Clamp(index, 0, GlobalConfig.Friends.leagues.Count - 1);
+            return GlobalConfig.Friends.leagues[index].name;
+        }
+
+        public static Sprite GetMedalSprite(int index)
+        {
+            index = Mathf.Clamp(index, 0, Instance.leagueMedals.Length);
+            return Instance.leagueMedals[index];
+        }
+
+        public static int GetLeagueIndex(int level)
+        {
+            int res = 0;
+            for (int i = 1; i < GlobalConfig.Friends.leagues.Count; i++)
+                if (level >= GlobalConfig.Friends.leagues[i].startLevel)
+                    res = i;
+            return res;
+        }
+    }
+
+    public static class Jokes
     {
         private static System.DateTime lastTime = new System.DateTime(0);
         private static string[] current = null;
@@ -266,8 +298,8 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 // verification and chance
                 if (GlobalConfig.Jokes == null || GlobalConfig.Jokes.Count < 1) return false;
                 var deltatime = System.DateTime.Now - lastTime;
-                if (deltatime.TotalMinutes < 2) return false;
-                if (Random.Range(0, 100) > 30) return false;
+                if (deltatime.TotalMinutes < 3) return false;
+                if (Random.Range(0, 100) < 40) return false;
 
                 // save time and return new one
                 lastTime = System.DateTime.Now;
@@ -289,6 +321,31 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             var res = current;
             current = null;
             return res;
+        }
+    }
+
+    public static class Cinematics
+    {
+        private static List<CinematicConfig> all = new List<CinematicConfig>();
+
+        public static List<CinematicConfig> All
+        {
+            get
+            {
+                if (all.Count < 1)
+                    all = ResourceEx.LoadAll<CinematicConfig>("Game/Cinematics/", false);
+                return all;
+            }
+        }
+
+        public static CinematicConfig Get(int season, int level, CinematicConfig.Point point)
+        {
+            foreach (var item in All)
+            {
+                if (item.Check(season, level, point))
+                    return item;
+            }
+            return null;
         }
     }
 }

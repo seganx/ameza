@@ -99,7 +99,8 @@ public class State_Levels : GameState
             else
                 seasonState = SeasonState.Completed;
 
-            themeImage.sprite = GlobalFactory.Theme.GetBackground(season.theme);
+            GlobalFactory.Theme.Select(season.Theme);
+            themeImage.sprite = GlobalFactory.Theme.Selected.previewBackground;
         }
 
         title.SetFormatedText(CurrentSeason + 1);
@@ -120,27 +121,14 @@ public class State_Levels : GameState
             chestAnimation.transform.AsRectTransform().localRotation = Quaternion.identity;
         }
 
+        // display cinematic
+        var cinematic = GlobalFactory.Cinematics.Get(CurrentSeason, openedLevels, CinematicConfig.Point.End);
+        if (cinematic != null)
+            gameManager.OpenPopup<Popup_Cinematic>().Setup(cinematic, CheckTutorial);
+        else
+            CheckTutorial();
 
-        if (seasonState == SeasonState.Progressing)
-        {
-            bool displayed = false;
 
-            if (CurrentSeason == 0)
-                displayed = tutorial.Display(1, true, 111041, () => tutorial.Display(0, true, 111054, () => tutorial.Display(0, true, 111055, null)));
-            else if (CurrentSeason == 1)
-                displayed = tutorial.Display(1, true, 111039, () => tutorial.Display(0, true, 111040, null));
-            else if (CurrentSeason == 2)
-                displayed = tutorial.Display(1, true, 111050, () => tutorial.Display(0, true, 111051, () => tutorial.Display(0, true, 111052, null)));
-            else if (CurrentSeason == 3)
-                displayed = tutorial.Display(1, true, 111042, () => tutorial.Display(0, true, 111043, null));
-            else
-                displayed = tutorial.Display(1, true, 111056, () => tutorial.Display(0, true, 111057, null));
-
-            if (displayed == false)
-                tutorial.DisplayJoke(1);
-        }
-        else if (seasonState == SeasonState.CanClaimReward)
-            tutorial.Display(1, false, 111035, () => tutorial.Display(0, true, 111036, null));
 
 #if UNITY_EDITOR
         nextButton.SetInteractable(season != null);
@@ -165,6 +153,30 @@ public class State_Levels : GameState
 
         if (enabledIndex > 15)
             DelayCall(0.1f, () => content.SetAnchordPositionY((enabledIndex - 12) * 110 / 4));
+    }
+
+    private void CheckTutorial()
+    {
+        if (seasonState == SeasonState.Progressing)
+        {
+            bool displayed = false;
+
+            if (CurrentSeason == 0)
+                displayed = tutorial.Display(1, true, 111041, () => tutorial.Display(0, true, 111054, () => tutorial.Display(0, true, 111055, null)));
+            //else if (CurrentSeason == 1)
+            //    displayed = tutorial.Display(1, true, 111039, () => tutorial.Display(0, true, 111040, null));
+            //else if (CurrentSeason == 2)
+            //    displayed = tutorial.Display(1, true, 111050, () => tutorial.Display(0, true, 111051, () => tutorial.Display(0, true, 111052, null)));
+            else if (CurrentSeason == 3)
+                displayed = tutorial.Display(1, true, 111042, () => tutorial.Display(0, true, 111043, null));
+            //else
+            //    displayed = tutorial.Display(1, true, 111056, () => tutorial.Display(0, true, 111057, null));
+
+            if (displayed == false)
+                tutorial.DisplayJoke(1);
+        }
+        else if (seasonState == SeasonState.CanClaimReward)
+            tutorial.Display(1, false, 111035, () => tutorial.Display(0, true, 111036, null));
     }
 
     public override void Back()

@@ -22,6 +22,13 @@ public class ProfileData
     }
 
     [System.Serializable]
+    public class FriendData
+    {
+        public int id = 0;
+        public int rewarded = 0;
+    }
+
+    [System.Serializable]
     public class PrivateData
     {
         public CryptoInt sessions = 0;
@@ -32,6 +39,7 @@ public class ProfileData
         public CryptoInt hammers = 0;
         public CryptoInt skill = 0;
         public List<int> balls = new List<int>() { 0 };
+        public List<FriendData> friends = new List<FriendData>();
         public List<SeasonData> seasons = new List<SeasonData>();
 
         public string Datahash

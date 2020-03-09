@@ -63,6 +63,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public string name = string.Empty;
             [PersianPreview]
             public string desc = string.Empty;
+            [PersianPreview]
+            public string ribbon = string.Empty;
 
             public List<SubLeague> subleagus = new List<SubLeague>();
         }
@@ -102,6 +104,23 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int resourceTime = 3 * 60 * 60;
             public int offerDuration = 24 * 60 * 60;
             public int lastPurchaseTime = 5 * 24 * 60 * 60;
+        }
+
+        [System.Serializable]
+        public class Friends
+        {
+            [System.Serializable]
+            public class League
+            {
+                [PersianPreview]
+                public string name = string.Empty;
+                public int startLevel = 0;
+            }
+
+            public int maxCount = 10;
+            public int minRewardLevel = 12;
+            public int rewardGems = 50;
+            public List<League> leagues = new List<League>();
         }
 
         [System.Serializable]
@@ -151,8 +170,9 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public Socials socials = new Socials();
         public Difficulty difficulty = new Difficulty();
         public Timers timers = new Timers();
-        public OfferConfig offerConfig = new OfferConfig();
+        public OfferConfig offers = new OfferConfig();
         public List<League> leagues = new List<League>();
+        public Friends friends = new Friends();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
         public List<string> jokes = new List<string>();
@@ -203,7 +223,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Socials Socials { get { return Instance.data.socials; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty; } }
     public static Data.Timers Timers { get { return Instance.data.timers; } }
-    public static Data.OfferConfig OfferConfig { get { return Instance.data.offerConfig; } }
+    public static Data.OfferConfig Offers { get { return Instance.data.offers; } }
+    public static Data.Friends Friends { get { return Instance.data.friends; } }
     public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
     public static List<Data.League> Leagues { get { return Instance.data.leagues; } }
@@ -236,6 +257,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         if (newdata == null) return false;
 
         //  set new data
+        newdata.jokes = Instance.data.jokes;
         Instance.data = newdata;
         SaveData(newdata);
         SeganX.Console.Logger.Enabled = DebugMode;

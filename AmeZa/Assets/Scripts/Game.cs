@@ -157,5 +157,17 @@ namespace SeganX
             GlobalConfig.DebugMode = true;
             Profile.Reset();
         }
+
+        [Console("friends", "add")]
+        public static void AddFriends(string username)
+        {
+            Online.Friends.Add(username, (success, res) => res.GetStringDebug());
+        }
+
+        [Console("friends", "get")]
+        public static void GetFriends()
+        {
+            Online.Friends.Get((success, res) => res.GetStringDebug());
+        }
     }
 }

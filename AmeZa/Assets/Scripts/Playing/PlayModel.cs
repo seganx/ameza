@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using SeganX;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SeganX;
 
 public static class PlayModel
 {
-    public enum Type { Levels, OneShot, LeagueBalls, LeagueBlocks }
+    public enum Type { Levels, OneShot, LeagueBalls, LeagueBlocks, LeagueLegends }
 
     public class Stats
     {
@@ -15,6 +15,7 @@ public static class PlayModel
         public int totalLevelHealth = 0;
         public int totalItem0 = 0;
         public int totalItem1 = 0;
+        public int totalLegends { get { return totalTurn + totalBalls + totalBlocks; } }
     }
 
     public static Type type = Type.Levels;
@@ -25,6 +26,8 @@ public static class PlayModel
     public static Stats stats = new Stats();
     public static LevelModel level = new LevelModel();
 
+
+    public static bool IsLeague { get { return type == Type.LeagueBalls || type == Type.LeagueBlocks || type == Type.LeagueLegends; } }
 
     public static bool IsClearBlocks { get { return type == Type.Levels && IsTargetExist == false; } }
 
@@ -66,6 +69,7 @@ public static class PlayModel
         {
             case Type.LeagueBalls: score = stats.totalBalls; break;
             case Type.LeagueBlocks: score = stats.totalBlocks; break;
+            case Type.LeagueLegends: score = stats.totalLegends; break;
         }
         return score;
     }

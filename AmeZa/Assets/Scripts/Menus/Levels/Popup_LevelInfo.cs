@@ -11,6 +11,8 @@ public class Popup_LevelInfo : GameState
     [SerializeField] private LocalText ballsLabel = null;
     [SerializeField] private GameObject targetItemsDesc = null;
     [SerializeField] private GameObject allitemsDesc = null;
+    [SerializeField] private Image targetItem0Image = null;
+    [SerializeField] private Image targetItem1Image = null;
     [SerializeField] private Text targetItem0Label = null;
     [SerializeField] private Text targetItem1Label = null;
     [SerializeField] private Text targetBallsLabel = null;
@@ -29,6 +31,9 @@ public class Popup_LevelInfo : GameState
         var ballsprite = GlobalFactory.Balls.GetSprite(Profile.Avatar.BallId);
         foreach (var ballimage in ballImages)
             ballimage.sprite = ballsprite;
+
+        targetItem0Image.sprite = GlobalFactory.Theme.Selected.items[0];
+        targetItem1Image.sprite = GlobalFactory.Theme.Selected.items[1];
 
         targetItem0Label.text = levelmodel.targetItem0.ToString();
         targetItem1Label.text = levelmodel.targetItem1.ToString();
@@ -58,7 +63,6 @@ public class Popup_LevelInfo : GameState
                 PlayModel.onWin = () =>
                 {
                     GlobalAnalytics.LevelWin(season.Id, index, PlayModel.GetRewardStars());
-                    Online.Stats.Set(Profile.Gems, Profile.Skill, GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1), success => { });
 
                     if (season.Id > 0)
                         Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;

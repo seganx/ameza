@@ -102,7 +102,10 @@ public class UiShopItem : MonoBehaviour
         PurchaseSystem.Consume(pack.sku, (success, msg) =>
         {
             if (success)
+            {
+                Online.Stats.Set(Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), r => { });
                 GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
+            }
         });
     }
 }

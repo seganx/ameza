@@ -8,6 +8,7 @@ public class UiTutorial : MonoBehaviour
 {
     [SerializeField] private LocalText label = null;
     [SerializeField] private Button backButton = null;
+    [SerializeField] private UiCharacter character = null;
 
     public bool Visible { get; private set; }
 
@@ -47,25 +48,35 @@ public class UiTutorial : MonoBehaviour
 
     public bool DisplayJoke(float delay)
     {
-        if (GlobalFactory.Joke.Exist == false) return false;
-        var jokparts = GlobalFactory.Joke.Pick();
-
-        if (jokparts.Length < 1) return false;
-        Display(delay, jokparts[0], () =>
-        {
-            if (jokparts.Length < 2) return;
-            Display(0, jokparts[1], () =>
-            {
-                if (jokparts.Length < 3) return;
-                Display(0, jokparts[2], () =>
-                {
-                    if (jokparts.Length < 4) return;
-                    Display(0, jokparts[3], null);
-                });
-            });
-        });
-
+        if (GlobalFactory.Jokes.Exist == false) return false;
+        Invoke("DoDisplayJoke", delay);
         return true;
+    }
+
+    public void DoDisplayJoke()
+    {
+        var jokparts = GlobalFactory.Jokes.Pick();
+        if (jokparts.IsNullOrEmpty() || jokparts.Length < 1) return;
+
+        Display(0, jokparts[0], () =>
+        {
+            if (jokparts.Length > 1)
+            {
+                if (character) character.SetBody(1).SetFace(0);
+                Display(0, jokparts[1], () =>
+                {
+                    if (jokparts.Length > 2)
+                        Display(0, jokparts[2], () =>
+                        {
+                            if (jokparts.Length > 3)
+                                Display(0, jokparts[3], () => { if (character) character.SetBody(0).SetFace(1); });
+                            else if (character) character.SetBody(0).SetFace(1);
+                        });
+                    else if (character) character.SetBody(0).SetFace(1);
+                });
+            }
+            else if (character) character.SetBody(0).SetFace(1);
+        });
     }
 
     // return true if tutorial was opened and false if not

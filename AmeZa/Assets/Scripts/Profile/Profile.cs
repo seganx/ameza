@@ -173,6 +173,14 @@ public class Profile : MonoBehaviour
         return index <= season.levels.Count;
     }
 
+    public static int GetLevelsPassed()
+    {
+        if (data.privateData.seasons.Count < 1) return 0;
+        data.privateData.seasons.Sort((x, y) => x.id - y.id);
+        var season = data.privateData.seasons.LastOne();
+        return GlobalFactory.Seasons.GetLevelNumber(season.id, season.levels.Count);
+    }
+
     public static int GetSeasonProgress(int seasonId)
     {
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
@@ -207,6 +215,31 @@ public class Profile : MonoBehaviour
             season.levels.Add(stars);
         else if (season.levels[index] < stars)
             season.levels[index] = stars;
+    }
+
+    public static bool IsFriendRewarded(int id, int level)
+    {
+        if (level < GlobalConfig.Friends.minRewardLevel) return false;
+        var item = data.privateData.friends.Find(x => x.id == id);
+        if (item == null)
+        {
+            item = new ProfileData.FriendData();
+            item.id = id;
+            data.privateData.friends.Add(item);
+        }
+        return item.rewarded > 0;
+    }
+
+    public static void SetFriendRewarded(int id, int gems)
+    {
+        var item = data.privateData.friends.Find(x => x.id == id);
+        if (item == null)
+        {
+            item = new ProfileData.FriendData();
+            item.id = id;
+            data.privateData.friends.Add(item);
+        }
+        item.rewarded = gems;
     }
 
     public static void SaveLocal()
