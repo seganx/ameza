@@ -14,12 +14,9 @@ public class Popup_Cinematic : GameState
     [SerializeField] private Button nextButton = null;
 
     private int index = 0;
-    private CinematicConfig cinematic = null;
 
     public Popup_Cinematic Setup(CinematicConfig cinematic, System.Action onClose)
     {
-        this.cinematic = cinematic;
-
         backgroundImage.sprite = cinematic.background;
         backgroundImage.color = cinematic.background == null ? emptyBackgroundColor : Color.white;
 

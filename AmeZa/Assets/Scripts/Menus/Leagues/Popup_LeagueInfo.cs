@@ -149,7 +149,7 @@ public class Popup_LeagueInfo : GameState
             {
                 var subleague = GlobalFactory.Leagues.GetByScore(info, data.end_score);
                 Profile.EarnGems(subleague.rewardGems);
-                gameManager.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.Joy += 2);
+                gameManager.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.AddJoy(2));
                 data.end_score = data.end_rank = 0;
             }
             else rewardButton.SetInteractable(true);

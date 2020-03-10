@@ -38,12 +38,12 @@ public class State_Playing : GameState
         AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
 
         yield return new WaitForSeconds(0.5f);
-        if (PlayModel.level.season == 0 && PlayModel.level.index == 0)
+        if (PlayModel.level.season == 0 && (PlayModel.level.index == 0 || PlayModel.level.index == 1))
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(true);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
             tutorial.transform.GetChild(2).gameObject.SetActive(false);
-            tutorial.Display(0, true, 111037, null);
+            tutorial.Display(0, false, 111037, null);
         }
         else if (PlayModel.level.index > 1)
         {
@@ -66,7 +66,7 @@ public class State_Playing : GameState
 
                 if (PlayModel.level.index == 1)
                 {
-                    DelayCall(0.1f, () =>
+                    DelayCall(0.2f, () =>
                     {
                         tutorial.transform.GetChild(0).gameObject.SetActive(false);
                         tutorial.transform.GetChild(1).gameObject.SetActive(true);
@@ -162,8 +162,11 @@ public class State_Playing : GameState
             PlayModel.onLose();
     }
 
+#if UNITY_EDITOR
+#else
     private void OnDestroy()
     {
         Online.Stats.Set(Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), success => { });
     }
+#endif
 }

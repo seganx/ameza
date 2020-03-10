@@ -40,11 +40,11 @@ public class Popup_AddFriend : GameState
                 Online.Friends.Add(username, (success, friend) =>
                 {
                     Loading.Hide();
-                    if (success && onSuccessFunc != null)
-                    {
-                        onSuccessFunc(friend);
-                    }
                     Back();
+                    if (success && onSuccessFunc != null)
+                        onSuccessFunc(friend);
+                    else
+                        gameManager.OpenPopup<Popup_Confirm>().Setup(111124, true, false, null);
                 });
             }
         });

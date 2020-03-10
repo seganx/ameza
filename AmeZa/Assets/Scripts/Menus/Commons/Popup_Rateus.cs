@@ -10,6 +10,14 @@ public class Popup_Rateus : GameState
     [SerializeField] private GameObject[] stars = null;
     [SerializeField] private Button sendButton = null;
 
+    private System.Action onCloseFunc = null;
+
+    public Popup_Rateus Setup(System.Action onClose)
+    {
+        onCloseFunc = onClose;
+        return this;
+    }
+
     private void Start()
     {
         UpdateVisual();
@@ -40,8 +48,8 @@ public class Popup_Rateus : GameState
 
     public override void Back()
     {
-        Rateus.Joy *= -1;
         base.Back();
+        if (onCloseFunc != null) onCloseFunc();
     }
 }
 
@@ -54,14 +62,19 @@ public static class Rateus
         set { PlayerPrefs.SetInt("Rateing.Current", value); }
     }
 
-    public static int Joy
+    private static int Joy
     {
         get { return PlayerPrefs.GetInt("Rateing.Joy", 0); }
-        set
+        set { PlayerPrefs.SetInt("Rateing.Joy", value); }
+    }
+
+    public static void AddJoy(int value, System.Action afterPopup = null)
+    {
+        Joy += value;
+        if (Joy >= 4 && Current < 2)
         {
-            PlayerPrefs.SetInt("Rateing.Joy", value);
-            if (value >= 4 && Current < 2)
-                Game.Instance.OpenPopup<Popup_Rateus>();
+            Joy *= -1;
+            Game.Instance.OpenPopup<Popup_Rateus>().Setup(afterPopup);
         }
     }
 }

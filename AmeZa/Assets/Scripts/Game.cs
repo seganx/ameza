@@ -11,6 +11,12 @@ namespace SeganX
         [SerializeField] private bool stopLoading = false;
 #endif
 
+        public static int LastVersion
+        {
+            get { return PlayerPrefs.GetInt("Game.LastVersion", 14); }
+            set { PlayerPrefs.SetInt("Game.LastVersion", value); }
+        }
+
         // Use this for initialization
         private IEnumerator Start()
         {
@@ -22,17 +28,31 @@ namespace SeganX
 #if LOCALPUSH
             LocalPush.NotificationManager.CancelAll();
 #endif
-
-            FirstInitialization();
             yield return new WaitForSeconds(0.1f);
 
-            PurchaseSystem.Initialize(GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl, (succeed, msg) => Debug.Log("Purchase system initialized!"));
+            PurchaseSystem.Initialize(GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl);
 
             Loading.Show();
             Profile.Sync(false, succss =>
             {
                 Loading.Hide();
-                OpenState<State_Main>();
+
+                // verify that the game has been updated
+                if (Profile.GetLevelsPassed() > 0 && LastVersion != GlobalConfig.Instance.version && LastVersion < 15)
+                {
+                    OpenPopup<Popup_Confirm>().Setup(111123, true, true, ok =>
+                    {
+                        if (ok)
+                        {
+                            Profile.ResetLevels();
+                            State_Levels.CurrentSeason = 0;
+                        }
+                        OpenState<State_Main>();
+                    });
+                }
+                else OpenState<State_Main>();
+
+                LastVersion = GlobalConfig.Instance.version;
             });
         }
 
@@ -57,15 +77,6 @@ namespace SeganX
         private void OnApplicationQuit()
         {
             ScheduleLocalPush();
-        }
-
-        private void FirstInitialization()
-        {
-            if (PlayerPrefs.GetInt(name + ".Inited", 0) > 0) return;
-            PlayerPrefs.SetInt(name + ".Inited", 1);
-
-            // init timers
-            //Online.Timer.SetTimer(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
         }
 
 

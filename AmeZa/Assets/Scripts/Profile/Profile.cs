@@ -217,6 +217,12 @@ public class Profile : MonoBehaviour
             season.levels[index] = stars;
     }
 
+    public static void ResetLevels()
+    {
+        data.privateData.seasons.Clear();
+        SaveLocal();
+    }
+
     public static bool IsFriendRewarded(int id, int level)
     {
         if (level < GlobalConfig.Friends.minRewardLevel) return false;

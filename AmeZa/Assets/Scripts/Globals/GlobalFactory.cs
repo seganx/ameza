@@ -298,8 +298,8 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 // verification and chance
                 if (GlobalConfig.Jokes == null || GlobalConfig.Jokes.Count < 1) return false;
                 var deltatime = System.DateTime.Now - lastTime;
-                if (deltatime.TotalMinutes < 3) return false;
-                if (Random.Range(0, 100) < 40) return false;
+                if (deltatime.TotalMinutes < 5) return false;
+                if (Random.Range(0, 100) > 25) return false;
 
                 // save time and return new one
                 lastTime = System.DateTime.Now;

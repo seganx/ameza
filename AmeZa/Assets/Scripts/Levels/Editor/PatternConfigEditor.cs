@@ -97,8 +97,8 @@ public class PatternConfigEditor : Editor
     {
         int length = PatternConfig.width * obj.height;
         while (obj.blocks.Count < length)
-            obj.blocks.Add(BlockType.Null);
+            obj.blocks.Insert(0, BlockType.Null);
         while (obj.blocks.Count > length)
-            obj.blocks.RemoveAt(obj.blocks.Count - 1);
+            obj.blocks.RemoveAt(0);
     }
 }

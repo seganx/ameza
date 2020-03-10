@@ -37,9 +37,27 @@ public class UIBackground : MonoBehaviour
         heartsButton.onClick.AddListener(() => { if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
-        friendsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Friends>(); });
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Socials.storeUrl); });
         settingsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Settings>(); });
+
+        friendsButton.onClick.AddListener(() =>
+        {
+            if (Profile.HasNickname)
+            {
+                Game.Instance.OpenPopup<Popup_Friends>();
+            }
+            else
+            {
+                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111121, true, false, ok =>
+                {
+                    if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                    {
+                        if (Profile.HasNickname)
+                            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111122, true, false, null);
+                    });
+                });
+            }
+        });
 
         UiShowHide.ShowAll(transform);
 
@@ -47,7 +65,7 @@ public class UIBackground : MonoBehaviour
         while (true)
         {
             avatar.Setup(Profile.Avatar.Current);
-            updateButton.gameObject.SetActive(GlobalConfig.Update != GlobalConfig.Data.Update.Null);
+            updateButton.gameObject.SetActive(GlobalConfig.Update.mode != GlobalConfig.Data.Update.Mode.Null);
             nickNameLabel.SetText(Profile.Nickname);
             gems.SetText(Profile.Gems.ToString("#,0"));
             heartsCount.SetText(Profile.Hearts.ToString());

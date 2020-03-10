@@ -18,12 +18,20 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     [System.Serializable]
     public class Data
     {
-        public enum Update : int
+        [System.Serializable]
+        public class Update
         {
-            Null = 0,
-            Soft = 1,
-            Force = 2,
+            public enum Mode : int
+            {
+                Null = 0,
+                Soft = 1,
+                Force = 2,
+            }
+
+            public Mode mode = Mode.Null;
+            public int rewardGems = 1000;
         }
+
 
         [System.Serializable]
         public class ProfilePreset
@@ -166,7 +174,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         }
 
 
-        public Update update = Update.Null;
+        public Update update = new Update();
         public Socials socials = new Socials();
         public Difficulty difficulty = new Difficulty();
         public Timers timers = new Timers();

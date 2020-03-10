@@ -46,12 +46,7 @@ public class State_Levels : GameState
                 Profile.Bombs += reward.bombs;
                 Profile.Hammers += reward.hammers;
                 Profile.Missiles += reward.missiles;
-                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () =>
-                {
-                    Rateus.Joy += 4;
-                    nextButton.onClick.Invoke();
-                });
-                UpdateVisual();
+                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () => Rateus.AddJoy(4, () => nextButton.onClick.Invoke()));
             }
             else tutorial.Display(0, false, 111041, null);
         });
@@ -188,7 +183,7 @@ public class State_Levels : GameState
     ////////////////////////////////////////////////////////////
     /// STATIC MEMBERS
     ////////////////////////////////////////////////////////////
-    private static int CurrentSeason
+    public static int CurrentSeason
     {
         get { return PlayerPrefs.GetInt("State_Levels.CurrentSeason", 0); }
         set { PlayerPrefs.SetInt("State_Levels.CurrentSeason", value); }

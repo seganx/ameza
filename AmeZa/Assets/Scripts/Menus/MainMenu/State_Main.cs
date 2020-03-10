@@ -13,7 +13,6 @@ public class State_Main : GameState
     [SerializeField] private LocalText luckyTimeLabel = null;
     [SerializeField] private UiTutorial tutorial = null;
 
-
     private IEnumerator Start()
     {
         UIBackground.Show();

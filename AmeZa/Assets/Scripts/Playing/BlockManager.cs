@@ -82,22 +82,39 @@ public class BlockManager : Base
     {
         var list = PlayModel.level.pattern.GetBlocks(step);
 
-        int list_rows = (list.Count / PatternConfig.width);
-        if (list_rows > 1)
+        if (PlayModel.level.pattern.wrapMode == PatternConfig.WrapMode.Clamp)
         {
-            const int range = 2;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] != BlockType.RandomValue) continue;
+
+                // computing exact row index of the whole pattern
+                int row = (list.Count - i - 1) / PatternConfig.width;
+                row += step == 0 ? 0 : (PlayModel.level.pattern.startLength + step - 1);
+                var rowlowe = Mathf.Max(0, row - 2);
+                var rowhigh = Mathf.Min(row + 2, PlayModel.level.pattern.height);
+                int vallowe = (int)Mathf.LerpUnclamped(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth, (float)rowlowe / PlayModel.level.pattern.height);
+                int valhigh = (int)Mathf.LerpUnclamped(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth, (float)rowhigh / PlayModel.level.pattern.height);
+
+                list[i] = (BlockType)Utilities.RandomDoubleHigh(vallowe, valhigh);
+                //list[i] = (BlockType)Random.Range(vallowe, valhigh);
+            }
+
+#if OFF
+            const int range = 0;
+            int height = PlayModel.level.pattern.height;
             int healthdelta = PlayModel.level.maxBlockHealth - PlayModel.level.minBlockHealth;
 
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i] == BlockType.RandomValue)
-                {
-                    int row = (i / PatternConfig.width);
-                    int max = (healthdelta * (list_rows - row + range) / (list_rows + range));
-                    int min = Mathf.Max(1, (healthdelta * (list_rows - row - range) / list_rows));
-                    list[i] = (BlockType)PlayModel.level.minBlockHealth + Utilities.RandomDoubleHigh(min, max + 1);
-                }
+                if (list[i] != BlockType.RandomValue) continue;
+
+                int row = (i / PatternConfig.width) + step == 0 ? 0 : PlayModel.level.pattern.startLength + step;
+                int max = (healthdelta * (height - row + range) / (height + range));
+                int min = Mathf.Max(1, (healthdelta * (height - row - range) / height));
+                list[i] = (BlockType)PlayModel.level.minBlockHealth + Utilities.RandomDoubleHigh(min, max + 1);
             }
+#endif
         }
         else
         {
