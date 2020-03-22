@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SeganX
 {
     [DefaultExecutionOrder(-1)]
-    public class Game : GameManager<Game>
+    public partial class Game : GameManager
     {
 #if UNITY_EDITOR
         [SerializeField] private bool stopLoading = false;
@@ -13,7 +13,7 @@ namespace SeganX
 
         public static int LastVersion
         {
-            get { return PlayerPrefs.GetInt("Game.LastVersion", 14); }
+            get { return PlayerPrefs.GetInt("Game.LastVersion", GlobalConfig.Instance.version); }
             set { PlayerPrefs.SetInt("Game.LastVersion", value); }
         }
 
@@ -30,7 +30,7 @@ namespace SeganX
 #endif
             yield return new WaitForSeconds(0.1f);
 
-            PurchaseSystem.Initialize(GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl);
+            PurchaseSystem.Initialize(GlobalConfig.Instance.version, GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl);
 
             Loading.Show();
             Profile.Sync(false, succss =>
@@ -161,7 +161,7 @@ namespace SeganX
         }
 
         [Console("game", "reset", "Clear all progress data from local/server!")]
-        public static void Reset()
+        public static void ResetGame()
         {
             Application.Quit();
             Console.Logger.ClearData();

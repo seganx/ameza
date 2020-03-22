@@ -1,0 +1,67 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SeasonModel
+{
+    [System.Serializable]
+    public class Mission
+    {
+        public int index = 0;
+        public int patternId = 0;
+        public int targetBalls = 0;
+        public int targetBlocks = 0;
+        public int targetItem0 = 0;
+        public int targetItem1 = 0;
+    }
+
+    public int id = 0;
+    public int levelCount = 100;
+    public Vector2Int maxBlockHealth = Vector2Int.zero;
+    public Vector2Int startBallCount = Vector2Int.zero;
+    public RewardModel levelReward = new RewardModel();
+    public RewardModel finalReward = new RewardModel();
+    public List<Mission> missions = new List<Mission>();
+
+    public LevelModel GetLevelModel(int index, int skillFactor)
+    {
+        int levelIndex = GlobalFactory.Seasons.GetLevelNumber(id, index);
+        int difficultyCurveId = Mathf.Clamp(id, 0, GlobalConfig.Difficulty.curves.Length - 1);
+        var difficultyCurve = GlobalConfig.Difficulty.curves[difficultyCurveId];
+
+        var res = new LevelModel();
+        res.season = id;
+        res.theme = id;
+        res.index = index;
+        res.name = (levelIndex + 1).ToString();
+        res.progress = (index + 1) / (float)levelCount;
+        res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
+        res.minBlockHealth = res.startBallCount / 4;
+        res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyCurve.Evaluate(res.progress)));
+        res.reward = levelReward;
+
+        res.minBlockHealth += res.minBlockHealth * skillFactor / 500;
+        res.maxBlockHealth += res.maxBlockHealth * skillFactor / 100;
+
+        var specialLevel = missions.Find(x => x.index == index);
+        if (specialLevel != null)
+        {
+            res.pattern = GlobalFactory.Patterns.Missions.Get(specialLevel.patternId);
+            res.targetBalls = specialLevel.targetBalls;
+            res.targetBlocks = specialLevel.targetBlocks;
+            res.targetItem0 = specialLevel.targetItem0;
+            res.targetItem1 = specialLevel.targetItem1;
+        }
+        else
+        {
+            if (levelIndex < GlobalFactory.Patterns.Levels.All.Count)
+                res.pattern = GlobalFactory.Patterns.Levels.Get(levelIndex);
+            else
+                res.pattern = GlobalFactory.Patterns.Randoms.Get(levelIndex);
+            res.pattern.randomer = new System.Random(levelIndex);
+            res.targetTurns = 0;
+        }
+
+        return res;
+    }
+}

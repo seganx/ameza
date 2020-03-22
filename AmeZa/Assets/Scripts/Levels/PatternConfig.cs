@@ -23,6 +23,7 @@ public class PatternConfig : ScriptableObject, IResource
     public RandomBehave verticalRandom = new RandomBehave();
     public List<BlockType> blocks = new List<BlockType>();
 
+    public System.Random randomer = null;
     private int resultStep = -1;
     private List<BlockType> resultList = new List<BlockType>(width * width);
 
@@ -66,12 +67,16 @@ public class PatternConfig : ScriptableObject, IResource
         List<BlockType> tmp = null;
 
         if (verticalRandom.activated && verticalRandom.startStep < step)
-            tmp = GetRow(Random.Range(0, 1000) % height);
-        else
-            tmp = GetRow(step);
+        {
+            if (randomer == null)
+                tmp = GetRow(Random.Range(0, 1000) % height);
+            else
+                tmp = GetRow(randomer.Next(0, 1000) % height);
+        }
+        else tmp = GetRow(step);
 
         if (horizontalRandom.activated && horizontalRandom.startStep < step)
-            tmp.Shuffle();
+            tmp.Shuffle(randomer);
 
         resultList.AddRange(tmp);
     }

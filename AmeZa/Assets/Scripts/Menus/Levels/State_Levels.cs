@@ -22,7 +22,7 @@ public class State_Levels : GameState
     [SerializeField] private UiTutorial tutorial = null;
 
     private RectTransform content = null;
-    private SeasonConfig season = null;
+    private SeasonModel season = null;
     private float seasonProgress = 0;
     private SeasonState seasonState = SeasonState.Null;
 
@@ -41,7 +41,7 @@ public class State_Levels : GameState
             if (seasonState == SeasonState.CanClaimReward)
             {
                 var reward = season.finalReward.GetResult();
-                Profile.SetSeasonRewarded(season.Id, 1);
+                Profile.SetSeasonRewarded(season.id, 1);
                 Profile.EarnGems(reward.gems);
                 Profile.Bombs += reward.bombs;
                 Profile.Hammers += reward.hammers;
@@ -94,7 +94,7 @@ public class State_Levels : GameState
             else
                 seasonState = SeasonState.Completed;
 
-            GlobalFactory.Theme.Select(season.Theme);
+            GlobalFactory.Theme.Select(season.id);
             themeImage.sprite = GlobalFactory.Theme.Selected.previewBackground;
         }
 
@@ -119,7 +119,7 @@ public class State_Levels : GameState
         // display cinematic
         var cinematic = GlobalFactory.Cinematics.Get(CurrentSeason, openedLevels, CinematicConfig.Point.End);
         if (cinematic != null)
-            gameManager.OpenPopup<Popup_Cinematic>().Setup(cinematic, CheckTutorial);
+            game.OpenPopup<Popup_Cinematic>().Setup(cinematic, CheckTutorial);
         else
             CheckTutorial();
 
@@ -129,7 +129,7 @@ public class State_Levels : GameState
         nextButton.SetInteractable(season != null);
         prevButton.SetInteractable(CurrentSeason > 0);
 #else
-        nextButton.SetInteractable(season != null && Profile.GetSeasonRewarded(season.Id) > 0);
+        nextButton.SetInteractable(season != null && Profile.GetSeasonRewarded(season.id) > 0);
         prevButton.SetInteractable(CurrentSeason > 0);
 #endif
     }
@@ -141,7 +141,7 @@ public class State_Levels : GameState
         int enabledIndex = 0;
         for (int i = 0; i < season.levelCount; i++)
         {
-            var canOpen = Profile.CanOpenLevel(season.Id, i);
+            var canOpen = Profile.CanOpenLevel(season.id, i);
             levelItem.Clone<UiLevelItem>().Setup(season, i, canOpen).gameObject.SetActive(true);
             if (canOpen) enabledIndex = i;
         }

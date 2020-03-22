@@ -90,7 +90,7 @@ public class Popup_Lose : GameState
 
     private void BuyBooster(int count, int price, System.Action<int> onSuccess)
     {
-        gameManager.OpenPopup<Popup_Confirm>().SetText(111003, count, price).Setup(true, true, yes =>
+        game.OpenPopup<Popup_Confirm>().SetText(111003, count, price).Setup(true, true, yes =>
         {
             if (yes == false) return;
             Game.SpendGems(price, () =>

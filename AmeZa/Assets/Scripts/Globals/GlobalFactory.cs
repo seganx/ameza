@@ -91,59 +91,6 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         }
     }
 
-    public static class Patterns
-    {
-        private static List<PatternConfig> allClamps = new List<PatternConfig>();
-        public static List<PatternConfig> AllClamps
-        {
-            get
-            {
-                if (allClamps.Count < 1)
-                {
-                    allClamps = ResourceEx.LoadAllWithId<PatternConfig>("Game/Patterns/Clamps/", false);
-                    allClamps.Sort((x, y) => x.Id - y.Id);
-                }
-
-                return allClamps;
-            }
-        }
-
-        public static PatternConfig GetClamp(int index)
-        {
-            return AllClamps[index % AllClamps.Count];
-        }
-
-        public static PatternConfig GetLeaguePattern()
-        {
-            var list = ResourceEx.LoadAll("Game/Patterns/Leagues/", true);
-            return Resources.Load<PatternConfig>(list.RandomOne().path);
-        }
-
-#if UNITY_EDITOR
-        [UnityEditor.MenuItem("SeganX/Game/Rename All Patterns")]
-        public static void RenameAllPatterns()
-        {
-            // avoid name confilict
-            for (int i = 0; i < AllClamps.Count; i++)
-            {
-                var item = allClamps[i];
-                item.name = ((i + 1) * 10000).ToString();
-                string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
-                UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
-            }
-
-            for (int i = 0; i < allClamps.Count; i++)
-            {
-                var item = allClamps[i];
-                item.name = ((i + 1) * 10).ToString();
-                string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
-                UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
-            }
-            UnityEditor.AssetDatabase.SaveAssets();
-        }
-#endif
-    }
-
     public static class Blocks
     {
         public static AnimationCurve MoveDownCurve { get { return Instance.blocks.moveDownCurve; } }
@@ -163,34 +110,120 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
         }
     }
 
+    public static class Patterns
+    {
+        public static class Levels
+        {
+            private static List<PatternConfig> all = new List<PatternConfig>();
+            public static List<PatternConfig> All
+            {
+                get
+                {
+                    if (all.Count < 1)
+                    {
+                        all = ResourceEx.LoadAllWithId<PatternConfig>("Game/Patterns/Levels/", false);
+                        all.Sort((x, y) => x.Id - y.Id);
+                    }
+
+                    return all;
+                }
+            }
+
+            public static PatternConfig Get(int index)
+            {
+                return All[index % All.Count];
+            }
+
+#if UNITY_EDITOR
+            [UnityEditor.MenuItem("SeganX/Game/Rename All Level Patterns")]
+            public static void RenameAllPatterns()
+            {
+                // avoid name confilict
+                for (int i = 0; i < All.Count; i++)
+                {
+                    var item = All[i];
+                    item.name = ((i + 1) * 10000).ToString();
+                    string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
+                    UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
+                }
+
+                for (int i = 0; i < All.Count; i++)
+                {
+                    var item = All[i];
+                    item.name = ((i + 1) * 10).ToString();
+                    string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
+                    UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
+                }
+                UnityEditor.AssetDatabase.SaveAssets();
+            }
+#endif
+
+        }
+
+        public static class Leagues
+        {
+            public static PatternConfig Get()
+            {
+                var list = ResourceEx.LoadAll("Game/Patterns/Leagues/", true);
+                return Resources.Load<PatternConfig>(list.RandomOne().path);
+            }
+        }
+
+        public static class Randoms
+        {
+            public static PatternConfig Get(int index)
+            {
+                var list = ResourceEx.LoadAll("Game/Patterns/Randoms/", true);
+                return Resources.Load<PatternConfig>(list[index % list.Count].path);
+            }
+        }
+
+        public static class Missions
+        {
+            public static PatternConfig Get(int id)
+            {
+                return ResourceEx.Load<PatternConfig>("Game/Patterns/Missions/", id);
+            }
+        }
+    }
+
     public static class Seasons
     {
-        private static List<SeasonConfig> all = new List<SeasonConfig>();
-
-        public static List<SeasonConfig> All
+        private static SeasonModel CreateFrom(int id, GlobalConfig.Data.Season season)
         {
-            get
+            var res = new SeasonModel();
+            res.id = id;
+            res.levelCount = season.levels;
+            res.maxBlockHealth = season.blocks;
+            res.startBallCount = season.balls;
+            res.levelReward = season.reward;
+            res.finalReward = season.chest;
+            foreach (var mission in season.missions)
             {
-                if (all.Count < 1)
-                    all = ResourceEx.LoadAllWithId<SeasonConfig>("Game/Seasons/", false);
-                return all;
+                var item = new SeasonModel.Mission();
+                item.index = mission.id;
+                item.patternId = mission.pattern;
+                item.targetBalls = mission.balls;
+                item.targetBlocks = mission.blocks;
+                item.targetItem0 = mission.item0;
+                item.targetItem1 = mission.item1;
+                res.missions.Add(item);
             }
+            return res;
         }
 
-        public static int TotalLevels
+        public static SeasonModel Get(int index)
         {
-            get
+            if (index < 0) return null;
+            var source = (index < GlobalConfig.Seasons.Count) ? GlobalConfig.Seasons[index] : GlobalConfig.Seasons.LastOne();
+            var res = CreateFrom(index, source);
+            if (index >= GlobalConfig.Seasons.Count)
             {
-                int res = 0;
-                foreach (var season in all)
-                    res += season.levelCount;
-                return res;
+                int factor = index - GlobalConfig.Seasons.Count + 1;
+                res.startBallCount += GlobalConfig.Difficulty.seasonBallsFactors * factor;
+                res.maxBlockHealth += GlobalConfig.Difficulty.seasonBlocksFactors * factor;
             }
-        }
-
-        public static SeasonConfig Get(int id)
-        {
-            return All.Find(x => x.Id == id);
+            return res;
         }
 
         public static int GetLevelNumber(int seasonId, int levelIndex)

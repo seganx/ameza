@@ -19,11 +19,11 @@ public class Popup_LevelInfo : GameState
     [SerializeField] private Text targetBlocksLabel = null;
     [SerializeField] private Button startButton = null;
 
-    public Popup_LevelInfo Setup(SeasonConfig season, int index)
+    public Popup_LevelInfo Setup(SeasonModel season, int index)
     {
         var levelmodel = season.GetLevelModel(index, Profile.Skill);
 
-        title.SetFormatedText(season.Id + 1, GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1));
+        title.SetFormatedText(season.id + 1, GlobalFactory.Seasons.GetLevelNumber(season.id, index + 1));
         ballsLabel.SetFormatedText(levelmodel.startBallCount);
         allitemsDesc.SetActive(levelmodel.IsTargetExist == false);
         targetItemsDesc.SetActive(levelmodel.IsTargetExist == true);
@@ -58,20 +58,21 @@ public class Popup_LevelInfo : GameState
                 UIBackground.Hide();
                 Game.Instance.OpenState<State_Playing>();
 
-                GlobalAnalytics.LevelStart(season.Id, index);
+                GlobalAnalytics.LevelStart(season.id, index);
 
                 PlayModel.onWin = () =>
                 {
-                    GlobalAnalytics.LevelWin(season.Id, index, PlayModel.GetRewardStars());
+                    GlobalAnalytics.LevelWin(season.id, index, PlayModel.GetRewardStars());
 
-                    if (season.Id > 0)
+                    if (season.id > 0)
                         Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;
                 };
 
                 PlayModel.onLose = () =>
                 {
-                    GlobalAnalytics.LevelFailed(season.Id, index);
-                    if (season.Id > 0)
+                    GlobalAnalytics.LevelFailed(season.id, index);
+
+                    if (season.id > 0)
                         Profile.Skill = Mathf.Max(Profile.Skill - GlobalConfig.Difficulty.loseFactor, -70);
                 };
 

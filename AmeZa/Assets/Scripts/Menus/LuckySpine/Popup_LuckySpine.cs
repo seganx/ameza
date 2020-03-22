@@ -180,12 +180,12 @@ public class Popup_LuckySpine : GameState
             Profile.Bombs += items[0];
             Profile.Missiles += items[1];
             Profile.Hammers += items[3];
-            gameManager.OpenPopup<Popup_Rewards>().Setup(0, gems, items[0], items[3], items[1], true, () =>
+            game.OpenPopup<Popup_Rewards>().Setup(0, gems, items[0], items[3], items[1], true, () =>
             {
                 if (items[4] > 0)
                 {
                     Profile.Hearts += items[4];
-                    gameManager.OpenPopup<Popup_Confirm>().SetText(111017, items[4]).Setup(true, false, null);
+                    game.OpenPopup<Popup_Confirm>().SetText(111017, items[4]).Setup(true, false, null);
                 }
             });
             descAgain.SetActive(false);

@@ -21,26 +21,26 @@ public class State_Main : GameState
         onlineButton.onClick.AddListener(() =>
         {
             if (Profile.GetSeasonRewarded(0) > 0)
-                gameManager.OpenState<State_SelectLeague>();
+                game.OpenState<State_SelectLeague>();
             else
                 tutorial.Display(0, false, 111034, null);
         });
 
         if (Profile.IsFirstSession) levelsButton.GetComponent<Animation>().Play();
-        levelsButton.onClick.AddListener(() => gameManager.OpenState<State_Levels>());
+        levelsButton.onClick.AddListener(() => game.OpenState<State_Levels>());
 
         luckyButton.onClick.AddListener(() =>
         {
             var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
             if (seconds > 0)
             {
-                gameManager.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
+                game.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
 
             }
             else
             {
                 Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
-                gameManager.OpenPopup<Popup_LuckySpine>();
+                game.OpenPopup<Popup_LuckySpine>();
             }
         });
 
@@ -81,7 +81,7 @@ public class State_Main : GameState
     {
         if (tutorial.Hide()) return;
 
-        gameManager.OpenPopup<Popup_Confirm>().Setup(111004, true, true, yes =>
+        game.OpenPopup<Popup_Confirm>().Setup(111004, true, true, yes =>
         {
             if (yes)
                 Application.Quit();

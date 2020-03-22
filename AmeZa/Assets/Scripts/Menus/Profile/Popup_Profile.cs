@@ -57,7 +57,7 @@ public class Popup_Profile : GameState
                     else
                         SendNickname(nickname);
                 }
-                else gameManager.OpenPopup<Popup_Confirm>().Setup(111001, false, true, null);
+                else game.OpenPopup<Popup_Confirm>().Setup(111001, false, true, null);
 #endif    
             }
             else GlobalConfig.DebugMode = true;
@@ -79,7 +79,7 @@ public class Popup_Profile : GameState
                 else
                     SendStatus(status);
             }
-            else gameManager.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
+            else game.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
 #endif
         });
 
@@ -90,7 +90,7 @@ public class Popup_Profile : GameState
         {
             Profile.Avatar.Angle = value.ToInt();
             avatar.Setup(Profile.Avatar.Current);
-            gameManager.CurrentState.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
+            game.CurrentState.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
         });
 
         for (int i = 0; i < GlobalFactory.Balls.Count; i++)

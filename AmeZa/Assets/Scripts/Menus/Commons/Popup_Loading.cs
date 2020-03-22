@@ -44,7 +44,7 @@ public class Popup_Loading : GameState
     {
         count++;
         if (instance != null) return;
-        instance = gameManager.OpenPopup<Popup_Loading>();
+        instance = game.OpenPopup<Popup_Loading>();
     }
 
     public static void Hide()
@@ -53,7 +53,7 @@ public class Popup_Loading : GameState
         if (GlobalConfig.Update.mode == GlobalConfig.Data.Update.Mode.Force) return;
         count--;
         if (count > 0) return;
-        gameManager.Back(instance);
+        game.Back(instance);
         instance = null;
     }
 }

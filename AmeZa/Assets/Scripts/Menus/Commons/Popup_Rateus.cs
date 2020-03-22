@@ -27,7 +27,7 @@ public class Popup_Rateus : GameState
         sendButton.onClick.AddListener(() =>
         {
             if (Rateus.Current > 4)
-                gameManager.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok => SocialAndSharing.RateUs(null, GlobalConfig.Socials.rateUrl));
+                game.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok => SocialAndSharing.RateUs(null, GlobalConfig.Socials.rateUrl));
             Back();
         });
     }
@@ -68,13 +68,15 @@ public static class Rateus
         set { PlayerPrefs.SetInt("Rateing.Joy", value); }
     }
 
-    public static void AddJoy(int value, System.Action afterPopup = null)
+    public static void AddJoy(int value, System.Action nextTask = null)
     {
         Joy += value;
         if (Joy >= 4 && Current < 2)
         {
             Joy *= -1;
-            Game.Instance.OpenPopup<Popup_Rateus>().Setup(afterPopup);
+            Game.Instance.OpenPopup<Popup_Rateus>().Setup(nextTask);
         }
+        else if (nextTask != null)
+            nextTask();
     }
 }

@@ -94,7 +94,7 @@ public class UIBackground : MonoBehaviour
     public static void Show()
     {
         if (instance == null)
-            instance = Resources.Load<UIBackground>("Menus/UIBackground").Clone<UIBackground>(Game.Instance.canvas.transform);
+            instance = Resources.Load<UIBackground>("Menus/UIBackground").Clone<UIBackground>(Game.Instance.Canvas.transform);
     }
 
     public static void Hide()

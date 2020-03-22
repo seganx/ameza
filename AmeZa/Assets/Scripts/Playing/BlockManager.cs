@@ -91,33 +91,20 @@ public class BlockManager : Base
                 // computing exact row index of the whole pattern
                 int row = (list.Count - i - 1) / PatternConfig.width;
                 row += step == 0 ? 0 : (PlayModel.level.pattern.startLength + step - 1);
-                var rowlowe = Mathf.Max(0, row - 2);
-                var rowhigh = Mathf.Min(row + 2, PlayModel.level.pattern.height);
+
+                // interpolate between min and max
+                var rowlowe = Mathf.Max(0, row - 3);
+                var rowhigh = Mathf.Min(row + 3, PlayModel.level.pattern.height);
                 int vallowe = (int)Mathf.LerpUnclamped(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth, (float)rowlowe / PlayModel.level.pattern.height);
                 int valhigh = (int)Mathf.LerpUnclamped(PlayModel.level.minBlockHealth, PlayModel.level.maxBlockHealth, (float)rowhigh / PlayModel.level.pattern.height);
 
-                list[i] = (BlockType)Utilities.RandomDoubleHigh(vallowe, valhigh);
-                //list[i] = (BlockType)Random.Range(vallowe, valhigh);
+                //list[i] = (BlockType)Utilities.RandomDoubleHigh(vallowe, valhigh);
+                list[i] = (BlockType)Random.Range(vallowe, valhigh);
             }
-
-#if OFF
-            const int range = 0;
-            int height = PlayModel.level.pattern.height;
-            int healthdelta = PlayModel.level.maxBlockHealth - PlayModel.level.minBlockHealth;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] != BlockType.RandomValue) continue;
-
-                int row = (i / PatternConfig.width) + step == 0 ? 0 : PlayModel.level.pattern.startLength + step;
-                int max = (healthdelta * (height - row + range) / (height + range));
-                int min = Mathf.Max(1, (healthdelta * (height - row - range) / height));
-                list[i] = (BlockType)PlayModel.level.minBlockHealth + Utilities.RandomDoubleHigh(min, max + 1);
-            }
-#endif
         }
         else
         {
+            int stepFactor = Mathf.Max(7 - step, 1);
             int turnFactor = (PlayModel.stats.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
             int ballFactor = PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
             int difficultyHealth = turnFactor + ballFactor;
@@ -130,9 +117,8 @@ public class BlockManager : Base
             {
                 if (list[i] == BlockType.RandomValue)
                 {
-                    int min = PlayModel.level.minBlockHealth;
-                    int max = PlayModel.level.maxBlockHealth + difficultyHealth;
-                    list[i] = (BlockType)Utilities.RandomDoubleHigh(min, max + 1);
+                    int max = (PlayModel.level.maxBlockHealth + difficultyHealth) / stepFactor;
+                    list[i] = (BlockType)Utilities.RandomDoubleHigh(PlayModel.level.minBlockHealth, max);
                 }
             }
         }

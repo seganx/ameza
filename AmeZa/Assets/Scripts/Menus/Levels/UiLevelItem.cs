@@ -11,10 +11,10 @@ public class UiLevelItem : MonoBehaviour
     [SerializeField] private GameObject[] stars = null;
     [SerializeField] private Animation animator = null;
 
-    public UiLevelItem Setup(SeasonConfig season, int index, bool enabled)
+    public UiLevelItem Setup(SeasonModel season, int index, bool enabled)
     {
-        numberLabel.text = GlobalFactory.Seasons.GetLevelNumber(season.Id, index + 1).ToString();
-        var earnstars = Profile.GetLevelStars(season.Id, index);
+        numberLabel.text = GlobalFactory.Seasons.GetLevelNumber(season.id, index + 1).ToString();
+        var earnstars = Profile.GetLevelStars(season.id, index);
         for (int i = 0; i < stars.Length; i++)
             stars[i].SetActive(earnstars > i);
         if (enabled && earnstars < 1)

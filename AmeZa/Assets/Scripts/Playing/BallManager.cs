@@ -43,6 +43,7 @@ public class BallManager : MonoBehaviour
         collision.rigidbody.velocity = Vector3.zero;
         collision.transform.position = new Vector2(contactX, SpawnPoint.y);
         collision.rigidbody.Sleep();
+        collision.collider.enabled = false;
 
         // update spawn point
         if (collision.transform == mainBall.transform)
@@ -94,6 +95,7 @@ public class BallManager : MonoBehaviour
         for (int i = 0; i < tmp.Count; i++)
         {
             yield return new WaitForSeconds(0.1f);
+            tmp[i].Collider.enabled = true;
             tmp[i].Rigidbody.velocity = direction;
             transform.root.Broadcast(Messages.Type.BallCount, tmp.Count - i - 1);
         }

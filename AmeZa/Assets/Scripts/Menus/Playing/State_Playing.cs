@@ -19,16 +19,16 @@ public class State_Playing : GameState
         backgroundImage.sprite = GlobalFactory.Theme.Selected.playingBackground;
         endTurnButton.gameObject.SetActive(false);
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
-        pauseButton.onClick.AddListener(() => gameManager.OpenPopup<Popup_Settings>());
+        pauseButton.onClick.AddListener(() => game.OpenPopup<Popup_Settings>());
 
         abilityButton.transform.SetActiveChild(0);
         abilityButton.onClick.AddListener(() =>
         {
-            gameManager.ClosePopup(true);
-            gameManager.OpenPopup<Popup_Lose>().Setup(false, ability => // check if player wants to use abilities
+            game.ClosePopup(true);
+            game.OpenPopup<Popup_Lose>().Setup(false, ability => // check if player wants to use abilities
             {
                 if (ability != AbilityType.Null)
-                    gameManager.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+                    game.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
             });
 
         });
@@ -113,8 +113,8 @@ public class State_Playing : GameState
             isPlayerWins = PlayModel.IsTargetExist == false || PlayModel.IsTargetsReached;
             if (isPlayerWins)
             {
-                gameManager.ClosePopup(true);
-                gameManager.OpenPopup<Popup_Win>().SetNextTask(() =>
+                game.ClosePopup(true);
+                game.OpenPopup<Popup_Win>().SetNextTask(() =>
                 {
                     base.Back();
                     if (PlayModel.onWin != null)
@@ -128,11 +128,11 @@ public class State_Playing : GameState
         {
             if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
             {
-                gameManager.ClosePopup(true);
-                gameManager.OpenPopup<Popup_Lose>().Setup(true, ability => // check if player wants to use abilities
+                game.ClosePopup(true);
+                game.OpenPopup<Popup_Lose>().Setup(true, ability => // check if player wants to use abilities
                 {
                     if (ability != AbilityType.Null)
-                        gameManager.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+                        game.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
                     else
                         PlayerLose();
                 });
@@ -146,7 +146,7 @@ public class State_Playing : GameState
     {
         if (tutorial.Hide()) return;
 
-        gameManager.OpenPopup<Popup_Confirm>().Setup(111005, true, true, yes =>
+        game.OpenPopup<Popup_Confirm>().Setup(111005, true, true, yes =>
         {
             if (yes)
                 PlayerLose();
@@ -166,7 +166,7 @@ public class State_Playing : GameState
 #else
     private void OnDestroy()
     {
-        Online.Stats.Set(Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), success => { });
+        Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), success => { });
     }
 #endif
 }

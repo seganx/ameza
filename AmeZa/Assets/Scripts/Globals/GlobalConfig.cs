@@ -84,8 +84,32 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int ballsFactor = 100;
             public int winFactorPositive = 5;
             public int winFactorNegative = 15;
-            public int loseFactor = 10;
+            public int loseFactor = 5;
+            public Vector2Int seasonBlocksFactors = new Vector2Int(5, 30);
+            public Vector2Int seasonBallsFactors = new Vector2Int(5, 20);
             public AnimationCurve[] curves = new AnimationCurve[] { new AnimationCurve() };
+        }
+
+        [System.Serializable]
+        public class Season
+        {
+            [System.Serializable]
+            public class Mission
+            {
+                public int id = 0;
+                public int pattern = 0;
+                public int balls = 0;
+                public int blocks = 0;
+                public int item0 = 0;
+                public int item1 = 0;
+            }
+
+            public int levels = 20;
+            public Vector2Int blocks = Vector2Int.zero;
+            public Vector2Int balls = Vector2Int.zero;
+            public RewardModel reward = new RewardModel();
+            public RewardModel chest = new RewardModel();
+            public List<Mission> missions = new List<Mission>();
         }
 
         [System.Serializable]
@@ -176,6 +200,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
         public Update update = new Update();
         public Socials socials = new Socials();
+        public List<Season> seasons = new List<Season>();
         public Difficulty difficulty = new Difficulty();
         public Timers timers = new Timers();
         public OfferConfig offers = new OfferConfig();
@@ -229,6 +254,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     ////////////////////////////////////////////////////////////
     public static Data.Update Update { get { return Instance.data.update; } }
     public static Data.Socials Socials { get { return Instance.data.socials; } }
+    public static List<Data.Season> Seasons { get { return Instance.data.seasons; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty; } }
     public static Data.Timers Timers { get { return Instance.data.timers; } }
     public static Data.OfferConfig Offers { get { return Instance.data.offers; } }

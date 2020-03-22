@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    private Collider2D collid = null;
     private Rigidbody2D rigid = null;
 
+    public Collider2D Collider { get { return collid; } }
     public Rigidbody2D Rigidbody { get { return rigid; } }
 
     private void Awake()
     {
+        collid = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
     }
 
@@ -22,7 +25,7 @@ public class Ball : MonoBehaviour
                 var speed = rigid.velocity.magnitude;
                 if (speed > 0.1f)
                 {
-                    var dir = BallManager.SpawnPoint - transform.localPosition + new Vector3(Random.Range(-0.5f, 0.5f), -1, 0);
+                    var dir = BallManager.SpawnPoint - transform.localPosition + new Vector3(Random.Range(-1f, 1f), -1, 0);
                     rigid.velocity = dir.normalized * speed;
                 }
                 break;
@@ -30,6 +33,7 @@ public class Ball : MonoBehaviour
             case Messages.Type.TurnEnded:
                 {
                     rigid.velocity = Vector2.zero;
+                    collid.enabled = false;
                     StopAllCoroutines();
                     if (Vector3.Distance(transform.localPosition, BallManager.SpawnPoint) > 0.05f)
                         StartCoroutine(MoveToMain(param.As<BallManager>()));

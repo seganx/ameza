@@ -53,7 +53,7 @@ public class Profile : MonoBehaviour
     ////////////////////////////////////////////
     private static ProfileData data = new ProfileData();
     private static System.DateTime lastGetPrfoileTime = System.DateTime.MinValue;
-    private static System.DateTime lastSetPrfoileTime = System.DateTime.MinValue;
+    private static System.DateTime lastSetProfileTime = System.DateTime.MinValue;
     public static bool IsGlobalConfigUpdated { get; set; }
     public static bool IsLoggedIn { get; set; }
 
@@ -346,19 +346,30 @@ public class Profile : MonoBehaviour
         });
     }
 
-    private static void SyncProfile(bool sendProfile, Online.Profile.Data serverData, System.Action<bool> nextTask)
+    private static void SyncProfile(bool sendProfile, Online.Profile.Data serverProfile, System.Action<bool> nextTask)
     {
+        // check to see if local data is empty then ther are 2 states
+        // 1- we are in first run
+        // 2- we lost our cache files
         if (Username.IsNullOrEmpty())
         {
-            data.info = serverData;
-
-            if (serverData.datahash.HasContent())
+            // check to see if we are in first run
+            if (serverProfile.datahash.IsNullOrEmpty())
             {
+                data.info = serverProfile;
+                RunFirstSission();
+                SendProfileData(sendProfile, nextTask);
+            }
+            // we have data on server but we have lost data on local
+            // so try to load from server to local
+            else
+            {
+                data.info = serverProfile;
                 Online.Userdata.Get((sucess, privateStr, publicStr) =>
                 {
                     if (sucess)
                     {
-                        data.info = serverData;
+                        data.info = serverProfile;
                         data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
                         data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
                         nextTask(true);
@@ -366,28 +377,47 @@ public class Profile : MonoBehaviour
                     else nextTask(false);
                 });
             }
-            else
-            {
-                RunFirstSission();
-                SendProfileData(sendProfile, nextTask);
-            }
         }
+        // local data is not empty
         else
         {
-            data.info = serverData;
-            SendProfileData(sendProfile, nextTask);
+            // check to see if data on server has been changed but not in local
+            // to find this, we make sure that local has sent data to server (lastHash == currentHash)
+            // is must be same as server data (lastHash == serverHash)
+            // so if serverHash is not the same then it my changed from server
+            if (sendProfile == false && LastHashdata.HasContent() && LastHashdata == data.privateData.Datahash && serverProfile.datahash != data.privateData.Datahash)
+            {
+                data.info = serverProfile;
+                Online.Userdata.Get((sucess, privateStr, publicStr) =>
+                {
+                    if (sucess)
+                    {
+                        data.info = serverProfile;
+                        data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
+                        data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
+                        nextTask(true);
+                    }
+                    else nextTask(false);
+                });
+            }
+            // finally just send data to server
+            else
+            {
+                data.info = serverProfile;
+                SendProfileData(sendProfile, nextTask);
+            }
         }
     }
 
     private static void SendProfileData(bool sendProfile, System.Action<bool> nextTask)
     {
-        if (sendProfile == false || LastHashdata == data.privateData.Datahash || (System.DateTime.Now - lastSetPrfoileTime).TotalMinutes < 3)
+        if (sendProfile == false || LastHashdata == data.privateData.Datahash || (System.DateTime.Now - lastSetProfileTime).TotalMinutes < 3)
         {
             nextTask(true);
             return;
         }
 
-        lastSetPrfoileTime = System.DateTime.Now;
+        lastSetProfileTime = System.DateTime.Now;
         data.publicData.balls = data.privateData.balls;
         string privateString = Utilities.CompressString(JsonUtility.ToJson(data.privateData), null);
         string publicString = Utilities.CompressString(JsonUtility.ToJson(data.publicData), null);

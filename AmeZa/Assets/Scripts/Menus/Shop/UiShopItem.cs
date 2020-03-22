@@ -103,7 +103,7 @@ public class UiShopItem : MonoBehaviour
         {
             if (success)
             {
-                Online.Stats.Set(Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), r => { });
+                Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), r => { });
                 GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
             }
         });

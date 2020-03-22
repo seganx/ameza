@@ -48,9 +48,9 @@ public class Popup_LeagueInfo : GameState
         boardButton.SetInteractable(false);
         playButton.SetInteractable(false);
 
-        medalButton.onClick.AddListener(() => gameManager.OpenPopup<Popup_MedalInfo>().Setup(info));
+        medalButton.onClick.AddListener(() => game.OpenPopup<Popup_MedalInfo>().Setup(info));
         rewardButton.onClick.AddListener(() => OnRewardButton(info));
-        boardButton.onClick.AddListener(() => gameManager.OpenPopup<State_Leaderboards>().Setup(info.id));
+        boardButton.onClick.AddListener(() => game.OpenPopup<State_Leaderboards>().Setup(info.id));
         playButton.onClick.AddListener(() => StartGame(info));
 
         if (data == null)
@@ -124,7 +124,7 @@ public class Popup_LeagueInfo : GameState
         PlayModel.ballId = Profile.Avatar.BallId;
         PlayModel.level.name = info.name;
         PlayModel.level.theme = Random.Range(0, 1000);
-        PlayModel.level.pattern = GlobalFactory.Patterns.GetLeaguePattern();
+        PlayModel.level.pattern = GlobalFactory.Patterns.Leagues.Get();
         PlayModel.level.startBallCount = Random.Range(info.startBallCount.x, info.startBallCount.y);
         PlayModel.level.minBlockHealth = PlayModel.level.startBallCount / 2;
         PlayModel.level.maxBlockHealth = PlayModel.level.startBallCount * 3 / 2;
@@ -149,7 +149,7 @@ public class Popup_LeagueInfo : GameState
             {
                 var subleague = GlobalFactory.Leagues.GetByScore(info, data.end_score);
                 Profile.EarnGems(subleague.rewardGems);
-                gameManager.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.AddJoy(2));
+                game.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.AddJoy(2));
                 data.end_score = data.end_rank = 0;
             }
             else rewardButton.SetInteractable(true);
@@ -192,7 +192,7 @@ public class Popup_LeagueInfo : GameState
             confirmStr = string.Format(strformat, Profile.Nickname, nextProfile.nickname, scoreDelta);
         }
 
-        gameManager.OpenPopup<Popup_Confirm>().Setup(confirmStr, true, true, ok => callback(ok)).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
+        game.OpenPopup<Popup_Confirm>().Setup(confirmStr, true, true, ok => callback(ok)).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
     }
 
     public static Online.League.Profile GetNextNearProfile(int score, int maxScoreDistance)

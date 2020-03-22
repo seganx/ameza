@@ -44,7 +44,7 @@ public class Popup_AddFriend : GameState
                     if (success && onSuccessFunc != null)
                         onSuccessFunc(friend);
                     else
-                        gameManager.OpenPopup<Popup_Confirm>().Setup(111124, true, false, null);
+                        game.OpenPopup<Popup_Confirm>().Setup(111124, true, false, null);
                 });
             }
         });
