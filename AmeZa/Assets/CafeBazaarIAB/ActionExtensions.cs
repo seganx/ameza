@@ -7,10 +7,7 @@ namespace BazaarPlugin
     {
         private static void invoke(Delegate listener, object[] args)
         {
-            if (!listener.Method.IsStatic && (listener.Target == null || (listener.Target as UnityEngine.Object) == null))
-                Debug.LogError("an event listener is still subscribed to an event with the method " + listener.Method.Name + " even though it is null. Be sure to balance your event subscriptions.");
-            else
-                listener.Method.Invoke(listener.Target, args);
+            listener.Method.Invoke(listener.Target, args);
         }
 
         private static void invokeListners(Delegate[] listeners, object[] args)

@@ -21,7 +21,7 @@ public static class PlayModel
     public static Type type = Type.Levels;
     public static int ballId = 0;
     public static System.Action onWin = null;
-    public static System.Action onLose = null;
+    public static System.Action<System.Action<bool>> onLose = null;
     public static System.Action<System.Action<bool>> onPreLose = null;
     public static Stats stats = new Stats();
     public static LevelModel level = new LevelModel();

@@ -38,7 +38,7 @@ public class BlockValue : BlockBase
             Health -= damage;
             numberLabel.text = Health.ToString().Persian();
             if (animator.isPlaying == false) animator.Play("BlockHit");
-            transform.Broadcast(Messages.Type.OnBlockHit, this);
+            transform.root.Message(Messages.Type.OnBlockHit, this);
         }
         else
         {
@@ -57,7 +57,7 @@ public class BlockValue : BlockBase
                 animator.Play("BlockDeath");
             Destroy(gameObject, 3);
 
-            transform.Broadcast(Messages.Type.OnBlockDeath, this);
+            transform.root.Message(Messages.Type.OnBlockDeath, this);
             transform.root.Broadcast(Messages.Type.BlockDead, this);
         }
     }

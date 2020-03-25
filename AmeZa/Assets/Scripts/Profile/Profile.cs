@@ -369,7 +369,6 @@ public class Profile : MonoBehaviour
                 {
                     if (sucess)
                     {
-                        data.info = serverProfile;
                         data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
                         data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
                         nextTask(true);
@@ -381,31 +380,21 @@ public class Profile : MonoBehaviour
         // local data is not empty
         else
         {
-            // check to see if data on server has been changed but not in local
-            // to find this, we make sure that local has sent data to server (lastHash == currentHash)
-            // is must be same as server data (lastHash == serverHash)
-            // so if serverHash is not the same then it my changed from server
-            if (sendProfile == false && LastHashdata.HasContent() && LastHashdata == data.privateData.Datahash && serverProfile.datahash != data.privateData.Datahash)
+            data.info = serverProfile;
+
+            // check to see if player is marked as hacher?
+            if (serverProfile.datahash == "shame")
             {
-                data.info = serverProfile;
-                Online.Userdata.Get((sucess, privateStr, publicStr) =>
-                {
-                    if (sucess)
-                    {
-                        data.info = serverProfile;
-                        data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
-                        data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
-                        nextTask(true);
-                    }
-                    else nextTask(false);
-                });
+                PlayerPrefs.DeleteAll();
+                PlayerPrefsEx.ClearData();
+                data.privateData = new ProfileData.PrivateData();
+                data.publicData = new ProfileData.PublicData();
+                StartSession();
+                SaveLocal();
             }
+
             // finally just send data to server
-            else
-            {
-                data.info = serverProfile;
-                SendProfileData(sendProfile, nextTask);
-            }
+            SendProfileData(sendProfile, nextTask);
         }
     }
 

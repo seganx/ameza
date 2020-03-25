@@ -40,8 +40,8 @@ public class SeasonModel
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyCurve.Evaluate(res.progress)));
         res.reward = levelReward;
 
-        res.minBlockHealth += res.minBlockHealth * skillFactor / 500;
-        res.maxBlockHealth += res.maxBlockHealth * skillFactor / 100;
+        res.minBlockHealth = Mathf.Max(res.minBlockHealth + res.minBlockHealth * skillFactor / 500, 1);
+        res.maxBlockHealth = Mathf.Max(res.maxBlockHealth + res.maxBlockHealth * skillFactor / 100, 5);
 
         var specialLevel = missions.Find(x => x.index == index);
         if (specialLevel != null)
@@ -58,7 +58,7 @@ public class SeasonModel
                 res.pattern = GlobalFactory.Patterns.Levels.Get(levelIndex);
             else
                 res.pattern = GlobalFactory.Patterns.Randoms.Get(levelIndex);
-            res.pattern.randomer = new System.Random(levelIndex);
+            res.pattern.randomer = new System.Random(levelIndex * 12345);
             res.targetTurns = 0;
         }
 

@@ -95,17 +95,21 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     {
         public static AnimationCurve MoveDownCurve { get { return Instance.blocks.moveDownCurve; } }
 
+        public static BlockBase CreateObstacle(Transform parent, int x, int y)
+        {
+            var res = Resources.Load<BlockObstacle>("Blocks/Obstacle").Clone<BlockObstacle>(parent).SetPosition(x, y);
+            return res;
+        }
+
         public static BlockBase CreateSimple(Transform parent, int x, int y, int itemIndex, int health)
         {
             var res = Resources.Load<BlockValue>("Blocks/Value").Clone<BlockValue>(parent).Setup(itemIndex, health).SetPosition(x, y);
-            Theme.Selected.sounds.Clone<ThemeSounds>(res.transform);
             return res;
         }
 
         public static BlockBase CreateBall(Transform parent, int x, int y)
         {
             var res = Resources.Load<BlockBall>("Blocks/Ball").Clone<BlockBall>(parent).SetPosition(x, y);
-            Theme.Selected.sounds.Clone<ThemeSounds>(res.transform);
             return res;
         }
     }

@@ -26,13 +26,40 @@ public class Popup_Friends : GameState
         }));
 
         Loading.Show();
+        if (Profile.IsLoggedIn)
+        {
+            LoadFriends();
+        }
+        else
+        {
+            Profile.Sync(false, success =>
+            {
+                if (success)
+                {
+                    LoadFriends();
+                }
+                else
+                {
+                    Loading.Hide();
+                    Back();
+                }
+            });
+        }
+    }
+
+    private void LoadFriends()
+    {
         Online.Friends.Get((success, list) =>
         {
             Loading.Hide();
             if (success)
             {
-                friends = list;
+                friends.Clear();
+                friends.AddRange(list);
+
+                // add me :)
                 friends.Add(new Online.Friends.Friendship() { id = "0", avatar = Profile.Avatar.Json, level = Profile.GetLevelsPassed().ToString(), nickname = Profile.Nickname, status = Profile.Status, username = Profile.Username });
+
                 SortFriends();
                 for (int i = 0; i < friends.Count; i++)
                     itemPrefab.Clone<UIFriendItem>().Setup(friends[i], i + 1).gameObject.SetActive(true);

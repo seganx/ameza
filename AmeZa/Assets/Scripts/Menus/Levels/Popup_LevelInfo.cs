@@ -63,17 +63,16 @@ public class Popup_LevelInfo : GameState
                 PlayModel.onWin = () =>
                 {
                     GlobalAnalytics.LevelWin(season.id, index, PlayModel.GetRewardStars());
-
                     if (season.id > 0)
                         Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;
                 };
 
-                PlayModel.onLose = () =>
+                PlayModel.onLose = callback =>
                 {
                     GlobalAnalytics.LevelFailed(season.id, index);
-
                     if (season.id > 0)
                         Profile.Skill = Mathf.Max(Profile.Skill - GlobalConfig.Difficulty.loseFactor, -70);
+                    callback(true);
                 };
 
             }

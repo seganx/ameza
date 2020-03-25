@@ -53,4 +53,23 @@ public static class Messages
     {
         BroadcastMessage(sender.transform, type, parameter);
     }
+
+    public static void SendMessage(Component sender, Type type, object parameter = null)
+    {
+        var data = new Param();
+        data.type = type;
+        data.value = parameter;
+        sender.SendMessage(MethodName, data, SendMessageOptions.DontRequireReceiver);
+    }
+
+    public static void Message(this Component sender, Type type, object parameter = null)
+    {
+        SendMessage(sender, type, parameter);
+    }
+
+    public static void Message(this GameObject sender, Type type, object parameter = null)
+    {
+        SendMessage(sender.transform, type, parameter);
+    }
+
 }

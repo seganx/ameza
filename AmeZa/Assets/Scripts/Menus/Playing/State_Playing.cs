@@ -13,9 +13,13 @@ public class State_Playing : GameState
     [SerializeField] private Button pauseButton = null;
     [SerializeField] private UiTutorial tutorial = null;
 
+    private ThemeSounds sounds = null;
+
     private IEnumerator Start()
     {
         GlobalFactory.Theme.Select(PlayModel.level.theme);
+        sounds = GlobalFactory.Theme.Selected.sounds.Clone<ThemeSounds>(transform);
+
         backgroundImage.sprite = GlobalFactory.Theme.Selected.playingBackground;
         endTurnButton.gameObject.SetActive(false);
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
@@ -38,7 +42,7 @@ public class State_Playing : GameState
         AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
 
         yield return new WaitForSeconds(0.5f);
-        if (PlayModel.level.season == 0 && (PlayModel.level.index == 0 || PlayModel.level.index == 1))
+        if (PlayModel.IsLeague == false && PlayModel.level.season == 0 && (PlayModel.level.index == 0 || PlayModel.level.index == 1))
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(true);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
@@ -56,6 +60,8 @@ public class State_Playing : GameState
 
     private void OnMessage(Messages.Param param)
     {
+        sounds.OnMessage(param);
+
         switch (param.type)
         {
             case Messages.Type.TurnStarted:
@@ -157,9 +163,11 @@ public class State_Playing : GameState
     {
         if (Profile.Hearts > 0)
             Profile.Hearts--;
-        base.Back();
+
         if (PlayModel.onLose != null)
-            PlayModel.onLose();
+            PlayModel.onLose(ok => { if (ok) base.Back(); });
+        else
+            base.Back();
     }
 
 #if UNITY_EDITOR

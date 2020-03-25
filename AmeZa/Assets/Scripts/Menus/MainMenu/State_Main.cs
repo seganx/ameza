@@ -35,7 +35,6 @@ public class State_Main : GameState
             if (seconds > 0)
             {
                 game.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
-
             }
             else
             {
@@ -45,6 +44,8 @@ public class State_Main : GameState
         });
 
         var displayed = tutorial.Display(1, true, 111031, () => tutorial.Display(0, true, 111032, () => tutorial.Display(0, true, 111033, () => tutorial.Display(0, true, 111053, null))));
+        if (displayed == false && Profile.Sessions > 1)
+            displayed = tutorial.Display(1, true, 111125, null);
         if (displayed == false)
             tutorial.DisplayJoke(1);
 

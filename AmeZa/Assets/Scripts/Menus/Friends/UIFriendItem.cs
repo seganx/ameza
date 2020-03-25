@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIFriendItem : MonoBehaviour
 {
+    [SerializeField] private Image background = null;
     [SerializeField] private UiAvatar avatar = null;
     [SerializeField] private LocalText nicknameLabel = null;
     [SerializeField] private LocalText descLabel = null;
@@ -25,6 +26,7 @@ public class UIFriendItem : MonoBehaviour
         if (levelLabel) levelLabel.SetText(friend.level);
         if (rankLabel) rankLabel.SetText(rank.ToString());
         if (cupImage && rank < 4) cupImage.material = null;
+        if (background && friend.username == Profile.Username) background.color = Color.green;
 
         int leagueIndex = GlobalFactory.Friends.GetLeagueIndex(friend.level.ToInt());
         medalImage.sprite = GlobalFactory.Friends.GetMedalSprite(leagueIndex);
@@ -69,6 +71,11 @@ public class UIFriendItem : MonoBehaviour
                     rewardButton.transform.parent.gameObject.SetActive(false);
                 });
             });
+        }
+
+        if (friend.username == Profile.Username)
+        {
+            return this;
         }
 
         button.onClick.AddListener(() =>

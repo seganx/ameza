@@ -30,7 +30,12 @@ public class BlockBall : BlockBase
         IsPregnant = pregnant;
         PlayModel.stats.totalBalls++;
         Destroy(GetComponent<BoxCollider2D>());
-        transform.Broadcast(Messages.Type.OnBlockDeath, this);
+        Invoke("DeleteMe", 0.1f);
+    }
+
+    private void DeleteMe()
+    {
+        transform.root.Message(Messages.Type.OnBlockDeath, this);
         transform.root.Broadcast(Messages.Type.BlockDead, this);
         Destroy(gameObject);
     }

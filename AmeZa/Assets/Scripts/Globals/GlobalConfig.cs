@@ -32,7 +32,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int rewardGems = 1000;
         }
 
-
         [System.Serializable]
         public class ProfilePreset
         {
@@ -201,7 +200,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public Update update = new Update();
         public Socials socials = new Socials();
         public List<Season> seasons = new List<Season>();
-        public Difficulty difficulty = new Difficulty();
+        public List<Difficulty> difficulty = new List<Difficulty>();
         public Timers timers = new Timers();
         public OfferConfig offers = new OfferConfig();
         public List<League> leagues = new List<League>();
@@ -209,6 +208,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
         public List<string> jokes = new List<string>();
+        public int groups = 2;
     }
 
     public Market market = 0;
@@ -224,7 +224,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         if (offline)
         {
             SaveData(data);
-            Cohort = offlineCohort;
+            PlayerPrefsEx.SetInt("GlobalConfig.Group", offlineGroup);
         }
         else
 #endif
@@ -236,7 +236,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     [Space()]
     [InspectorButton(100, "Export as", "OnExport")]
     public bool offline = false;
-    public int offlineCohort = 0;
+    public int offlineGroup = 0;
 
     public void OnExport(object sender)
     {
@@ -255,17 +255,31 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Update Update { get { return Instance.data.update; } }
     public static Data.Socials Socials { get { return Instance.data.socials; } }
     public static List<Data.Season> Seasons { get { return Instance.data.seasons; } }
-    public static Data.Difficulty Difficulty { get { return Instance.data.difficulty; } }
+    public static Data.Difficulty Difficulty { get { return Instance.data.difficulty[Group % Instance.data.difficulty.Count]; } }
     public static Data.Timers Timers { get { return Instance.data.timers; } }
     public static Data.OfferConfig Offers { get { return Instance.data.offers; } }
     public static Data.Friends Friends { get { return Instance.data.friends; } }
-    public static Data.Shop Shop { get { return Instance.data.shop[Cohort % Instance.data.shop.Count]; } }
-    public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Cohort % Instance.data.profilePreset.Count]; } }
+    public static Data.Shop Shop { get { return Instance.data.shop[Group % Instance.data.shop.Count]; } }
+    public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Group % Instance.data.profilePreset.Count]; } }
     public static List<Data.League> Leagues { get { return Instance.data.leagues; } }
     public static List<string> Jokes { get { return Instance.data.jokes; } }
 
 
-    private static int Cohort { get; set; }
+    private static int Group
+    {
+        get
+        {
+            // select cohort
+            int res = PlayerPrefsEx.GetInt("GlobalConfig.Group", -1);
+            if (res < 0)
+            {
+                res = Random.Range(0, 100);
+                PlayerPrefsEx.SetInt("GlobalConfig.Group", res);
+            }
+
+            return res;
+        }
+    }
 
     public static bool DebugMode
     {
@@ -295,14 +309,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         Instance.data = newdata;
         SaveData(newdata);
         SeganX.Console.Logger.Enabled = DebugMode;
-
-        // select cohort
-        Cohort = PlayerPrefsEx.GetInt("GlobalConfig.Cohort", -1);
-        if (Cohort < 0)
-        {
-            Cohort = Random.Range(0, 100) % Instance.data.shop.Count;
-            PlayerPrefsEx.SetInt("GlobalConfig.Cohort", Cohort);
-        }
+        GlobalAnalytics.SetGroup(Group % newdata.groups);
 
         var address = Instance.address + "jokes.txt?" + System.DateTime.Now.Ticks;
         Http.DownloadText(address, null, null, jokes =>

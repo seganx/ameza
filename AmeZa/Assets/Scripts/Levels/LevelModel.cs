@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum BlockType : int
 {
+    Obstacle = -34,
     BoxKill = -33,
     HorizontalKill = -32,
     VerticalKill = -31,

@@ -8,6 +8,26 @@ public class State_SelectLeague : GameState
     private void Start()
     {
         UIBackground.Show();
-        UiShowHide.ShowAll(transform);
+        if (Profile.IsLoggedIn)
+        {
+            UiShowHide.ShowAll(transform);
+        }
+        else
+        {
+            Loading.Show();
+            Profile.Sync(false, success =>
+            {
+                Loading.Hide();
+                if (success)
+                {
+                    UiShowHide.ShowAll(transform);
+                }
+                else
+                {
+                    Back();
+                }
+            });
+        }
+
     }
 }

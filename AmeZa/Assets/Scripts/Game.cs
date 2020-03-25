@@ -17,6 +17,7 @@ namespace SeganX
             set { PlayerPrefs.SetInt("Game.LastVersion", value); }
         }
 
+
         // Use this for initialization
         private IEnumerator Start()
         {
@@ -36,23 +37,8 @@ namespace SeganX
             Profile.Sync(false, succss =>
             {
                 Loading.Hide();
-
-                // verify that the game has been updated
-                if (Profile.GetLevelsPassed() > 0 && LastVersion != GlobalConfig.Instance.version && LastVersion < 15)
-                {
-                    OpenPopup<Popup_Confirm>().Setup(111123, true, true, ok =>
-                    {
-                        if (ok)
-                        {
-                            Profile.ResetLevels();
-                            State_Levels.CurrentSeason = 0;
-                        }
-                        OpenState<State_Main>();
-                    });
-                }
-                else OpenState<State_Main>();
-
                 LastVersion = GlobalConfig.Instance.version;
+                OpenState<State_Main>();
             });
         }
 

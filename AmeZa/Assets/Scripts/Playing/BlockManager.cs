@@ -13,7 +13,7 @@ public class BlockManager : Base
     public static bool IsBlockReachedWarn { get; private set; }
 
     private int usedAbilityCount = 0;
-
+    
     private void Awake()
     {
         blocks.Clear();
@@ -73,7 +73,7 @@ public class BlockManager : Base
     {
         var edge = BottomEdge + offset;
         for (int i = 0; i < blocks.Count; i++)
-            if (blocks[i].Type != BlockType.Ball && blocks[i].Position.y < edge)
+            if (blocks[i].Type > 0 && blocks[i].Position.y < edge)
                 return true;
         return false;
     }
@@ -141,6 +141,7 @@ public class BlockManager : Base
     {
         switch (typeValue)
         {
+            case BlockType.Obstacle: return GlobalFactory.Blocks.CreateObstacle(transform, x, y);
             case BlockType.BoxKill: return null;
             case BlockType.HorizontalKill: return null;
             case BlockType.VerticalKill: return null;

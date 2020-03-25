@@ -13,6 +13,11 @@ public class GlobalAnalytics : MonoBehaviour
         GameAnalytics.Initialize();
     }
 
+    public static void SetGroup(int index)
+    {
+        GameAnalytics.SetCustomDimension01("group_" + Mathf.Clamp(index, 0, 3));
+    }
+
     public static void NewBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
     {
         Online.Purchase.Verify(provider, sku, token, (success, payload) =>

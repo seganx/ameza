@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EditorFactory : StaticConfig<EditorFactory>
 {
+    public Sprite obstacleSprite = null;
     public Sprite boxKillSprite = null;
     public Sprite horizontalKillSprite = null;
     public Sprite verticalKillSprite = null;
@@ -26,6 +27,7 @@ public class EditorFactory : StaticConfig<EditorFactory>
     {
         switch (type)
         {
+            case BlockType.Obstacle: return Instance.obstacleSprite.texture;
             case BlockType.BoxKill: return Instance.boxKillSprite.texture;
             case BlockType.HorizontalKill: return Instance.horizontalKillSprite.texture;
             case BlockType.VerticalKill: return Instance.verticalKillSprite.texture;

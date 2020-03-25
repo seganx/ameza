@@ -27,8 +27,12 @@ public class Popup_Rateus : GameState
         sendButton.onClick.AddListener(() =>
         {
             if (Rateus.Current > 4)
-                game.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok => SocialAndSharing.RateUs(null, GlobalConfig.Socials.rateUrl));
-            Back();
+                game.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok =>
+                {
+                    if (ok)
+                        SocialAndSharing.RateUs(null, GlobalConfig.Socials.rateUrl);
+                    Back();
+                });
         });
     }
 
