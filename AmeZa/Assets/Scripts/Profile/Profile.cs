@@ -162,6 +162,7 @@ public class Profile : MonoBehaviour
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
         if (season == null) return;
         season.rewarded = rewarded;
+        SaveLocal();
     }
 
     public static bool CanOpenLevel(int seasonId, int index)
@@ -215,6 +216,7 @@ public class Profile : MonoBehaviour
             season.levels.Add(stars);
         else if (season.levels[index] < stars)
             season.levels[index] = stars;
+        SaveLocal();
     }
 
     public static void ResetLevels()
@@ -246,6 +248,7 @@ public class Profile : MonoBehaviour
             data.privateData.friends.Add(item);
         }
         item.rewarded = gems;
+        SaveLocal();
     }
 
     public static void SaveLocal()
@@ -371,6 +374,7 @@ public class Profile : MonoBehaviour
                     {
                         data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
                         data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
+                        SaveLocal();
                         nextTask(true);
                     }
                     else nextTask(false);
