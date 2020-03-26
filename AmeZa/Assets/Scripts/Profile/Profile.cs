@@ -340,7 +340,7 @@ public class Profile : MonoBehaviour
 
         Online.Profile.Get((success, srverdata) =>
         {
-            if (success)
+            if (success && srverdata != null)
             {
                 lastGetPrfoileTime = System.DateTime.Now;
                 SyncProfile(sendProfile, srverdata, nextTask);
@@ -431,6 +431,13 @@ public class Profile : MonoBehaviour
         {
             Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, 3600);
         }
+    }
+
+    [Console("profile", "display", "Display all profile data")]
+    public static void Display()
+    {
+        //Debug.Log(data.GetStringDebug(DebugEx.MemberType.Field, 5));
+        Debug.Log(JsonUtility.ToJson(data, true));
     }
 
 

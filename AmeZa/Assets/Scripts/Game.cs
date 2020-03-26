@@ -149,10 +149,8 @@ namespace SeganX
         [Console("game", "reset", "Clear all progress data from local/server!")]
         public static void ResetGame()
         {
-            Application.Quit();
-            Console.Logger.ClearData();
-            GlobalConfig.DebugMode = true;
             Profile.Reset();
+            GlobalConfig.DebugMode = true;
         }
 
         [Console("friends", "add")]
