@@ -13,7 +13,20 @@ public class BlockManager : Base
     public static bool IsBlockReachedWarn { get; private set; }
 
     private int usedAbilityCount = 0;
-    
+
+    private int DifficultyHealth
+    {
+        get
+        {
+            // ignore difficulty for first season on campain
+            if (PlayModel.level.pattern.wrapMode == PatternConfig.WrapMode.Clamp) return 0;
+            if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1) return 0;
+            int turnFactor = (PlayModel.stats.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
+            int ballFactor = PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
+            return turnFactor + ballFactor;
+        }
+    }
+
     private void Awake()
     {
         blocks.Clear();
@@ -105,19 +118,13 @@ public class BlockManager : Base
         else
         {
             int stepFactor = Mathf.Max(7 - step, 1);
-            int turnFactor = (PlayModel.stats.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
-            int ballFactor = PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
-            int difficultyHealth = turnFactor + ballFactor;
-
-            // ignore difficulty for first season on campain
-            if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1)
-                difficultyHealth = 0;
+            int diffihealth = DifficultyHealth;
 
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i] == BlockType.RandomValue)
                 {
-                    int max = (PlayModel.level.maxBlockHealth + difficultyHealth) / stepFactor;
+                    int max = (PlayModel.level.maxBlockHealth + diffihealth) / stepFactor;
                     list[i] = (BlockType)Utilities.RandomDoubleHigh(PlayModel.level.minBlockHealth, max);
                 }
             }
@@ -146,8 +153,20 @@ public class BlockManager : Base
             case BlockType.HorizontalKill: return null;
             case BlockType.VerticalKill: return null;
             case BlockType.CrossKill: return null;
-            case BlockType.HorizontalDamage: return null;
-            case BlockType.VerticalDamage: return null;
+
+            case BlockType.HorizontalDamage:
+                {
+                    var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2) / 2;
+                    PlayModel.stats.totalLevelHealth += health;
+                    return GlobalFactory.Blocks.CreateHorizontalDamage(transform, x, y, health);
+                }
+            case BlockType.VerticalDamage:
+                {
+                    var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2) / 2;
+                    PlayModel.stats.totalLevelHealth += health;
+                    return GlobalFactory.Blocks.CreateVerticalDamage(transform, x, y, health);
+                }
+
             case BlockType.CrossDamage: return null;
             case BlockType.Ball: return GlobalFactory.Blocks.CreateBall(transform, x, y);
             case BlockType.Null: return null;

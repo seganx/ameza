@@ -8,7 +8,7 @@ public class BlockValue : BlockBase
     [SerializeField] private SpriteRenderer spriter = null;
     [SerializeField] private SpriteRenderer effector = null;
     [SerializeField] private Animation animator = null;
-    [SerializeField] private TextMesh numberLabel = null;
+    [SerializeField] protected TextMesh numberLabel = null;
     [SerializeField] private BlockWarning warning = null;
 
     public int ItemIndex { get; set; }
@@ -24,14 +24,14 @@ public class BlockValue : BlockBase
 
     public BlockValue Setup(int itemIndex, int health)
     {
-        Health = health;
+        Health = Mathf.Max(health, 1);
         ItemIndex = itemIndex % GlobalFactory.Theme.Selected.items.Length;
         spriter.sprite = effector.sprite = GlobalFactory.Theme.Selected.items[ItemIndex];
         numberLabel.text = Health.ToString().Persian();
         return this;
     }
 
-    public void Hit(int damage)
+    public virtual void Hit(int damage)
     {
         if (Health > damage)
         {
@@ -62,7 +62,7 @@ public class BlockValue : BlockBase
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         Hit(1);
     }

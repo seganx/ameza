@@ -22,6 +22,7 @@ public class BlockBase : MonoBehaviour
         return this;
     }
 
+
     public virtual void UsedAbility(AbilityType ability)
     {
         // overide this to implement abilities

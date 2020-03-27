@@ -202,7 +202,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<Season> seasons = new List<Season>();
         public List<Difficulty> difficulty = new List<Difficulty>();
         public Timers timers = new Timers();
-        public OfferConfig offers = new OfferConfig();
+        public List<OfferConfig> offers = new List<OfferConfig>();
         public List<League> leagues = new List<League>();
         public Friends friends = new Friends();
         public List<Shop> shop = new List<Shop>();
@@ -257,7 +257,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static List<Data.Season> Seasons { get { return Instance.data.seasons; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty[Group % Instance.data.difficulty.Count]; } }
     public static Data.Timers Timers { get { return Instance.data.timers; } }
-    public static Data.OfferConfig Offers { get { return Instance.data.offers; } }
+    public static Data.OfferConfig Offers { get { return Instance.data.offers[Group % Instance.data.offers.Count]; } }
     public static Data.Friends Friends { get { return Instance.data.friends; } }
     public static Data.Shop Shop { get { return Instance.data.shop[Group % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Group % Instance.data.profilePreset.Count]; } }
@@ -265,7 +265,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static List<string> Jokes { get { return Instance.data.jokes; } }
 
 
-    private static int Group
+    public static int Group
     {
         get
         {

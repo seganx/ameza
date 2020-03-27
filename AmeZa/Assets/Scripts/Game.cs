@@ -17,7 +17,6 @@ namespace SeganX
             set { PlayerPrefs.SetInt("Game.LastVersion", value); }
         }
 
-
         // Use this for initialization
         private IEnumerator Start()
         {
@@ -25,6 +24,12 @@ namespace SeganX
             if (stopLoading)
                 yield break;
 #endif
+
+            SeganX.Console.Info.OnDisplayInfo = str =>
+            {
+                return "Ver: " + Application.version + " Group: " + GlobalAnalytics.Group +  "\nId: " + SeganX.Console.Info.DisplayDeviceID;
+
+            };
 
 #if LOCALPUSH
             LocalPush.NotificationManager.CancelAll();
@@ -156,13 +161,13 @@ namespace SeganX
         [Console("friends", "add")]
         public static void AddFriends(string username)
         {
-            Online.Friends.Add(username, (success, res) => res.GetStringDebug());
+            Online.Friends.Add(username, (success, res) => Debug.Log(res.GetStringDebug()));
         }
 
         [Console("friends", "get")]
         public static void GetFriends()
         {
-            Online.Friends.Get((success, res) => res.GetStringDebug());
+            Online.Friends.Get((success, res) => Debug.Log(res.GetStringDebug()));
         }
     }
 }

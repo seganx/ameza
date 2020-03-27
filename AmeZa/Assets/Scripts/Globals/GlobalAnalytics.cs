@@ -8,6 +8,8 @@ using UnityEngine;
 [DefaultExecutionOrder(-9999)]
 public class GlobalAnalytics : MonoBehaviour
 {
+    public static int Group { get; private set; }
+
     private void Awake()
     {
         GameAnalytics.Initialize();
@@ -15,7 +17,8 @@ public class GlobalAnalytics : MonoBehaviour
 
     public static void SetGroup(int index)
     {
-        GameAnalytics.SetCustomDimension01("group_" + Mathf.Clamp(index, 0, 3));
+        Group = Mathf.Clamp(index, 0, 3);
+        GameAnalytics.SetCustomDimension01("group_" + Group);
     }
 
     public static void NewBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)

@@ -61,7 +61,8 @@ public class PatternConfigEditor : Editor
         style.alignment = TextAnchor.MiddleCenter;
         style.fontSize = 30;
 
-        var rect = EditorGUILayout.GetControlRect();
+        int rows = obj.blocks.Count / PatternConfig.width;
+        var rect = EditorGUILayout.GetControlRect(false, rows * (EditorGUIUtility.currentViewWidth / PatternConfig.width));
         var w = rect.width / PatternConfig.width;
         var r = new Rect(0, 0, w, w);
         var offset = gridOffset * PatternConfig.width;

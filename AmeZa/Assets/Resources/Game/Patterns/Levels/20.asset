@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50865e45748b56f41af216220a53e398, type: 3}
   m_Name: 20
   m_EditorClassIdentifier: 
-  height: 2
+  height: 3
   startLength: 2
   wrapMode: 0
   horizontalRandom:
@@ -21,4 +21,4 @@ MonoBehaviour:
   verticalRandom:
     activated: 0
     startStep: 6
-  blocks: ffffffff0a000000ffffffffffffffffffffffff0a000000fffffffffffffffff6fffffffffffffffffffffffffffffff6ffffffffffffff
+  blocks: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff05000000f6ffffff05000000fffffffffffffffffffffffffffffffff6fffffffffffffff6ffffffffffffffffffffff

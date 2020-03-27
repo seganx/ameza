@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f8026d0bd9bf94cb5a75b4e9a73dbc, type: 3}
   m_Name: GlobalConfig
   m_EditorClassIdentifier: 
-  version: 17
+  version: 18
   market: 2
   address: http://seganx.ir/games/ameza/
   cafeBazaarKey: MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC9I8YlT93gE3Cq4+u24GAlz4mrFRL/adk1V+cRLRhCYttNSFIw+TDlpUUOvIpS1/+tyjDDZTTGMczmfxAdxeohiM5YjiU4Eou36L+cHFbSSOjRJOU/CegzRDO/LD08s/4kyR0eORNvFyf2oK7dmF4tAqK/U79oKJI+Lz9vGp67Tx+5WoYUGSV3kvnPKgdJqoEwH0d8W0q667Ik60mgWqsgNQSNPO27IytYGe9vdXMCAwEAAQ==
@@ -47,8 +47,8 @@ MonoBehaviour:
         item0: 1
         item1: 1
     - levels: 16
-      blocks: {x: 40, y: 360}
-      balls: {x: 15, y: 60}
+      blocks: {x: 20, y: 100}
+      balls: {x: 20, y: 70}
       reward:
         gems: {x: 100, y: 10, z: 30}
         bombs: {x: 2, y: 1, z: 1}
@@ -85,8 +85,8 @@ MonoBehaviour:
         item0: 3
         item1: 3
     - levels: 20
-      blocks: {x: 50, y: 400}
-      balls: {x: 20, y: 70}
+      blocks: {x: 40, y: 140}
+      balls: {x: 30, y: 80}
       reward:
         gems: {x: 100, y: 10, z: 30}
         bombs: {x: 2, y: 1, z: 1}
@@ -131,9 +131,9 @@ MonoBehaviour:
     difficulty:
     - turnsFactor: 150
       ballsFactor: 300
-      winFactorPositive: 3
-      winFactorNegative: 9
-      loseFactor: 3
+      winFactorPositive: 10
+      winFactorNegative: 20
+      loseFactor: 5
       seasonBlocksFactors: {x: 5, y: 30}
       seasonBallsFactors: {x: 5, y: 20}
       curves:
@@ -230,9 +230,9 @@ MonoBehaviour:
         m_RotationOrder: 0
     - turnsFactor: 150
       ballsFactor: 300
-      winFactorPositive: 3
-      winFactorNegative: 9
-      loseFactor: 3
+      winFactorPositive: 10
+      winFactorNegative: 20
+      loseFactor: 5
       seasonBlocksFactors: {x: 10, y: 60}
       seasonBallsFactors: {x: 10, y: 40}
       curves:
@@ -290,7 +290,7 @@ MonoBehaviour:
         id: 2
         duration: 86400
     offers:
-      startIndex: 2
+    - startIndex: 2
       firstDelay: 86400
       coolTime: 172800
       minResource: 2400

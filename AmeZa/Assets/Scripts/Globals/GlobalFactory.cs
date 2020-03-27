@@ -112,6 +112,18 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             var res = Resources.Load<BlockBall>("Blocks/Ball").Clone<BlockBall>(parent).SetPosition(x, y);
             return res;
         }
+
+        public static BlockBase CreateHorizontalDamage(Transform parent, int x, int y, int health)
+        {
+            var res = Resources.Load<BlockHorizontalDamage>("Blocks/HorizontalDamage").Clone<BlockHorizontalDamage>(parent).Setup(health).SetPosition(x, y);
+            return res;
+        }
+
+        public static BlockBase CreateVerticalDamage(Transform parent, int x, int y, int health)
+        {
+            var res = Resources.Load<BlockVerticalDamage>("Blocks/VerticalDamage").Clone<BlockVerticalDamage>(parent).Setup(health).SetPosition(x, y);
+            return res;
+        }
     }
 
     public static class Patterns
