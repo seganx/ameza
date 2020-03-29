@@ -107,5 +107,7 @@ public class UiShopItem : MonoBehaviour
                 GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
             }
         });
+
+        GlobalAnalytics.Source(pack.gems, pack.sku.Replace("ameza_", ""));
     }
 }

@@ -30,7 +30,7 @@ MonoBehaviour:
       blocks: {x: 10, y: 80}
       balls: {x: 10, y: 60}
       reward:
-        gems: {x: 100, y: 10, z: 30}
+        gems: {x: 100, y: 10, z: 20}
         bombs: {x: 5, y: 1, z: 1}
         hammers: {x: 5, y: 1, z: 3}
         missiles: {x: 5, y: 1, z: 1}
@@ -50,7 +50,7 @@ MonoBehaviour:
       blocks: {x: 20, y: 100}
       balls: {x: 20, y: 70}
       reward:
-        gems: {x: 100, y: 10, z: 30}
+        gems: {x: 100, y: 10, z: 20}
         bombs: {x: 2, y: 1, z: 1}
         hammers: {x: 3, y: 1, z: 2}
         missiles: {x: 2, y: 1, z: 1}
@@ -88,7 +88,7 @@ MonoBehaviour:
       blocks: {x: 40, y: 140}
       balls: {x: 30, y: 80}
       reward:
-        gems: {x: 100, y: 10, z: 30}
+        gems: {x: 100, y: 10, z: 20}
         bombs: {x: 2, y: 1, z: 1}
         hammers: {x: 3, y: 1, z: 1}
         missiles: {x: 2, y: 1, z: 1}
@@ -233,8 +233,8 @@ MonoBehaviour:
       winFactorPositive: 10
       winFactorNegative: 20
       loseFactor: 5
-      seasonBlocksFactors: {x: 10, y: 60}
-      seasonBallsFactors: {x: 10, y: 40}
+      seasonBlocksFactors: {x: 20, y: 60}
+      seasonBallsFactors: {x: 20, y: 40}
       curves:
       - serializedVersion: 2
         m_Curve:
@@ -297,10 +297,17 @@ MonoBehaviour:
       resourceTime: 10800
       offerDuration: 86400
       lastPurchaseTime: 432000
+    - startIndex: 3
+      firstDelay: 86400
+      coolTime: 86400
+      minResource: 2400
+      resourceTime: 10800
+      offerDuration: 86400
+      lastPurchaseTime: 432000
     leagues:
     - id: 4695001
       playType: 2
-      startBallCount: {x: 10, y: 30}
+      startBallCount: {x: 20, y: 30}
       name: "\u0644\u064A\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
       desc: "\u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC
         \u062A\u064A\u0644\u0647 \u062C\u0645\u0639 \u06A9\u0646\u06CC\u061F"
@@ -326,7 +333,7 @@ MonoBehaviour:
         rewardGems: 2000
     - id: 4695002
       playType: 3
-      startBallCount: {x: 10, y: 30}
+      startBallCount: {x: 20, y: 30}
       name: "\u0644\u064A\u06AF \u062C\u0627\u0646\u0627\u0646"
       desc: "\u0622\u06CC\u062A\u0645 \u062C\u0645\u0639 \u06A9\u0646 \u062A\u0627
         \u0627\u0645\u062A\u06CC\u0627\u0632 \u0628\u06AF\u06CC\u0631\u06CC!"
@@ -352,7 +359,7 @@ MonoBehaviour:
         rewardGems: 3000
     - id: 4695003
       playType: 4
-      startBallCount: {x: 10, y: 30}
+      startBallCount: {x: 20, y: 30}
       name: "\u0644\u064A\u06AF \u0633\u0644\u0627\u0637\u064A\u0646"
       desc: "\u062A\u0627 \u06A9\u062C\u0627 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC
         \u062F\u0648\u0627\u0645 \u0628\u06CC\u0627\u0631\u06CC\u061F\r\n\u0647\u0631

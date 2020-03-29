@@ -290,6 +290,7 @@ public class Profile : MonoBehaviour
             Bombs = GlobalConfig.ProfilePreset.bombs / 2;
             Hammers = GlobalConfig.ProfilePreset.hammers / 2;
             Missiles = GlobalConfig.ProfilePreset.missles / 2;
+            GlobalAnalytics.Source(GlobalConfig.ProfilePreset.gems, "first");
         }
     }
 

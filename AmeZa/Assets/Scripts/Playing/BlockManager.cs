@@ -13,6 +13,7 @@ public class BlockManager : Base
     public static bool IsBlockReachedWarn { get; private set; }
 
     private int usedAbilityCount = 0;
+    private List<BlockBase> tmpList = new List<BlockBase>(64);
 
     private int DifficultyHealth
     {
@@ -48,11 +49,7 @@ public class BlockManager : Base
                 IsBlockReachedWarn = CheckBlocksReached(2);
                 IsBlockReachedDown = CheckBlocksReached(1);
                 if (IsBlockReachedDown == false)
-                {
-                    for (int i = 0; i < blocks.Count; i++)
-                        blocks[i].GoDown();
-                    SpawnBlocks(++PlayModel.stats.totalTurn);
-                }
+                    GoNextTurn();
                 SendMessageUpwards("CheckMission");
                 break;
 
@@ -63,16 +60,17 @@ public class BlockManager : Base
             case Messages.Type.UseAbility:
                 {
                     var ability = param.As<AbilityType>();
-                    var tmplist = new List<BlockBase>(blocks);
-                    foreach (var block in tmplist)
-                        block.UsedAbility(ability);
+                    tmpList.Clear();
+                    tmpList.AddRange(blocks);
+                    for (int i = 0; i < tmpList.Count; i++)
+                        tmpList[i].UsedAbility(ability);
                     IsBlockReachedWarn = CheckBlocksReached(2);
                     IsBlockReachedDown = CheckBlocksReached(1);
                     switch (ability)
                     {
                         case AbilityType.Bomb:
                             usedAbilityCount += 15;
-                            DelayCall(1, () => SpawnBlocks(++PlayModel.stats.totalTurn));
+                            DelayCall(1, GoNextTurn);
                             break;
                         case AbilityType.Missle: usedAbilityCount += 7; break;
                         case AbilityType.Hammer: usedAbilityCount += 3; break;
@@ -89,6 +87,15 @@ public class BlockManager : Base
             if (blocks[i].Type > 0 && blocks[i].Position.y < edge)
                 return true;
         return false;
+    }
+
+    private void GoNextTurn()
+    {
+        tmpList.Clear();
+        tmpList.AddRange(blocks);
+        for (int i = 0; i < tmpList.Count; i++)
+            tmpList[i].GoDown();
+        SpawnBlocks(++PlayModel.stats.totalTurn);
     }
 
     public void SpawnBlocks(int step)
@@ -156,13 +163,13 @@ public class BlockManager : Base
 
             case BlockType.HorizontalDamage:
                 {
-                    var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2) / 2;
+                    var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2);
                     PlayModel.stats.totalLevelHealth += health;
                     return GlobalFactory.Blocks.CreateHorizontalDamage(transform, x, y, health);
                 }
             case BlockType.VerticalDamage:
                 {
-                    var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2) / 2;
+                    var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2);
                     PlayModel.stats.totalLevelHealth += health;
                     return GlobalFactory.Blocks.CreateVerticalDamage(transform, x, y, health);
                 }

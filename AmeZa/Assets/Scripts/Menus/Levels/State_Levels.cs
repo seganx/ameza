@@ -47,6 +47,7 @@ public class State_Levels : GameState
                 Profile.Hammers += reward.hammers;
                 Profile.Missiles += reward.missiles;
                 Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () => Rateus.AddJoy(4, () => nextButton.onClick.Invoke()));
+                GlobalAnalytics.Source(reward.gems, "season");
             }
             else tutorial.Display(0, false, 111041, null);
         });

@@ -56,6 +56,7 @@ public class Popup_Win : GameState
                     if (nextTaskFunc != null)
                         nextTaskFunc();
                 });
+                GlobalAnalytics.Source(rewards.gems, "level");
             }
             else
             {

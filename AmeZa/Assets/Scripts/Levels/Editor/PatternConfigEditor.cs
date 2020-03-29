@@ -54,7 +54,7 @@ public class PatternConfigEditor : Editor
         if (brush == BlockType.Value)
             brushValue = EditorGUILayout.IntField("Value", brushValue);
 
-        gridOffset = EditorGUILayout.IntSlider("Grid Offset", gridOffset, 0, obj.height);
+        //gridOffset = EditorGUILayout.IntSlider("Grid Offset", gridOffset, 0, obj.height);
 
         style.normal.textColor = Color.red;
         style.stretchHeight = style.stretchWidth = true;
@@ -91,6 +91,7 @@ public class PatternConfigEditor : Editor
                 }
             }
         }
+
         EditorUtility.SetDirty(obj);
     }
 

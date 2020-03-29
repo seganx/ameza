@@ -27,7 +27,7 @@ public class Combo : Base
                 count = 0;
                 break;
             case Messages.Type.BlockDead:
-                if (started)
+                if (started && param.As<BlockBase>().Type != BlockType.Obstacle)
                 {
                     count++;
 

@@ -1518,7 +1518,7 @@ namespace GameAnalyticsSDK.Editor
             };
             www.uploadHandler = uH;
             www.downloadHandler = new DownloadHandlerBuffer();
-            www.chunkedTransfer = false;
+            //www.chunkedTransfer = false;
             Dictionary<string, string> headers = GA_EditorUtilities.WWWHeaders();
             foreach (KeyValuePair<string, string> entry in headers)
             {
@@ -1632,7 +1632,7 @@ namespace GameAnalyticsSDK.Editor
             };
             www.uploadHandler = uH;
             www.downloadHandler = new DownloadHandlerBuffer();
-            www.chunkedTransfer = false;
+            //www.chunkedTransfer = false;
 
             Dictionary<string, string> headers = GA_EditorUtilities.WWWHeaders();
             foreach (KeyValuePair<string, string> entry in headers)
@@ -1882,7 +1882,7 @@ namespace GameAnalyticsSDK.Editor
             };
             www.uploadHandler = uH;
             www.downloadHandler = new DownloadHandlerBuffer();
-            www.chunkedTransfer = false;
+            //www.chunkedTransfer = false;
             Dictionary<string, string> headers = GA_EditorUtilities.WWWHeadersWithAuthorization(ga.TokenGA);
             foreach (KeyValuePair<string, string> entry in headers)
             {

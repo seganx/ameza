@@ -43,4 +43,16 @@ public class GlobalAnalytics : MonoBehaviour
     {
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "Levels", season.ToString(), level.ToString(), 0);
     }
+
+    // A “sink” is when a player loses or spends a resource
+    public static void Sink(int amount, string itemId)
+    {
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gems", amount, "earn", itemId);
+    }
+
+    // A “source” is when a player gains or earns a resource
+    public static void Source(int amount, string itemId)
+    {
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "gems", amount, "spend", itemId);
+    }
 }

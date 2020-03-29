@@ -23,17 +23,12 @@ public class BlockObstacle : BlockBase
         }
         else
         {
-            Invoke("DeleteMe", 0.1f);
+            spriter.sortingOrder++;
+            Destroy(GetComponent<Collider2D>());
+            animator.Play("BlockDeath");
+            transform.root.Message(Messages.Type.OnBlockDeath, this);
+            transform.root.Broadcast(Messages.Type.BlockDead, this);
+            Destroy(gameObject, 3);
         }
-    }
-
-    public void DeleteMe()
-    {
-        spriter.sortingOrder++;
-        Destroy(GetComponent<Collider2D>());
-        animator.Play("BlockDeath");
-        transform.root.Message(Messages.Type.OnBlockDeath, this);
-        transform.root.Broadcast(Messages.Type.BlockDead, this);
-        Destroy(gameObject, 3);
     }
 }

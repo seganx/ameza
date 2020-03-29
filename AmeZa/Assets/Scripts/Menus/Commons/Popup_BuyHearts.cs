@@ -22,6 +22,7 @@ public class Popup_BuyHearts : GameState
             {
                 Profile.Hearts += GlobalConfig.ProfilePreset.hearts;
                 Back();
+                GlobalAnalytics.Sink(GlobalConfig.Shop.heartPrice, "heart");
             });
         });
 

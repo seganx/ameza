@@ -130,6 +130,7 @@ public class Popup_LeagueInfo : GameState
                 Profile.EarnGems(subleague.rewardGems);
                 game.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.AddJoy(2));
                 LeagueLogics.data.end_score = LeagueLogics.data.end_rank = 0;
+                GlobalAnalytics.Source(subleague.rewardGems, "league");
             }
             else rewardButton.SetInteractable(true);
         });

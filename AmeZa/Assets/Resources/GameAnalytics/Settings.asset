@@ -30,7 +30,7 @@ MonoBehaviour:
   secretKey:
   - 4edc888244896d02cd0beb1741b77334f781c747
   Build:
-  - 17.39
+  - 18.43
   SelectedPlatformStudio:
   - Parseh Games
   SelectedPlatformGame:
@@ -72,8 +72,11 @@ MonoBehaviour:
   - group_3
   CustomDimensions02: []
   CustomDimensions03: []
-  ResourceItemTypes: []
-  ResourceCurrencies: []
+  ResourceItemTypes:
+  - earn
+  - spend
+  ResourceCurrencies:
+  - gem
   LastCreatedGamePlatform: -1
   Platforms: 0b000000
   CurrentInspectorState: 1

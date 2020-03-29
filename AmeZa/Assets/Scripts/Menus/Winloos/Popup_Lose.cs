@@ -33,7 +33,7 @@ public class Popup_Lose : GameState
                 callback(AbilityType.Bomb);
                 base.Back();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.bombs, GlobalConfig.Shop.bombPrice, count => Profile.Bombs += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.bombs, GlobalConfig.Shop.bombPrice, "bomb", count => Profile.Bombs += count);
         });
 
         hammerButton.onClick.AddListener(() =>
@@ -44,7 +44,7 @@ public class Popup_Lose : GameState
                 callback(AbilityType.Hammer);
                 base.Back();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.hammers, GlobalConfig.Shop.hammerPrice, count => Profile.Hammers += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.hammers, GlobalConfig.Shop.hammerPrice, "hammer", count => Profile.Hammers += count);
         });
 
         missleButton.onClick.AddListener(() =>
@@ -55,7 +55,7 @@ public class Popup_Lose : GameState
                 callback(AbilityType.Missle);
                 base.Back();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, count => Profile.Missiles += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, "scissor", count => Profile.Missiles += count);
         });
 
         homeButton.onClick.AddListener(() =>
@@ -88,7 +88,7 @@ public class Popup_Lose : GameState
         missleLabel.SetText(Profile.Missiles > 0 ? Profile.Missiles.ToString() : "+");
     }
 
-    private void BuyBooster(int count, int price, System.Action<int> onSuccess)
+    private void BuyBooster(int count, int price, string booster, System.Action<int> onSuccess)
     {
         game.OpenPopup<Popup_Confirm>().SetText(111003, count, price).Setup(true, true, yes =>
         {
@@ -97,6 +97,7 @@ public class Popup_Lose : GameState
             {
                 onSuccess(count);
                 UpdateTexts();
+                GlobalAnalytics.Sink(price, booster);
             });
         });
     }

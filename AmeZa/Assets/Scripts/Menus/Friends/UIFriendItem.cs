@@ -70,6 +70,7 @@ public class UIFriendItem : MonoBehaviour
                     cupImage.gameObject.SetActive(true);
                     rewardButton.transform.parent.gameObject.SetActive(false);
                 });
+                GlobalAnalytics.Source(GlobalConfig.Friends.rewardGems, "friend");
             });
         }
 

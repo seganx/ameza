@@ -189,6 +189,7 @@ public class Popup_LuckySpine : GameState
                 }
             });
             descAgain.SetActive(false);
+            GlobalAnalytics.Source(gems, "luckyspine");
         }
         else
         {
