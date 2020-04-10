@@ -130,10 +130,10 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         {
             public int startIndex = 2;
             public int firstDelay = 24 * 60 * 60;
-            public int coolTime = 48 * 60 * 60;
             public int minResource = 2400;
             public int resourceTime = 3 * 60 * 60;
             public int offerDuration = 24 * 60 * 60;
+            public int coolTime = 48 * 60 * 60;
             public int lastPurchaseTime = 5 * 24 * 60 * 60;
         }
 

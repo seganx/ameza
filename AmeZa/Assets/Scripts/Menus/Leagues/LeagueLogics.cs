@@ -18,6 +18,7 @@ public static class LeagueLogics
             Game.Instance.OpenPopup<Popup_BuyHearts>();
             return false;
         }
+        else Profile.Hearts--;
 
         PlayModel.Reset(info.playType);
         PlayModel.ballId = Profile.Avatar.BallId;

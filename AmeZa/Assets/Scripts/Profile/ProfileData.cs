@@ -31,6 +31,7 @@ public class ProfileData
     [System.Serializable]
     public class PrivateData
     {
+        public CryptoInt version = 0;
         public CryptoInt sessions = 0;
         public CryptoInt gems = 0;
         public CryptoInt hearts = 0;

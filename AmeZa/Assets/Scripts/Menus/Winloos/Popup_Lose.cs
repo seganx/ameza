@@ -30,6 +30,7 @@ public class Popup_Lose : GameState
             if (Profile.Bombs > 0)
             {
                 Profile.Bombs--;
+                Profile.Skill -= GlobalConfig.Difficulty.loseFactor / 1;
                 callback(AbilityType.Bomb);
                 base.Back();
             }
@@ -41,6 +42,7 @@ public class Popup_Lose : GameState
             if (Profile.Hammers > 0)
             {
                 Profile.Hammers--;
+                Profile.Skill -= GlobalConfig.Difficulty.loseFactor / 3;
                 callback(AbilityType.Hammer);
                 base.Back();
             }
@@ -52,6 +54,7 @@ public class Popup_Lose : GameState
             if (Profile.Missiles > 0)
             {
                 Profile.Missiles--;
+                Profile.Skill -= GlobalConfig.Difficulty.loseFactor / 2;
                 callback(AbilityType.Missle);
                 base.Back();
             }

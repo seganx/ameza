@@ -129,7 +129,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cf2bf350cd8287b4e9006dd9cd54e896, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3cf6cf1462c607442b1371cd245ed2d0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1030,7 +1030,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cf2bf350cd8287b4e9006dd9cd54e896, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3cf6cf1462c607442b1371cd245ed2d0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1810,7 +1810,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -3.5}
-  m_SizeDelta: {x: 337.06992, y: 91}
+  m_SizeDelta: {x: 343.75, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222824175961099874
 CanvasRenderer:
@@ -3424,7 +3424,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cf2bf350cd8287b4e9006dd9cd54e896, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3cf6cf1462c607442b1371cd245ed2d0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

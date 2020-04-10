@@ -47,12 +47,12 @@ public class GlobalAnalytics : MonoBehaviour
     // A “sink” is when a player loses or spends a resource
     public static void Sink(int amount, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gems", amount, "earn", itemId);
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gem", amount, "earn", itemId);
     }
 
     // A “source” is when a player gains or earns a resource
     public static void Source(int amount, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "gems", amount, "spend", itemId);
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "gem", amount, "spend", itemId);
     }
 }

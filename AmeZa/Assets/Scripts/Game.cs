@@ -11,12 +11,6 @@ namespace SeganX
         [SerializeField] private bool stopLoading = false;
 #endif
 
-        public static int LastVersion
-        {
-            get { return PlayerPrefs.GetInt("Game.LastVersion", GlobalConfig.Instance.version); }
-            set { PlayerPrefs.SetInt("Game.LastVersion", value); }
-        }
-
         // Use this for initialization
         private IEnumerator Start()
         {
@@ -27,7 +21,7 @@ namespace SeganX
 
             SeganX.Console.Info.OnDisplayInfo = str =>
             {
-                return "Ver: " + Application.version + " Group: " + GlobalAnalytics.Group +  "\nId: " + SeganX.Console.Info.DisplayDeviceID;
+                return "Ver: " + Application.version + " Group: " + GlobalAnalytics.Group + "\nId: " + SeganX.Console.Info.DisplayDeviceID;
 
             };
 
@@ -42,23 +36,28 @@ namespace SeganX
             Profile.Sync(false, succss =>
             {
                 Loading.Hide();
-                LastVersion = GlobalConfig.Instance.version;
                 OpenState<State_Main>();
+                Profile.Version = GlobalConfig.Instance.version;
             });
-        }
 
 #if UNITY_EDITOR
-        private void Update()
-        {
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyUp(KeyCode.Space))
+
+            while (true)
             {
-                var path = Application.dataPath + "/../../Documents/Screenshots/" + System.DateTime.Now.Ticks + ".png";
-                ScreenCapture.CaptureScreenshot(path);
-                Application.OpenURL(path);
-                UnityEditor.EditorUtility.RevealInFinder(path);
+                yield return new WaitForEndOfFrame();
+
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Space))
+                {
+                    var path = Application.dataPath + "/../../Documents/Screenshots/" + System.DateTime.Now.Ticks + ".png";
+                    path = System.IO.Path.GetFullPath(path);
+                    ScreenCapture.CaptureScreenshot(path);
+                    yield return new WaitForSeconds(0.5f);
+                    Application.OpenURL(path);
+                    UnityEditor.EditorUtility.RevealInFinder(path);
+                }
             }
-        }
 #endif
+        }
 
         private void OnApplicationPause(bool pause)
         {

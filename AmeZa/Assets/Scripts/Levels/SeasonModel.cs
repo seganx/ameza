@@ -40,8 +40,8 @@ public class SeasonModel
         res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyCurve.Evaluate(res.progress)));
         res.reward = levelReward;
 
-        res.minBlockHealth = Mathf.Max(res.minBlockHealth + res.minBlockHealth * skillFactor / 500, 1);
-        res.maxBlockHealth = Mathf.Max(res.maxBlockHealth + res.maxBlockHealth * skillFactor / 100, 5);
+        res.minBlockHealth = Mathf.Max(res.minBlockHealth + res.minBlockHealth * skillFactor / 5000, 1);
+        res.maxBlockHealth = Mathf.Max(res.maxBlockHealth + res.maxBlockHealth * skillFactor / 1000, 5);
 
         var specialLevel = missions.Find(x => x.index == index);
         if (specialLevel != null)

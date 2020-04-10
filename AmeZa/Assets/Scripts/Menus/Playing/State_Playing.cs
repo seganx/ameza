@@ -161,9 +161,6 @@ public class State_Playing : GameState
 
     public void PlayerLose()
     {
-        if (Profile.Hearts > 0)
-            Profile.Hearts--;
-
         if (PlayModel.onLose != null)
             PlayModel.onLose(ok => { if (ok) base.Back(); });
         else

@@ -36,7 +36,7 @@ public class CinematicConfig : ScriptableObject
 
     public bool Check(int season, int level, Point point)
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR_OFF
         return (seasonId == season && levelIndex == level && storyPoint == point);
 #else
         // verify once playing

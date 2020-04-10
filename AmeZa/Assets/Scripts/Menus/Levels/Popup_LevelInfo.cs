@@ -49,6 +49,7 @@ public class Popup_LevelInfo : GameState
         {
             if (Profile.Hearts > 0)
             {
+                Profile.Hearts--;
                 Back();
 
                 PlayModel.Reset(PlayModel.Type.Levels);
@@ -62,6 +63,7 @@ public class Popup_LevelInfo : GameState
 
                 PlayModel.onWin = () =>
                 {
+                    Profile.Hearts++;
                     GlobalAnalytics.LevelWin(season.id, index, PlayModel.GetRewardStars());
                     if (season.id > 0)
                         Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;

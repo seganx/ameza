@@ -24,6 +24,7 @@ public class BlockObstacle : BlockBase
         else
         {
             spriter.sortingOrder++;
+            transform.RemoveChildrenBut(0);
             Destroy(GetComponent<Collider2D>());
             animator.Play("BlockDeath");
             transform.root.Message(Messages.Type.OnBlockDeath, this);
