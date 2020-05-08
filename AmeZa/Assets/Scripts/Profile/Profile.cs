@@ -87,6 +87,12 @@ public class Profile : MonoBehaviour
         set { data.privateData.version = value; }
     }
 
+    public static int MaxClassicScore
+    {
+        get { return data.privateData.classicScore; }
+        set { data.privateData.classicScore = value; }
+    }
+
     public static int Hearts
     {
         get { return data.privateData.hearts; }
@@ -293,9 +299,6 @@ public class Profile : MonoBehaviour
         {
             EarnGems(GlobalConfig.ProfilePreset.gems);
             Hearts = GlobalConfig.ProfilePreset.hearts;
-            //Bombs = Mathf.FloorToInt(GlobalConfig.ProfilePreset.bombs * 0.5f);
-            //Hammers = Mathf.FloorToInt(GlobalConfig.ProfilePreset.hammers * 0.5f);
-            //Missiles = Mathf.FloorToInt(GlobalConfig.ProfilePreset.missles * 0.5f);
             Bombs = GlobalConfig.ProfilePreset.bombs / 2;
             Hammers = GlobalConfig.ProfilePreset.hammers / 2;
             Missiles = GlobalConfig.ProfilePreset.missles / 2;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using SeganX;
 
-public class Popup_LeagueLose : GameState
+public class Popup_Lose : GameState
 {
     [SerializeField] private LocalText scoreLabel = null;
     [SerializeField] private LocalText descLabel = null;
@@ -12,18 +12,28 @@ public class Popup_LeagueLose : GameState
     [SerializeField] private Button replayButton = null;
     [SerializeField] private LocalText baloon = null;
 
+    private System.Action<System.Action> onReplayFunc = null;
+    private System.Action onCloseFunc = null;
+
     private static int BaloonIndex
     {
-        get { return PlayerPrefs.GetInt("Popup_LeagueLose.BaloonIndex", 0); }
-        set { PlayerPrefs.SetInt("Popup_LeagueLose.BaloonIndex", value); }
+        get { return PlayerPrefs.GetInt("Popup_Lose.BaloonIndex", 0); }
+        set { PlayerPrefs.SetInt("Popup_Lose.BaloonIndex", value); }
+    }
+
+    public Popup_Lose Setup(System.Action<System.Action> onReplay, System.Action onClose)
+    {
+        onReplayFunc = onReplay;
+        onCloseFunc = onClose;
+        return this;
     }
 
     private IEnumerator Start()
     {
         scoreLabel.SetText("0");
 
-        int totalBalls = PlayModel.stats.totalBalls + PlayModel.level.startBallCount;
-        descLabel.SetFormatedText(PlayModel.stats.totalTurn.ToString(), PlayModel.stats.totalBlocks.ToString(), totalBalls);
+        int totalBalls = PlayModel.result.totalBalls + PlayModel.level.startBallCount;
+        descLabel.SetFormatedText(PlayModel.result.totalTurn.ToString(), PlayModel.result.totalBlocks.ToString(), totalBalls);
 
         inviteButton.onClick.AddListener(() =>
         {
@@ -33,13 +43,13 @@ public class Popup_LeagueLose : GameState
 
         replayButton.onClick.AddListener(() =>
         {
-            if (LeagueLogics.SetPlayerModel())
+            onReplayFunc(() =>
             {
                 base.Back();
                 UIBackground.Hide();
                 game.ClosePopup(true);
                 game.OpenState<State_Playing>();
-            }
+            });
         });
 
         baloon.gameObject.SetActive(false);
@@ -55,7 +65,7 @@ public class Popup_LeagueLose : GameState
         }
 
         float t = 0;
-        float curscore = 0, maxscore = PlayModel.GetLeagueScore();
+        float curscore = 0, maxscore = PlayModel.GetScore();
         var wait = new WaitForEndOfFrame();
         while (t < 1)
         {
@@ -69,6 +79,6 @@ public class Popup_LeagueLose : GameState
     public override void Back()
     {
         base.Back();
-        Game.Instance.OpenState<State_Main>(true);
+        onCloseFunc?.Invoke();
     }
 }

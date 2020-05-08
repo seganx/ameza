@@ -28,7 +28,7 @@ public class BlockBall : BlockBase
     {
         released = true;
         IsPregnant = pregnant;
-        PlayModel.stats.totalBalls++;
+        PlayModel.result.totalBalls++;
         Destroy(GetComponent<BoxCollider2D>());
         transform.root.Message(Messages.Type.OnBlockDeath, this);
         transform.root.Broadcast(Messages.Type.BlockDead, this);

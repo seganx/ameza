@@ -196,6 +196,21 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             }
         }
 
+        [System.Serializable]
+        public class Notifications
+        {
+            [System.Serializable]
+            public class Notif
+            {
+                public int id = 0;
+                public int delaySeconds = 24 * 60 * 60;
+                public List<string> texts = new List<string>();
+            }
+
+            public List<Notif> items = new List<Notif>();
+            public string heartFull = string.Empty;
+            public string luckySpine = string.Empty;
+        }
 
         public Update update = new Update();
         public Socials socials = new Socials();
@@ -207,7 +222,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public Friends friends = new Friends();
         public List<Shop> shop = new List<Shop>();
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
-        public List<string> jokes = new List<string>();
+        public List<Notifications> notification = new List<Notifications>() { new Notifications() };
+        [HideInInspector] public List<string> jokes = new List<string>();
         public int groups = 2;
     }
 
@@ -262,6 +278,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Shop Shop { get { return Instance.data.shop[Group % Instance.data.shop.Count]; } }
     public static Data.ProfilePreset ProfilePreset { get { return Instance.data.profilePreset[Group % Instance.data.profilePreset.Count]; } }
     public static List<Data.League> Leagues { get { return Instance.data.leagues; } }
+    public static Data.Notifications Notifications { get { return Instance.data.notification[Group % Instance.data.notification.Count]; } }
+
     public static List<string> Jokes { get { return Instance.data.jokes; } }
 
 

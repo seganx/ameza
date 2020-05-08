@@ -22,8 +22,8 @@ public class BlockManager : Base
             // ignore difficulty for first season on campain
             if (PlayModel.level.pattern.wrapMode == PatternConfig.WrapMode.Clamp) return 0;
             if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1) return 0;
-            int turnFactor = (PlayModel.stats.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
-            int ballFactor = PlayModel.stats.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
+            int turnFactor = (PlayModel.result.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
+            int ballFactor = PlayModel.result.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
             return turnFactor + ballFactor;
         }
     }
@@ -36,7 +36,7 @@ public class BlockManager : Base
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.5f);
-        SpawnBlocks(PlayModel.stats.totalTurn);
+        SpawnBlocks(PlayModel.result.totalTurn);
     }
 
     private void OnMessage(Messages.Param param)
@@ -95,7 +95,7 @@ public class BlockManager : Base
         tmpList.AddRange(blocks);
         for (int i = 0; i < tmpList.Count; i++)
             tmpList[i].GoDown();
-        SpawnBlocks(++PlayModel.stats.totalTurn);
+        SpawnBlocks(++PlayModel.result.totalTurn);
     }
 
     public void SpawnBlocks(int step)
@@ -164,13 +164,13 @@ public class BlockManager : Base
             case BlockType.HorizontalDamage:
                 {
                     var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2);
-                    PlayModel.stats.totalLevelHealth += health;
+                    PlayModel.result.totalLevelHealth += health;
                     return GlobalFactory.Blocks.CreateHorizontalDamage(transform, x, y, health);
                 }
             case BlockType.VerticalDamage:
                 {
                     var health = Random.Range(PlayModel.level.minBlockHealth, (DifficultyHealth + PlayModel.level.maxBlockHealth) / 2);
-                    PlayModel.stats.totalLevelHealth += health;
+                    PlayModel.result.totalLevelHealth += health;
                     return GlobalFactory.Blocks.CreateVerticalDamage(transform, x, y, health);
                 }
 
@@ -181,7 +181,7 @@ public class BlockManager : Base
             default:
                 {
                     var health = (int)typeValue;
-                    PlayModel.stats.totalLevelHealth += health;
+                    PlayModel.result.totalLevelHealth += health;
                     return GlobalFactory.Blocks.CreateSimple(transform, x, y, Random.Range(0, 100), health);
                 }
         }

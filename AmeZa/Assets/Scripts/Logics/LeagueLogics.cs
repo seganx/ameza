@@ -30,14 +30,14 @@ public static class LeagueLogics
         PlayModel.level.maxBlockHealth = PlayModel.level.startBallCount * 3 / 2;
 
         PlayModel.onPreLose = OnPreLose;
-        PlayModel.onLose = OnPlayerLose;
+        PlayModel.onLose = OnLose;
 
         return true;
     }
 
-    private static void OnPlayerLose(System.Action<bool> callback)
+    private static void OnLose(System.Action<bool> callback)
     {
-        int score = PlayModel.GetLeagueScore();
+        int score = PlayModel.GetScore();
         if (score > data.score)
         {
             var hashbase = "seganx_" + data.score + "&" + score + "#(" + info.id;
@@ -48,14 +48,25 @@ public static class LeagueLogics
         if (score > 0)
         {
             callback(false);
-            Game.Instance.OpenPopup<Popup_LeagueLose>();
+            Game.Instance.OpenPopup<Popup_Lose>().Setup(replayFunc =>
+            {
+                if (SetPlayerModel())
+                    replayFunc();
+            }, 
+            () => Game.Instance.OpenState<State_Main>(true));
         }
         else callback(true);
     }
 
     private static void OnPreLose(System.Action<bool> callback)
     {
-        var score = PlayModel.GetLeagueScore();
+        var score = PlayModel.GetScore();
+        if (score < 1)
+        {
+            callback(true);
+            return;
+        }
+
         var maxdelta = PlayModel.type == PlayModel.Type.LeagueBalls ? 10 : 50;
         var nextProfile = GetNextNearProfile(score, maxdelta); // 111058
         var nextMedal = GetNextNearMedal(score, maxdelta); // 111059

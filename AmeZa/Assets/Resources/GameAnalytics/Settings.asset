@@ -30,7 +30,7 @@ MonoBehaviour:
   secretKey:
   - 4edc888244896d02cd0beb1741b77334f781c747
   Build:
-  - 18.44
+  - 19.47
   SelectedPlatformStudio:
   - Parseh Games
   SelectedPlatformGame:
@@ -38,27 +38,23 @@ MonoBehaviour:
   SelectedPlatformGameID: 035a0100
   SelectedStudio: 01000000
   SelectedGame: 01000000
-  NewVersion: 6.0.14
-  Changes: '6.0.14
+  NewVersion: 6.1.0
+  Changes: '6.1.0
 
-    - added session_num to init requests
-
-
-    6.0.13
-
-    -
-    logo updated
+    - added new impression event, see documentation page for more
+    info (android, ios)
 
 
-    6.0.12
+    6.0.15
 
-    - hiding archived games bug fix in editor'
+    - added support for android instant apps
+    (android)'
   SignUpOpen: 0
   StudioName: Parseh Games
   GameName: "\u0639\u0645\u0647\u200C\u0632\u0627"
   EmailGA: parsehgames@gmail.com
   IntroScreen: 0
-  InfoLogEditor: 1
+  InfoLogEditor: 0
   InfoLogBuild: 1
   VerboseLogBuild: 0
   UseManualSessionHandling: 0
@@ -100,8 +96,8 @@ MonoBehaviour:
   UsePlayerSettingsBuildNumber: 1
   SubmitErrors: 1
   MaxErrorCount: 10
-  SubmitFpsAverage: 1
-  SubmitFpsCritical: 1
+  SubmitFpsAverage: 0
+  SubmitFpsCritical: 0
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1

@@ -38,8 +38,8 @@ public class Popup_Win : GameState
 
         Profile.SetLevelStars(PlayModel.level.season, PlayModel.level.index, rewardStars);
 
-        int totalBalls = PlayModel.stats.totalBalls + PlayModel.level.startBallCount;
-        desc.SetFormatedText(PlayModel.stats.totalTurn.ToString(), PlayModel.stats.totalBlocks.ToString(), totalBalls);
+        int totalBalls = PlayModel.result.totalBalls + PlayModel.level.startBallCount;
+        desc.SetFormatedText(PlayModel.result.totalTurn.ToString(), PlayModel.result.totalBlocks.ToString(), totalBalls);
 
         continueButton.onClick.AddListener(() =>
         {

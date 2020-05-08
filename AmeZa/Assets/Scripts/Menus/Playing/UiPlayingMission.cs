@@ -18,8 +18,8 @@ public class UiPlayingMission : MonoBehaviour
     [SerializeField] private Image item1Image = null;
     [SerializeField] private LocalText item1Label = null;
     [SerializeField] private GameObject item1Checked = null;
-    [SerializeField] private Image leagueScoreImage = null;
-    [SerializeField] private LocalText leagueScoreLabel = null;
+    [SerializeField] private Image scoreImage = null;
+    [SerializeField] private LocalText scoreLabel = null;
     [SerializeField] private AnimationCurve itemMoveCurve = null;
     [SerializeField] private AnimationCurve itemScaleCurve = null;
 
@@ -39,10 +39,15 @@ public class UiPlayingMission : MonoBehaviour
         // enable or disbale information billboards
         if (PlayModel.IsLeague)
         {
-            leagueScoreImage.sprite = GlobalFactory.Leagues.GetCupSprite(PlayModel.type);
-            leagueScoreImage.gameObject.SetActive(true);
+            scoreImage.sprite = GlobalFactory.Leagues.GetCupSprite(PlayModel.type);
+            scoreImage.gameObject.SetActive(true);
         }
-        else leagueScoreImage.gameObject.SetActive(false);
+        else if (PlayModel.IsClassic)
+        {
+            scoreImage.sprite = GlobalFactory.Balls.GetSprite(PlayModel.ballId);
+            scoreImage.gameObject.SetActive(true);
+        }
+        else scoreImage.gameObject.SetActive(false);
 
         if (PlayModel.level.targetBlocks > 0)
         {
@@ -80,7 +85,7 @@ public class UiPlayingMission : MonoBehaviour
         {
             if (PlayModel.level.targetBlocks > 0)
             {
-                var diff = PlayModel.level.targetBlocks - PlayModel.stats.totalBlocks;
+                var diff = PlayModel.level.targetBlocks - PlayModel.result.totalBlocks;
                 if (diff < 1)
                 {
                     blocksLabel.gameObject.SetActive(false);
@@ -91,7 +96,7 @@ public class UiPlayingMission : MonoBehaviour
 
             if (PlayModel.level.targetBalls > 0)
             {
-                var diff = PlayModel.level.targetBalls - PlayModel.stats.totalBalls;
+                var diff = PlayModel.level.targetBalls - PlayModel.result.totalBalls;
                 if (diff < 1)
                 {
                     ballsLabel.gameObject.SetActive(false);
@@ -102,7 +107,7 @@ public class UiPlayingMission : MonoBehaviour
 
             if (PlayModel.level.targetItem0 > 0)
             {
-                var diff = PlayModel.level.targetItem0 - PlayModel.stats.totalItem0;
+                var diff = PlayModel.level.targetItem0 - PlayModel.result.totalItem0;
                 if (diff < 1)
                 {
                     item0Label.gameObject.SetActive(false);
@@ -113,7 +118,7 @@ public class UiPlayingMission : MonoBehaviour
 
             if (PlayModel.level.targetItem1 > 0)
             {
-                var diff = PlayModel.level.targetItem1 - PlayModel.stats.totalItem1;
+                var diff = PlayModel.level.targetItem1 - PlayModel.result.totalItem1;
                 if (diff < 1)
                 {
                     item1Label.gameObject.SetActive(false);
@@ -125,13 +130,16 @@ public class UiPlayingMission : MonoBehaviour
             switch (PlayModel.type)
             {
                 case PlayModel.Type.LeagueBalls:
-                    leagueScoreLabel.SetText(PlayModel.stats.totalBalls.ToString());
+                    scoreLabel.SetText(PlayModel.result.totalBalls.ToString());
                     break;
                 case PlayModel.Type.LeagueBlocks:
-                    leagueScoreLabel.SetText(PlayModel.stats.totalBlocks.ToString());
+                    scoreLabel.SetText(PlayModel.result.totalBlocks.ToString());
                     break;
                 case PlayModel.Type.LeagueLegends:
-                    leagueScoreLabel.SetText(PlayModel.stats.totalLegends.ToString());
+                    scoreLabel.SetText(PlayModel.result.totalLegends.ToString());
+                    break;
+                case PlayModel.Type.Classic:
+                    scoreLabel.SetText(PlayModel.result.totalBalls.ToString());
                     break;
             }
 

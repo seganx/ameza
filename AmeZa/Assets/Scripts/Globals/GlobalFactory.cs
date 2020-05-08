@@ -185,6 +185,15 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             }
         }
 
+        public static class Classic
+        {
+            public static PatternConfig Get()
+            {
+                var list = ResourceEx.LoadAll("Game/Patterns/Classics/", true);
+                return Resources.Load<PatternConfig>(list.RandomOne().path);
+            }
+        }
+
         public static class Randoms
         {
             public static PatternConfig Get(int index)

@@ -40,6 +40,7 @@ public class UIBackground : MonoBehaviour
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Socials.storeUrl); });
         settingsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Settings>(); });
 
+#if OFF
         friendsButton.onClick.AddListener(() =>
         {
             if (Profile.HasNickname)
@@ -58,7 +59,7 @@ public class UIBackground : MonoBehaviour
                 });
             }
         });
-
+#endif
         UiShowHide.ShowAll(transform);
 
         var wait = new WaitForSeconds(0.5f);

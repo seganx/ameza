@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class State_Main : GameState
 {
     [SerializeField] private Button onlineButton = null;
+    [SerializeField] private Button classicButton = null;
     [SerializeField] private Button levelsButton = null;
     [SerializeField] private Button luckyButton = null;
     [SerializeField] private LocalText luckyTimeLabel = null;
@@ -24,6 +25,15 @@ public class State_Main : GameState
                 game.OpenState<State_SelectLeague>();
             else
                 tutorial.Display(0, false, 111034, null);
+        });
+
+        classicButton.onClick.AddListener(() =>
+        {
+            if (ClassicLogics.SetPlayModel())
+            {
+                UIBackground.Hide();
+                Game.Instance.OpenState<State_Playing>();
+            }
         });
 
         if (Profile.IsFirstSession) levelsButton.GetComponent<Animation>().Play();
@@ -43,11 +53,8 @@ public class State_Main : GameState
             }
         });
 
-        var displayed = tutorial.Display(1, true, 111031, () => tutorial.Display(0, true, 111032, () => tutorial.Display(0, true, 111033, () => tutorial.Display(0, true, 111053, null))));
-        if (displayed == false && Profile.Sessions > 1)
-            displayed = tutorial.Display(1, true, 111125, null);
-        if (displayed == false)
-            tutorial.DisplayJoke(1);
+        var displayed = tutorial.Display(1, true, 111031, () => tutorial.Display(0, true, 111032, null));
+        if (displayed == false) tutorial.DisplayJoke(1);
 
         var wait = new WaitForSeconds(1);
         while (true)

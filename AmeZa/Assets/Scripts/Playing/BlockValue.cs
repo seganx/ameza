@@ -42,7 +42,7 @@ public class BlockValue : BlockBase
         }
         else
         {
-            PlayModel.stats.totalBlocks++;
+            PlayModel.result.totalBlocks++;
             spriter.sortingOrder++;
             Destroy(GetComponent<Collider2D>());
             Destroy(warning.gameObject);
@@ -50,9 +50,9 @@ public class BlockValue : BlockBase
             Destroy(numberLabel.gameObject);
 
             if (PlayModel.level.targetItem0 > 0 && ItemIndex == 0)
-                PlayModel.stats.totalItem0++;
+                PlayModel.result.totalItem0++;
             else if (PlayModel.level.targetItem1 > 0 && ItemIndex == 1)
-                PlayModel.stats.totalItem1++;
+                PlayModel.result.totalItem1++;
             else
                 animator.Play("BlockDeath");
             Destroy(gameObject, 3);

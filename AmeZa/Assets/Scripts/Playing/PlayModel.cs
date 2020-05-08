@@ -5,9 +5,9 @@ using UnityEngine;
 
 public static class PlayModel
 {
-    public enum Type { Levels, OneShot, LeagueBalls, LeagueBlocks, LeagueLegends }
+    public enum Type { Levels, OneShot, LeagueBalls, LeagueBlocks, LeagueLegends, Classic }
 
-    public class Stats
+    public class Result
     {
         public int totalTurn = 0;
         public int totalBalls = 0;
@@ -23,15 +23,19 @@ public static class PlayModel
     public static System.Action onWin = null;
     public static System.Action<System.Action<bool>> onLose = null;
     public static System.Action<System.Action<bool>> onPreLose = null;
-    public static Stats stats = new Stats();
+    public static Result result = new Result();
     public static LevelModel level = new LevelModel();
 
+
+    public static bool IsLevels { get { return type == Type.Levels; } }
+
+    public static bool IsClassic { get { return type == Type.Classic; } }
 
     public static bool IsLeague { get { return type == Type.LeagueBalls || type == Type.LeagueBlocks || type == Type.LeagueLegends; } }
 
     public static bool IsClearBlocks { get { return type == Type.Levels && IsTargetExist == false; } }
 
-    public static bool IsTurnsFinished { get { return level.targetTurns > 0 && stats.totalTurn >= level.targetTurns; } }
+    public static bool IsTurnsFinished { get { return level.targetTurns > 0 && result.totalTurn >= level.targetTurns; } }
 
     public static bool IsTargetExist { get { return level.targetBalls > 0 || level.targetBlocks > 0 || level.targetItem0 > 0 || level.targetItem1 > 0; } }
 
@@ -39,13 +43,13 @@ public static class PlayModel
     {
         get
         {
-            if (level.targetBalls > 0 && stats.totalBalls < level.targetBalls)
+            if (level.targetBalls > 0 && result.totalBalls < level.targetBalls)
                 return false;
-            if (level.targetBlocks > 0 && stats.totalBlocks < level.targetBlocks)
+            if (level.targetBlocks > 0 && result.totalBlocks < level.targetBlocks)
                 return false;
-            if (level.targetItem0 > 0 && stats.totalItem0 < level.targetItem0)
+            if (level.targetItem0 > 0 && result.totalItem0 < level.targetItem0)
                 return false;
-            if (level.targetItem1 > 0 && stats.totalItem1 < level.targetItem1)
+            if (level.targetItem1 > 0 && result.totalItem1 < level.targetItem1)
                 return false;
             return true;
         }
@@ -55,29 +59,36 @@ public static class PlayModel
     {
         type = newType;
         ballId = 0;
-        stats = new Stats();
+        result = new Result();
         level = new LevelModel();
         onWin = null;
         onLose = null;
         onPreLose = null;
     }
 
-    public static int GetLeagueScore()
+    public static int GetScore()
     {
         int score = 0;
-        switch (type)
+        if (IsLeague)
         {
-            case Type.LeagueBalls: score = stats.totalBalls; break;
-            case Type.LeagueBlocks: score = stats.totalBlocks; break;
-            case Type.LeagueLegends: score = stats.totalLegends; break;
+            switch (type)
+            {
+                case Type.LeagueBalls: score = result.totalBalls; break;
+                case Type.LeagueBlocks: score = result.totalBlocks; break;
+                case Type.LeagueLegends: score = result.totalLegends; break;
+            }
+        }
+        else if (IsClassic)
+        {
+            score = result.totalBalls;
         }
         return score;
     }
 
     public static int GetRewardStars()
     {
-        var blocks = Mathf.Max(4, stats.totalBlocks);
-        var factor = stats.totalTurn / (blocks + 0.1f);
+        var blocks = Mathf.Max(4, result.totalBlocks);
+        var factor = result.totalTurn / (blocks + 0.1f);
         if (factor < 0.35) return 3;
         if (factor < 0.66f) return 2;
         return 1;
@@ -92,16 +103,25 @@ public static class PlayModel
 
     public static RewardModel.Result GetReward()
     {
-        var stars = GetRewardStars() - 1;
-        var res = stars > 0 ? level.reward.GetResult() : new RewardModel.Result();
-
-        if (Random.Range(0, 100) <= level.reward.gems.x)
+        if (IsLevels)
         {
-            res.gems = Mathf.RoundToInt(Mathf.Lerp(level.reward.gems.y, level.reward.gems.z, stars / 2.0f));
-        }
-        else res.gems = 0;
+            var stars = GetRewardStars() - 1;
+            var res = stars > 0 ? level.reward.GetResult() : new RewardModel.Result();
 
-        return res;
+            if (Random.Range(0, 100) <= level.reward.gems.x)
+            {
+                res.gems = Mathf.RoundToInt(Mathf.Lerp(level.reward.gems.y, level.reward.gems.z, stars / 2.0f));
+            }
+            else res.gems = 0;
+
+            return res;
+        }
+        else
+        {
+            var res = new RewardModel.Result();
+            res.gems = result.totalBalls + 1;
+            return res;
+        }
     }
 
 }

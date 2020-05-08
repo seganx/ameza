@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   active: 1
-  selectedIndex: 1
+  selectedIndex: 2
   deviceList:
   - breaker_ameza_test_30
   - 84C1652F4B9B7C73076265F559BED4F3
-  - D0A060B7E6B26EF7E1DF0BCD181C73D0
+  - 593FA0EA83B2DA8F52870AD9C2D13620

@@ -39,6 +39,7 @@ public class ProfileData
         public CryptoInt missles = 0;
         public CryptoInt hammers = 0;
         public CryptoInt skill = 0;
+        public CryptoInt classicScore = 0;
         public List<int> balls = new List<int>() { 0 };
         public List<FriendData> friends = new List<FriendData>();
         public List<SeasonData> seasons = new List<SeasonData>();

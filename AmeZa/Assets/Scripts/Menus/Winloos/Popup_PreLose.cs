@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Popup_Lose : GameState
+public class Popup_PreLose : GameState
 {
     [SerializeField] private Button bombButton = null;
     [SerializeField] private LocalText bombLabel = null;
@@ -19,7 +19,7 @@ public class Popup_Lose : GameState
 
     private System.Action<AbilityType> callbackFunc = null;
 
-    public Popup_Lose Setup(bool displayHomeButton, System.Action<AbilityType> callback)
+    public Popup_PreLose Setup(bool displayHomeButton, System.Action<AbilityType> callback)
     {
         callbackFunc = callback;
 
@@ -63,12 +63,7 @@ public class Popup_Lose : GameState
 
         homeButton.onClick.AddListener(() =>
         {
-            var score = PlayModel.GetLeagueScore();
-            if (score > 0)
-            {
-                PlayModel.onPreLose(ok => { if (ok) Back(); });
-            }
-            else Back();
+            PlayModel.onPreLose(ok => { if (ok) Back(); });
         });
 
         backButton.SetActive(displayHomeButton == false);

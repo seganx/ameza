@@ -67,7 +67,7 @@ public class State_Leaderboards : GameState
 
     private void UpdatePlayerToList(Online.League.Leaderboard board)
     {
-        var leaguescore = PlayModel.GetLeagueScore();
+        var leaguescore = PlayModel.GetScore();
         if (leaguescore < 1) return;
 
         board.current.Sort((x, y) => y.score - x.score);

@@ -1,6 +1,6 @@
 ﻿{
 	"update": {
-		"mode": 0,
+		"mode": 1,
 		"rewardGems": 1000
 	},
 	"socials": {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f8026d0bd9bf94cb5a75b4e9a73dbc, type: 3}
   m_Name: GlobalConfig
   m_EditorClassIdentifier: 
-  version: 19
+  version: 20
   market: 2
   address: http://seganx.ir/games/ameza/
   cafeBazaarKey: MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC9I8YlT93gE3Cq4+u24GAlz4mrFRL/adk1V+cRLRhCYttNSFIw+TDlpUUOvIpS1/+tyjDDZTTGMczmfxAdxeohiM5YjiU4Eou36L+cHFbSSOjRJOU/CegzRDO/LD08s/4kyR0eORNvFyf2oK7dmF4tAqK/U79oKJI+Lz9vGp67Tx+5WoYUGSV3kvnPKgdJqoEwH0d8W0q667Ik60mgWqsgNQSNPO27IytYGe9vdXMCAwEAAQ==
@@ -47,7 +47,7 @@ MonoBehaviour:
         item0: 1
         item1: 1
     - levels: 16
-      blocks: {x: 45, y: 330}
+      blocks: {x: 45, y: 270}
       balls: {x: 20, y: 65}
       reward:
         gems: {x: 100, y: 10, z: 20}
@@ -85,7 +85,7 @@ MonoBehaviour:
         item0: 3
         item1: 3
     - levels: 20
-      blocks: {x: 50, y: 350}
+      blocks: {x: 45, y: 280}
       balls: {x: 25, y: 70}
       reward:
         gems: {x: 100, y: 10, z: 20}
@@ -131,10 +131,10 @@ MonoBehaviour:
     difficulty:
     - turnsFactor: 150
       ballsFactor: 300
-      winFactorPositive: 20
+      winFactorPositive: 10
       winFactorNegative: 50
-      loseFactor: 6
-      seasonBlocksFactors: {x: 1, y: 20}
+      loseFactor: 10
+      seasonBlocksFactors: {x: 1, y: 10}
       seasonBallsFactors: {x: 1, y: 5}
       curves:
       - serializedVersion: 2
@@ -170,78 +170,6 @@ MonoBehaviour:
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-    - turnsFactor: 150
-      ballsFactor: 300
-      winFactorPositive: 20
-      winFactorNegative: 50
-      loseFactor: 6
-      seasonBlocksFactors: {x: 1, y: 20}
-      seasonBallsFactors: {x: 1, y: 5}
-      curves:
-      - serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      - serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.4
-          value: 0.5
-          inSlope: 2.3519726
-          outSlope: 2.3519726
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.06953798
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.5986763
-          value: 0.5028819
-          inSlope: 2.472716
-          outSlope: 2.472716
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.120008625
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
@@ -258,10 +186,10 @@ MonoBehaviour:
     timers:
       heart:
         id: 1
-        duration: 900
+        duration: 1200
       luckySpin:
         id: 2
-        duration: 86400
+        duration: 28800
     offers:
     - startIndex: 2
       firstDelay: 86400
@@ -269,13 +197,6 @@ MonoBehaviour:
       resourceTime: 10800
       offerDuration: 86400
       coolTime: 172800
-      lastPurchaseTime: 432000
-    - startIndex: 3
-      firstDelay: 86400
-      minResource: 2400
-      resourceTime: 10800
-      offerDuration: 86400
-      coolTime: 86400
       lastPurchaseTime: 432000
     leagues:
     - id: 4695001
@@ -360,7 +281,7 @@ MonoBehaviour:
     friends:
       maxCount: 10
       minRewardLevel: 12
-      rewardGems: 50
+      rewardGems: 150
       leagues:
       - name: "\u0622\u0634\u0646\u0627"
         startLevel: 0
@@ -558,10 +479,63 @@ MonoBehaviour:
         discount: 0
     profilePreset:
     - gems: 100
-      hearts: 5
+      hearts: 10
       bombs: 3
       hammers: 5
       missles: 3
+    notification:
+    - items:
+      - id: 0
+        delaySeconds: 72000
+        texts:
+        - "\u062E\u0633\u062A\u0647 \u0646\u0634\u062F\u06CC\u061F \U0001F644|\u0628\u06CC\u0627
+          \u06CC\u06A9\u0645 \u0631\u06CC\u0644\u06A9\u0633 \u06A9\u0646 \u0641\u06A9\u0631\u062A
+          \u0622\u0632\u0627\u062F \u0628\u0634\u0647! \U0001F929"
+        - "\u0639\u0645\u0647\u200C\u0632\u0627 \u0628\u0647 \u06A9\u0645\u06A9\u062A
+          \u0646\u06CC\u0627\u0632 \u062F\u0627\u0631\u0647 \U0001F644|\u0628\u06CC\u0627
+          \u0628\u0631\u06AF\u0631\u062F \u062A\u0648 \u0628\u0627\u0632\u06CC \u062A\u0627
+          \u0627\u0632 \u0639\u0645\u0647 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC
+          \U0001F60D"
+        - "\u0633\u0631\u062A \u062E\u0644\u0648\u062A\u0647\u061F \U0001F60C|\u0628\u06CC\u0627
+          \u06CC\u06A9\u0645 \u062A\u0641\u0631\u06CC\u062D \u06A9\u0646 \u0644\u0630\u062A
+          \u0628\u0628\u0631 \U0001F609"
+      - id: 1
+        delaySeconds: 259200
+        texts:
+        - "\u062E\u0633\u062A\u0647 \u0646\u0634\u062F\u06CC\u061F \U0001F644|\u0628\u06CC\u0627
+          \u06CC\u06A9\u0645 \u0631\u06CC\u0644\u06A9\u0633 \u06A9\u0646 \u0641\u06A9\u0631\u062A
+          \u0622\u0632\u0627\u062F \u0628\u0634\u0647! \U0001F929"
+        - "\u0639\u0645\u0647\u200C\u0632\u0627 \u0628\u0647 \u06A9\u0645\u06A9\u062A
+          \u0646\u06CC\u0627\u0632 \u062F\u0627\u0631\u0647 \U0001F644|\u0628\u06CC\u0627
+          \u0628\u0631\u06AF\u0631\u062F \u062A\u0648 \u0628\u0627\u0632\u06CC \u062A\u0627
+          \u0627\u0632 \u0639\u0645\u0647 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC
+          \U0001F60D"
+        - "\u0633\u0631\u062A \u062E\u0644\u0648\u062A\u0647\u061F \U0001F60C|\u0628\u06CC\u0627
+          \u06CC\u06A9\u0645 \u062A\u0641\u0631\u06CC\u062D \u06A9\u0646 \u0644\u0630\u062A
+          \u0628\u0628\u0631 \U0001F609"
+      - id: 1
+        delaySeconds: 604800
+        texts:
+        - "\u062E\u0633\u062A\u0647 \u0646\u0634\u062F\u06CC\u061F \U0001F644|\u0628\u06CC\u0627
+          \u06CC\u06A9\u0645 \u0631\u06CC\u0644\u06A9\u0633 \u06A9\u0646 \u0641\u06A9\u0631\u062A
+          \u0622\u0632\u0627\u062F \u0628\u0634\u0647! \U0001F929"
+        - "\u0639\u0645\u0647\u200C\u0632\u0627 \u0628\u0647 \u06A9\u0645\u06A9\u062A
+          \u0646\u06CC\u0627\u0632 \u062F\u0627\u0631\u0647 \U0001F644|\u0628\u06CC\u0627
+          \u0628\u0631\u06AF\u0631\u062F \u062A\u0648 \u0628\u0627\u0632\u06CC \u062A\u0627
+          \u0627\u0632 \u0639\u0645\u0647 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC
+          \U0001F60D"
+        - "\u0633\u0631\u062A \u062E\u0644\u0648\u062A\u0647\u061F \U0001F60C|\u0628\u06CC\u0627
+          \u06CC\u06A9\u0645 \u062A\u0641\u0631\u06CC\u062D \u06A9\u0646 \u0644\u0630\u062A
+          \u0628\u0628\u0631 \U0001F609"
+      heartFull: "\u0642\u0644\u0628\u200C\u0647\u0627\u062A \u067E\u0631 \u0634\u062F\u0647
+        \u2764\uFE0F|\u0628\u06CC\u0627 \u06A9\u0647 \u0639\u0645\u0647 \u0628\u0627
+        \u06CC\u0647 \u062F\u0646\u06CC\u0627 \u0639\u0634\u0642 \u0627\u0646\u062A\u0638\u0627\u0631\u062A
+        \u0631\u0648 \u0645\u06CC\u200C\u06A9\u0634\u0647 \U0001F601"
+      luckySpine: "\u06AF\u0631\u062F\u0648\u0646\u0647 \u0634\u0627\u0646\u0633
+        \u0622\u0645\u0627\u062F\u0647 \u0634\u062F\u0647 \U0001F3B0|\u0628\u06CC\u0627
+        \u0628\u0628\u06CC\u0646 \u0627\u06CC\u0646\u0628\u0627\u0631 \u0686\u0647
+        \u062C\u0627\u06CC\u0632\u0647 \u0634\u0627\u0646\u0633\u06CC \u0645\u06CC\u200C\u06AF\u06CC\u0631\u06CC
+        \U0001F929"
     jokes: []
     groups: 2
   offline: 1

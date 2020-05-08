@@ -8,11 +8,23 @@ using UnityEngine;
 [DefaultExecutionOrder(-9999)]
 public class GlobalAnalytics : MonoBehaviour
 {
+    private static GlobalAnalytics instance = null;
+
     public static int Group { get; private set; }
 
     private void Awake()
     {
+        instance = this;
         GameAnalytics.Initialize();
+    }
+
+    private IEnumerator SendBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
+    {
+        yield return new WaitForSecondsRealtime(10);
+        Online.Purchase.Verify(provider, sku, token, (success, payload) =>
+        {
+            if (success) GameAnalytics.NewBusinessEvent("USD", price / 100, "pack", sku, "shop");
+        });
     }
 
     public static void SetGroup(int index)
@@ -23,10 +35,7 @@ public class GlobalAnalytics : MonoBehaviour
 
     public static void NewBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
     {
-        Online.Purchase.Verify(provider, sku, token, (success, payload) =>
-        {
-            if (success) GameAnalytics.NewBusinessEvent("USD", price / 100, sku, "1", "cartType");
-        });
+        instance.StartCoroutine(instance.SendBuisinessEvent(provider, sku, price, token));
     }
 
     public static void LevelStart(int season, int level)
@@ -47,12 +56,12 @@ public class GlobalAnalytics : MonoBehaviour
     // A “sink” is when a player loses or spends a resource
     public static void Sink(int amount, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gem", amount, "earn", itemId);
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gem", amount, "spend", itemId);
     }
 
     // A “source” is when a player gains or earns a resource
     public static void Source(int amount, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "gem", amount, "spend", itemId);
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "gem", amount, "earn", itemId);
     }
 }

@@ -29,7 +29,7 @@ public class State_Playing : GameState
         abilityButton.onClick.AddListener(() =>
         {
             game.ClosePopup(true);
-            game.OpenPopup<Popup_Lose>().Setup(false, ability => // check if player wants to use abilities
+            game.OpenPopup<Popup_PreLose>().Setup(false, ability => // check if player wants to use abilities
             {
                 if (ability != AbilityType.Null)
                     game.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
@@ -42,14 +42,14 @@ public class State_Playing : GameState
         AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
 
         yield return new WaitForSeconds(0.5f);
-        if (PlayModel.IsLeague == false && PlayModel.level.season == 0 && (PlayModel.level.index == 0 || PlayModel.level.index == 1))
+        if (PlayModel.IsLevels && PlayModel.level.season == 0 && (PlayModel.level.index == 0 || PlayModel.level.index == 1))
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(true);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
             tutorial.transform.GetChild(2).gameObject.SetActive(false);
             tutorial.Display(0, false, 111037, null);
         }
-        else if (PlayModel.level.index > 1)
+        else if (PlayModel.IsClassic || PlayModel.level.index > 1)
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(false);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
@@ -135,7 +135,7 @@ public class State_Playing : GameState
             if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
             {
                 game.ClosePopup(true);
-                game.OpenPopup<Popup_Lose>().Setup(true, ability => // check if player wants to use abilities
+                game.OpenPopup<Popup_PreLose>().Setup(true, ability => // check if player wants to use abilities
                 {
                     if (ability != AbilityType.Null)
                         game.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);

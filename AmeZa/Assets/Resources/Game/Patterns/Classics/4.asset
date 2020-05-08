@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50865e45748b56f41af216220a53e398, type: 3}
+  m_Name: 4
+  m_EditorClassIdentifier: 
+  height: 15
+  startLength: 2
+  wrapMode: 1
+  horizontalRandom:
+    activated: 1
+    startStep: 0
+  verticalRandom:
+    activated: 1
+    startStep: 0
+  blocks: ffffffff000000000000000000000000000000000000000000000000ffffffffffffffffdeffffffdefffffff6fffffff6ffffff00000000ffffffffffffffffffffffffeaffffff000000000000000000000000fffffffffffffffffffffffff6ffffff000000000000000000000000ffffffffffffffffffffffffffffffff000000000000000000000000fffffffffffffffff6ffffff00000000000000000000000000000000ffffffffffffffffffffffffeaffffff000000000000000000000000ffffffffffffffffdeffffffffffffff000000000000000000000000ffffffffffffffffffffffff00000000000000000000000000000000fffffffffffffffff6ffffffffffffff000000000000000000000000ffffffffebffffffffffffff00000000000000000000000000000000ffffffffffffffffeafffffff6ffffff000000000000000000000000ffffffffffffffffffffffff00000000000000000000000000000000ffffffffffffffffffffffffdefffffff6ffffff0000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff00000000
