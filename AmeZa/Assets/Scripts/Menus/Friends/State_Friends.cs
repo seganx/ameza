@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Popup_Friends : GameState
+public class State_Friends : GameState
 {
     [SerializeField] private UIFriendItem itemPrefab = null;
     [SerializeField] private Button addFriendButton = null;

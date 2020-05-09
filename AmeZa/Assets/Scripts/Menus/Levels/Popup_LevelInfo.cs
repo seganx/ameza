@@ -73,7 +73,7 @@ public class Popup_LevelInfo : GameState
                 {
                     GlobalAnalytics.LevelFailed(season.id, index);
                     if (season.id > 0)
-                        Profile.Skill = Mathf.Max(Profile.Skill - GlobalConfig.Difficulty.loseFactor, -70);
+                        Profile.Skill = Profile.Skill - GlobalConfig.Difficulty.loseFactor;
                     callback(true);
                 };
 

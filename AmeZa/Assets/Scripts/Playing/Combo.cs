@@ -8,6 +8,7 @@ public class Combo : Base
     private bool started = false;
     private int count = 0;
     private long countTime = 0;
+    private Vector3 lastPos = Vector3.one * 1000;
 
     private void Awake()
     {
@@ -65,6 +66,10 @@ public class Combo : Base
         var child = transform.GetChild(index);
         if (child == null) return;
         var pos = param.As<BlockBase>().transform.position + Vector3.back;
+        var delta = pos - lastPos;
+        if (delta.magnitude < 2) return;
+        lastPos = pos;
+
         pos.x *= 0.7f;
         child.position = pos;
         child.gameObject.SetActive(true);

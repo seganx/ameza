@@ -22,8 +22,10 @@ public class BlockManager : Base
             // ignore difficulty for first season on campain
             if (PlayModel.level.pattern.wrapMode == PatternConfig.WrapMode.Clamp) return 0;
             if (PlayModel.type == PlayModel.Type.Levels && PlayModel.level.season < 1) return 0;
-            int turnFactor = (PlayModel.result.totalTurn - usedAbilityCount) * GlobalConfig.Difficulty.turnsFactor / 100;
-            int ballFactor = PlayModel.result.totalBalls * GlobalConfig.Difficulty.ballsFactor / 100;
+            int configTurnFactor = PlayModel.IsClassic ? GlobalConfig.Difficulty.classicTurnsFactor : GlobalConfig.Difficulty.turnsFactor;
+            int configBallFactor = PlayModel.IsClassic ? GlobalConfig.Difficulty.classicBallsFactor : GlobalConfig.Difficulty.ballsFactor;
+            int turnFactor = (PlayModel.result.totalTurn - usedAbilityCount) * configTurnFactor / 100;
+            int ballFactor = PlayModel.result.totalBalls * configBallFactor / 100;
             return turnFactor + ballFactor;
         }
     }
@@ -84,7 +86,7 @@ public class BlockManager : Base
     {
         var edge = BottomEdge + offset;
         for (int i = 0; i < blocks.Count; i++)
-            if (blocks[i].Type > 0 && blocks[i].Position.y < edge)
+            if (blocks[i].IsDangerous && blocks[i].Position.y < edge)
                 return true;
         return false;
     }
@@ -124,15 +126,15 @@ public class BlockManager : Base
         }
         else
         {
-            int stepFactor = Mathf.Max(7 - step, 1);
             int diffihealth = DifficultyHealth;
+            int stepFactor = PlayModel.IsClassic ? 1 : Mathf.Max(7 - step, 1);
 
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i] == BlockType.RandomValue)
                 {
                     int max = (PlayModel.level.maxBlockHealth + diffihealth) / stepFactor;
-                    list[i] = (BlockType)Utilities.RandomDoubleHigh(PlayModel.level.minBlockHealth, max);
+                    list[i] = (BlockType)Random.Range(PlayModel.level.minBlockHealth, max);
                 }
             }
         }

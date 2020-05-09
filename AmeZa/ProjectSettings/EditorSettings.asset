@@ -12,7 +12,7 @@ EditorSettings:
     type: 3}
   m_PrefabUIEnvironment: {fileID: 102900000, guid: 944cac9f255a72c428c319253482c7b0,
     type: 3}
-  m_SpritePackerMode: 3
+  m_SpritePackerMode: 2
   m_SpritePackerPaddingPower: 1
   m_EtcTextureCompressorBehavior: 1
   m_EtcTextureFastCompressor: 1

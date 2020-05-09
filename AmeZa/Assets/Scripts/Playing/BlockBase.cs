@@ -6,6 +6,8 @@ public class BlockBase : MonoBehaviour
 {
     public virtual BlockType Type { get { return BlockType.Null; } }
 
+    public bool IsDangerous { get => Type != BlockType.Obstacle && Type != BlockType.Ball && Type != BlockType.Null; }
+
     private Vector3 position = Vector3.zero;
 
     public Vector2Int Position

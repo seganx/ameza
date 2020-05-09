@@ -49,6 +49,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public string rateUrl = string.Empty;
             public string contactSurveyUrl = string.Empty;
             public string contactEmailUrl = string.Empty;
+            [PersianPreview(lines = 5)]
+            public string invitationText = string.Empty;
         }
 
         [System.Serializable]
@@ -81,6 +83,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         {
             public int turnsFactor = 50;
             public int ballsFactor = 100;
+            public int classicTurnsFactor = 50;
+            public int classicBallsFactor = 200;
             public int winFactorPositive = 5;
             public int winFactorNegative = 15;
             public int loseFactor = 5;

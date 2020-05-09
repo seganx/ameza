@@ -110,7 +110,7 @@ public class State_Playing : GameState
     {
         bool isPlayerWins = false;
         bool isTurnOut = PlayModel.IsTurnsFinished;
-        bool blocksOut = PlayModel.IsClearBlocks && BlockManager.blocks.Exists(x => x.Type == BlockType.Value || x.Type == BlockType.Ball) == false;
+        bool blocksOut = PlayModel.IsClearBlocks && BlockManager.blocks.Exists(x => x.Type != BlockType.Obstacle) == false;
         bool targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
 
         if (isTurnOut || blocksOut || targetOut) // no blocks or target remained

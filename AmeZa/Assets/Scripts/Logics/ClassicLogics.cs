@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SeganX;
-using System.Runtime.Remoting.Messaging;
 
 public static class ClassicLogics
 {
@@ -20,9 +19,9 @@ public static class ClassicLogics
         PlayModel.level.name = string.Format(LocalizationService.Get(111127), Profile.MaxClassicScore);
         PlayModel.level.theme = Random.Range(0, 1000);
         PlayModel.level.pattern = GlobalFactory.Patterns.Classic.Get();
-        PlayModel.level.startBallCount = 1;
+        PlayModel.level.startBallCount = 5;
         PlayModel.level.minBlockHealth = 1;
-        PlayModel.level.maxBlockHealth = 3;
+        PlayModel.level.maxBlockHealth = 10;
 
         PlayModel.onPreLose = OnPreLose;
         PlayModel.onLose = OnLose;

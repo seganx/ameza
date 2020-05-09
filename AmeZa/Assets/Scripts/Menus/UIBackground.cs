@@ -16,7 +16,6 @@ public class UIBackground : MonoBehaviour
     [SerializeField] private Button heartsButton = null;
     [SerializeField] private Button gemsButton = null;
     [SerializeField] private Button profileButton = null;
-    [SerializeField] private Button friendsButton = null;
     [SerializeField] private Button updateButton = null;
     [SerializeField] private Button settingsButton = null;
 
@@ -40,26 +39,6 @@ public class UIBackground : MonoBehaviour
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Socials.storeUrl); });
         settingsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Settings>(); });
 
-#if OFF
-        friendsButton.onClick.AddListener(() =>
-        {
-            if (Profile.HasNickname)
-            {
-                Game.Instance.OpenPopup<Popup_Friends>();
-            }
-            else
-            {
-                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111121, true, false, ok =>
-                {
-                    if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
-                    {
-                        if (Profile.HasNickname)
-                            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111122, true, false, null);
-                    });
-                });
-            }
-        });
-#endif
         UiShowHide.ShowAll(transform);
 
         var wait = new WaitForSeconds(0.5f);

@@ -6,6 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(PatternConfig))]
 public class PatternConfigEditor : Editor
 {
+    private static List<BlockType> copyBlocks = new List<BlockType>();
     private static GUIStyle style = new GUIStyle();
 
     private static BlockType brush
@@ -35,6 +36,18 @@ public class PatternConfigEditor : Editor
         {
             for (int i = 0; i < obj.blocks.Count; i++)
                 obj.blocks[i] = BlockType.Null;
+        }
+
+        if (GUILayout.Button("Copy Array"))
+        {
+            copyBlocks = new List<BlockType>(obj.blocks);
+        }
+
+        if (GUILayout.Button("Paste Array"))
+        {
+            int addHeight = copyBlocks.Count / PatternConfig.width;
+            obj.height += addHeight;
+            obj.blocks.AddRange(copyBlocks);
         }
 
         obj.height = EditorGUILayout.DelayedIntField("Height", obj.height);

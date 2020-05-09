@@ -37,7 +37,7 @@ public class Popup_Lose : GameState
 
         inviteButton.onClick.AddListener(() =>
         {
-            var str = GlobalConfig.Socials.storeUrl + string.Format(LocalizationService.Get(111063), Profile.Username);
+            var str = string.Format(GlobalConfig.Socials.invitationText, Profile.Username, GlobalConfig.Socials.storeUrl);
             SocialAndSharing.ShareText(str);
         });
 
