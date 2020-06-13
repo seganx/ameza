@@ -41,14 +41,14 @@ public class State_Main : GameState
 
         luckyButton.onClick.AddListener(() =>
         {
-            var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
+            var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
             if (seconds > 0)
             {
                 game.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
             }
             else
             {
-                Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
+                Online.Timer.Set(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
                 game.OpenPopup<Popup_LuckySpine>();
             }
         });
@@ -59,7 +59,7 @@ public class State_Main : GameState
         var wait = new WaitForSeconds(1);
         while (true)
         {
-            var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
+            var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
             if (seconds > 0)
             {
                 luckyTimeLabel.transform.SetActiveChild(1);

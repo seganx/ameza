@@ -1181,7 +1181,6 @@ GameObject:
   - component: {fileID: 225582548122541456}
   - component: {fileID: 114363198233815282}
   - component: {fileID: 114259596918678940}
-  - component: {fileID: 7763820928874898907}
   m_Layer: 5
   m_Name: LuckySpin
   m_TagString: Untagged
@@ -1322,20 +1321,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7763820928874898907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1151188760420372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc0c718ab4533994f88b9b048573b88c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 1
-  session: 0
 --- !u!1 &1208175644768118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,7 +2473,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uFEEA\uFEE7\uFE8D\uFEAF\uFEED\uFEAD \uFEE9\uFEB0\uFBFE\uFE8E\uFE9F"
+  m_Text: "\uFEE5\uFE8E\uFB95\uFBFE\uFE8D\uFEAD \uFEE9\uFEB0\uFBFE\uFE8E\uFE9F"
 --- !u!114 &114137698909285960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,7 +2491,7 @@ MonoBehaviour:
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u062C\u0627\u06CC\u0632\u0647 \u0631\u0648\u0632\u0627\u0646\u0647"
+  currnetText: "\u062C\u0627\u06CC\u0632\u0647 \u0631\u0627\u06CC\u06AF\u0627\u0646"
 --- !u!114 &114868983283558630
 MonoBehaviour:
   m_ObjectHideFlags: 0

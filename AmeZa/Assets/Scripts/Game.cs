@@ -30,12 +30,12 @@ namespace SeganX
                 // schedule hearts push
                 if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts)
                 {
-                    int totalSeconds = GlobalConfig.ProfilePreset.hearts * GlobalConfig.Timers.heart.duration;
+                    int totalSeconds = GlobalConfig.ProfilePreset.hearts * GlobalConfig.Heart.interval;
                     LocalNotification.SendNotification(totalSeconds, GlobalConfig.Notifications.heartFull);
                 }
 
                 // schedule lucky spin push
-                var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.luckySpin.id, GlobalConfig.Timers.luckySpin.duration);
+                var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
                 if (seconds > 10)
                 {
                     LocalNotification.SendNotification(seconds, GlobalConfig.Notifications.luckySpine);

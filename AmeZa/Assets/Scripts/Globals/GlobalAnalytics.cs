@@ -1,8 +1,6 @@
 ﻿using GameAnalyticsSDK;
-using GameAnalyticsSDK.Events;
 using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-9999)]
@@ -54,9 +52,9 @@ public class GlobalAnalytics : MonoBehaviour
     }
 
     // A “sink” is when a player loses or spends a resource
-    public static void Sink(int amount, string itemId)
+    public static void Sink(int amount, string placement, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gem", amount, "spend", itemId);
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gem", amount, placement, itemId);
     }
 
     // A “source” is when a player gains or earns a resource

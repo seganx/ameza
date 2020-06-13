@@ -62,8 +62,8 @@ public static class PlayModel
         result = new Result();
         level = new LevelModel();
         onWin = null;
-        onLose = null;
-        onPreLose = null;
+        onLose = exitplaying => exitplaying(true);
+        onPreLose = exitplaying => exitplaying(true);
     }
 
     public static int GetScore()

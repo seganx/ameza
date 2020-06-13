@@ -45,7 +45,7 @@ public class UiProfileBallItem : MonoBehaviour
                                 transform.parent.Broadcast(Messages.Type.BallPurchased);
                                 transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
                             });
-                            GlobalAnalytics.Sink(price, "ball");
+                            GlobalAnalytics.Sink(price, "profile", "ball");
                         });
                     }
                     break;

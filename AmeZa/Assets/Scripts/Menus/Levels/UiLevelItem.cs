@@ -19,10 +19,10 @@ public class UiLevelItem : MonoBehaviour
             stars[i].SetActive(earnstars > i);
         if (enabled && earnstars < 1)
             animator.Play();
-#if UNITY_EDITOR
-#else
-        button.SetInteractable(enabled);
-#endif
+
+        if (GlobalConfig.DebugMode == false)
+            button.SetInteractable(enabled);
+
         button.onClick.AddListener(() =>
         {
             if (Profile.Hearts > 0)

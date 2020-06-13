@@ -1,6 +1,7 @@
 ﻿using SeganX;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,7 +64,10 @@ public class Popup_PreLose : GameState
 
         homeButton.onClick.AddListener(() =>
         {
-            PlayModel.onPreLose(ok => { if (ok) Back(); });
+            if (PlayModel.onPreLose != null)
+                PlayModel.onPreLose(ok => { if (ok) Back(); });
+            else
+                Back();
         });
 
         backButton.SetActive(displayHomeButton == false);
@@ -95,7 +99,13 @@ public class Popup_PreLose : GameState
             {
                 onSuccess(count);
                 UpdateTexts();
-                GlobalAnalytics.Sink(price, booster);
+                if (PlayModel.IsClassic)
+                    GlobalAnalytics.Sink(price, "classic", booster);
+                else if (PlayModel.IsLeague)
+                    GlobalAnalytics.Sink(price, "leagues", booster);
+                else if (PlayModel.IsLevels)
+                    GlobalAnalytics.Sink(price, "levels", booster);
+
             });
         });
     }

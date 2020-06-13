@@ -21,12 +21,12 @@ public class Profile : MonoBehaviour
             yield return wait;
 
             // update hearts
-            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
             if (seconds < 0)
             {
-                int addhearts = 1 - seconds / GlobalConfig.Timers.heart.duration;
+                int addhearts = 1 - seconds / GlobalConfig.Heart.interval;
                 Hearts = Mathf.Clamp(Hearts + addhearts, 0, GlobalConfig.ProfilePreset.hearts);
-                Online.Timer.Set(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+                Online.Timer.Set(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
             }
 
             syncSeconds++;
@@ -314,14 +314,14 @@ public class Profile : MonoBehaviour
         if (IsGlobalConfigUpdated == false)
         {
             var address = GlobalConfig.Instance.address + GlobalConfig.Instance.version + "/config.txt?" + System.DateTime.Now.Ticks;
-            Http.DownloadText(address, null, null, json =>
+            Http.DownloadText(address, json =>
             {
                 IsGlobalConfigUpdated = (json != null && GlobalConfig.SetData(json));
                 if (IsGlobalConfigUpdated)
                     LoginToServer(sendProfile, nextTask);
                 else
                     nextTask(false);
-            });
+            }, 10);
         }
         else LoginToServer(sendProfile, nextTask);
     }
@@ -443,7 +443,7 @@ public class Profile : MonoBehaviour
     {
         if (IsFirstSession)
         {
-            Online.Timer.Set(GlobalConfig.Timers.luckySpin.id, 3600);
+            Online.Timer.Set(GlobalConfig.Luckyspin.timerId, 60);
         }
     }
 

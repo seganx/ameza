@@ -52,7 +52,7 @@ public class UIBackground : MonoBehaviour
 
             if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Timers.heart.id, GlobalConfig.Timers.heart.duration);
+                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
                 heartsTime.text = (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00");
                 heartsTime.gameObject.SetActive(true);
                 heartsFull.gameObject.SetActive(false);

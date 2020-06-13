@@ -125,14 +125,16 @@ public class State_Levels : GameState
             CheckTutorial();
 
 
-
-#if UNITY_EDITOR
-        nextButton.SetInteractable(season != null);
-        prevButton.SetInteractable(CurrentSeason > 0);
-#else
-        nextButton.SetInteractable(season != null && Profile.GetSeasonRewarded(season.id) > 0);
-        prevButton.SetInteractable(CurrentSeason > 0);
-#endif
+        if (GlobalConfig.DebugMode)
+        {
+            nextButton.SetInteractable(season != null);
+            prevButton.SetInteractable(CurrentSeason > 0);
+        }
+        else
+        {
+            nextButton.SetInteractable(season != null && Profile.GetSeasonRewarded(season.id) > 0);
+            prevButton.SetInteractable(CurrentSeason > 0);
+        }
     }
 
     private void DisplayLevels()

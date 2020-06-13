@@ -17,8 +17,8 @@ namespace GameAnalyticsSDK.Editor
         static void SetupAndTour ()
         {
             GA_SignUp signup = ScriptableObject.CreateInstance<GA_SignUp> ();
-            signup.maxSize = new Vector2(640, 480);
-            signup.minSize = new Vector2(640, 480);
+            signup.maxSize = new Vector2(640, 600);
+            signup.minSize = new Vector2(640, 600);
 
             signup.titleContent = new GUIContent ("GameAnalytics - Sign up for FREE");
             signup.ShowUtility ();
@@ -80,14 +80,14 @@ namespace GameAnalyticsSDK.Editor
 
             if (fail)
             {
-                PlayMakerPresenceCheck.ResetPrefs();
+                //PlayMakerPresenceCheck.ResetPrefs();
                 Debug.Log("Failed to toggle PlayMaker Scripts.");
             }else if (enabled)
             {
                 Debug.Log("Enabled PlayMaker Scripts.");
             }else
             {
-                PlayMakerPresenceCheck.ResetPrefs();
+                //PlayMakerPresenceCheck.ResetPrefs();
                 Debug.Log("Disabled PlayMaker Scripts.");
             }
         }

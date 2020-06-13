@@ -47,7 +47,7 @@ public class Popup_Profile : GameState
             if (nicknameInput.text.ComputeMD5(Core.Salt) != "AC9CD53769E38CBBD8707CA1108BA10D")
             {
                 var nickname = nicknameInput.text.Trim().CleanFromCode().CleanForPersian();
-#if UNITY_EDITOR
+#if UNITY_EDITOR_off
                 SendNickname(nickname);
 #else 
                 if (nickname != Profile.Username && nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
@@ -69,7 +69,7 @@ public class Popup_Profile : GameState
         statusButton.onClick.AddListener(() =>
         {
             var status = statusInput.text.Trim().CleanFromCode().CleanForPersian();
-#if UNITY_EDITOR
+#if UNITY_EDITOR_off
             SendStatus(status);
 #else
             if (status.HasContent(3) && status.IsLetterOrDigit() && BadWordsFinder.HasBadWord(status) == false)

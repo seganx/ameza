@@ -116,17 +116,18 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         }
 
         [System.Serializable]
-        public class Timers
+        public class Heart
         {
-            [System.Serializable]
-            public class Timer
-            {
-                public int id = 0;
-                public int duration = 90;
-            }
+            public int timerId = 1;
+            public int interval = 900;
+        }
 
-            public Timer heart = new Timer() { id = 1, duration = 600 };
-            public Timer luckySpin = new Timer() { id = 2, duration = 86400 };
+        [System.Serializable]
+        public class Luckyspin
+        {
+            public int timerId = 2;
+            public int interval = 28800;
+            public int gems = 50;
         }
 
         [System.Serializable]
@@ -220,8 +221,9 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public Socials socials = new Socials();
         public List<Season> seasons = new List<Season>();
         public List<Difficulty> difficulty = new List<Difficulty>();
-        public Timers timers = new Timers();
-        public List<OfferConfig> offers = new List<OfferConfig>();
+        public List<Heart> heart = new List<Heart>() { new Heart() };
+        public List<Luckyspin> lockyspin = new List<Luckyspin>() { new Luckyspin() };
+        public List<OfferConfig> offers = new List<OfferConfig>() { new OfferConfig() };
         public List<League> leagues = new List<League>();
         public Friends friends = new Friends();
         public List<Shop> shop = new List<Shop>();
@@ -276,7 +278,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Socials Socials { get { return Instance.data.socials; } }
     public static List<Data.Season> Seasons { get { return Instance.data.seasons; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty[Group % Instance.data.difficulty.Count]; } }
-    public static Data.Timers Timers { get { return Instance.data.timers; } }
+    public static Data.Heart Heart { get { return Instance.data.heart[Group % Instance.data.heart.Count]; } }
+    public static Data.Luckyspin Luckyspin { get { return Instance.data.lockyspin[Group % Instance.data.lockyspin.Count]; } }
     public static Data.OfferConfig Offers { get { return Instance.data.offers[Group % Instance.data.offers.Count]; } }
     public static Data.Friends Friends { get { return Instance.data.friends; } }
     public static Data.Shop Shop { get { return Instance.data.shop[Group % Instance.data.shop.Count]; } }
@@ -334,7 +337,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         GlobalAnalytics.SetGroup(Group % newdata.groups);
 
         var address = Instance.address + "jokes.txt?" + System.DateTime.Now.Ticks;
-        Http.DownloadText(address, null, null, jokes =>
+        Http.DownloadText(address, jokes =>
         {
             var array = jokes.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
             if (array.Length > 0 && array[0] == "seganx_jokes")
@@ -344,7 +347,9 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
                 Instance.data.jokes.RemoveAt(0);
                 SaveData(Instance.data);
             }
-        });
+        },
+        0,
+        2);
 
         return true;
     }

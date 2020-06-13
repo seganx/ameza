@@ -69,14 +69,18 @@ public class Popup_LevelInfo : GameState
                         Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;
                 };
 
-                PlayModel.onLose = callback =>
+                PlayModel.onLose = exitplaying =>
                 {
                     GlobalAnalytics.LevelFailed(season.id, index);
                     if (season.id > 0)
                         Profile.Skill = Profile.Skill - GlobalConfig.Difficulty.loseFactor;
-                    callback(true);
+                    exitplaying(true);
                 };
 
+                PlayModel.onPreLose = exitplaying =>
+                {
+                    game.OpenPopup<Popup_Confirm>().Setup(111005, true, true, exitplaying).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
+                };
             }
             else Game.Instance.OpenPopup<Popup_BuyHearts>();
         });
