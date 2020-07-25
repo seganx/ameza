@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SeganX
@@ -12,19 +11,31 @@ namespace SeganX
 #endif
 
         // Use this for initialization
+#if UNITY_EDITOR
         private IEnumerator Start()
         {
-#if UNITY_EDITOR
             if (stopLoading)
                 yield break;
+#else
+        private void Start()
+        {
 #endif
-
-            SeganX.Console.Info.OnDisplayInfo = str =>
+            Console.Info.OnDisplayInfo = str =>
             {
-                return "Ver: " + Application.version + " Group: " + GlobalAnalytics.Group + "\nId: " + SeganX.Console.Info.DisplayDeviceID;
+                return "Ver: " + Application.version + " Group: " + GlobalConfig.Group + "\nId: " + SeganX.Console.Info.DisplayDeviceID;
 
             };
 
+            Loading.Show();
+            Profile.Sync(false, succss =>
+            {
+                Loading.Hide();
+                OpenState<State_Main>();
+            });
+
+            PurchaseSystem.Initialize(GlobalConfig.Instance.version, GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl);
+
+            LocalNotification.Initialize(GlobalConfig.Notifications.items);
             LocalNotification.OnScheduleNotification += () =>
             {
                 // schedule hearts push
@@ -42,20 +53,10 @@ namespace SeganX
                 }
             };
 
-            yield return new WaitForSeconds(0.1f);
-
-            PurchaseSystem.Initialize(GlobalConfig.Instance.version, GlobalConfig.Instance.cafeBazaarKey, GlobalConfig.Socials.storeUrl);
-
-            Loading.Show();
-            Profile.Sync(false, succss =>
-            {
-                Loading.Hide();
-                OpenState<State_Main>();
-                Profile.Version = GlobalConfig.Instance.version;
-            });
+            CheckABTest();
+            GlobalAnalytics.ABTest.OnRecieved = CheckABTest;
 
 #if UNITY_EDITOR
-
             while (true)
             {
                 yield return new WaitForEndOfFrame();
@@ -71,6 +72,12 @@ namespace SeganX
                 }
             }
 #endif
+        }
+
+        private static void CheckABTest()
+        {
+            GlobalConfig.Group = GlobalAnalytics.ABTest.GetGroup(GlobalConfig.Group);
+            GlobalConfig.Save();
         }
 
         public static void SpendGems(int value, System.Action onSuccess)

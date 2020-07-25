@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Popup_Effects : GameState
@@ -38,15 +37,24 @@ public class Popup_Effects : GameState
 
         switch (type)
         {
-            case AbilityType.Bomb: yield return new WaitForSeconds(0.85f); break;
-            case AbilityType.Hammer: yield return new WaitForSeconds(1); break;
-            case AbilityType.Missle: yield return new WaitForSeconds(0.75f); break;
+            case AbilityType.Bomb:
+                yield return new WaitForSeconds(0.85f);
+                Vibration.Vibrate(200);
+                break;
+            case AbilityType.Hammer:
+                yield return new WaitForSeconds(1);
+                Vibration.Vibrate(100);
+                break;
+            case AbilityType.Missle:
+                yield return new WaitForSeconds(0.75f);
+                Vibration.Vibrate(50);
+                break;
         }
 
         onActionFunc();
 
         yield return new WaitForSeconds(1);
-        if (onCloseFunc != null) onCloseFunc();
+        onCloseFunc?.Invoke();
         base.Back();
     }
 

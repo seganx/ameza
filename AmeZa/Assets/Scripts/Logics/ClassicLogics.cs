@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SeganX;
 using UnityEngine;
-using SeganX;
 
 public static class ClassicLogics
 {

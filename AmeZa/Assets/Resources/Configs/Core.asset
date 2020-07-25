@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858c686b09e63cf43adea5687d364626, type: 3}
   m_Name: Core
   m_EditorClassIdentifier: 
-  version: 2
-  gameId: 469536763
-  onlineDomain: seganx.ir
   securityOptions:
     cryptokey: seganx_ameZ@_sajad
     salt: sx.beigjani
+  onlineOptions:
+    gameId: 469536763
+    onlineDomain: seganx.ir
+  testDevices:
+    active: 1
+    index: 0
+    list:
+    - ver23_2

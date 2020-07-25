@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,13 +46,9 @@ public class UiShopItem : MonoBehaviour
             PurchaseSystem.Purchase(PurchaseProvider.Bazaar, sku, (succeed, token) =>
             {
                 if (succeed)
-                {
-                    Purchased(sku, token, () =>
-                    {
-                        if (onClick != null) onClick(true);
-                    });
-                }
-                else if (onClick != null) onClick(false);
+                    Purchased(sku, token, () => onClick?.Invoke(true));
+                else 
+                    onClick?.Invoke(false);
 
                 button.SetInteractable(true);
             });
@@ -88,7 +83,7 @@ public class UiShopItem : MonoBehaviour
         var pack = GlobalConfig.Shop.GetPackage(sku);
         if (pack == null)
         {
-            if (nextTask != null) nextTask();
+            nextTask?.Invoke();
             return;
         }
 
@@ -108,6 +103,6 @@ public class UiShopItem : MonoBehaviour
             }
         });
 
-        GlobalAnalytics.Source(pack.gems, pack.sku.Replace("ameza_", ""));
+        GlobalAnalytics.SourceGem(pack.gems, pack.sku.Replace("ameza_", ""));
     }
 }

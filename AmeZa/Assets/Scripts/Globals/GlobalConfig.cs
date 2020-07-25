@@ -1,5 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -81,6 +80,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class Difficulty
         {
+            public int startBallSpeed = 17;
             public int turnsFactor = 50;
             public int ballsFactor = 100;
             public int classicTurnsFactor = 50;
@@ -204,15 +204,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class Notifications
         {
-            [System.Serializable]
-            public class Notif
-            {
-                public int id = 0;
-                public int delaySeconds = 24 * 60 * 60;
-                public List<string> texts = new List<string>();
-            }
-
-            public List<Notif> items = new List<Notif>();
+            public List<SeganX.LocalNotification.Item> items = new List<SeganX.LocalNotification.Item>();
             public string heartFull = string.Empty;
             public string luckySpine = string.Empty;
         }
@@ -230,7 +222,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<ProfilePreset> profilePreset = new List<ProfilePreset>() { new ProfilePreset() };
         public List<Notifications> notification = new List<Notifications>() { new Notifications() };
         [HideInInspector] public List<string> jokes = new List<string>();
-        public int groups = 2;
     }
 
     public Market market = 0;
@@ -256,7 +247,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
 #if UNITY_EDITOR
     [Space()]
-    [InspectorButton(100, "Export as", "OnExport")]
+    [InspectorButton(100, "Export as", "OnExport", false)]
     public bool offline = false;
     public int offlineGroup = 0;
 
@@ -292,18 +283,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
     public static int Group
     {
-        get
-        {
-            // select cohort
-            int res = PlayerPrefsEx.GetInt("GlobalConfig.Group", -1);
-            if (res < 0)
-            {
-                res = Random.Range(0, 100);
-                PlayerPrefsEx.SetInt("GlobalConfig.Group", res);
-            }
-
-            return res;
-        }
+        get => PlayerPrefsEx.GetInt("GlobalConfig.Group", 0);
+        set => PlayerPrefsEx.SetInt("GlobalConfig.Group", value);
     }
 
     public static bool DebugMode
@@ -334,7 +315,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         Instance.data = newdata;
         SaveData(newdata);
         SeganX.Console.Logger.Enabled = DebugMode;
-        GlobalAnalytics.SetGroup(Group % newdata.groups);
 
         var address = Instance.address + "jokes.txt?" + System.DateTime.Now.Ticks;
         Http.DownloadText(address, jokes =>
@@ -354,4 +334,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         return true;
     }
 
+    public static void Save()
+    {
+        SaveData(Instance.data);
+    }
 }

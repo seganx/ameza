@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Profile : MonoBehaviour
@@ -303,7 +302,7 @@ public class Profile : MonoBehaviour
             Hammers = GlobalConfig.ProfilePreset.hammers / 2;
             Missiles = GlobalConfig.ProfilePreset.missles / 2;
 
-            GlobalAnalytics.Source(GlobalConfig.ProfilePreset.gems, "first");
+            GlobalAnalytics.SourceGem(GlobalConfig.ProfilePreset.gems, "first");
         }
     }
 

@@ -1,6 +1,5 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,7 +63,7 @@ public class Popup_Rateus : GameState
     public override void Back()
     {
         base.Back();
-        if (onCloseFunc != null) onCloseFunc();
+        onCloseFunc?.Invoke();
     }
 }
 
@@ -73,7 +72,7 @@ public static class Rateus
 {
     public static int Current
     {
-        get { return PlayerPrefs.GetInt("Rateing.Current", 1); }
+        get { return PlayerPrefs.GetInt("Rateing.Current", 0); }
         set { PlayerPrefs.SetInt("Rateing.Current", value); }
     }
 
@@ -83,7 +82,7 @@ public static class Rateus
         set { PlayerPrefs.SetInt("Rateing.Joy", value); }
     }
 
-    public static void AddJoy(int value, System.Action nextTask = null)
+    public static void AddJoy(int value, Action nextTask = null)
     {
         Joy += value;
         if (Joy >= 4 && Current < 2)
@@ -93,5 +92,11 @@ public static class Rateus
         }
         else if (nextTask != null)
             nextTask();
+    }
+
+    [Console("test", "rateus")]
+    public static void Test()
+    {
+        AddJoy(4);
     }
 }

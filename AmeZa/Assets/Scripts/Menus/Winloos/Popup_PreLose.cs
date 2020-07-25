@@ -1,7 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,11 +97,11 @@ public class Popup_PreLose : GameState
                 onSuccess(count);
                 UpdateTexts();
                 if (PlayModel.IsClassic)
-                    GlobalAnalytics.Sink(price, "classic", booster);
+                    GlobalAnalytics.SinkGem(price, "classic", booster);
                 else if (PlayModel.IsLeague)
-                    GlobalAnalytics.Sink(price, "leagues", booster);
+                    GlobalAnalytics.SinkGem(price, "leagues", booster);
                 else if (PlayModel.IsLevels)
-                    GlobalAnalytics.Sink(price, "levels", booster);
+                    GlobalAnalytics.SinkGem(price, "levels", booster);
 
             });
         });

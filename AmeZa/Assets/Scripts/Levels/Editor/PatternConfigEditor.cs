@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using SeganX;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;

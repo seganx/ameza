@@ -1,6 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +45,7 @@ public class State_Levels : GameState
                 Profile.Hammers += reward.hammers;
                 Profile.Missiles += reward.missiles;
                 Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, reward.bombs, reward.hammers, reward.missiles, false, () => Rateus.AddJoy(4, () => nextButton.onClick.Invoke()));
-                GlobalAnalytics.Source(reward.gems, "season");
+                GlobalAnalytics.SourceGem(reward.gems, "season");
             }
             else tutorial.Display(0, false, 111041, null);
         });
@@ -117,12 +115,7 @@ public class State_Levels : GameState
             chestAnimation.transform.AsRectTransform().localRotation = Quaternion.identity;
         }
 
-        // display cinematic
-        var cinematic = GlobalFactory.Cinematics.Get(CurrentSeason, openedLevels, CinematicConfig.Point.End);
-        if (cinematic != null)
-            game.OpenPopup<Popup_Cinematic>().Setup(cinematic, CheckTutorial);
-        else
-            CheckTutorial();
+        CheckTutorial();
 
 
         if (GlobalConfig.DebugMode)
@@ -160,13 +153,13 @@ public class State_Levels : GameState
             bool displayed = false;
 
             if (CurrentSeason == 0)
-                displayed = tutorial.Display(1, true, 111041, () => tutorial.Display(0, true, 111054, () => tutorial.Display(0, true, 111055, null)));
+                displayed = tutorial.Display(0.5f, true, 111041, () => tutorial.Display(0, true, 111054, () => tutorial.Display(0, true, 111055, null)));
             //else if (CurrentSeason == 1)
             //    displayed = tutorial.Display(1, true, 111039, () => tutorial.Display(0, true, 111040, null));
             //else if (CurrentSeason == 2)
             //    displayed = tutorial.Display(1, true, 111050, () => tutorial.Display(0, true, 111051, () => tutorial.Display(0, true, 111052, null)));
             else if (CurrentSeason == 3)
-                displayed = tutorial.Display(1, true, 111042, () => tutorial.Display(0, true, 111043, null));
+                displayed = tutorial.Display(0.5f, true, 111042, () => tutorial.Display(0, true, 111043, null));
             //else
             //    displayed = tutorial.Display(1, true, 111056, () => tutorial.Display(0, true, 111057, null));
 
@@ -174,7 +167,7 @@ public class State_Levels : GameState
                 tutorial.DisplayJoke(1);
         }
         else if (seasonState == SeasonState.CanClaimReward)
-            tutorial.Display(1, false, 111035, () => tutorial.Display(0, true, 111036, null));
+            tutorial.Display(0.5f, false, 111035, () => tutorial.Display(0, true, 111036, null));
     }
 
     public override void Back()

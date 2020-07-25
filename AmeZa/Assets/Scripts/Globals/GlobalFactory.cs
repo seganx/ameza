@@ -1,5 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +13,9 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     [SerializeField] private BlocksInfo blocks = new BlocksInfo();
     [SerializeField] private Sprite[] leagueMedals = null;
     [SerializeField] private Sprite[] leagueCups = null;
+    [SerializeField] private AudioClip[] ameSounds = null;
+    [SerializeField] private AudioClip[] amezaSounds = null;
+    [SerializeField] private AudioClip[] jokerSounds = null;
 
     protected override void OnInitialize()
     {
@@ -130,15 +132,15 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     {
         public static class Levels
         {
-            private static List<PatternConfig> all = new List<PatternConfig>();
-            public static List<PatternConfig> All
+            private static List<ResourceEx.File> all = new List<ResourceEx.File>();
+            public static List<ResourceEx.File> All
             {
                 get
                 {
                     if (all.Count < 1)
                     {
-                        all = ResourceEx.LoadAllWithId<PatternConfig>("Game/Patterns/Levels/", false);
-                        all.Sort((x, y) => x.Id - y.Id);
+                        all = ResourceEx.LoadAll("Game/Patterns/Levels/", false);
+                        all.Sort((x, y) => x.id - y.id);
                     }
 
                     return all;
@@ -147,7 +149,8 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
             public static PatternConfig Get(int index)
             {
-                return All[index % All.Count];
+                var file = All[index % All.Count];
+                return Resources.Load<PatternConfig>(file.path);
             }
 
 #if UNITY_EDITOR
@@ -157,7 +160,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                 // avoid name confilict
                 for (int i = 0; i < All.Count; i++)
                 {
-                    var item = All[i];
+                    var item = Resources.Load<PatternConfig>(All[i].path);
                     item.name = ((i + 1) * 10000).ToString();
                     string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
                     UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
@@ -165,7 +168,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
 
                 for (int i = 0; i < All.Count; i++)
                 {
-                    var item = All[i];
+                    var item = Resources.Load<PatternConfig>(All[i].path);
                     item.name = ((i + 1) * 10).ToString();
                     string assetPath = UnityEditor.AssetDatabase.GetAssetPath(item.GetInstanceID());
                     UnityEditor.AssetDatabase.RenameAsset(assetPath, item.name);
@@ -386,6 +389,11 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
     {
         private static List<CinematicConfig> all = new List<CinematicConfig>();
 
+        public static AudioClip soundAme => Instance.ameSounds[NextSoundIndex("Ame") % Instance.ameSounds.Length];
+        public static AudioClip soundAmeZa => Instance.amezaSounds[NextSoundIndex("AmeZa") % Instance.amezaSounds.Length];
+        public static AudioClip soundJocker => Instance.jokerSounds[NextSoundIndex("Joker") % Instance.jokerSounds.Length];
+
+
         public static List<CinematicConfig> All
         {
             get
@@ -396,14 +404,21 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             }
         }
 
-        public static CinematicConfig Get(int season, int level, CinematicConfig.Point point)
+        public static CinematicConfig Get(int levelIndex, CinematicConfig.Point point)
         {
             foreach (var item in All)
             {
-                if (item.Check(season, level, point))
+                if (item.Check(levelIndex, point))
                     return item;
             }
             return null;
+        }
+
+        private static int NextSoundIndex(string name)
+        {
+            var index = PlayerPrefs.GetInt("GlobalFactory.Cinematics.Sounds.Index" + name, 0);
+            PlayerPrefs.SetInt("GlobalFactory.Cinematics.Sounds.Index" + name, index + 1);
+            return index;
         }
     }
 }

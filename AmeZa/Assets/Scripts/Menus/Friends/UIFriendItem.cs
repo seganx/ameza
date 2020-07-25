@@ -1,6 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,7 +68,7 @@ public class UIFriendItem : MonoBehaviour
                     cupImage.gameObject.SetActive(true);
                     rewardButton.transform.parent.gameObject.SetActive(false);
                 });
-                GlobalAnalytics.Source(GlobalConfig.Friends.rewardGems, "friend");
+                GlobalAnalytics.SourceGem(GlobalConfig.Friends.rewardGems, "friend");
             });
         }
 

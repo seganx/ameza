@@ -1,6 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,42 +45,11 @@ public class Popup_LevelInfo : GameState
 
         startButton.onClick.AddListener(() =>
         {
-            if (Profile.Hearts > 0)
+            if (StoryLogic.SetPlayModel(season, index))
             {
-                Profile.Hearts--;
                 Back();
-
-                PlayModel.Reset(PlayModel.Type.Levels);
-                PlayModel.ballId = Profile.Avatar.BallId;
-                PlayModel.level = levelmodel;
-
-                UIBackground.Hide();
-                Game.Instance.OpenState<State_Playing>();
-
-                GlobalAnalytics.LevelStart(season.id, index);
-
-                PlayModel.onWin = () =>
-                {
-                    Profile.Hearts++;
-                    GlobalAnalytics.LevelWin(season.id, index, PlayModel.GetRewardStars());
-                    if (season.id > 0)
-                        Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;
-                };
-
-                PlayModel.onLose = exitplaying =>
-                {
-                    GlobalAnalytics.LevelFailed(season.id, index);
-                    if (season.id > 0)
-                        Profile.Skill = Profile.Skill - GlobalConfig.Difficulty.loseFactor;
-                    exitplaying(true);
-                };
-
-                PlayModel.onPreLose = exitplaying =>
-                {
-                    game.OpenPopup<Popup_Confirm>().Setup(111005, true, true, exitplaying).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
-                };
+                StoryLogic.StartPlaying();
             }
-            else Game.Instance.OpenPopup<Popup_BuyHearts>();
         });
 
         return this;

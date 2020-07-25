@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,6 +51,20 @@ public class State_Main : GameState
                 game.OpenPopup<Popup_LuckySpine>();
             }
         });
+
+
+        if (Profile.Version > 5 && 
+            Profile.Version < GlobalConfig.Instance.version && 
+            GlobalConfig.Update.mode == GlobalConfig.Data.Update.Mode.Null &&
+            GlobalConfig.Update.rewardGems > 0)
+        {
+            Profile.Version = GlobalConfig.Instance.version;
+            game.OpenPopup<Popup_Confirm>().Setup(111129, true, false, ok =>
+            {
+                game.OpenPopup<Popup_Rewards>().Setup(0, GlobalConfig.Update.rewardGems, 0, 0, 0, true, () => Profile.EarnGems(GlobalConfig.Update.rewardGems));
+                GlobalAnalytics.SourceGem(GlobalConfig.Update.rewardGems, "update");
+            });
+        }
 
         var displayed = tutorial.Display(1, true, 111031, () => tutorial.Display(0, true, 111032, null));
         if (displayed == false) tutorial.DisplayJoke(1);

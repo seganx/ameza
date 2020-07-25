@@ -49,3 +49,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d736e0d5e52c14340afe209c59b0096e, type: 3}
   - {fileID: 21300000, guid: 408ab786855cd0e4ca474a8d4e727895, type: 3}
   - {fileID: 21300000, guid: 4000c90382791f547899d72dc6114b20, type: 3}
+  ameSounds:
+  - {fileID: 8300000, guid: 13c3784390336254590c5194ec09723b, type: 3}
+  - {fileID: 8300000, guid: a65b88b4da68019449fbba2a239f7268, type: 3}
+  - {fileID: 8300000, guid: cf4d99e5512afbc4b8978eda72cd7534, type: 3}
+  - {fileID: 8300000, guid: 910a3097d7f3d6e4bb694c3764c23c12, type: 3}
+  - {fileID: 8300000, guid: 4845ae017dd11944a94ae3b4e12f7ae4, type: 3}
+  amezaSounds:
+  - {fileID: 8300000, guid: 1c3d7f6981c403d418ac2c6aaceba0af, type: 3}
+  - {fileID: 8300000, guid: 3036db326d3678649be93e82c73492a4, type: 3}
+  - {fileID: 8300000, guid: a3a583a85e47e934c887f80a68ca6a2a, type: 3}
+  - {fileID: 8300000, guid: 7bfdc70632c624d45a73480e587974c8, type: 3}
+  - {fileID: 8300000, guid: bba94c8b17f75c346be6ea4f01032a80, type: 3}
+  jokerSounds:
+  - {fileID: 8300000, guid: 538d2cf6d0aeab04db23b31e124b1650, type: 3}
+  - {fileID: 8300000, guid: 7eefef3ca62c7dd4bb43da38f3703f39, type: 3}
+  - {fileID: 8300000, guid: d1b0acc86c0aba14cb93bdc0b9c34fbc, type: 3}
+  - {fileID: 8300000, guid: 3e5887789bae3654e9051403889a19ba, type: 3}
+  - {fileID: 8300000, guid: 87faf08a0d609e04f8cdc38b07d29af3, type: 3}

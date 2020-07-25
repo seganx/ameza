@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +55,7 @@ public class Popup_Win : GameState
                     if (nextTaskFunc != null)
                         nextTaskFunc();
                 });
-                GlobalAnalytics.Source(rewards.gems, "level");
+                GlobalAnalytics.SourceGem(rewards.gems, "level");
             }
             else
             {

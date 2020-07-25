@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Popup_Shop : GameState
@@ -31,7 +30,7 @@ public class Popup_Shop : GameState
             combinedItem.Clone<UiShopItem>().Setup(GlobalConfig.Shop.offers[index].sku);
 
         foreach (var item in GlobalConfig.Shop.combinedPackages)
-                combinedItem.Clone<UiShopItem>().Setup(item.sku);
+            combinedItem.Clone<UiShopItem>().Setup(item.sku);
 
         foreach (var item in GlobalConfig.Shop.gemPackages)
             gemsItem.Clone<UiShopItem>().Setup(item.sku);

@@ -1,6 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +29,7 @@ public class Popup_Settings : GameState
         supportButton.onClick.AddListener(() => SocialAndSharing.SendEmail(
             GlobalConfig.Socials.contactEmailUrl,
             "Support - " + Application.identifier + " - " + Application.version,
-            "OS:" + SystemInfo.operatingSystem + "|<br>Model:" + SystemInfo.deviceModel + "|<br>Username:" + Profile.Username + "|<br>DeviceId:" + Core.DeviceId + "|<br>Group:" + GlobalAnalytics.Group + "|_____________________<br><br><br><br>"));
+            "OS:" + SystemInfo.operatingSystem + "|<br>Model:" + SystemInfo.deviceModel + "|<br>Username:" + Profile.Username + "|<br>DeviceId:" + Core.DeviceId + "|<br>Group:" + GlobalConfig.Group + "|_____________________<br><br><br><br>"));
 
         purchasedButton.onClick.AddListener(() =>
         {

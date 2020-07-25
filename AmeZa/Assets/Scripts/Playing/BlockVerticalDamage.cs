@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SeganX;
 using UnityEngine;
 
 public class BlockVerticalDamage : BlockValue

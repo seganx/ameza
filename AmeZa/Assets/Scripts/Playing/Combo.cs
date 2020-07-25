@@ -1,6 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Combo : Base
@@ -37,7 +35,7 @@ public class Combo : Base
                     if (delta > 200)
                     {
                         countTime = ticks;
-                        CheckCount(param);                        
+                        CheckCount(param);
                     }
                 }
                 break;

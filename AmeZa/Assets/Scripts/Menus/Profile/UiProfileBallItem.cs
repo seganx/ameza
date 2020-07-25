@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +44,7 @@ public class UiProfileBallItem : MonoBehaviour
                                 transform.parent.Broadcast(Messages.Type.BallPurchased);
                                 transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);
                             });
-                            GlobalAnalytics.Sink(price, "profile", "ball");
+                            GlobalAnalytics.SinkGem(price, "profile", "ball");
                         });
                     }
                     break;

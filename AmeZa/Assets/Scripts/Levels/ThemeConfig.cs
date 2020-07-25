@@ -1,10 +1,8 @@
 ﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Theme")]
-public class ThemeConfig : ScriptableObject, IResource
+public class ThemeConfig : ScriptableObject
 {
     [SpritePreview(50)]
     public Sprite previewBackground = null;
@@ -18,7 +16,7 @@ public class ThemeConfig : ScriptableObject, IResource
     public Sprite[] items = new Sprite[0];
     public ThemeSounds sounds = null;
 
-    public int Id { get; set; }
+    //public int Id { get; set; }
 
     public Sprite GetItemSprite(int index)
     {

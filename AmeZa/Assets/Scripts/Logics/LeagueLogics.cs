@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SeganX;
 using UnityEngine;
-using SeganX;
 
 public static class LeagueLogics
 {
@@ -52,7 +50,7 @@ public static class LeagueLogics
             {
                 if (SetPlayerModel())
                     replayFunc();
-            }, 
+            },
             () => Game.Instance.OpenState<State_Main>(true));
         }
         else callback(true);

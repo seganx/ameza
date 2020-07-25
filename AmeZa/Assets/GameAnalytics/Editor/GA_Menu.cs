@@ -80,14 +80,14 @@ namespace GameAnalyticsSDK.Editor
 
             if (fail)
             {
-                //PlayMakerPresenceCheck.ResetPrefs();
+                PlayMakerPresenceCheck.ResetPrefs();
                 Debug.Log("Failed to toggle PlayMaker Scripts.");
             }else if (enabled)
             {
                 Debug.Log("Enabled PlayMaker Scripts.");
             }else
             {
-                //PlayMakerPresenceCheck.ResetPrefs();
+                PlayMakerPresenceCheck.ResetPrefs();
                 Debug.Log("Disabled PlayMaker Scripts.");
             }
         }

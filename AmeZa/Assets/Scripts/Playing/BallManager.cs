@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SeganX;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,7 +61,7 @@ public class BallManager : MonoBehaviour
             case Messages.Type.StartTurn:
                 {
                     turnStarted = true;
-                    StartCoroutine(DoStartTurn(param.As<Vector3>().normalized * PlayModel.level.startBallSpeed));
+                    StartCoroutine(DoStartTurn(param.As<Vector3>().normalized * GlobalConfig.Difficulty.startBallSpeed));
                     transform.root.Broadcast(Messages.Type.TurnStarted, this);
                 }
                 break;
@@ -79,7 +80,7 @@ public class BallManager : MonoBehaviour
                         if (ball.IsPregnant)
                         {
                             var newball = SpawnBall(ball.transform.localPosition);
-                            newball.Rigidbody.velocity = PlayModel.level.startBallSpeed * new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+                            newball.Rigidbody.velocity = GlobalConfig.Difficulty.startBallSpeed * new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
                         }
                     }
                 }

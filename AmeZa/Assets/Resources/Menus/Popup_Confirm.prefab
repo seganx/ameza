@@ -321,7 +321,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodies: {fileID: 224918667784909740}
   heads: {fileID: 224779750221713366}
-  eyes: {fileID: 1303065499804320}
+  items: {fileID: 0}
+  eyes:
+  - {fileID: 1303065499804320}
   hand: {fileID: 114149400057503194}
   defaultBody: 0
   defaultHead: 1

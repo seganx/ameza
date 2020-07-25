@@ -1,8 +1,6 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Popup_Rewards : GameState
 {
@@ -39,7 +37,7 @@ public class Popup_Rewards : GameState
         else gemsLabel.gameObject.SetActive(false);
         if (bombs > 0) rbombs = bombs;
         else bombsLabel.gameObject.SetActive(false);
-        if (hammers > 0) rhammers= hammers;
+        if (hammers > 0) rhammers = hammers;
         else hammersLabel.gameObject.SetActive(false);
         if (missiles > 0) rmissiles = missiles;
         else missilesLabel.gameObject.SetActive(false);
@@ -62,8 +60,11 @@ public class Popup_Rewards : GameState
         yield return new WaitUntil(() => chest.IsOpened);
         yield return new WaitForSeconds(1);
 
-        window.GoToAnchordPosition(0, 0, 0, 10);
-        yield return new WaitForSeconds(0.5f);
+        while (window.anchoredPosition.sqrMagnitude > 5)
+        {
+            window.anchoredPosition = Vector3.Lerp(window.anchoredPosition, Vector3.zero, Time.deltaTime * 10);
+            yield return new WaitForEndOfFrame();
+        }
 
         //if (rgems > 0)
         {

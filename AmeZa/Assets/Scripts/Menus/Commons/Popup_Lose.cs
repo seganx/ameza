@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SeganX;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using SeganX;
 
 public class Popup_Lose : GameState
 {

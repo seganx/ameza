@@ -1,14 +1,13 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UiCharacter : MonoBehaviour
 {
     [SerializeField] private Transform bodies = null;
     [SerializeField] private Transform heads = null;
-    [SerializeField] private GameObject eyes = null;
+    [SerializeField] private Transform items = null;
+    [SerializeField] private GameObject[] eyes = null;
     [SerializeField] private SimpleAnimation hand = null;
     [SerializeField] private int defaultBody = 0;
     [SerializeField] private int defaultHead = 1;
@@ -27,6 +26,13 @@ public class UiCharacter : MonoBehaviour
         return this;
     }
 
+    public UiCharacter SetItem(int index)
+    {
+        for (int i = 0; i < items.childCount; i++)
+            items.GetChild(i).gameObject.SetActive(i < index);
+        return this;
+    }
+
     private IEnumerator ShakeHand()
     {
         while (true)
@@ -42,9 +48,9 @@ public class UiCharacter : MonoBehaviour
         {
             if (Random.Range(0, 100) < 60)
             {
-                eyes.SetActive(true);
+                SetEyesActive(true);
                 yield return new WaitForSecondsRealtime(Random.Range(0.2f, 0.5f));
-                eyes.SetActive(false);
+                SetEyesActive(false);
             }
 
             yield return new WaitForSecondsRealtime(2);
@@ -56,9 +62,15 @@ public class UiCharacter : MonoBehaviour
     {
         bodies.SetActiveChild(defaultBody);
         heads.SetActiveChild(defaultHead);
-        eyes.SetActive(false);
+        SetEyesActive(false);
 
         if (hand) StartCoroutine(ShakeHand());
         StartCoroutine(BlinkEyes());
+    }
+
+    private void SetEyesActive(bool active)
+    {
+        foreach (var eye in eyes)
+            eye.SetActive(active);
     }
 }

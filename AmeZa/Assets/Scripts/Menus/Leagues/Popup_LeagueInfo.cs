@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,7 +45,7 @@ public class Popup_LeagueInfo : GameState
         medalButton.onClick.AddListener(() => game.OpenPopup<Popup_MedalInfo>().Setup(LeagueLogics.info));
         rewardButton.onClick.AddListener(() => OnRewardButton(LeagueLogics.info));
         boardButton.onClick.AddListener(() => game.OpenPopup<State_Leaderboards>().Setup(LeagueLogics.info.id));
-       
+
         playButton.onClick.AddListener(() =>
         {
             if (LeagueLogics.SetPlayerModel())
@@ -130,7 +129,7 @@ public class Popup_LeagueInfo : GameState
                 Profile.EarnGems(subleague.rewardGems);
                 game.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.AddJoy(2));
                 LeagueLogics.data.end_score = LeagueLogics.data.end_rank = 0;
-                GlobalAnalytics.Source(subleague.rewardGems, "league");
+                GlobalAnalytics.SourceGem(subleague.rewardGems, "league");
             }
             else rewardButton.SetInteractable(true);
         });

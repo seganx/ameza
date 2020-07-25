@@ -1212,7 +1212,6 @@ MonoBehaviour:
   heartsButton: {fileID: 114317837681631734}
   gemsButton: {fileID: 114806319697166712}
   profileButton: {fileID: 114333377286006592}
-  friendsButton: {fileID: 0}
   updateButton: {fileID: 114425652986333624}
   settingsButton: {fileID: 114635652457940588}
 --- !u!1 &1259046873220908
@@ -3796,7 +3795,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodies: {fileID: 224592357743224488}
   heads: {fileID: 224619944221720000}
-  eyes: {fileID: 1822169840093570}
+  items: {fileID: 0}
+  eyes:
+  - {fileID: 1822169840093570}
   hand: {fileID: 0}
   defaultBody: 0
   defaultHead: 1

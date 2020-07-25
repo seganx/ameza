@@ -1,5 +1,4 @@
 ﻿using SeganX;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +45,7 @@ public class ProfileData
 
         public string Datahash
         {
-            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" +  missles.Value + "|" + hammers.Value + "|" + balls.Count + "|" + Http.userheader; }
+            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" + missles.Value + "|" + hammers.Value + "|" + balls.Count + "|" + Http.userheader; }
         }
     }
 

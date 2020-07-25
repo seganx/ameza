@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +21,7 @@ public class Popup_BuyHearts : GameState
             {
                 Profile.Hearts += GlobalConfig.ProfilePreset.hearts;
                 Back();
-                GlobalAnalytics.Sink(GlobalConfig.Shop.heartPrice, "profile", "heart");
+                GlobalAnalytics.SinkGem(GlobalConfig.Shop.heartPrice, "profile", "heart");
             });
         });
 

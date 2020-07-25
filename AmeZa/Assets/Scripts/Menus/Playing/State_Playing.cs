@@ -1,6 +1,5 @@
 ﻿using SeganX;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,8 +40,9 @@ public class State_Playing : GameState
         UiShowHide.ShowAll(transform);
         AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
 
+        yield return new WaitWhile(() => game.CurrentPopup);
         yield return new WaitForSeconds(0.5f);
-        if (PlayModel.IsLevels && PlayModel.level.season == 0 && (PlayModel.level.index == 0 || PlayModel.level.index == 1))
+        if (PlayModel.IsLevels && PlayModel.level.season == 0 && PlayModel.level.index == 0)
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(true);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
@@ -110,7 +110,7 @@ public class State_Playing : GameState
     {
         bool isPlayerWins = false;
         bool isTurnOut = PlayModel.IsTurnsFinished;
-        bool blocksOut = PlayModel.IsClearBlocks && BlockManager.blocks.Exists(x => x.Type != BlockType.Obstacle) == false;
+        bool blocksOut = PlayModel.IsClearBlocks && BlockManager.blocks.Exists(x => x.IsDangerous) == false;
         bool targetOut = PlayModel.IsTargetExist && PlayModel.IsTargetsReached;
 
         if (isTurnOut || blocksOut || targetOut) // no blocks or target remained
@@ -118,21 +118,14 @@ public class State_Playing : GameState
             // now check if player wins
             isPlayerWins = PlayModel.IsTargetExist == false || PlayModel.IsTargetsReached;
             if (isPlayerWins)
-            {
-                game.ClosePopup(true);
-                game.OpenPopup<Popup_Win>().SetNextTask(() =>
-                {
-                    base.Back();
-                    if (PlayModel.onWin != null)
-                        PlayModel.onWin();
-                });
-            }
-            else PlayerLose();
+                PlayModel.onWin?.Invoke(ok => { if (ok) base.Back(); });
+            else
+                PlayerLose();
         }
 
         if (isPlayerWins == false)
         {
-            if (BlockManager.IsBlockReachedDown) // player is losing becase a block reached down
+            if (BlockManager.IsBlockReachedDown) // player is losing because a block reached down
             {
                 game.ClosePopup(true);
                 game.OpenPopup<Popup_PreLose>().Setup(true, ability => // check if player wants to use abilities

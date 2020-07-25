@@ -4793,8 +4793,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -29659,7 +29659,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodies: {fileID: 224327502908059440}
   heads: {fileID: 224221659601329208}
-  eyes: {fileID: 1271253133866430}
+  items: {fileID: 0}
+  eyes:
+  - {fileID: 1271253133866430}
   hand: {fileID: 114942129638584222}
   defaultBody: 0
   defaultHead: 1
@@ -84041,8 +84043,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

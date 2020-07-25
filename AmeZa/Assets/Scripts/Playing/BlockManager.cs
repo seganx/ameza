@@ -48,15 +48,21 @@ public class BlockManager : Base
         switch (param.type)
         {
             case Messages.Type.TurnEnded:
-                IsBlockReachedWarn = CheckBlocksReached(2);
-                IsBlockReachedDown = CheckBlocksReached(1);
-                if (IsBlockReachedDown == false)
-                    GoNextTurn();
-                SendMessageUpwards("CheckMission");
+                {
+                    IsBlockReachedWarn = CheckBlocksReached(2);
+                    IsBlockReachedDown = CheckBlocksReached(1);
+                    if (IsBlockReachedDown == false)
+                        GoNextTurn();
+                    SendMessageUpwards("CheckMission");
+                }
                 break;
 
             case Messages.Type.BlockDead:
-                blocks.Remove(param.As<BlockBase>());
+                {
+                    blocks.Remove(param.As<BlockBase>());
+                    if (blocks.Exists(x => x.IsDangerous) == false)
+                        transform.parent.Broadcast(Messages.Type.EndTurn);
+                }
                 break;
 
             case Messages.Type.UseAbility:

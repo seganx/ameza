@@ -1,20 +1,15 @@
-﻿using SeganX;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private Collider2D collid = null;
-    private Rigidbody2D rigid = null;
-
-    public Collider2D Collider { get { return collid; } }
-    public Rigidbody2D Rigidbody { get { return rigid; } }
+    public Collider2D Collider { get; private set; } = null;
+    public Rigidbody2D Rigidbody { get; private set; } = null;
 
     private void Awake()
     {
-        collid = GetComponent<Collider2D>();
-        rigid = GetComponent<Rigidbody2D>();
+        Collider = GetComponent<Collider2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void OnMessage(Messages.Param param)
@@ -22,19 +17,19 @@ public class Ball : MonoBehaviour
         switch (param.type)
         {
             case Messages.Type.EndTurn:
-                var speed = rigid.velocity.magnitude;
+                var speed = Rigidbody.velocity.magnitude;
                 if (speed > 0.1f)
                 {
                     //var dir = BallManager.SpawnPoint - transform.localPosition + new Vector3(Random.Range(-1f, 1f), -1, 0);
                     var dir = new Vector3(Random.Range(-1f, 1f), -3, 0);
-                    rigid.velocity = dir.normalized * speed;
+                    Rigidbody.velocity = dir.normalized * speed;
                 }
                 break;
 
             case Messages.Type.TurnEnded:
                 {
-                    rigid.velocity = Vector2.zero;
-                    collid.enabled = false;
+                    Rigidbody.velocity = Vector2.zero;
+                    Collider.enabled = false;
                     StopAllCoroutines();
                     if (Vector3.Distance(transform.localPosition, BallManager.SpawnPoint) > 0.05f)
                         StartCoroutine(MoveToMain(param.As<BallManager>()));
@@ -53,6 +48,16 @@ public class Ball : MonoBehaviour
             time += Time.deltaTime * 4;
             transform.localPosition = Vector3.Lerp(startPosit, BallManager.SpawnPoint, time);
             yield return wait;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var contact = collision.GetContact(0);
+        var dotValue = Vector3.Dot(contact.relativeVelocity.normalized, Vector3.right) * 10;
+        if (Mathf.Abs(dotValue) > 9.995f)
+        {
+            Rigidbody.velocity += Vector2.down;
         }
     }
 }

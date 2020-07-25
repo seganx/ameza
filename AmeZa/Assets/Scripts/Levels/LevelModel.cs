@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum BlockType : int
 {
@@ -60,7 +58,6 @@ public class LevelModel
     public string name = string.Empty;
     public float progress = 0;
     public int startBallCount = 1;
-    public int startBallSpeed = 15;
     public int minBlockHealth = 1;
     public int maxBlockHealth = 5;
     public int targetTurns = 0;  // 0 means infinit
