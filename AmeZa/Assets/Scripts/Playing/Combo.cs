@@ -28,12 +28,11 @@ public class Combo : Base
             case Messages.Type.BlockDead:
                 if (started && param.As<BlockBase>().Type != BlockType.Obstacle)
                 {
-                    count++;
-
                     var ticks = System.DateTime.Now.Ticks / System.TimeSpan.TicksPerMillisecond;
                     var delta = ticks - countTime;
-                    if (delta > 200)
+                    if (delta > 400)
                     {
+                        count++;
                         countTime = ticks;
                         CheckCount(param);
                     }

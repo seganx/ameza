@@ -172,7 +172,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 500, y: 1200}
+  m_ReferenceResolution: {x: 500, y: 1400}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -326,10 +326,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.005
-  far clip plane: 11
+  far clip plane: 15
   field of view: 60
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -447,6 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e944dda454cad4e81b1bebe111bddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialVolume: 100
   musics:
   - {fileID: 8300000, guid: 2b9398dc0cf984f489c416869f4c8ee2, type: 3}
   - {fileID: 8300000, guid: 9802ea6fb11311c429d4aabcceafb63b, type: 3}

@@ -45,7 +45,7 @@ MonoBehaviour:
         \u0645\u0646 \U0001F448  {0} \U0001F449\r\n\r\n\r\n{1}"
     seasons:
     - levels: 12
-      blocks: {x: 10, y: 80}
+      blocks: {x: 10, y: 110}
       balls: {x: 10, y: 60}
       reward:
         gems: {x: 100, y: 10, z: 20}
@@ -65,7 +65,7 @@ MonoBehaviour:
         item0: 1
         item1: 1
     - levels: 16
-      blocks: {x: 20, y: 240}
+      blocks: {x: 20, y: 250}
       balls: {x: 20, y: 65}
       reward:
         gems: {x: 100, y: 10, z: 20}
@@ -103,7 +103,7 @@ MonoBehaviour:
         item0: 3
         item1: 3
     - levels: 20
-      blocks: {x: 25, y: 270}
+      blocks: {x: 25, y: 280}
       balls: {x: 25, y: 70}
       reward:
         gems: {x: 100, y: 10, z: 20}
@@ -147,7 +147,8 @@ MonoBehaviour:
         item0: 3
         item1: 3
     difficulty:
-    - turnsFactor: 150
+    - startBallSpeed: 17
+      turnsFactor: 150
       ballsFactor: 300
       classicTurnsFactor: 30
       classicBallsFactor: 150
@@ -171,11 +172,11 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 2
-          outSlope: 2
+          inSlope: 2.744028
+          outSlope: 2.744028
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.035761595
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2

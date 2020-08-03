@@ -8,9 +8,11 @@ public class Popup_Win : GameState
     [SerializeField] private GameObject[] stars = null;
     [SerializeField] private LocalText desc = null;
     [SerializeField] private Button continueButton = null;
+    [SerializeField] private Button nextLevelButton = null;
+    [SerializeField] private Button goHomeButton = null;
     [SerializeField] private LocalText baloon = null;
 
-    private System.Action nextTaskFunc = null;
+    private System.Action<bool> nextTaskFunc = null;
 
     private static int BaloonIndex
     {
@@ -40,29 +42,46 @@ public class Popup_Win : GameState
         int totalBalls = PlayModel.result.totalBalls + PlayModel.level.startBallCount;
         desc.SetFormatedText(PlayModel.result.totalTurn.ToString(), PlayModel.result.totalBlocks.ToString(), totalBalls);
 
+        if (rewards.exist)
+        {
+            continueButton.gameObject.SetActive(true);
+            nextLevelButton.gameObject.SetActive(false);
+            goHomeButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            continueButton.gameObject.SetActive(false);
+            nextLevelButton.gameObject.SetActive(true);
+            goHomeButton.gameObject.SetActive(true);
+        }
+
+        nextLevelButton.onClick.AddListener(() =>
+        {
+            base.Back();
+            nextTaskFunc?.Invoke(true);
+        });
+
+        goHomeButton.onClick.AddListener(() =>
+        {
+            base.Back();
+            nextTaskFunc?.Invoke(false);
+        });
+
         continueButton.onClick.AddListener(() =>
         {
             continueButton.gameObject.SetActive(false);
-            if (rewards.exist)
+
+            Profile.EarnGems(rewards.gems);
+            Profile.Bombs += rewards.bombs;
+            Profile.Hammers += rewards.hammers;
+            Profile.Missiles += rewards.missiles;
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true, () =>
             {
-                Profile.EarnGems(rewards.gems);
-                Profile.Bombs += rewards.bombs;
-                Profile.Hammers += rewards.hammers;
-                Profile.Missiles += rewards.missiles;
-                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true, () =>
-                {
-                    base.Back();
-                    if (nextTaskFunc != null)
-                        nextTaskFunc();
-                });
-                GlobalAnalytics.SourceGem(rewards.gems, "level");
-            }
-            else
-            {
-                base.Back();
-                if (nextTaskFunc != null)
-                    nextTaskFunc();
-            }
+                continueButton.gameObject.SetActive(false);
+                nextLevelButton.gameObject.SetActive(true);
+                goHomeButton.gameObject.SetActive(true);
+            });
+            GlobalAnalytics.SourceGem(rewards.gems, "level");
         });
 
         UiShowHide.ShowAll(transform);
@@ -89,7 +108,7 @@ public class Popup_Win : GameState
         }
     }
 
-    public Popup_Win SetNextTask(System.Action nextTask)
+    public Popup_Win SetNextTask(System.Action<bool> nextTask)
     {
         nextTaskFunc = nextTask;
         return this;
@@ -97,6 +116,14 @@ public class Popup_Win : GameState
 
     public override void Back()
     {
-        continueButton.onClick.Invoke();
+        if (continueButton.gameObject.activeSelf)
+            continueButton.onClick.Invoke();
+        else
+            nextLevelButton.onClick.Invoke();
+    }
+
+    public override float PreClose()
+    {
+        return base.PreClose() * 2;
     }
 }

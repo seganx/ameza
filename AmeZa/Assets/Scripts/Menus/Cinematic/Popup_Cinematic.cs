@@ -63,6 +63,13 @@ public class Popup_Cinematic : GameState
             UiShowHide.HideAll(jocker[side].transform);
             side = (side == 0) ? 1 : 0;
             lastChar = sequence.character;
+
+            switch (sequence.character)
+            {
+                case CinematicConfig.Character.Ame: AudioManager.PlaySound(GlobalFactory.Cinematics.soundAme); break;
+                case CinematicConfig.Character.Ameza: AudioManager.PlaySound(GlobalFactory.Cinematics.soundAmeZa); break;
+                case CinematicConfig.Character.Joker: AudioManager.PlaySound(GlobalFactory.Cinematics.soundJocker); break;
+            }
         }
 
         switch (sequence.character)
@@ -71,20 +78,17 @@ public class Popup_Cinematic : GameState
                 UiShowHide.ShowAll(ameza[side].transform);
                 ameza[side].SetBody((int)sequence.body);
                 ameza[side].SetFace((int)sequence.face);
-                AudioManager.PlaySound(GlobalFactory.Cinematics.soundAmeZa);
                 break;
             case CinematicConfig.Character.Ame:
                 UiShowHide.ShowAll(ame[side].transform);
                 ame[side].SetBody((int)sequence.body);
                 ame[side].SetFace((int)sequence.face);
-                AudioManager.PlaySound(GlobalFactory.Cinematics.soundAme);
                 break;
             case CinematicConfig.Character.Joker:
                 UiShowHide.ShowAll(jocker[side].transform);
                 jocker[side].SetBody((int)sequence.body);
                 jocker[side].SetFace((int)sequence.face);
                 jocker[side].SetItem((int)sequence.item);
-                AudioManager.PlaySound(GlobalFactory.Cinematics.soundJocker);
                 break;
         }
 

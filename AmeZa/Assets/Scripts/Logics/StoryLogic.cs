@@ -45,9 +45,9 @@ public static class StoryLogic
 
             CheckCinematics(CinematicConfig.Point.End, () =>
             {
-                Game.Instance.OpenPopup<Popup_Win>().SetNextTask(() =>
+                Game.Instance.OpenPopup<Popup_Win>().SetNextTask(nextlevel =>
                 {
-                    if (NextLevel())
+                    if (nextlevel && NextLevel())
                     {
                         StartPlaying();
                     }

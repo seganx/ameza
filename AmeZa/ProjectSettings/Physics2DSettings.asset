@@ -6,8 +6,8 @@ Physics2DSettings:
   serializedVersion: 4
   m_Gravity: {x: 0, y: -9.81}
   m_DefaultMaterial: {fileID: 6200000, guid: e067e8fba2105c042be288a0e5169af4, type: 2}
-  m_VelocityIterations: 8
-  m_PositionIterations: 3
+  m_VelocityIterations: 10
+  m_PositionIterations: 4
   m_VelocityThreshold: 1
   m_MaxLinearCorrection: 0.2
   m_MaxAngularCorrection: 8
@@ -44,10 +44,10 @@ Physics2DSettings:
   m_CallbacksOnDisable: 1
   m_ReuseCollisionCallbacks: 0
   m_AutoSyncTransforms: 1
-  m_AlwaysShowColliders: 0
+  m_AlwaysShowColliders: 1
   m_ShowColliderSleep: 1
-  m_ShowColliderContacts: 0
-  m_ShowColliderAABB: 0
+  m_ShowColliderContacts: 1
+  m_ShowColliderAABB: 1
   m_ContactArrowScale: 0.2
   m_ColliderAwakeColor: {r: 0.5686275, g: 0.95686275, b: 0.54509807, a: 0.7529412}
   m_ColliderAsleepColor: {r: 0.5686275, g: 0.95686275, b: 0.54509807, a: 0.36078432}
