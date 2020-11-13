@@ -36,7 +36,7 @@ public class Popup_Lose : GameState
 
         inviteButton.onClick.AddListener(() =>
         {
-            var str = string.Format(GlobalConfig.Socials.invitationText, Profile.Username, GlobalConfig.Socials.storeUrl);
+            var str = string.Format(GlobalConfig.Socials.invitationText, Profile.Username, GlobalConfig.Market.storeUrl);
             SocialAndSharing.ShareText(str);
         });
 
@@ -46,8 +46,8 @@ public class Popup_Lose : GameState
             {
                 base.Back();
                 UIBackground.Hide();
-                game.ClosePopup(true);
-                game.OpenState<State_Playing>();
+                Game.Instance.ClosePopup(true);
+                Game.Instance.OpenState<State_Playing>();
             });
         });
 

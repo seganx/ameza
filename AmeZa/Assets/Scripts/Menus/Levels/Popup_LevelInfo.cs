@@ -17,7 +17,7 @@ public class Popup_LevelInfo : GameState
     [SerializeField] private Text targetBlocksLabel = null;
     [SerializeField] private Button startButton = null;
 
-    public Popup_LevelInfo Setup(SeasonModel season, int index)
+    public Popup_LevelInfo Setup(SeasonModel season, int index, bool startLevelButton)
     {
         var levelmodel = season.GetLevelModel(index, Profile.Skill);
 
@@ -45,11 +45,15 @@ public class Popup_LevelInfo : GameState
 
         startButton.onClick.AddListener(() =>
         {
-            if (StoryLogic.SetPlayModel(season, index))
+            if (startLevelButton)
             {
-                Back();
-                StoryLogic.StartPlaying();
+                if (StoryLogic.SetPlayModel(season, index))
+                {
+                    Back();
+                    StoryLogic.StartPlaying(null);
+                }
             }
+            else Back();
         });
 
         return this;

@@ -39,7 +39,7 @@ public class UiProfileBallItem : MonoBehaviour
                         {
                             Profile.AddBall(ballId);
                             Profile.Avatar.BallId = ballId;
-                            Game.Instance.OpenPopup<Popup_Rewards>().Setup(ballId, 0, 0, 0, 0, true, () =>
+                            Game.Instance.OpenPopup<Popup_Rewards>().Setup(ballId, 0, 0, 0, 0, true, false, () =>
                             {
                                 transform.parent.Broadcast(Messages.Type.BallPurchased);
                                 transform.root.Broadcast(Messages.Type.AvatarChanged, Profile.Avatar.Current);

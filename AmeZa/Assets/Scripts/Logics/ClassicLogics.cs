@@ -59,6 +59,6 @@ public static class ClassicLogics
     private static void OnReward(System.Action onClose)
     {
         var reward = PlayModel.GetReward();
-        Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, 0, 0, 0, true, onClose);
+        Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, reward.gems, 0, 0, 0, true, true, onClose);
     }
 }

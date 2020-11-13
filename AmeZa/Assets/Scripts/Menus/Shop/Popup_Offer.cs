@@ -38,7 +38,7 @@ public class Popup_Offer : GameState
     private void Exit(bool success)
     {
         base.Back();
-        if (onCloseFunc != null) onCloseFunc(success);
+        onCloseFunc?.Invoke(success);
     }
 
     public override void Back()

@@ -25,8 +25,8 @@ public class SeasonModel
     public LevelModel GetLevelModel(int index, int skillFactor)
     {
         int levelIndex = GlobalFactory.Seasons.GetLevelNumber(id, index);
-        int difficultyCurveId = Mathf.Clamp(id, 0, GlobalConfig.Difficulty.curves.Length - 1);
-        var difficultyCurve = GlobalConfig.Difficulty.curves[difficultyCurveId];
+        var difficultyFactors = id == 0 ? GlobalConfig.Difficulty.levelFactor0 : (id == 1 ? GlobalConfig.Difficulty.levelFactor1 : GlobalConfig.Difficulty.levelFactor2);
+        var difficultyValue = difficultyFactors[index % difficultyFactors.Length] * 0.01f;
 
         var res = new LevelModel();
         res.season = id;
@@ -36,7 +36,7 @@ public class SeasonModel
         res.progress = (index + 1) / (float)levelCount;
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
         res.minBlockHealth = res.startBallCount / 4;
-        res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyCurve.Evaluate(res.progress)));
+        res.maxBlockHealth = Mathf.RoundToInt(Mathf.Lerp(maxBlockHealth.x, maxBlockHealth.y, difficultyValue));
         res.reward = levelReward;
 
         res.minBlockHealth = Mathf.Max(res.minBlockHealth + res.minBlockHealth * skillFactor / 5000, 1);

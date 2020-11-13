@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Fun.Iab;
 
 public class UiShopItem : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class UiShopItem : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             button.SetInteractable(false);
-            PurchaseSystem.Purchase(PurchaseProvider.Bazaar, sku, (succeed, token) =>
+            PurchaseSystem.Purchase(PurchaseProvider.Market, sku, (succeed, token) =>
             {
                 if (succeed)
                     Purchased(sku, token, () => onClick?.Invoke(true));
@@ -86,19 +87,19 @@ public class UiShopItem : MonoBehaviour
             nextTask?.Invoke();
             return;
         }
-
+        
         Profile.EarnGems(pack.gems);
         Profile.Bombs += pack.bombs;
         Profile.Hammers += pack.hammers;
         Profile.Missiles += pack.missiles;
 
-        Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, nextTask);
+        Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, false, nextTask);
 
         PurchaseSystem.Consume(pack.sku, (success, msg) =>
         {
             if (success)
             {
-                GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Cafebazaar, pack.sku, pack.price, token);
+                GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Market, pack.sku, pack.price, token);
                 Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), r => { });
             }
         });

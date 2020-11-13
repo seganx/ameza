@@ -14,7 +14,7 @@ public class State_Friends : GameState
     {
         itemPrefab.gameObject.SetActive(false);
 
-        addFriendButton.onClick.AddListener(() => game.OpenPopup<Popup_AddFriend>().Setup(friends.Count < GlobalConfig.Friends.maxCount, friend =>
+        addFriendButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_AddFriend>().Setup(friends.Count < GlobalConfig.Friends.maxCount, friend =>
         {
             if (friends.Exists(x => x.id == friend.id) == false)
             {

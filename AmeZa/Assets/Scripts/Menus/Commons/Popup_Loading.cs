@@ -12,7 +12,7 @@ public class Popup_Loading : GameState
     {
         updateButton.onClick.AddListener(() =>
         {
-            Application.OpenURL(GlobalConfig.Socials.storeUrl);
+            Application.OpenURL(GlobalConfig.Market.storeUrl);
             Application.Quit();
         });
 
@@ -42,7 +42,7 @@ public class Popup_Loading : GameState
     {
         count++;
         if (instance != null) return;
-        instance = game.OpenPopup<Popup_Loading>();
+        instance = Game.Instance.OpenPopup<Popup_Loading>();
     }
 
     public static void Hide()
@@ -51,7 +51,7 @@ public class Popup_Loading : GameState
         if (GlobalConfig.Update.mode == GlobalConfig.Data.Update.Mode.Force) return;
         count--;
         if (count > 0) return;
-        game.Back(instance);
+        Game.Instance.Back(instance);
         instance = null;
     }
 }

@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
+using SeganX;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem contactEffect = null;
+    [SerializeField] private GameObject killEffectPrefab = null;
+
     public Collider2D Collider { get; private set; } = null;
     public Rigidbody2D Rigidbody { get; private set; } = null;
 
@@ -40,6 +44,9 @@ public class Ball : MonoBehaviour
 
     private IEnumerator MoveToMain(BallManager sender)
     {
+        Rigidbody.isKinematic = true;
+        Collider.enabled = false;
+
         float time = 0;
         var wait = new WaitForEndOfFrame();
         var startPosit = transform.localPosition;
@@ -49,6 +56,9 @@ public class Ball : MonoBehaviour
             transform.localPosition = Vector3.Lerp(startPosit, BallManager.SpawnPoint, time);
             yield return wait;
         }
+
+        Collider.enabled = true;
+        Rigidbody.isKinematic = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -58,6 +68,18 @@ public class Ball : MonoBehaviour
         if (Mathf.Abs(dotValue) > 9.995f)
         {
             Rigidbody.velocity += Vector2.down;
+        }
+
+        if (contactEffect && contactEffect.isStopped)
+            contactEffect.Play(true);
+    }
+
+    public void OnBlockDeath(BlockBase block, Collision2D collision)
+    {
+        if (killEffectPrefab && collision.contactCount > 0)
+        {
+            Vector3 point = collision.contacts[0].point;
+            Instantiate(killEffectPrefab, point + killEffectPrefab.transform.position, killEffectPrefab.transform.rotation, transform.parent);
         }
     }
 }

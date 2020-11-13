@@ -1,6 +1,7 @@
 ﻿using SeganX;
 using UnityEngine;
 using UnityEngine.UI;
+using Fun.Iab;
 
 public class Popup_Settings : GameState
 {
@@ -18,7 +19,7 @@ public class Popup_Settings : GameState
         musicToggle.onValueChanged.AddListener((on) => AudioManager.MusicVolume = on ? 0 : 100);
         soundToggle.onValueChanged.AddListener((on) => AudioManager.SoundVolume = on ? 0 : 100);
 
-        resetButton.onClick.AddListener(() => game.OpenPopup<Popup_Confirm>().Setup(111061, true, true, yes =>
+        resetButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Confirm>().Setup(111061, true, true, yes =>
         {
             if (yes)
                 Profile.Reset();
@@ -34,7 +35,7 @@ public class Popup_Settings : GameState
         purchasedButton.onClick.AddListener(() =>
         {
             Loading.Show();
-            PurchaseSystem.QueryPurchases(PurchaseProvider.Bazaar, (success, json) =>
+            PurchaseSystem.QueryPurchases(PurchaseProvider.Market, (success, json) =>
             {
                 Loading.Hide();
                 if (success)
@@ -53,6 +54,6 @@ public class Popup_Settings : GameState
         if (data.list.Count > index)
             UiShopItem.Purchased(data.list[index].sku, data.list[index].token, () => CheckPurchasedList(data, index + 1));
         else
-            game.OpenPopup<Popup_Confirm>().Setup(111062, true, false, null);
+            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111062, true, false, null);
     }
 }

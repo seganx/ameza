@@ -21,7 +21,7 @@ public class State_Main : GameState
         onlineButton.onClick.AddListener(() =>
         {
             if (Profile.GetSeasonRewarded(0) > 0)
-                game.OpenState<State_SelectLeague>();
+                Game.Instance.OpenState<State_SelectLeague>();
             else
                 tutorial.Display(0, false, 111034, null);
         });
@@ -36,32 +36,32 @@ public class State_Main : GameState
         });
 
         if (Profile.IsFirstSession) levelsButton.GetComponent<Animation>().Play();
-        levelsButton.onClick.AddListener(() => game.OpenState<State_Levels>());
+        levelsButton.onClick.AddListener(() => Game.Instance.OpenState<State_Levels>());
 
         luckyButton.onClick.AddListener(() =>
         {
             var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
             if (seconds > 0)
             {
-                game.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
+                Game.Instance.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
             }
             else
             {
                 Online.Timer.Set(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
-                game.OpenPopup<Popup_LuckySpine>();
+                Game.Instance.OpenPopup<Popup_LuckySpine>();
             }
         });
 
 
-        if (Profile.Version > 5 && 
+        if (Profile.IsFirstSession == false && 
             Profile.Version < GlobalConfig.Instance.version && 
             GlobalConfig.Update.mode == GlobalConfig.Data.Update.Mode.Null &&
             GlobalConfig.Update.rewardGems > 0)
         {
             Profile.Version = GlobalConfig.Instance.version;
-            game.OpenPopup<Popup_Confirm>().Setup(111129, true, false, ok =>
+            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111129, true, false, ok =>
             {
-                game.OpenPopup<Popup_Rewards>().Setup(0, GlobalConfig.Update.rewardGems, 0, 0, 0, true, () => Profile.EarnGems(GlobalConfig.Update.rewardGems));
+                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, GlobalConfig.Update.rewardGems, 0, 0, 0, true, false, () => Profile.EarnGems(GlobalConfig.Update.rewardGems));
                 GlobalAnalytics.SourceGem(GlobalConfig.Update.rewardGems, "update");
             });
         }
@@ -102,7 +102,7 @@ public class State_Main : GameState
     {
         if (tutorial.Hide()) return;
 
-        game.OpenPopup<Popup_Confirm>().Setup(111004, true, true, yes =>
+        Game.Instance.OpenPopup<Popup_Confirm>().Setup(111004, true, true, yes =>
         {
             if (yes)
                 Application.Quit();

@@ -298,9 +298,9 @@ public class Profile : MonoBehaviour
         {
             EarnGems(GlobalConfig.ProfilePreset.gems);
             Hearts = GlobalConfig.ProfilePreset.hearts;
-            Bombs = GlobalConfig.ProfilePreset.bombs / 2;
-            Hammers = GlobalConfig.ProfilePreset.hammers / 2;
-            Missiles = GlobalConfig.ProfilePreset.missles / 2;
+            Bombs = GlobalConfig.ProfilePreset.bombs;
+            Hammers = GlobalConfig.ProfilePreset.hammers;
+            Missiles = GlobalConfig.ProfilePreset.missles;
 
             GlobalAnalytics.SourceGem(GlobalConfig.ProfilePreset.gems, "first");
         }
@@ -345,7 +345,7 @@ public class Profile : MonoBehaviour
 
     private static void GetProfile(bool sendProfile, System.Action<bool> nextTask)
     {
-        if ((System.DateTime.Now - lastGetPrfoileTime).TotalMinutes < 2)
+        if ((System.DateTime.Now - lastGetPrfoileTime).TotalMinutes < 10)
         {
             SyncProfile(sendProfile, data.info, nextTask);
             return;

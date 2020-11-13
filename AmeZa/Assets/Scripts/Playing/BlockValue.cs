@@ -33,7 +33,6 @@ public class BlockValue : BlockBase
     {
         if (Health > damage)
         {
-            Health -= damage;
             numberLabel.text = Health.ToString().Persian();
             if (animator.isPlaying == false) animator.Play("BlockHit");
             transform.root.Message(Messages.Type.OnBlockHit, this);
@@ -58,11 +57,19 @@ public class BlockValue : BlockBase
             transform.root.Message(Messages.Type.OnBlockDeath, this);
             transform.root.Broadcast(Messages.Type.BlockDead, this);
         }
+
+        Health -= damage;
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         Hit(1);
+
+        if (Health < 1)
+        {
+            var ball = collision.gameObject.GetComponent<Ball>();
+            if (ball != null) ball.OnBlockDeath(this, collision);
+        }
     }
 
     public override void UsedAbility(AbilityType ability)

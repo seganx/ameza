@@ -113,17 +113,20 @@ PlayerSettings:
   switchNVNShaderPoolsGranularity: 33554432
   switchNVNDefaultPoolsGranularity: 16777216
   switchNVNOtherPoolsGranularity: 16777216
+  switchNVNMaxPublicTextureIDCount: 0
+  switchNVNMaxPublicSamplerIDCount: 0
   stadiaPresentMode: 0
   stadiaTargetFramerate: 0
   vulkanNumSwapchainBuffers: 3
   vulkanEnableSetSRGBWrite: 0
+  vulkanEnableLateAcquireNextImage: 0
   m_SupportedAspectRatios:
     4:3: 1
     5:4: 1
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 23.63
+  bundleVersion: 28.85
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -169,7 +172,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.parsehgames.ameza
   buildNumber: {}
-  AndroidBundleVersionCode: 63
+  AndroidBundleVersionCode: 85
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -576,6 +579,7 @@ PlayerSettings:
   ps4ShareFilePath: 
   ps4ShareOverlayImagePath: 
   ps4PrivacyGuardImagePath: 
+  ps4ExtraSceSysFile: 
   ps4NPtitleDatPath: 
   ps4RemotePlayKeyAssignment: -1
   ps4RemotePlayKeyMappingDir: 
@@ -618,6 +622,8 @@ PlayerSettings:
   ps4disableAutoHideSplash: 0
   ps4videoRecordingFeaturesUsed: 0
   ps4contentSearchFeaturesUsed: 0
+  ps4CompatibilityPS5: 0
+  ps4GPU800MHz: 1
   ps4attribEyeToEyeDistanceSettingVR: 0
   ps4IncludedModules: []
   ps4attribVROutputEnabled: 0
@@ -643,7 +649,7 @@ PlayerSettings:
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
     4: 
-    7: BAZAAR;SX_CCMD;SX_CENSOR;SX_EXDBG;SX_IAP;SX_ONLINE;SX_PARSI;SX_SSHRNG;SX_ZIP
+    7: BAZAAR;MYKET;SX_CCMD;SX_CENSOR;SX_EXDBG;SX_IAP;SX_OLDCORE;SX_ONLINE;SX_PARSI;SX_SHRNG;SX_SSHRNG;SX_ZIP;TAPSELL
   platformArchitecture: {}
   scriptingBackend:
     Android: 1

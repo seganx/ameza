@@ -19,15 +19,21 @@ public class Popup_Shop : GameState
     public override void Back()
     {
         base.Back();
-        if (onCloseFunc != null)
-            onCloseFunc();
+        onCloseFunc?.Invoke();
     }
 
     private IEnumerator Start()
     {
         var index = PurchaseOffer.GetOfferIndex(Profile.Gems);
         if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
-            combinedItem.Clone<UiShopItem>().Setup(GlobalConfig.Shop.offers[index].sku);
+        {
+            var item = combinedItem.Clone<UiShopItem>();
+            item.Setup(GlobalConfig.Shop.offers[index].sku, success =>
+            {
+                PurchaseOffer.SetPurchaseResult(success);
+                item.gameObject.SetActive(success == false);
+            });
+        }
 
         foreach (var item in GlobalConfig.Shop.combinedPackages)
             combinedItem.Clone<UiShopItem>().Setup(item.sku);

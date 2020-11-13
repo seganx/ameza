@@ -89,7 +89,7 @@ public class Popup_PreLose : GameState
 
     private void BuyBooster(int count, int price, string booster, System.Action<int> onSuccess)
     {
-        game.OpenPopup<Popup_Confirm>().SetText(111003, count, price).Setup(true, true, yes =>
+        Game.Instance.OpenPopup<Popup_Confirm>().SetText(111003, count, price).Setup(true, true, yes =>
         {
             if (yes == false) return;
             Game.SpendGems(price, () =>

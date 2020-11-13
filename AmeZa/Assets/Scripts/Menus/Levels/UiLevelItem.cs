@@ -25,7 +25,7 @@ public class UiLevelItem : MonoBehaviour
         {
             if (Profile.Hearts > 0)
             {
-                Game.Instance.OpenPopup<Popup_LevelInfo>().Setup(season, index);
+                Game.Instance.OpenPopup<Popup_LevelInfo>().Setup(season, index, true);
             }
             else Game.Instance.OpenPopup<Popup_BuyHearts>();
         });

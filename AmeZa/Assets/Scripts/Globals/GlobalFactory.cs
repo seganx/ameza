@@ -60,7 +60,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             get
             {
                 if (count < 1)
-                    count = ResourceEx.LoadAll("Balls/", true).LastOne().id + 1;
+                    count = ResourceEx.LoadAll("Balls/", true).LastOne().Id + 1;
                 return count;
             }
         }
@@ -140,7 +140,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
                     if (all.Count < 1)
                     {
                         all = ResourceEx.LoadAll("Game/Patterns/Levels/", false);
-                        all.Sort((x, y) => x.id - y.id);
+                        all.Sort((x, y) => x.Id - y.Id);
                     }
 
                     return all;
@@ -399,7 +399,7 @@ public class GlobalFactory : StaticConfig<GlobalFactory>
             get
             {
                 if (all.Count < 1)
-                    all = ResourceEx.LoadAll<CinematicConfig>("Game/Cinematics/", false);
+                    all = ResourceEx.LoadAll<CinematicConfig>("Game/Cinematics/", false, x => true);
                 return all;
             }
         }

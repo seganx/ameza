@@ -26,7 +26,7 @@ public class Popup_ProfileInfo : GameState
         var subleague = GlobalFactory.Leagues.GetByScore(league, profile.score);
         medalImage.sprite = GlobalFactory.Leagues.GetMedal(league, profile.score);
         medalLabel.SetText(subleague.name);
-        medalButton.onClick.AddListener(() => game.OpenPopup<Popup_MedalInfo>().Setup(league));
+        medalButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_MedalInfo>().Setup(league));
 
         if (userdata != null)
         {

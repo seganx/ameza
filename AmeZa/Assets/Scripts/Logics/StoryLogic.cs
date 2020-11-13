@@ -49,9 +49,17 @@ public static class StoryLogic
                 {
                     if (nextlevel && NextLevel())
                     {
-                        StartPlaying();
+                        StartPlaying(() =>
+                        {
+                            var levelmodel = season.GetLevelModel(index, Profile.Skill);
+                            if (levelmodel.IsTargetExist)
+                            {
+                                Game.Instance.OpenPopup<Popup_LevelInfo>().Setup(season, index, false);
+                            }
+                        });
                     }
-                    else exitplaying(true);
+                    else
+                        exitplaying(true);
                 });
             });
         };
@@ -66,18 +74,24 @@ public static class StoryLogic
 
         PlayModel.onPreLose = exitplaying =>
         {
-            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111005, true, true, exitplaying).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
+            //Game.Instance.OpenPopup<Popup_Confirm>().Setup(111005, true, true, exitplaying).GetComponent<UiCharacter>(true, true).SetBody(1).SetFace(2);
+            exitplaying(false);
+            if (Reset())
+            {
+                StartPlaying(() => { });
+            }
         };
 
         return true;
     }
 
-    public static void StartPlaying()
+    public static void StartPlaying(System.Action nextTask)
     {
         UIBackground.Hide();
+        Game.Instance.ClosePopup(true);
         Game.Instance.OpenState<State_Playing>();
         GlobalAnalytics.Levels.Start(season.id, index);
-        CheckCinematics(CinematicConfig.Point.Start, null);
+        CheckCinematics(CinematicConfig.Point.Start, nextTask);
     }
 
     private static void CheckCinematics(CinematicConfig.Point point, System.Action nextTask)

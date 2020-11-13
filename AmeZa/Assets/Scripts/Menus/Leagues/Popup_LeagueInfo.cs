@@ -1,4 +1,5 @@
 ﻿using SeganX;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +13,12 @@ public class Popup_LeagueInfo : GameState
     [SerializeField] private LocalText scoreLabel = null;
     [SerializeField] private LocalText rankLabel = null;
     [SerializeField] private LocalText rewardLabel = null;
+    [SerializeField] private LocalText rewardLabelTop = null;
     [SerializeField] private LocalText medalLabel = null;
     [SerializeField] private Image medalImage = null;
     [SerializeField] private Button medalButton = null;
     [SerializeField] private Button rewardButton = null;
+    [SerializeField] private Button rewardsButton = null;
     [SerializeField] private Button boardButton = null;
     [SerializeField] private Button playButton = null;
     [SerializeField] private UiTutorial tutorial = null;
@@ -38,13 +41,13 @@ public class Popup_LeagueInfo : GameState
         title.SetText(LeagueLogics.info.name);
         descLabel.SetText(LeagueLogics.info.desc);
         iconImage.sprite = GlobalFactory.Leagues.GetCupSprite(LeagueLogics.info.playType);
-        rewardButton.SetInteractable(false);
         boardButton.SetInteractable(false);
         playButton.SetInteractable(false);
 
-        medalButton.onClick.AddListener(() => game.OpenPopup<Popup_MedalInfo>().Setup(LeagueLogics.info));
+        medalButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_MedalInfo>().Setup(LeagueLogics.info));
         rewardButton.onClick.AddListener(() => OnRewardButton(LeagueLogics.info));
-        boardButton.onClick.AddListener(() => game.OpenPopup<State_Leaderboards>().Setup(LeagueLogics.info.id));
+        boardButton.onClick.AddListener(() => Game.Instance.OpenPopup<State_Leaderboards>().Setup(LeagueLogics.info.id));
+        rewardsButton.onClick = medalButton.onClick;
 
         playButton.onClick.AddListener(() =>
         {
@@ -68,7 +71,7 @@ public class Popup_LeagueInfo : GameState
                     UpdateView();
                     UiShowHide.ShowAll(transform);
                 }
-                else Back();
+                else base.Back();
             });
         }
         else UiShowHide.ShowAll(transform);
@@ -95,16 +98,32 @@ public class Popup_LeagueInfo : GameState
         }
 
         var seconds = Online.League.GetRemainedSeconds(LeagueLogics.data.start_time, LeagueLogics.data.duration, Online.Timer.CurrentSeconds);
+
+#if UNITY_EDITOR
+        {
+            var D = seconds / 86400;
+            var H = (seconds % 86400) / 3600;
+            var M = (seconds % 3600) / 60;
+            var S = seconds % 60;
+            Debug.LogWarning("Seconds: " + seconds + " D:" + D + " H:" + H + " M:" + M + " S:" + S);
+        }
+#endif
+
+
         var subleague = GlobalFactory.Leagues.GetByScore(LeagueLogics.info, LeagueLogics.data.score);
         medalImage.sprite = GlobalFactory.Leagues.GetMedal(LeagueLogics.info, LeagueLogics.data.score);
         medalLabel.SetText(subleague.name);
         timeLabel.SetFormatedText(TimeToString(seconds));
         scoreLabel.SetFormatedText(LeagueLogics.data.score);
         rankLabel.SetFormatedText((LeagueLogics.data.rank > 0 && LeagueLogics.data.score > 0) ? LeagueLogics.data.rank.ToString() : "-");
-        rewardLabel.SetFormatedText(subleague.rewardGems);
-        rewardButton.SetInteractable(LeagueLogics.data.end_rank > 0);
+        rewardLabel.SetFormatedText(subleague.rewardGems, subleague.name);
+        rewardButton.gameObject.SetActive(LeagueLogics.data.end_rank > 0);
+        rewardsButton.gameObject.SetActive(LeagueLogics.data.end_rank <= 0);
         boardButton.SetInteractable(true);
         playButton.SetInteractable(true);
+
+        var topleague = GlobalFactory.Leagues.GetByScore(LeagueLogics.info, 9999999);
+        rewardLabelTop.SetFormatedText(topleague.rewardGems, topleague.name);
     }
 
     private string TimeToString(long secconds)
@@ -127,7 +146,7 @@ public class Popup_LeagueInfo : GameState
             {
                 var subleague = GlobalFactory.Leagues.GetByScore(info, LeagueLogics.data.end_score);
                 Profile.EarnGems(subleague.rewardGems);
-                game.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, () => Rateus.AddJoy(2));
+                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, subleague.rewardGems, 0, 0, 0, true, false, () => Rateus.AddJoy(2));
                 LeagueLogics.data.end_score = LeagueLogics.data.end_rank = 0;
                 GlobalAnalytics.SourceGem(subleague.rewardGems, "league");
             }

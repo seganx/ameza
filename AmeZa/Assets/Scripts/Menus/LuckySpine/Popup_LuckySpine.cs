@@ -175,21 +175,21 @@ public class Popup_LuckySpine : GameState
         {
             var bombs = items[0];
             Profile.Bombs += bombs;
-            game.OpenPopup<Popup_Rewards>().Setup(0, 0, bombs, 0, 0, true);
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, 0, bombs, 0, 0, true);
             descAgain.SetActive(false);
         }
         else if (items[1] > 1)
         {
             var missiles = items[1];
             Profile.Missiles += missiles;
-            game.OpenPopup<Popup_Rewards>().Setup(0, 0, 0, 0, missiles, true);
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, 0, 0, 0, missiles, true);
             descAgain.SetActive(false);
         }
         else if (items[2] > 1)
         {
             var gems = items[2] * GlobalConfig.Luckyspin.gems;
             Profile.EarnGems(gems);
-            game.OpenPopup<Popup_Rewards>().Setup(0, gems, 0, 0, 0, true);
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, gems, 0, 0, 0, true);
             descAgain.SetActive(false);
             GlobalAnalytics.SourceGem(gems, "luckyspine");
         }
@@ -197,14 +197,14 @@ public class Popup_LuckySpine : GameState
         {
             var hammers = Mathf.Max(0, items[3] - 1);
             Profile.Hammers += hammers;
-            game.OpenPopup<Popup_Rewards>().Setup(0, 0, 0, hammers, 0, true);
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, 0, 0, hammers, 0, true);
             descAgain.SetActive(false);
         }
         else if (items[4] > 1)
         {
             var hearts = items[4] - 1;
             Profile.Hearts += hearts;
-            game.OpenPopup<Popup_Confirm>().SetText(111017, hearts).Setup(true, false, null);
+            Game.Instance.OpenPopup<Popup_Confirm>().SetText(111017, hearts).Setup(true, false, null);
             descAgain.SetActive(false);
         }
         else

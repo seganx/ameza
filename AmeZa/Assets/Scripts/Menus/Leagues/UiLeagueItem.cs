@@ -34,16 +34,16 @@ public class UiLeagueItem : Base
         {
             if (Profile.HasNickname)
             {
-                game.OpenState<State_Leaderboards>().Setup(index);
+                Game.Instance.OpenState<State_Leaderboards>().Setup(index);
             }
             else
             {
-                game.OpenPopup<Popup_Confirm>().Setup(111011, true, false, ok =>
+                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111011, true, false, ok =>
                 {
-                    if (ok) game.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                    if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
                     {
                         if (Profile.HasNickname)
-                            game.OpenPopup<Popup_Confirm>().Setup(111012, true, false, null);
+                            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111012, true, false, null);
                     });
                 });
             }

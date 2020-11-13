@@ -27,16 +27,16 @@ public class Popup_Rateus : GameState
         {
             if (Rateus.Current > 4)
             {
-                game.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok =>
+                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok =>
                 {
                     if (ok)
-                        SocialAndSharing.RateUs(null, GlobalConfig.Socials.rateUrl);
+                        SocialAndSharing.RateUs();
                     Back();
                 });
             }
             else
             {
-                game.OpenPopup<Popup_Confirm>().Setup(111126, true, true, ok =>
+                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111126, true, true, ok =>
                 {
                     if (ok)
                         Application.OpenURL(GlobalConfig.Socials.contactSurveyUrl);
@@ -65,6 +65,12 @@ public class Popup_Rateus : GameState
         base.Back();
         onCloseFunc?.Invoke();
     }
+
+    [Console("test", "rateus")]
+    public static void Test()
+    {
+        Rateus.AddJoy(4);
+    }
 }
 
 
@@ -90,13 +96,6 @@ public static class Rateus
             Joy *= -1;
             Game.Instance.OpenPopup<Popup_Rateus>().Setup(nextTask);
         }
-        else if (nextTask != null)
-            nextTask();
-    }
-
-    [Console("test", "rateus")]
-    public static void Test()
-    {
-        AddJoy(4);
+        else nextTask?.Invoke();
     }
 }

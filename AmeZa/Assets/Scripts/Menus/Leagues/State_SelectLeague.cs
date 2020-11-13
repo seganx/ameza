@@ -4,10 +4,13 @@ using UnityEngine.UI;
 
 public class State_SelectLeague : GameState
 {
+    [SerializeField] private LocalText friendsDesc = null;
     [SerializeField] private Button friendsButton = null;
 
     private void Start()
     {
+        friendsDesc.SetFormatedText(GlobalConfig.Friends.rewardGems);
+
         friendsButton.onClick.AddListener(() =>
         {
             if (Profile.HasNickname)

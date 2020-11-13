@@ -75,7 +75,7 @@ public class Popup_Win : GameState
             Profile.Bombs += rewards.bombs;
             Profile.Hammers += rewards.hammers;
             Profile.Missiles += rewards.missiles;
-            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true, () =>
+            Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true, true, () =>
             {
                 continueButton.gameObject.SetActive(false);
                 nextLevelButton.gameObject.SetActive(true);

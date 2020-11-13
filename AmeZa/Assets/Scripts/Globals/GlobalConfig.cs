@@ -15,6 +15,14 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 {
 
     [System.Serializable]
+    public class MarketInfo
+    {
+        public string storeUrl = string.Empty;
+        public string rateUrl = string.Empty;
+        public string rsaKey = string.Empty;
+    }
+
+    [System.Serializable]
     public class Data
     {
         [System.Serializable]
@@ -44,8 +52,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class Socials
         {
-            public string storeUrl = string.Empty;
-            public string rateUrl = string.Empty;
             public string contactSurveyUrl = string.Empty;
             public string contactEmailUrl = string.Empty;
             [PersianPreview(lines = 5)]
@@ -90,7 +96,9 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int loseFactor = 5;
             public Vector2Int seasonBlocksFactors = new Vector2Int(5, 30);
             public Vector2Int seasonBallsFactors = new Vector2Int(5, 20);
-            public AnimationCurve[] curves = new AnimationCurve[] { new AnimationCurve() };
+            public int[] levelFactor0 = new int[12];
+            public int[] levelFactor1 = new int[16];
+            public int[] levelFactor2 = new int[20];
         }
 
         [System.Serializable]
@@ -120,6 +128,23 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         {
             public int timerId = 1;
             public int interval = 900;
+        }
+
+        [System.Serializable]
+        public class Advertise
+        {
+            [System.Serializable]
+            public class AdPlace : FunAd.Segment
+            {
+                public string zoneId = string.Empty;
+                public int timerId = 50;
+                public int interval = 1800;
+                public int rewardGems = 100;
+                public override string ZoneId => zoneId;
+            }
+
+            public AdPlace shopFreeGems = new AdPlace();
+            public AdPlace winClaim = new AdPlace();
         }
 
         [System.Serializable]
@@ -214,6 +239,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public List<Season> seasons = new List<Season>();
         public List<Difficulty> difficulty = new List<Difficulty>();
         public List<Heart> heart = new List<Heart>() { new Heart() };
+        public List<Advertise> advertises = new List<Advertise>() { new Advertise() };
         public List<Luckyspin> lockyspin = new List<Luckyspin>() { new Luckyspin() };
         public List<OfferConfig> offers = new List<OfferConfig>() { new OfferConfig() };
         public List<League> leagues = new List<League>();
@@ -226,7 +252,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
     public Market market = 0;
     public string address = "http://seganx.com/games/ameza/";
-    public string cafeBazaarKey = "";
+    public MarketInfo cafebazaar = new MarketInfo();
+    public MarketInfo myket = new MarketInfo();
 
     [Header("Dynamic Data")]
     [SerializeField] private Data data = new Data();
@@ -239,20 +266,21 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             SaveData(data);
             PlayerPrefsEx.SetInt("GlobalConfig.Group", offlineGroup);
         }
-        else
+#else
+        data = LoadData(data);
+        if (DebugMode) Console.Enabled = true;
 #endif
-            data = LoadData(data);
-        if (DebugMode) SeganX.Console.Logger.Enabled = true;
     }
 
 #if UNITY_EDITOR
     [Space()]
-    [InspectorButton(100, "Export as", "OnExport", false)]
+    [InspectorButton(200, "Export as", "OnExport", "Export level data", "OnExportLevelData", false)]
     public bool offline = false;
     public int offlineGroup = 0;
 
     public void OnExport(object sender)
     {
+        Jokes.Clear();
         var path = System.IO.Directory.GetParent(Application.dataPath).Parent.FullName + "/Configs/" + version;
         if (System.IO.Directory.Exists(path) == false)
             System.IO.Directory.CreateDirectory(path);
@@ -260,6 +288,29 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         if (filename.HasContent(4))
             System.IO.File.WriteAllText(filename, JsonUtility.ToJson(data, false), System.Text.Encoding.UTF8);
     }
+
+    public void OnExportLevelData(object sender)
+    {
+        int profileskill = 0;
+        string str = "season,curve x,level number,skill,balls,max block,min block\n";
+        for (int i = 0; i < 5; i++)
+        {
+            var season = GlobalFactory.Seasons.Get(i);
+            for (int l = 0; l < season.levelCount; l++)
+            {
+                var level = season.GetLevelModel(l, profileskill);
+
+                str += i + "," + level.progress + "," + level.name + "," + profileskill + "," + level.startBallCount + "," + level.maxBlockHealth + "," + level.minBlockHealth + "\n";
+
+                //profileskill += Difficulty.winFactorPositive;
+            }
+        }
+
+        var path = System.IO.Directory.GetParent(Application.dataPath).Parent.FullName + "/Configs/leveldata.csv";
+        System.IO.File.WriteAllText(path, str);
+        UnityEditor.EditorUtility.RevealInFinder(path);
+    }
+
 #endif
 
     ////////////////////////////////////////////////////////////
@@ -270,6 +321,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static List<Data.Season> Seasons { get { return Instance.data.seasons; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty[Group % Instance.data.difficulty.Count]; } }
     public static Data.Heart Heart { get { return Instance.data.heart[Group % Instance.data.heart.Count]; } }
+    public static Data.Advertise Advertise { get { return Instance.data.advertises[Group % Instance.data.advertises.Count]; } }
     public static Data.Luckyspin Luckyspin { get { return Instance.data.lockyspin[Group % Instance.data.lockyspin.Count]; } }
     public static Data.OfferConfig Offers { get { return Instance.data.offers[Group % Instance.data.offers.Count]; } }
     public static Data.Friends Friends { get { return Instance.data.friends; } }
@@ -280,6 +332,18 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
     public static List<string> Jokes { get { return Instance.data.jokes; } }
 
+    public static MarketInfo Market
+    {
+        get
+        {
+#if BAZAAR
+            return Instance.cafebazaar;
+#elif MYKET
+            return Instance.myket;
+#endif
+            return new MarketInfo();
+        }
+    }
 
     public static int Group
     {
@@ -293,7 +357,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         set
         {
             PlayerPrefsEx.SetInt("GlobalConfigs.DebugMode", value ? 1 : 0);
-            SeganX.Console.Logger.Enabled = value;
+            Console.Enabled = value;
         }
     }
 
@@ -314,7 +378,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         newdata.jokes = Instance.data.jokes;
         Instance.data = newdata;
         SaveData(newdata);
-        SeganX.Console.Logger.Enabled = DebugMode;
+        Console.Enabled = DebugMode;
 
         var address = Instance.address + "jokes.txt?" + System.DateTime.Now.Ticks;
         Http.DownloadText(address, jokes =>

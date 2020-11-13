@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606cfa042066a624483e550c33ffef8f, type: 3}
+  m_Name: 23_0
+  m_EditorClassIdentifier: 
+  background: {fileID: 0}
+  sequences:
+  - character: 2
+    face: 1
+    item: 1
+    body: 0
+    text: "\u062D\u0627\u0644\u0627 \u0645\u0627\u062F\u0631 \u062C\u0627\u0646 \u0628\u0647
+      \u0646\u0638\u0631\u062A \u0627\u06CC\u0646 \u0647\u0645\u0647 \u0633\u062E\u062A\u06CC
+      \u0627\u0631\u0632\u0634\u0634 \u0631\u0648 \u062F\u0627\u0631\u0647\u061F"
+  - character: 1
+    face: 1
+    item: 1
+    body: 0
+    text: "\u0686\u0631\u0627 \u0646\u062F\u0627\u0634\u062A\u0647 \u0628\u0627\u0634\u0647
+      \u0645\u0627\u062F\u0631\u061F \u0627\u0648\u0646 \u067E\u0633\u0631\u06A9
+      \u062F\u06CC\u0648\u0648\u0646\u0647 \u0647\u0645 \u06CC\u0647 \u0631\u0648\u0632\u06CC
+      \u062A\u0648 \u0631\u0648 \u067E\u062F\u0631 \u0635\u062F\u0627 \u0645\u06CC\u200C\u06A9\u0646\u0647."
+  - character: 2
+    face: 0
+    item: 1
+    body: 1
+    text: "\u0648\u0627\u0644\u0627 \u0645\u0627 \u0634\u0627\u0646\u0633 \u0646\u062F\u0627\u0631\u06CC\u0645\u060C
+      \u0642\u0627\u0631\u0686 \u062E\u0648\u0631 \u0647\u0645 \u0628\u0639\u062F
+      \u0627\u0632 8 \u062A\u0627 \u0645\u0631\u062D\u0644\u0647 \u0648 9 \u062A\u0627
+      \u063A\u0648\u0644 \u0645\u062C\u0628\u0648\u0631 \u0634\u062F \u067E\u0631\u0646\u0633\u0633
+      \u062E\u0627\u0646\u0648\u0645 \u0631\u0648 \u0628\u0628\u0631\u0647 \u062E\u0631\u06CC\u062F!!"
+  - character: 1
+    face: 1
+    item: 1
+    body: 0
+    text: "\u062E\u0628 \u062D\u0627\u0644\u0627 \u0641\u0644\u0633\u0641\u06CC \u0646\u0634\u0648..."

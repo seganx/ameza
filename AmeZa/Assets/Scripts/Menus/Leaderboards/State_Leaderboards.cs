@@ -26,7 +26,7 @@ public class State_Leaderboards : GameState
 
         title.SetText(info.name);
         prefabItem.gameObject.SetActive(false);
-        playButton.onClick.AddListener(() => game.OpenPopup<Popup_LeagueInfo>().Setup(leagueIndex, leaderboard));
+        playButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_LeagueInfo>().Setup(leagueIndex, leaderboard));
 
         Online.League.GetLeaderboard(info.id, 0, 100, (succeed, board) =>
         {

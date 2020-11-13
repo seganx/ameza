@@ -61,7 +61,7 @@ public class UIFriendItem : MonoBehaviour
                 rewardButton.gameObject.SetActive(false);
                 Profile.EarnGems(GlobalConfig.Friends.rewardGems);
                 Profile.SetFriendRewarded(friend.id.ToInt(), GlobalConfig.Friends.rewardGems);
-                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, GlobalConfig.Friends.rewardGems, 0, 0, 0, true, () =>
+                Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, GlobalConfig.Friends.rewardGems, 0, 0, 0, true, false, () =>
                 {
                     descLabel.gameObject.SetActive(true);
                     medalImage.gameObject.SetActive(true);

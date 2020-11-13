@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Popup_AddFriend : GameState
 {
+    [SerializeField] private LocalText titleLabel = null;
     [SerializeField] private Button inviteButton = null;
     [SerializeField] private LocalText descLabel = null;
     [SerializeField] private InputField usernameInput = null;
@@ -20,11 +21,12 @@ public class Popup_AddFriend : GameState
 
     private void Start()
     {
+        titleLabel.SetFormatedText(GlobalConfig.Friends.rewardGems);
         descLabel.SetFormatedText(GlobalConfig.Friends.maxCount);
 
         inviteButton.onClick.AddListener(() =>
         {
-            var str = string.Format(GlobalConfig.Socials.invitationText, Profile.Username, GlobalConfig.Socials.storeUrl);
+            var str = string.Format(GlobalConfig.Socials.invitationText, Profile.Username, GlobalConfig.Market.storeUrl);
             SocialAndSharing.ShareText(str);
         });
 
@@ -42,7 +44,7 @@ public class Popup_AddFriend : GameState
                     if (success && onSuccessFunc != null)
                         onSuccessFunc(friend);
                     else
-                        game.OpenPopup<Popup_Confirm>().Setup(111124, true, false, null);
+                        Game.Instance.OpenPopup<Popup_Confirm>().Setup(111124, true, false, null);
                 });
             }
         });

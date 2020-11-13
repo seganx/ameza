@@ -30,7 +30,7 @@ MonoBehaviour:
   secretKey:
   - 4edc888244896d02cd0beb1741b77334f781c747
   Build:
-  - 21.52
+  - 27.80
   SelectedPlatformOrganization:
   - Parseh Games
   SelectedPlatformStudio:
@@ -41,17 +41,10 @@ MonoBehaviour:
   SelectedOrganization: 01000000
   SelectedStudio: 01000000
   SelectedGame: 01000000
-  NewVersion: 6.2.1
-  Changes: '6.2.1
+  NewVersion: 6.3.1
+  Changes: '6.3.1
 
-    - added better error messages for API calls potentially being
-    removed in the future
-
-
-    6.2.0
-
-    - exposed functions to get AB testing
-    id and variant id'
+    - improved user identifer flow for ios (ios)'
   SignUpOpen: 0
   StudioName: Parseh Games
   GameName: "\u0639\u0645\u0647\u200C\u0632\u0627"
@@ -71,7 +64,9 @@ MonoBehaviour:
   - group_1
   - group_2
   - group_3
-  CustomDimensions02: []
+  CustomDimensions02:
+  - Bazaar
+  - Myket
   CustomDimensions03: []
   ResourceItemTypes:
   - earn

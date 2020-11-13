@@ -61,7 +61,10 @@ public class BallManager : MonoBehaviour
             case Messages.Type.StartTurn:
                 {
                     turnStarted = true;
-                    StartCoroutine(DoStartTurn(param.As<Vector3>().normalized * GlobalConfig.Difficulty.startBallSpeed));
+                    float speed = GlobalConfig.Difficulty.startBallSpeed;
+                    if (BlockManager.blocks.Count < 16)
+                        speed += speed * (16 - BlockManager.blocks.Count) * 0.05f;
+                    StartCoroutine(DoStartTurn(param.As<Vector3>().normalized * speed));
                     transform.root.Broadcast(Messages.Type.TurnStarted, this);
                 }
                 break;

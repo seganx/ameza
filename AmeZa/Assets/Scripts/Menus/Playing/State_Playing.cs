@@ -22,16 +22,16 @@ public class State_Playing : GameState
         backgroundImage.sprite = GlobalFactory.Theme.Selected.playingBackground;
         endTurnButton.gameObject.SetActive(false);
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
-        pauseButton.onClick.AddListener(() => game.OpenPopup<Popup_Settings>());
+        pauseButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Settings>());
 
         abilityButton.transform.SetActiveChild(0);
         abilityButton.onClick.AddListener(() =>
         {
-            game.ClosePopup(true);
-            game.OpenPopup<Popup_PreLose>().Setup(false, ability => // check if player wants to use abilities
+            Game.Instance.ClosePopup(true);
+            Game.Instance.OpenPopup<Popup_PreLose>().Setup(false, ability => // check if player wants to use abilities
             {
                 if (ability != AbilityType.Null)
-                    game.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+                    Game.Instance.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
             });
 
         });
@@ -40,7 +40,7 @@ public class State_Playing : GameState
         UiShowHide.ShowAll(transform);
         AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
 
-        yield return new WaitWhile(() => game.CurrentPopup);
+        yield return new WaitWhile(() => Game.Instance.CurrentPopup);
         yield return new WaitForSeconds(0.5f);
         if (PlayModel.IsLevels && PlayModel.level.season == 0 && PlayModel.level.index == 0)
         {
@@ -127,11 +127,11 @@ public class State_Playing : GameState
         {
             if (BlockManager.IsBlockReachedDown) // player is losing because a block reached down
             {
-                game.ClosePopup(true);
-                game.OpenPopup<Popup_PreLose>().Setup(true, ability => // check if player wants to use abilities
+                Game.Instance.ClosePopup(true);
+                Game.Instance.OpenPopup<Popup_PreLose>().Setup(true, ability => // check if player wants to use abilities
                 {
                     if (ability != AbilityType.Null)
-                        game.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
+                        Game.Instance.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
                     else
                         PlayerLose();
                 });
@@ -145,7 +145,7 @@ public class State_Playing : GameState
     {
         if (tutorial.Hide()) return;
 
-        game.OpenPopup<Popup_Confirm>().Setup(111005, true, true, yes =>
+        Game.Instance.OpenPopup<Popup_Confirm>().Setup(111005, true, true, yes =>
         {
             if (yes)
                 PlayerLose();
