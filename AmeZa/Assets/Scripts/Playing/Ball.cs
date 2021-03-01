@@ -64,14 +64,17 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var contact = collision.GetContact(0);
+
         var dotValue = Vector3.Dot(contact.relativeVelocity.normalized, Vector3.right) * 10;
         if (Mathf.Abs(dotValue) > 9.995f)
-        {
-            Rigidbody.velocity += Vector2.down;
-        }
+            Rigidbody.velocity += Vector2.up;
+        else if (Mathf.Abs(dotValue) < 0.005f)
+            Rigidbody.velocity += dotValue > 0 ? Vector2.right : Vector2.left;
 
         if (contactEffect && contactEffect.isStopped)
+        {
             contactEffect.Play(true);
+        }
     }
 
     public void OnBlockDeath(BlockBase block, Collision2D collision)

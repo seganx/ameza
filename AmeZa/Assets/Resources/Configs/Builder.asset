@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f338dbc26784aed40a48d77f99465dd6, type: 3}
   m_Name: Builder
   m_EditorClassIdentifier: 
-  version: 28
-  bundleVersionCode: 85
+  version: 30
+  bundleVersionCode: 90
   buildAndRunIndex: 0
   stopQueueOnError: 1
   keystore:
@@ -52,8 +52,8 @@ MonoBehaviour:
         implementation
         ''com.applovin:applovin-sdk:9.7.2'''
   builds:
-  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_28.85_bazaar_v7.apk"
-    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_28.85_bazaar_v7.apk"
+  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_30.90_bazaar_v7.apk"
+    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_30.90_bazaar_v7.apk"
     activated: 1
     buildAppBundle: 0
     market: 1
@@ -76,8 +76,8 @@ MonoBehaviour:
       file: {fileID: 4900000, guid: 005ad6b5bd0db8349823ca3021968049, type: 3}
       what: SX_MARKET_ACTIVITY
       with: com.bazaar.BazaarIABProxyActivity
-  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_28.85_myket_v7.apk"
-    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_28.85_myket_v7.apk"
+  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_30.90_myket_v7.apk"
+    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_30.90_myket_v7.apk"
     activated: 1
     buildAppBundle: 0
     market: 2

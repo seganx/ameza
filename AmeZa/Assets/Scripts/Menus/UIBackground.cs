@@ -21,7 +21,7 @@ public class UIBackground : MonoBehaviour
     // Use this for initialization
     private IEnumerator Start()
     {
-        AudioManager.PlayMusic(0, 0.5f, 2, 2);
+        AudioManager.SetMusicVolumFactor(0.7f);
 
         instance = this;
         transform.SetAsFirstSibling();

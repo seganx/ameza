@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f8026d0bd9bf94cb5a75b4e9a73dbc, type: 3}
   m_Name: GlobalConfig
   m_EditorClassIdentifier: 
-  version: 28
+  version: 30
   market: 2
   address: http://seganx.ir/games/ameza/
   cafebazaar:
@@ -71,7 +71,7 @@ MonoBehaviour:
         item1: 1
     - levels: 16
       blocks: {x: 30, y: 350}
-      balls: {x: 20, y: 45}
+      balls: {x: 20, y: 60}
       reward:
         gems: {x: 100, y: 10, z: 20}
         bombs: {x: 1, y: 1, z: 1}
@@ -109,7 +109,7 @@ MonoBehaviour:
         item1: 3
     - levels: 20
       blocks: {x: 40, y: 375}
-      balls: {x: 20, y: 50}
+      balls: {x: 20, y: 80}
       reward:
         gems: {x: 100, y: 10, z: 20}
         bombs: {x: 1, y: 1, z: 1}
@@ -157,14 +157,14 @@ MonoBehaviour:
       ballsFactor: 300
       classicTurnsFactor: 30
       classicBallsFactor: 150
-      winFactorPositive: 2
+      winFactorPositive: 1
       winFactorNegative: 15
       loseFactor: 0
       seasonBlocksFactors: {x: 5, y: 25}
-      seasonBallsFactors: {x: 1, y: 5}
+      seasonBallsFactors: {x: 1, y: 15}
       levelFactor0: 000000000a0000000f00000014000000190000001e00000023000000280000003c000000460000004600000050000000
-      levelFactor1: 000000000a00000046000000140000001400000032000000140000003200000046000000140000003c00000023000000500000001e0000005000000064000000
-      levelFactor2: 000000000a000000640000001400000014000000640000001e000000140000006400000014000000320000004b00000014000000280000006400000014000000320000006e000000140000004b000000
+      levelFactor1: 000000000a00000046000000140000001400000032000000140000003200000046000000140000003c00000023000000500000001e0000005000000050000000
+      levelFactor2: 000000000a0000005a00000014000000140000005a0000001e000000140000005a00000014000000320000004b00000014000000280000005a00000014000000320000005a000000140000004b000000
     heart:
     - timerId: 1
       interval: 900

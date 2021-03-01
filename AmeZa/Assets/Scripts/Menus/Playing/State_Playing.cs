@@ -38,7 +38,7 @@ public class State_Playing : GameState
 
         UIBackground.Hide();
         UiShowHide.ShowAll(transform);
-        AudioManager.PlayRandom(1, 50, 0.2f, 2, 2);
+        AudioManager.SetMusicVolumFactor(0.1f);
 
         yield return new WaitWhile(() => Game.Instance.CurrentPopup);
         yield return new WaitForSeconds(0.5f);
