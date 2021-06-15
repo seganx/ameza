@@ -5,6 +5,7 @@ allprojects {
         repositories {**ARTIFACTORYREPOSITORY**
             google()
             jcenter()
+			mavenCentral()
         }
 
         dependencies {
@@ -12,7 +13,7 @@ allprojects {
             // See which Gradle version is preinstalled with Unity here https://docs.unity3d.com/Manual/android-gradle-overview.html
             // See official Gradle and Android Gradle Plugin compatibility table here https://developer.android.com/studio/releases/gradle-plugin#updating-gradle
             // To specify a custom Gradle version in Unity, go do "Preferences > External Tools", uncheck "Gradle Installed with Unity (recommended)" and specify a path to a custom Gradle version
-            classpath 'com.android.tools.build:gradle:3.4.0'
+            classpath 'com.android.tools.build:gradle:3.6.0'
             **BUILD_SCRIPT_DEPS**
         }
     }
@@ -20,37 +21,11 @@ allprojects {
     repositories {**ARTIFACTORYREPOSITORY**
         google()
         jcenter()
-		
-		//FUN_TAPSELL_PLUSE\\
-		///////////////////////////////////////////////////// TAPSEL PLUS
-		//maven { url 'https://dl.bintray.com/tapsellorg/maven' }
-        //maven { url 'https://adcolony.bintray.com/AdColony' }
-        //maven { url "https://chartboostmobile.bintray.com/Chartboost" }
-		///////////////////////////////////////////////////// TAPSEL PLUS
-		
-		//FUN_ABR_1\\
-		///////////////////////////////////////////////////// ABR
-		//maven { url 'https://dl.bintray.com/tapsellorg/maven'}
-        //maven { url 'https://dl.bintray.com/traxnet/maven'}
-        //maven { url 'https://adcolony.bintray.com/AdColony' }
-        //maven { url 'https://chartboostmobile.bintray.com/Chartboost' }
-		//maven { url 'https://google.bintray.com/mobile-ads-adapters-android' }
-		///////////////////////////////////////////////////// ABR
-		
+		mavenCentral()
         flatDir {
             dirs "${project(':unityLibrary').projectDir}/libs"
         }
     }
-	
-	//FUN_ABR_2\\
-	///////////////////////////////////////////////////// ABR  ABR  ABR
-	configurations.all {
-        resolutionStrategy {
-            force "androidx.fragment:fragment:1.2.4"
-			force "androidx.vectordrawable:vectordrawable-animated:1.1.0"
-        }
-    }	
-	///////////////////////////////////////////////////// ABR  ABR  ABR
 }
 
 task clean(type: Delete) {

@@ -4,39 +4,6 @@ apply plugin: 'com.android.application'
 
 dependencies {
     implementation project(':unityLibrary')
-	implementation 'androidx.multidex:multidex:2.0.1'
-	
-	implementation 'ir.metrix:unity:0.15.5'
-	implementation 'com.yandex.android:mobmetricalib:3.13.1'
-	
-	//FUN_ADMOB\\
-	////////////////////////////////////////////////////	ADMOB
-	//implementation 'com.google.android.gms:play-services-ads:18.3.0'
-	////////////////////////////////////////////////////	ADMOB
-	
-	//FUN_TAPSELL_PLUSE\\
-	////////////////////////////////////////////////////	TAPSELL PLUSE
-	//implementation 'ir.tapsell.plus:tapsell-plus-sdk-unity:1.1.3'
-    //implementation 'com.google.android.gms:play-services-ads:18.3.0'
-    //implementation 'com.chartboost:chartboost-sdk:8.1.0'
-    //implementation 'com.adcolony:sdk:4.1.1'
-    //implementation 'com.applovin:applovin-sdk:9.7.2'
-	////////////////////////////////////////////////////	TAPSELL PLUSE
-
-	//FUN_ABR\\
-	/////////////////////////////////////////// ABR
-	//implementation 'com.google.android.play:core:1.8.0'
-    //implementation 'com.google.android.gms:play-services-ads:19.3.0'
-	//implementation 'com.google.ads.mediation:unity-adapter-only:3.4.6.1'
-    //implementation 'com.unity3d.ads:unity-ads:3.4.6'
-	
-    ////implementation 'com.chartboost:chartboost-sdk:8.0.3'
-    ////implementation 'com.applovin:applovin-sdk:9.12.8'
-    ////implementation 'com.adcolony:sdk:4.1.4'
-	/////////////////////////////////////////// ABR
-	
-	//FUN_ABR_TAPSELL\\
-    //implementation 'ir.tapsell.sdk:tapsell-sdk-android:4.5.0'	
     }
 
 android {
@@ -49,7 +16,6 @@ android {
     }
 
     defaultConfig {
-		multiDexEnabled true
         minSdkVersion **MINSDKVERSION**
         targetSdkVersion **TARGETSDKVERSION**
         applicationId '**APPLICATIONID**'
@@ -58,10 +24,11 @@ android {
         }
         versionCode **VERSIONCODE**
         versionName '**VERSIONNAME**'
+		multiDexEnabled true
     }
 
     aaptOptions {
-        noCompress = ['.unity3d', '.ress', '.resource', '.obb'**STREAMING_ASSETS**]
+        noCompress = ['.ress', '.resource', '.obb'] + unityStreamingAssets.tokenize(', ')
         ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~"
     }**SIGN**
 
@@ -72,13 +39,11 @@ android {
     buildTypes {
         debug {
             minifyEnabled **MINIFY_DEBUG**
-            useProguard **PROGUARD_DEBUG**
             proguardFiles getDefaultProguardFile('proguard-android.txt')**SIGNCONFIG**
             jniDebuggable true
         }
         release {
             minifyEnabled **MINIFY_RELEASE**
-            useProguard **PROGUARD_RELEASE**
             proguardFiles getDefaultProguardFile('proguard-android.txt')**SIGNCONFIG**
         }
     }**PACKAGING_OPTIONS****SPLITS**

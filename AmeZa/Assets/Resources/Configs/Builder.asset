@@ -12,48 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f338dbc26784aed40a48d77f99465dd6, type: 3}
   m_Name: Builder
   m_EditorClassIdentifier: 
-  version: 30
-  bundleVersionCode: 90
-  buildAndRunIndex: 0
+  version: 31
+  bundleVersionCode: 97
+  buildAndRunIndex: -1
   stopQueueOnError: 1
   keystore:
     storePassword: 123456
     alisePassword: 123456
   preBuild:
     disables: []
-    replaces:
-    - title: 'baseProjectTemplate : //FUN_TAPSELL_PLUSE\\ > maven { url ''ht'
-      file: {fileID: 102900000, guid: faf4bc1157d5442a8b1bca7e5d90fe6f, type: 3}
-      what: //FUN_TAPSELL_PLUSE\\
-      with: 'maven { url ''https://dl.bintray.com/tapsellorg/maven'' }
-
-        maven
-        { url ''https://adcolony.bintray.com/AdColony'' }
-
-        maven { url "https://chartboostmobile.bintray.com/Chartboost"
-        }'
-    - title: 'gradleTemplate : //FUN_TAPSELL_PLUSE\\ > android.useAndr'
-      file: {fileID: 102900000, guid: 3869617a3831142b593766b3a5951153, type: 3}
-      what: //FUN_TAPSELL_PLUSE\\
-      with: android.useAndroidX=true
-    - title: 'launcherTemplate : //FUN_TAPSELL_PLUSE\\ > implementation '
-      file: {fileID: 102900000, guid: 683ede16a0a4044f4bd6332601f492be, type: 3}
-      what: //FUN_TAPSELL_PLUSE\\
-      with: 'implementation ''ir.tapsell.plus:tapsell-plus-sdk-unity:1.1.3''
-
-        implementation
-        ''com.google.android.gms:play-services-ads:18.3.0''
-
-        implementation
-        ''com.chartboost:chartboost-sdk:8.1.0''
-
-        implementation ''com.adcolony:sdk:4.1.1''
-
-        implementation
-        ''com.applovin:applovin-sdk:9.7.2'''
+    replaces: []
   builds:
-  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_30.90_bazaar_v7.apk"
-    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_30.90_bazaar_v7.apk"
+  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_31.97_bazaar_v7.apk"
+    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_31.97_bazaar_v7.apk"
     activated: 1
     buildAppBundle: 0
     market: 1
@@ -76,9 +47,9 @@ MonoBehaviour:
       file: {fileID: 4900000, guid: 005ad6b5bd0db8349823ca3021968049, type: 3}
       what: SX_MARKET_ACTIVITY
       with: com.bazaar.BazaarIABProxyActivity
-  - title: "\u2713 \u0639\u0645\u0647\u200C\u0632\u0627_30.90_myket_v7.apk"
-    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_30.90_myket_v7.apk"
-    activated: 1
+  - title: "x \u0639\u0645\u0647\u200C\u0632\u0627_31.97_myket_v7.apk"
+    fileName: "\u0639\u0645\u0647\u200C\u0632\u0627_31.97_myket_v7.apk"
+    activated: 0
     buildAppBundle: 0
     market: 2
     architecture: 1

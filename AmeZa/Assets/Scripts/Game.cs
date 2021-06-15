@@ -42,7 +42,9 @@ public class Game : GameManager
         });
 
 #if TAPSELL
-        TapsellPlusSDK.TapsellPlus.initialize("eojghhgttbmtjibqhsjtrkprmpiparomofortdgjrndaqtocafonrglqlhgionkrgbbija");
+        TapsellPlusSDK.TapsellPlus.Initialize("eojghhgttbmtjibqhsjtrkprmpiparomofortdgjrndaqtocafonrglqlhgionkrgbbija",
+            adNetworkName => Debug.Log(adNetworkName + " Initialized Successfully."),
+            error => Debug.Log(error.ToString()));
 #endif
         Fun.Iab.PurchaseSystem.Initialize(GlobalConfig.Instance.version, GlobalConfig.Market.rsaKey, GlobalConfig.Market.storeUrl);
 
