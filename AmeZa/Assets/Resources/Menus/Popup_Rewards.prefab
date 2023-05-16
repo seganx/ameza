@@ -315,12 +315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: 0
   target: {fileID: 114775774084366128}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: 0
 --- !u!1 &1071343288667126
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,12 +558,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: 0
   target: {fileID: 114262478557921508}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: 0
 --- !u!1 &1122259788536974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,13 +1001,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0631\u0648\u06CC \u0635\u0646\u062F\u0648\u0642 \u0628\u0632\u0646
+    \u0648 \u0628\u0627\u0632\u0634 \u06A9\u0646"
   target: {fileID: 114035062930695178}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0631\u0648\u06CC \u0635\u0646\u062F\u0648\u0642 \u0628\u0632\u0646
-    \u0648 \u0628\u0627\u0632\u0634 \u06A9\u0646"
 --- !u!114 &114852511728167520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6833,7 +6833,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -3.5}
-  m_SizeDelta: {x: 304.8067, y: 91}
+  m_SizeDelta: {x: 310, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222104510501782348
 CanvasRenderer:
@@ -6884,12 +6884,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0627\u06CC\u0646 \u0647\u0645 \u067E\u0627\u062F\u0627\u0634\u062A"
   target: {fileID: 114933151600544274}
   autoRtl: 0
   autoWidth: 1
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0627\u06CC\u0646 \u0647\u0645 \u067E\u0627\u062F\u0627\u0634\u062A"
 --- !u!1 &1433216512630102
 GameObject:
   m_ObjectHideFlags: 0
@@ -7025,7 +7025,6 @@ MonoBehaviour:
   boosterContent: {fileID: 1290552258260694}
   chest: {fileID: 114220577203863078}
   window: {fileID: 224104464514304260}
-  winClaimButton: {fileID: 6917858683349224249}
 --- !u!222 &222857225780572946
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12958,12 +12957,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: 0
   target: {fileID: 114101754482813312}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: 0
 --- !u!1 &1943527441957086
 GameObject:
   m_ObjectHideFlags: 0
@@ -13270,12 +13269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: 
   target: {fileID: 114501138171979416}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: 
 --- !u!1 &2336907427360751846
 GameObject:
   m_ObjectHideFlags: 0
@@ -13295,7 +13294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9158915767175791577
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13329,12 +13328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u062C\u0627\u06CC\u0632\u0647 \u0628\u06CC\u0634\u062A\u0631"
   target: {fileID: 1565611513383763542}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u062C\u0627\u06CC\u0632\u0647 \u0628\u06CC\u0634\u062A\u0631"
 --- !u!222 &5267858845046214980
 CanvasRenderer:
   m_ObjectHideFlags: 0

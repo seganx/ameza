@@ -163,12 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0}'
   target: {fileID: 114955444228803040}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0}'
 --- !u!1 &1114650870803642
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,12 +332,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0}'
   target: {fileID: 114695007797603332}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0}'
 --- !u!1 &1214756673417806
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,12 +836,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0}'
   target: {fileID: 114686157414099874}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0}'
 --- !u!1 &1311623180328766
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +879,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -186.55, y: 758.1}
-  m_SizeDelta: {x: 277.06, y: 172.04337}
+  m_SizeDelta: {x: 277.06, y: 174.57}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &222029100424456058
 CanvasRenderer:
@@ -930,13 +930,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u06CC\u0647 \u0635\u0646\u062F\u0648\u0642\u0686\u0647 \u0622\u0648\u0631\u062F\u0645\r\n\u0647\u0648\u0634
+    \u0627\u0632 \u0633\u0631 \u062A\u0648 \u0628\u0631\u062F\u0645"
   target: {fileID: 114122510858854602}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 1
   stringId: 0
-  currnetText: "\u06CC\u0647 \u0635\u0646\u062F\u0648\u0642\u0686\u0647 \u0622\u0648\u0631\u062F\u0645\r\n\u0647\u0648\u0634
-    \u0627\u0632 \u0633\u0631 \u062A\u0648 \u0628\u0631\u062F\u0645"
 --- !u!1 &1318583218492276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,12 +1232,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0}%'
   target: {fileID: 114862322276036468}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0}%'
 --- !u!222 &222307576250051912
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1623,12 +1623,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0:#,0}'
   target: {fileID: 114556624370118882}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0:#,0}'
 --- !u!1 &1525523029271584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,12 +1891,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0635\u062F\u0648\u0642\u0686\u0647 \u0627\u0633\u0631\u0627\u0631"
   target: {fileID: 114326018936640346}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0635\u062F\u0648\u0642\u0686\u0647 \u0627\u0633\u0631\u0627\u0631"
 --- !u!222 &222371593690552998
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2027,12 +2027,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0}'
   target: {fileID: 114774288622417386}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0}'
 --- !u!1 &1566989315297386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,12 +2194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0}'
   target: {fileID: 114761779618116644}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0}'
 --- !u!1 &1612623860650458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,12 +3108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: 55:55:55
   target: {fileID: 114926225330081684}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: 55:55:55
 --- !u!1 &1748852692491314
 GameObject:
   m_ObjectHideFlags: 0

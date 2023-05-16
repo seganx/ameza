@@ -203,7 +203,7 @@ public class Popup_LuckySpine : GameState
         else if (items[4] > 1)
         {
             var hearts = items[4] - 1;
-            Profile.Hearts += hearts;
+            Profile.Energy += hearts;
             Game.Instance.OpenPopup<Popup_Confirm>().SetText(111017, hearts).Setup(true, false, null);
             descAgain.SetActive(false);
         }

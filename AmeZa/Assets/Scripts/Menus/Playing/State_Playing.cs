@@ -7,7 +7,7 @@ public class State_Playing : GameState
 {
     [SerializeField] private Image backgroundImage = null;
     [SerializeField] private Text ballsLabel = null;
-    [SerializeField] private Button abilityButton = null;
+    [SerializeField] private UiVipBox vipBox = null;
     [SerializeField] private Button endTurnButton = null;
     [SerializeField] private Button pauseButton = null;
     [SerializeField] private UiTutorial tutorial = null;
@@ -16,6 +16,7 @@ public class State_Playing : GameState
 
     private IEnumerator Start()
     {
+        Profile.Energy--;
         GlobalFactory.Theme.Select(PlayModel.level.theme);
         sounds = GlobalFactory.Theme.Selected.sounds.Clone<ThemeSounds>(transform);
 
@@ -24,16 +25,10 @@ public class State_Playing : GameState
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         pauseButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Settings>());
 
-        abilityButton.transform.SetActiveChild(0);
-        abilityButton.onClick.AddListener(() =>
+        vipBox.gameObject.SetActive(PlayModel.IsClassic || PlayModel.level.index > 1);
+        vipBox.Setup(ability =>
         {
-            Game.Instance.ClosePopup(true);
-            Game.Instance.OpenPopup<Popup_PreLose>().Setup(false, ability => // check if player wants to use abilities
-            {
-                if (ability != AbilityType.Null)
-                    Game.Instance.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
-            });
-
+            Game.Instance.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
         });
 
         UIBackground.Hide();
@@ -46,15 +41,7 @@ public class State_Playing : GameState
         {
             tutorial.transform.GetChild(0).gameObject.SetActive(true);
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
-            tutorial.transform.GetChild(2).gameObject.SetActive(false);
             tutorial.Display(0, false, 111037, null);
-        }
-        else if (PlayModel.IsClassic || PlayModel.level.index > 1)
-        {
-            tutorial.transform.GetChild(0).gameObject.SetActive(false);
-            tutorial.transform.GetChild(1).gameObject.SetActive(false);
-            tutorial.transform.GetChild(2).gameObject.SetActive(true);
-            tutorial.Display(0, true, 111044, null);
         }
     }
 
@@ -67,7 +54,7 @@ public class State_Playing : GameState
             case Messages.Type.TurnStarted:
                 ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(true);
-                abilityButton.gameObject.SetActive(false);
+                vipBox.gameObject.SetActive(false);
                 UpdateBallText(BallManager.balls.Count);
 
                 if (PlayModel.level.index == 1)
@@ -76,7 +63,6 @@ public class State_Playing : GameState
                     {
                         tutorial.transform.GetChild(0).gameObject.SetActive(false);
                         tutorial.transform.GetChild(1).gameObject.SetActive(true);
-                        tutorial.transform.GetChild(2).gameObject.SetActive(false);
                         if (tutorial.Display(0, true, 111038, () => Time.timeScale = 1))
                             Time.timeScale = 0.005f;
                     });
@@ -86,7 +72,7 @@ public class State_Playing : GameState
             case Messages.Type.TurnEnded:
                 ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(false);
-                abilityButton.gameObject.SetActive(true);
+                vipBox.gameObject.SetActive(PlayModel.IsClassic || PlayModel.level.index > 1);
                 UpdateBallText(BallManager.balls.Count);
                 break;
 
@@ -95,7 +81,7 @@ public class State_Playing : GameState
                 break;
 
             case Messages.Type.UseAbility:
-                abilityButton.transform.SetActiveChild(BlockManager.IsBlockReachedWarn ? 1 : 0);
+                //abilityButton.transform.SetActiveChild(BlockManager.IsBlockReachedWarn ? 1 : 0);
                 break;
         }
     }
@@ -138,7 +124,7 @@ public class State_Playing : GameState
             }
         }
 
-        abilityButton.transform.SetActiveChild(BlockManager.IsBlockReachedWarn ? 1 : 0);
+        //abilityButton.transform.SetActiveChild(BlockManager.IsBlockReachedWarn ? 1 : 0);
     }
 
     public override void Back()

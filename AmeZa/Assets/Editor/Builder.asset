@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f338dbc26784aed40a48d77f99465dd6, type: 3}
+  m_Name: Builder
+  m_EditorClassIdentifier: 
+  version: 35
+  bundleVersionCode: 3400
+  symbols:
+    cameraFX: 0
+    onlineSystem: 1
+    purchaseSystem: 1
+    zipCompression: 1
+    playServices: 0
+    additionals:
+    - SX_PARSI
+    - SX_OLDCORE
+    - SX_SHRNG
+    - SX_CENSOR
+    - SX_EXDBG
+    - SX_CCMD
+  buildAndRunIndex: -1
+  stopQueueOnError: 1
+  builds:
+  - title: "0:\u2713 ameza_35.3400_bazaar_v7.apk"
+    activated: 1
+    config: {fileID: 11400000, guid: 02b6a04fd14874f4cb0a8e59b032c5e5, type: 2}
+  - title: "1:\u2713 ameza_35.3400_myket_v7.apk"
+    activated: 1
+    config: {fileID: 11400000, guid: 396c6442203a5e94e9df50d5dd658f22, type: 2}

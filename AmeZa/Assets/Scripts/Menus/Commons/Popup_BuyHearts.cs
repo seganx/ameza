@@ -19,7 +19,7 @@ public class Popup_BuyHearts : GameState
         {
             Game.SpendGems(GlobalConfig.Shop.heartPrice, () =>
             {
-                Profile.Hearts += GlobalConfig.ProfilePreset.hearts;
+                Profile.Energy += GlobalConfig.ProfilePreset.energy;
                 Back();
                 GlobalAnalytics.SinkGem(GlobalConfig.Shop.heartPrice, "profile", "heart");
             });
@@ -30,8 +30,8 @@ public class Popup_BuyHearts : GameState
         var wait = new WaitForSeconds(1);
         while (true)
         {
-            hearts.SetText(Profile.Hearts.ToString());
-            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
+            hearts.SetText(Profile.Energy.ToString());
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
             title.SetFormatedText(seconds / 60, seconds % 60);
             yield return wait;
         }

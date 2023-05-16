@@ -24,15 +24,6 @@ public class GlobalAnalytics : MonoBehaviour
         };
     }
 
-    private IEnumerator SendBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
-    {
-        yield return new WaitForSecondsRealtime(10);
-        Online.Purchase.Verify(provider, sku, token, (success, payload) =>
-        {
-            if (success) GameAnalytics.NewBusinessEvent("USD", price / 100, "pack", sku, "shop");
-        });
-    }
-
 
     //////////////////////////////////////////////////////
     /// STATIC MEMBERS
@@ -151,9 +142,9 @@ public class GlobalAnalytics : MonoBehaviour
         }
     }
 
-    public static void NewBuisinessEvent(Online.Purchase.Provider provider, string sku, int price, string token)
+    public static void NewBusinessEvent(int rialAmount, string sku)
     {
-        instance.StartCoroutine(instance.SendBuisinessEvent(provider, sku, price, token));
+        GameAnalytics.NewBusinessEvent("USD", rialAmount / 10, "pack", sku, "shop");
     }
 
     // A “sink” is when a player loses or spends a resource

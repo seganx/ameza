@@ -42,19 +42,18 @@ public class Game : GameManager
         });
 
 #if TAPSELL
-        TapsellPlusSDK.TapsellPlus.Initialize("eojghhgttbmtjibqhsjtrkprmpiparomofortdgjrndaqtocafonrglqlhgionkrgbbija",
-            adNetworkName => Debug.Log(adNetworkName + " Initialized Successfully."),
-            error => Debug.Log(error.ToString()));
+        TapsellPlusSDK.TapsellPlus.initialize("eojghhgttbmtjibqhsjtrkprmpiparomofortdgjrndaqtocafonrglqlhgionkrgbbija");
 #endif
-        Fun.Iab.PurchaseSystem.Initialize(GlobalConfig.Instance.version, GlobalConfig.Market.rsaKey, GlobalConfig.Market.storeUrl);
+
+        Fun.Iab.PurchaseSystem.Initialize(GlobalConfig.Market.rsaKey, GlobalConfig.Market.storeUrl);
 
         SeganX.LocalNotification.Initialize(GlobalConfig.Notifications.items);
         SeganX.LocalNotification.OnScheduleNotification += () =>
         {
             // schedule hearts push
-            if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts)
+            if (Profile.Energy < GlobalConfig.ProfilePreset.energy)
             {
-                int totalSeconds = GlobalConfig.ProfilePreset.hearts * GlobalConfig.Heart.interval;
+                int totalSeconds = GlobalConfig.ProfilePreset.energy * GlobalConfig.Energy.interval;
                 SeganX.LocalNotification.SendNotification(totalSeconds, GlobalConfig.Notifications.heartFull);
             }
 

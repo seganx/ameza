@@ -14,7 +14,7 @@ public static class StoryLogic
 
     public static bool NextLevel()
     {
-        if (index < season.levelCount - 1)
+        if (index < season.levelCount - 1 && Profile.Energy > 0)
         {
             return SetPlayModel(season, index + 1);
         }
@@ -23,12 +23,11 @@ public static class StoryLogic
 
     public static bool Reset()
     {
-        if (Profile.Hearts < 1)
+        if (Profile.Energy < 1)
         {
             Game.Instance.OpenPopup<Popup_BuyHearts>();
             return false;
         }
-        else Profile.Hearts--;
 
         PlayModel.Reset(PlayModel.Type.Levels);
         PlayModel.ballId = Profile.Avatar.BallId;
@@ -38,7 +37,6 @@ public static class StoryLogic
         {
             Game.Instance.ClosePopup(true);
 
-            Profile.Hearts++;
             GlobalAnalytics.Levels.Complete(season.id, index, PlayModel.GetRewardStars());
             if (season.id > 0)
                 Profile.Skill += (Profile.Skill < 0) ? GlobalConfig.Difficulty.winFactorNegative : GlobalConfig.Difficulty.winFactorPositive;

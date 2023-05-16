@@ -5,12 +5,11 @@ public static class ClassicLogics
 {
     public static bool SetPlayModel()
     {
-        if (Profile.Hearts < 1)
+        if (Profile.Energy < 1)
         {
             Game.Instance.OpenPopup<Popup_BuyHearts>();
             return false;
         }
-        else Profile.Hearts--;
 
         PlayModel.Reset(PlayModel.Type.Classic);
         PlayModel.ballId = Profile.Avatar.BallId;

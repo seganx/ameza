@@ -919,12 +919,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: '{0:00}:{1:00}:{2:00}'
   target: {fileID: 114191305808444572}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: '{0:00}:{1:00}:{2:00}'
 --- !u!1 &1102599828738968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,12 +1488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0644\u06CC\u06AF\u200C\u0647\u0627\u06CC \u0642\u0647\u0631\u0645\u0627\u0646\u06CC"
   target: {fileID: 114969887221371398}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0644\u06CC\u06AF\u200C\u0647\u0627\u06CC \u0642\u0647\u0631\u0645\u0627\u0646\u06CC"
 --- !u!114 &114093140626132270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2488,12 +2488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u062C\u0627\u06CC\u0632\u0647 \u0631\u0627\u06CC\u06AF\u0627\u0646"
   target: {fileID: 114334795688017222}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u062C\u0627\u06CC\u0632\u0647 \u0631\u0627\u06CC\u06AF\u0627\u0646"
 --- !u!114 &114868983283558630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3695,12 +3695,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0645\u0631\u0627\u062D\u0644"
   target: {fileID: 114144200415421968}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0645\u0631\u0627\u062D\u0644"
 --- !u!114 &114837821052331192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4644,7 +4644,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -112.64993, y: 387.615}
-  m_SizeDelta: {x: 446.38, y: 210.82336}
+  m_SizeDelta: {x: 446.38, y: 213.35}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &222764952875331628
 CanvasRenderer:
@@ -4695,13 +4695,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0633\u0644\u0627\u0645\n\u0628\u0647 \u0628\u0627\u0632\u06CC \u0639\u0645\u0647
+    \u0632\u0627 \u062E\u0648\u0634 \u0627\u0648\u0645\u062F\u06CC"
   target: {fileID: 114584252732698400}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 1
   stringId: 0
-  currnetText: "\u0633\u0644\u0627\u0645\n\u0628\u0647 \u0628\u0627\u0632\u06CC \u0639\u0645\u0647
-    \u0632\u0627 \u062E\u0648\u0634 \u0627\u0648\u0645\u062F\u06CC"
 --- !u!1 &1781725454519960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5334,7 +5334,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -3.5}
-  m_SizeDelta: {x: 342.0063, y: 91}
+  m_SizeDelta: {x: 347, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222750837929677598
 CanvasRenderer:
@@ -5385,12 +5385,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u06CC\u0627 \u0634\u0627\u0646\u0633 \u0648 \u06CC\u0627 \u0627\u0642\u0628\u0627\u0644"
   target: {fileID: 114669774174637032}
   autoRtl: 0
   autoWidth: 1
   autoHeight: 0
   stringId: 0
-  currnetText: "\u06CC\u0627 \u0634\u0627\u0646\u0633 \u0648 \u06CC\u0627 \u0627\u0642\u0628\u0627\u0644"
 --- !u!1 &1970957795390724
 GameObject:
   m_ObjectHideFlags: 0
@@ -5909,12 +5909,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u06A9\u0644\u0627\u0633\u06CC\u06A9"
   target: {fileID: 1004530037984537719}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u06A9\u0644\u0627\u0633\u06CC\u06A9"
 --- !u!114 &1751089579718393179
 MonoBehaviour:
   m_ObjectHideFlags: 0

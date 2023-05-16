@@ -34077,6 +34077,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 9c2b360d1e20ed640a16ca46ffc2438f, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

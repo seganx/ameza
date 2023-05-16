@@ -33,19 +33,20 @@ public class ProfileData
         public CryptoInt version = 0;
         public CryptoInt sessions = 0;
         public CryptoInt gems = 0;
-        public CryptoInt hearts = 0;
+        public CryptoInt energy = 0;
         public CryptoInt bombs = 0;
         public CryptoInt missles = 0;
         public CryptoInt hammers = 0;
         public CryptoInt skill = 0;
         public CryptoInt classicScore = 0;
+        public CryptoInt vip = 0;
         public List<int> balls = new List<int>() { 0 };
         public List<FriendData> friends = new List<FriendData>();
         public List<SeasonData> seasons = new List<SeasonData>();
 
         public string Datahash
         {
-            get { return "H" + gems.Value + "|" + hearts.Value + "|" + bombs.Value + "|" + missles.Value + "|" + hammers.Value + "|" + balls.Count + "|" + Http.userheader; }
+            get { return "H" + gems.Value + "|" + energy.Value + "|" + bombs.Value + "|" + missles.Value + "|" + hammers.Value + "|" + balls.Count; }
         }
     }
 
@@ -59,7 +60,7 @@ public class ProfileData
     public AvatarData avatar = new AvatarData();
     public PrivateData privateData = new PrivateData();
     public PublicData publicData = new PublicData();
-    public Online.Profile.Data info
+    public Online.Profile.Data Info
     {
         get { return _info; }
         set

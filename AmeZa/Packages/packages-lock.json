@@ -1,12 +1,10 @@
 {
   "dependencies": {
     "com.seganx.mobile": {
-      "version": "file:D:/Works/Packages/SeganXPackage/Assets/UnityPackage/SeganX",
+      "version": "file:../../SeganX",
       "depth": 0,
       "source": "local",
-      "dependencies": {
-        "com.unity.mobile.notifications": "1.0.3"
-      }
+      "dependencies": {}
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
@@ -16,7 +14,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.7",
+      "version": "2.0.16",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -25,21 +23,23 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.android-logcat": {
-      "version": "1.2.1",
+      "version": "1.3.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.mobile.notifications": {
-      "version": "1.0.3",
-      "depth": 1,
+      "version": "2.0.2",
+      "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.24",
+      "version": "1.1.31",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -137,18 +137,6 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.uielementsnative": "1.0.0"
-      }
-    },
-    "com.unity.modules.uielementsnative": {
-      "version": "1.0.0",
-      "depth": 1,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       }

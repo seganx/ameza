@@ -52,7 +52,7 @@ public class Popup_Settings : GameState
     private void CheckPurchasedList(PurchasedData data, int index)
     {
         if (data.list.Count > index)
-            UiShopItem.Purchased(data.list[index].sku, data.list[index].token, () => CheckPurchasedList(data, index + 1));
+            ShopLogic.Purchased(data.list[index].sku, () => CheckPurchasedList(data, index + 1));
         else
             Game.Instance.OpenPopup<Popup_Confirm>().Setup(111062, true, false, null);
     }

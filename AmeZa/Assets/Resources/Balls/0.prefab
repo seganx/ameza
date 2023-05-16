@@ -175,6 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3370706d01be6a2438a4a6b3a9e3ee11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contactEffect: {fileID: 0}
+  killEffectPrefab: {fileID: 0}
 --- !u!212 &212648814973164462
 SpriteRenderer:
   m_ObjectHideFlags: 0

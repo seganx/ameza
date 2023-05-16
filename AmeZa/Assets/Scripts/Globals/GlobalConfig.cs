@@ -43,7 +43,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public class ProfilePreset
         {
             public int gems = 100;
-            public int hearts = 3;
+            public int energy = 10;
             public int bombs = 3;
             public int hammers = 5;
             public int missles = 3;
@@ -124,7 +124,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         }
 
         [System.Serializable]
-        public class Heart
+        public class Energy
         {
             public int timerId = 1;
             public int interval = 900;
@@ -203,6 +203,14 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
                 public int discount = 0;
             }
 
+            [System.Serializable]
+            public class VIP
+            {
+                public string sku = string.Empty;
+                public int price = 14000;
+                public int days = 7;
+            }
+
             public int nicknamePrice = 1200;
             public int statusPrice = 1200;
             public int ballPriceRatio = 45;
@@ -210,6 +218,8 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int bombPrice = 20;
             public int misslePrice = 10;
             public int hammerPrice = 5;
+            
+            public List<VIP> vips = new List<VIP>();
             public List<Package> offers = new List<Package>();
             public List<Package> combinedPackages = new List<Package>();
             public List<Package> gemPackages = new List<Package>();
@@ -238,7 +248,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         public Socials socials = new Socials();
         public List<Season> seasons = new List<Season>();
         public List<Difficulty> difficulty = new List<Difficulty>();
-        public List<Heart> heart = new List<Heart>() { new Heart() };
+        public List<Energy> energy = new List<Energy>() { new Energy() };
         public List<Advertise> advertises = new List<Advertise>() { new Advertise() };
         public List<Luckyspin> lockyspin = new List<Luckyspin>() { new Luckyspin() };
         public List<OfferConfig> offers = new List<OfferConfig>() { new OfferConfig() };
@@ -320,7 +330,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     public static Data.Socials Socials { get { return Instance.data.socials; } }
     public static List<Data.Season> Seasons { get { return Instance.data.seasons; } }
     public static Data.Difficulty Difficulty { get { return Instance.data.difficulty[Group % Instance.data.difficulty.Count]; } }
-    public static Data.Heart Heart { get { return Instance.data.heart[Group % Instance.data.heart.Count]; } }
+    public static Data.Energy Energy => Instance.data.energy[Group % Instance.data.energy.Count];
     public static Data.Advertise Advertise { get { return Instance.data.advertises[Group % Instance.data.advertises.Count]; } }
     public static Data.Luckyspin Luckyspin { get { return Instance.data.lockyspin[Group % Instance.data.lockyspin.Count]; } }
     public static Data.OfferConfig Offers { get { return Instance.data.offers[Group % Instance.data.offers.Count]; } }

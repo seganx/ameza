@@ -20,12 +20,12 @@ public class Profile : MonoBehaviour
             yield return wait;
 
             // update hearts
-            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
+            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
             if (seconds < 0)
             {
-                int addhearts = 1 - seconds / GlobalConfig.Heart.interval;
-                Hearts = Mathf.Clamp(Hearts + addhearts, 0, GlobalConfig.ProfilePreset.hearts);
-                Online.Timer.Set(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
+                int addhearts = 1 - seconds / GlobalConfig.Energy.interval;
+                Energy = Mathf.Clamp(Energy + addhearts, 0, GlobalConfig.ProfilePreset.energy);
+                Online.Timer.Set(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
             }
 
             syncSeconds++;
@@ -58,26 +58,26 @@ public class Profile : MonoBehaviour
 
     public static bool IsFirstSession { get { return data.privateData.sessions == 1; } }
 
-    public static string Username { get { return data.info.username; } }
+    public static string Username { get { return data.Info.username; } }
 
-    public static string Password { get { return data.info.password; } }
+    public static string Password { get { return data.Info.password; } }
 
     public static int Gems { get { return data.privateData.gems; } }
 
-    public static bool HasNickname { get { return data.info.nickname.HasContent(); } }
+    public static bool HasNickname { get { return data.Info.nickname.HasContent(); } }
 
-    public static bool HasStatus { get { return data.info.status.HasContent(); } }
+    public static bool HasStatus { get { return data.Info.status.HasContent(); } }
 
     public static string Nickname
     {
-        get { return HasNickname ? data.info.nickname : (data.info.username.HasContent() ? data.info.username : "player"); }
-        set { data.info.nickname = value; }
+        get { return HasNickname ? data.Info.nickname : (data.Info.username.HasContent() ? data.Info.username : "player"); }
+        set { data.Info.nickname = value; }
     }
 
     public static string Status
     {
-        get { return data.info.status; }
-        set { data.info.status = value; }
+        get { return data.Info.status; }
+        set { data.Info.status = value; }
     }
 
     public static int Version
@@ -92,10 +92,10 @@ public class Profile : MonoBehaviour
         set { data.privateData.classicScore = value; }
     }
 
-    public static int Hearts
+    public static int Energy
     {
-        get { return data.privateData.hearts; }
-        set { data.privateData.hearts = value; }
+        get { return data.privateData.energy; }
+        set { data.privateData.energy = value; }
     }
 
     public static int Bombs
@@ -133,6 +133,13 @@ public class Profile : MonoBehaviour
         get { return data.privateData.sessions; }
         set { data.privateData.sessions = value; }
     }
+
+    public static bool IsVIP
+    {
+        get => data.privateData.vip.Value == 1;
+        set => data.privateData.vip = value ? 1 : 0;
+    }
+
 
     public static void EarnGems(int value)
     {
@@ -285,7 +292,7 @@ public class Profile : MonoBehaviour
             data.privateData = new ProfileData.PrivateData();
             data.publicData = new ProfileData.PublicData();
             data.avatar = new ProfileData.AvatarData();
-            data.info.avatar = JsonUtility.ToJson(data.avatar);
+            data.Info.avatar = JsonUtility.ToJson(data.avatar);
             StartSession();
             SaveLocal();
         })));
@@ -297,7 +304,7 @@ public class Profile : MonoBehaviour
         if (IsFirstSession)
         {
             EarnGems(GlobalConfig.ProfilePreset.gems);
-            Hearts = GlobalConfig.ProfilePreset.hearts;
+            Energy = GlobalConfig.ProfilePreset.energy;
             Bombs = GlobalConfig.ProfilePreset.bombs;
             Hammers = GlobalConfig.ProfilePreset.hammers;
             Missiles = GlobalConfig.ProfilePreset.missles;
@@ -347,7 +354,7 @@ public class Profile : MonoBehaviour
     {
         if ((System.DateTime.Now - lastGetPrfoileTime).TotalMinutes < 10)
         {
-            SyncProfile(sendProfile, data.info, nextTask);
+            SyncProfile(sendProfile, data.Info, nextTask);
             return;
         }
 
@@ -372,7 +379,7 @@ public class Profile : MonoBehaviour
             // check to see if we are in first run
             if (serverProfile.datahash.IsNullOrEmpty())
             {
-                data.info = serverProfile;
+                data.Info = serverProfile;
                 RunFirstSission();
                 SendProfileData(sendProfile, nextTask);
             }
@@ -380,7 +387,7 @@ public class Profile : MonoBehaviour
             // so try to load from server to local
             else
             {
-                data.info = serverProfile;
+                data.Info = serverProfile;
                 Online.Userdata.Get((sucess, privateStr, publicStr) =>
                 {
                     if (sucess)
@@ -397,7 +404,7 @@ public class Profile : MonoBehaviour
         // local data is not empty
         else
         {
-            data.info = serverProfile;
+            data.Info = serverProfile;
 
             // check to see if player is marked as hacher?
             if (serverProfile.datahash == "shame")
@@ -462,7 +469,7 @@ public class Profile : MonoBehaviour
             set
             {
                 data.avatar.ballId = value;
-                data.info.avatar = JsonUtility.ToJson(data.avatar);
+                data.Info.avatar = JsonUtility.ToJson(data.avatar);
             }
         }
 
@@ -472,11 +479,11 @@ public class Profile : MonoBehaviour
             set
             {
                 data.avatar.angle = value;
-                data.info.avatar = JsonUtility.ToJson(data.avatar);
+                data.Info.avatar = JsonUtility.ToJson(data.avatar);
             }
         }
 
-        public static string Json { get { return data.info.avatar; } }
+        public static string Json { get { return data.Info.avatar; } }
         public static ProfileData.AvatarData Current { get { return data.avatar; } }
     }
 }

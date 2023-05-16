@@ -35,6 +35,7 @@ public class Popup_Shop : GameState
             });
         }
 
+        //GlobalConfig.Shop.combinedPackages.Sort((x, y) => y.price - x.price);
         foreach (var item in GlobalConfig.Shop.combinedPackages)
             combinedItem.Clone<UiShopItem>().Setup(item.sku);
 

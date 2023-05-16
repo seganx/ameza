@@ -259,13 +259,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0634\u0648\u062A\u200C\u0647\u0627 {0}\r\n\u0622\u06CC\u062A\u0645\u200C\u0647\u0627
+    {1}\r\n\u062A\u06CC\u0644\u0647\u200C\u0647\u0627 {2}"
   target: {fileID: 114977883229875722}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0634\u0648\u062A\u200C\u0647\u0627 {0}\r\n\u0622\u06CC\u062A\u0645\u200C\u0647\u0627
-    {1}\r\n\u062A\u06CC\u0644\u0647\u200C\u0647\u0627 {2}"
 --- !u!114 &114873653186692724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,12 +1273,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0627\u0641\u0632\u0627\u06CC\u0634 \u062C\u0627\u06CC\u0632\u0647"
   target: {fileID: 114925386498252764}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0627\u0641\u0632\u0627\u06CC\u0634 \u062C\u0627\u06CC\u0632\u0647"
 --- !u!114 &114665520678305716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1779,7 +1779,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -117.66876, y: 35.10001}
-  m_SizeDelta: {x: 271, y: 157.24133}
+  m_SizeDelta: {x: 271, y: 158.28}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &222146784979114922
 CanvasRenderer:
@@ -1830,12 +1830,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0628\u0627\u0631\u06CC\u06A9\u0644\u0627"
   target: {fileID: 114198982520904850}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 1
   stringId: 0
-  currnetText: "\u0628\u0627\u0631\u06CC\u06A9\u0644\u0627"
 --- !u!1 &1682129818860164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,7 +2620,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -3.5}
-  m_SizeDelta: {x: 250.6792, y: 91}
+  m_SizeDelta: {x: 254, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222911024483189228
 CanvasRenderer:
@@ -2671,12 +2671,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0622\u0641\u0631\u06CC\u0646 \u0628\u0631 \u062A\u0648"
   target: {fileID: 114825971876006480}
   autoRtl: 0
   autoWidth: 1
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0622\u0641\u0631\u06CC\u0646 \u0628\u0631 \u062A\u0648"
 --- !u!1 &1494387829581803007
 GameObject:
   m_ObjectHideFlags: 0

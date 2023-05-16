@@ -13,7 +13,6 @@ public class Popup_Rewards : GameState
     [SerializeField] private GameObject boosterContent = null;
     [SerializeField] private UiChest chest = null;
     [SerializeField] private RectTransform window = null;
-    [SerializeField] private Button winClaimButton = null;
 
     private float rtime = 0;
     private int rgems = 0;
@@ -47,20 +46,20 @@ public class Popup_Rewards : GameState
 
         boosterContent.SetActive(bombs > 0 || hammers > 0 || missiles > 0);
 
-        winClaimButton.gameObject.SetActive(winClaim && Online.Timer.GetRemainSeconds(GlobalConfig.Advertise.winClaim.timerId, GlobalConfig.Advertise.winClaim.interval) < 1);
-        winClaimButton.onClick.AddListener(() =>
-        {
-            Game.Instance.OpenPopup<Popup_VideoAd>().Setup(GlobalConfig.Advertise.winClaim, "winclaim", success =>
-            {
-                if (success == false) return;
-                rtime = 0;
-                winClaimButton.gameObject.SetActive(false);
-                Online.Timer.Set(GlobalConfig.Advertise.winClaim.timerId, GlobalConfig.Advertise.winClaim.interval);
-                rgems += GlobalConfig.Advertise.winClaim.rewardGems;
-                Profile.EarnGems(GlobalConfig.Advertise.winClaim.rewardGems);
-                GlobalAnalytics.SourceGem(GlobalConfig.Advertise.winClaim.rewardGems, "winclaim");
-            });
-        });
+        //winClaimButton.gameObject.SetActive(winClaim && Online.Timer.GetRemainSeconds(GlobalConfig.Advertise.winClaim.timerId, GlobalConfig.Advertise.winClaim.interval) < 1);
+        //winClaimButton.onClick.AddListener(() =>
+        //{
+        //    Game.Instance.OpenPopup<Popup_VideoAd>().Setup(GlobalConfig.Advertise.winClaim, "winclaim", success =>
+        //    {
+        //        if (success == false) return;
+        //        rtime = 0;
+        //        winClaimButton.gameObject.SetActive(false);
+        //        Online.Timer.Set(GlobalConfig.Advertise.winClaim.timerId, GlobalConfig.Advertise.winClaim.interval);
+        //        rgems += GlobalConfig.Advertise.winClaim.rewardGems;
+        //        Profile.EarnGems(GlobalConfig.Advertise.winClaim.rewardGems);
+        //        GlobalAnalytics.SourceGem(GlobalConfig.Advertise.winClaim.rewardGems, "winclaim");
+        //    });
+        //});
 
         return this;
     }

@@ -88,12 +88,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0647\u0641\u062A\u06AF\u06CC"
   target: {fileID: 114213239557903924}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0647\u0641\u062A\u06AF\u06CC"
 --- !u!1 &1156764138530358
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,14 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0628\u0647 \u0647\u0645\u0647 \u0646\u0634\u0648\u0646 \u0628\u062F\u0647
+    \u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC\r \u06AF\u0648\u06CC
+    \u062C\u0645\u0639 \u06A9\u0646\u06CC."
   target: {fileID: 114286823341725154}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0628\u0647 \u0647\u0645\u0647 \u0646\u0634\u0648\u0646 \u0628\u062F\u0647
-    \u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC\r \u06AF\u0648\u06CC
-    \u062C\u0645\u0639 \u06A9\u0646\u06CC."
 --- !u!114 &114286823341725154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,12 +315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0647\u0641\u062A\u06AF\u06CC"
   target: {fileID: 114711776691615786}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0647\u0641\u062A\u06AF\u06CC"
 --- !u!1 &1219689738241938
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,16 +371,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 114785934520146822}
-  autoRtl: 0
-  autoWidth: 0
-  autoHeight: 0
-  stringId: 0
   currnetText: "\u062F\u0631 \u067E\u0627\u06CC\u0627\u0646 \u0647\u0631 \u0644\u06CC\u06AF
     \u0647\u0645\u0647 \u0628\u0627\u0632\u06CC\u06A9\u0646\u0627\u0646 \u062C\u0627\u06CC\u0632\u0647
     \u0645\u06CC\u200C\u06AF\u06CC\u0631\u0646 \u0648 \u0628\u0627 \u0634\u0631\u0648\u0639
     \u0644\u06CC\u06AF \u062C\u062F\u06CC\u062F \u0627\u0645\u062A\u06CC\u0627\u0632
     \u0648 \u0631\u062A\u0628\u0647 \u0647\u0645\u0647 \u0631\u06CC\u0633\u062A \u0645\u06CC\u200C\u0634\u0647."
+  target: {fileID: 114785934520146822}
+  autoRtl: 0
+  autoWidth: 0
+  autoHeight: 0
+  stringId: 0
 --- !u!222 &222369918311485026
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -487,14 +487,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0628\u0647 \u0647\u0645\u0647 \u0646\u0634\u0648\u0646 \u0628\u062F\u0647
+    \u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC\r \u06AF\u0648\u06CC
+    \u062C\u0645\u0639 \u06A9\u0646\u06CC."
   target: {fileID: 114589955285845148}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0628\u0647 \u0647\u0645\u0647 \u0646\u0634\u0648\u0646 \u0628\u062F\u0647
-    \u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC\r \u06AF\u0648\u06CC
-    \u062C\u0645\u0639 \u06A9\u0646\u06CC."
 --- !u!114 &114589955285845148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,12 +930,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0644\u06CC\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
   target: {fileID: 114258686148232028}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0644\u06CC\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
 --- !u!114 &114258686148232028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1692,12 +1692,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0644\u06CC\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
   target: {fileID: 114248736261809454}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0644\u06CC\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
 --- !u!114 &114248736261809454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1821,12 +1821,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0644\u06CC\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
   target: {fileID: 114366478444816218}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0644\u06CC\u06AF \u062F\u0645\u200C\u06AF\u0631\u0645\u0627\u0646"
 --- !u!114 &114366478444816218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1927,7 +1927,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -3.5}
-  m_SizeDelta: {x: 319.43573, y: 91}
+  m_SizeDelta: {x: 328, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222964757354955376
 CanvasRenderer:
@@ -1978,12 +1978,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0644\u06CC\u06AF\u200C\u0647\u0627\u06CC \u0642\u0647\u0631\u0645\u0627\u0646\u06CC"
   target: {fileID: 114554878009353550}
   autoRtl: 0
   autoWidth: 1
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0644\u06CC\u06AF\u200C\u0647\u0627\u06CC \u0642\u0647\u0631\u0645\u0627\u0646\u06CC"
 --- !u!1 &1680116874532472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,14 +2724,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0628\u0647 \u0647\u0645\u0647 \u0646\u0634\u0648\u0646 \u0628\u062F\u0647
+    \u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC\r \u06AF\u0648\u06CC
+    \u062C\u0645\u0639 \u06A9\u0646\u06CC."
   target: {fileID: 114945955549707116}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0628\u0647 \u0647\u0645\u0647 \u0646\u0634\u0648\u0646 \u0628\u062F\u0647
-    \u0686\u0642\u062F\u0631 \u0645\u06CC\u200C\u062A\u0648\u0646\u06CC\r \u06AF\u0648\u06CC
-    \u062C\u0645\u0639 \u06A9\u0646\u06CC."
 --- !u!114 &114945955549707116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2885,12 +2885,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0647\u0641\u062A\u06AF\u06CC"
   target: {fileID: 114219836998313712}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0647\u0641\u062A\u06AF\u06CC"
 --- !u!1 &1922133522711102
 GameObject:
   m_ObjectHideFlags: 0
@@ -3336,13 +3336,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u062F\u0639\u0648\u062A \u06A9\u0646 \u062A\u0627 \u0647\u0645\u06AF\u06CC
+    {0} \u0627\u0644\u0645\u0627\u0633 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC\u0646!"
   target: {fileID: 2805667069025898751}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u062F\u0639\u0648\u062A \u06A9\u0646 \u062A\u0627 \u0647\u0645\u06AF\u06CC
-    {0} \u0627\u0644\u0645\u0627\u0633 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC\u0646!"
 --- !u!114 &2805667069025898751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3635,12 +3635,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u0644\u06CC\u06AF \u062F\u0648\u0633\u062A\u0627\u0646"
   target: {fileID: 8323409122138530766}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u0644\u06CC\u06AF \u062F\u0648\u0633\u062A\u0627\u0646"
 --- !u!114 &8323409122138530766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,9 +3792,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currnetText: "\u062F\u0627\u0626\u0645\u06CC"
   target: {fileID: 6423472119617904517}
   autoRtl: 0
   autoWidth: 0
   autoHeight: 0
   stringId: 0
-  currnetText: "\u062F\u0627\u0626\u0645\u06CC"

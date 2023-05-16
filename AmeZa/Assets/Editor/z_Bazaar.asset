@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821ceaab84e27b743a495036aad200a6, type: 3}
+  m_Name: z_Bazaar
+  m_EditorClassIdentifier: 
+  versionOffset: 0
+  postfix: 
+  packageName: 
+  productName: 
+  addSymbols:
+    cameraFX: 0
+    onlineSystem: 0
+    purchaseSystem: 0
+    zipCompression: 0
+    playServices: 0
+    additionals: []
+  removeSymbols: []
+  externalAssets:
+  - ../Plugins/Bazaar
+  buildAppBundle: 0
+  proguardMinification: 0
+  market: 1
+  architecture: 1
+  storeFilename: ../user.keystore
+  storePassword: 123456
+  storeAliseName: release
+  storeAlisePassword: 123456
+  buttons: 0
+  files: []

@@ -8,9 +8,7 @@ public class UIBackground : MonoBehaviour
     [SerializeField] private UiAvatar avatar = null;
     [SerializeField] private LocalText nickNameLabel = null;
     [SerializeField] private LocalText gems = null;
-    [SerializeField] private LocalText heartsCount = null;
-    [SerializeField] private Text heartsTime = null;
-    [SerializeField] private GameObject heartsFull = null;
+    [SerializeField] private LocalText energyLabel = null;
     [SerializeField] private Animation backgroundAnimator = null;
     [SerializeField] private Button heartsButton = null;
     [SerializeField] private Button gemsButton = null;
@@ -32,7 +30,7 @@ public class UIBackground : MonoBehaviour
             break;
         }
 
-        heartsButton.onClick.AddListener(() => { if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
+        heartsButton.onClick.AddListener(() => { if (Profile.Energy < GlobalConfig.ProfilePreset.energy) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Market.storeUrl); });
@@ -47,19 +45,15 @@ public class UIBackground : MonoBehaviour
             updateButton.gameObject.SetActive(GlobalConfig.Update.mode != GlobalConfig.Data.Update.Mode.Null);
             nickNameLabel.SetText(Profile.Nickname);
             gems.SetText(Profile.Gems.ToString("#,0"));
-            heartsCount.SetText(Profile.Hearts.ToString());
 
-            if (Profile.Hearts < GlobalConfig.ProfilePreset.hearts)
+            if (Profile.Energy < 1)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Heart.timerId, GlobalConfig.Heart.interval);
-                heartsTime.text = (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00");
-                heartsTime.gameObject.SetActive(true);
-                heartsFull.gameObject.SetActive(false);
+                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
+                energyLabel.SetText((seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00"));
             }
             else
             {
-                heartsTime.gameObject.SetActive(false);
-                heartsFull.gameObject.SetActive(true);
+                energyLabel.SetText($"{Profile.Energy}/{GlobalConfig.ProfilePreset.energy}");
             }
             yield return wait;
         }

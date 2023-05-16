@@ -47,7 +47,7 @@ public class UiShopItem : MonoBehaviour
             PurchaseSystem.Purchase(PurchaseProvider.Market, sku, (succeed, token) =>
             {
                 if (succeed)
-                    Purchased(sku, token, () => onClick?.Invoke(true));
+                    ShopLogic.Purchased(sku, () => onClick?.Invoke(true));
                 else 
                     onClick?.Invoke(false);
 
@@ -76,34 +76,5 @@ public class UiShopItem : MonoBehaviour
             }
             yield return wait;
         }
-    }
-
-
-    public static void Purchased(string sku, string token, System.Action nextTask)
-    {
-        var pack = GlobalConfig.Shop.GetPackage(sku);
-        if (pack == null)
-        {
-            nextTask?.Invoke();
-            return;
-        }
-        
-        Profile.EarnGems(pack.gems);
-        Profile.Bombs += pack.bombs;
-        Profile.Hammers += pack.hammers;
-        Profile.Missiles += pack.missiles;
-
-        Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, false, nextTask);
-
-        PurchaseSystem.Consume(pack.sku, (success, msg) =>
-        {
-            if (success)
-            {
-                GlobalAnalytics.NewBuisinessEvent(Online.Purchase.Provider.Market, pack.sku, pack.price, token);
-                Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), r => { });
-            }
-        });
-
-        GlobalAnalytics.SourceGem(pack.gems, pack.sku.Replace("ameza_", ""));
     }
 }
