@@ -8,13 +8,14 @@ using UnityEngine.UI;
 public class UiVipButton : MonoBehaviour
 {
     [SerializeField] private Button button = null;
-    [SerializeField] private LocalText daysLabel = null;
-    [SerializeField] private LocalText priceLabel = null;
+    [SerializeField] private Text daysLabel = null;
+    [SerializeField] private Text priceLabel = null;
 
     public UiVipButton Setup(GlobalConfig.Data.Shop.VIP pack, System.Action onPurchased)
     {
-        daysLabel.SetFormatedText(pack.days);
-        priceLabel.SetFormatedText(pack.price);
+        daysLabel.text = daysLabel.text.Replace("{0}", pack.days.ToString().Persian());
+        priceLabel.text = priceLabel.text.Replace("{0}", pack.price.ToString().Persian());
+
         button.onClick.AddListener(() =>
         {
             button.SetInteractable(false);

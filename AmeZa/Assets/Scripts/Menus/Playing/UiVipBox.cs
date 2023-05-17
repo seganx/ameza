@@ -85,7 +85,7 @@ public class UiVipBox : MonoBehaviour
         {
             Game.Instance.OpenPopup<Popup_Confirm>().Setup(111130, true, false, yes =>
             {
-                Game.Instance.OpenPopup<Popup_Shop>().SetOnClose(UpdateLocks);
+                Game.Instance.OpenPopup<Popup_Vip>().Setup(UpdateLocks);
             });
         }
     }
