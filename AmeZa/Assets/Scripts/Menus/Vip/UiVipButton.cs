@@ -13,8 +13,8 @@ public class UiVipButton : MonoBehaviour
 
     public UiVipButton Setup(GlobalConfig.Data.Shop.VIP pack, System.Action onPurchased)
     {
-        daysLabel.text = daysLabel.text.Replace("{0}", pack.days.ToString().Persian());
-        priceLabel.text = priceLabel.text.Replace("{0}", pack.price.ToString().Persian());
+        daysLabel.text = daysLabel.text.Replace("{0}", pack.days.ToString("#,0").Persian());
+        priceLabel.text = priceLabel.text.Replace("{0}", pack.price.ToString("#,0").Persian());
 
         button.onClick.AddListener(() =>
         {

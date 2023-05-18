@@ -48,6 +48,6 @@ public static class ShopLogic
 
     private static void PurchasedVip(GlobalConfig.Data.Shop.VIP pack, System.Action nextTask)
     {
-
+        //Profile.IsVIP
     }
 }

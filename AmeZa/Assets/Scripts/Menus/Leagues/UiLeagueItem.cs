@@ -32,21 +32,24 @@ public class UiLeagueItem : Base
 
         button.onClick.AddListener(() =>
         {
-            if (Profile.HasNickname)
+            UiVipBox.CheckAndGo(() =>
             {
-                Game.Instance.OpenState<State_Leaderboards>().Setup(index);
-            }
-            else
-            {
-                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111011, true, false, ok =>
+                if (Profile.HasNickname)
                 {
-                    if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                    Game.Instance.OpenState<State_Leaderboards>().Setup(index);
+                }
+                else
+                {
+                    Game.Instance.OpenPopup<Popup_Confirm>().Setup(111011, true, false, ok =>
                     {
-                        if (Profile.HasNickname)
-                            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111012, true, false, null);
+                        if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                        {
+                            if (Profile.HasNickname)
+                                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111012, true, false, null);
+                        });
                     });
-                });
-            }
+                }
+            });
         });
     }
 }

@@ -13,21 +13,24 @@ public class State_SelectLeague : GameState
 
         friendsButton.onClick.AddListener(() =>
         {
-            if (Profile.HasNickname)
+            UiVipBox.CheckAndGo(() =>
             {
-                Game.Instance.OpenState<State_Friends>();
-            }
-            else
-            {
-                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111121, true, false, ok =>
+                if (Profile.HasNickname)
                 {
-                    if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                    Game.Instance.OpenState<State_Friends>();
+                }
+                else
+                {
+                    Game.Instance.OpenPopup<Popup_Confirm>().Setup(111121, true, false, ok =>
                     {
-                        if (Profile.HasNickname)
-                            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111122, true, false, null);
+                        if (ok) Game.Instance.OpenPopup<Popup_Profile>().SetOnClose(() =>
+                        {
+                            if (Profile.HasNickname)
+                                Game.Instance.OpenPopup<Popup_Confirm>().Setup(111122, true, false, null);
+                        });
                     });
-                });
-            }
+                }
+            });
         });
 
         UIBackground.Show();

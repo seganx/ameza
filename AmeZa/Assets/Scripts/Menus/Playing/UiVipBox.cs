@@ -77,17 +77,7 @@ public class UiVipBox : MonoBehaviour
 
     private void CheckVIP(System.Action callback)
     {
-        if (Profile.IsVIP)
-        {
-            callback?.Invoke();
-        }
-        else
-        {
-            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111130, true, false, yes =>
-            {
-                Game.Instance.OpenPopup<Popup_Vip>().Setup(UpdateLocks);
-            });
-        }
+        CheckAndGo(callback, UpdateLocks);
     }
 
     private void BuyBooster(int count, int price, string booster, System.Action<int> onSuccess)
@@ -108,5 +98,23 @@ public class UiVipBox : MonoBehaviour
 
             });
         });
+    }
+
+    //////////////////////////////////////////////////////
+    /// STATIC MEMBERS
+    //////////////////////////////////////////////////////
+    public static void CheckAndGo(System.Action onPass, System.Action onVipChanged = null)
+    {
+        if (Profile.IsVIP)
+        {
+            onPass?.Invoke();
+        }
+        else
+        {
+            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111130, true, false, yes =>
+            {
+                Game.Instance.OpenPopup<Popup_Vip>().Setup(onVipChanged);
+            });
+        }
     }
 }
