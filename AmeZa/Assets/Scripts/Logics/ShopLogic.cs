@@ -51,7 +51,7 @@ public static class ShopLogic
         var remained = Profile.VipSeconds.value;
         if (remained < 0) remained = 0;
         var newtime = pack.days * 86400;
-        Profile.SetVipSeconds(remained + newtime);
+        Profile.SetVip(remained + newtime);
         nextTask?.Invoke();
     }
 }

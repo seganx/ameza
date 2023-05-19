@@ -57,7 +57,7 @@ public class State_Friends : GameState
                 friends.AddRange(list);
 
                 // add me :)
-                friends.Add(new Online.Friends.Friendship() { id = "0", avatar = Profile.Avatar.Json, level = Profile.GetLevelsPassed().ToString(), nickname = Profile.Nickname, status = Profile.Status, username = Profile.Username });
+                friends.Add(new Online.Friends.Friendship() { id = "0", avatar = Profile.Avatar.Json, level = Profile.GetLevelsPassed().value.ToString(), nickname = Profile.Nickname, status = Profile.Status, username = Profile.Username });
 
                 SortFriends();
                 for (int i = 0; i < friends.Count; i++)

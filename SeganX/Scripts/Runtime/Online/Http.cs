@@ -80,7 +80,7 @@ namespace SeganX
                 {
                     request.onProgress?.Invoke(operation.progress);
 
-                    if (request.timeout > 0)
+                    if (request.timeout > 1)
                     {
                         var delta = Time.time - startTime;
                         if (delta > request.timeout) break;
@@ -157,21 +157,6 @@ namespace SeganX
             Instance.DownloadText(request);
         }
 
-        public static void DownloadText(string url, string postdata, Dictionary<string, string> header, Action<string> onCompleted, Action<float> onProgress = null, int timeout = 0, int efforts = 1)
-        {
-            var request = new Request
-            {
-                timeout = timeout,
-                efforts = efforts,
-                url = url,
-                postData = postdata,
-                header = header,
-                onCompleted = (st, txt) => onCompleted(txt),
-                onProgress = onProgress
-            };
-            requests.Add(request);
-            Instance.DownloadText(request);
-        }
 
         public static void DownloadText(string url, Action<string> onCompleted, int timeout = 0, int efforts = 1)
         {

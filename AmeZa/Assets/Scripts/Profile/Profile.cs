@@ -112,7 +112,7 @@ public class Profile : MonoBehaviour
 
     public static BoolResult IsVIP => BoolResult.Set(VipSeconds.value > 0);
     public static LongResult VipSeconds => LongResult.Set(data.privateData.vip - Online.Timer.CurrentSeconds);
-    public static void SetVipSeconds(long value) => data.privateData.vip = value;
+    public static void SetVip(long value) => data.privateData.vip = value + Online.Timer.CurrentSeconds;
 
     public static IntResult Energy => data.privateData.energy.Get;
     public static void SetEnergy(int value) => data.privateData.energy.Encrypt(value);
@@ -304,15 +304,14 @@ public class Profile : MonoBehaviour
 
         if (IsGlobalConfigUpdated == false)
         {
-            var address = GlobalConfig.Instance.address + GlobalConfig.Instance.version + "/config.txt?" + System.DateTime.Now.Ticks;
-            Http.DownloadText(address, json =>
+            Http.DownloadText(GlobalConfig.Instance.ConfigUrl, json =>
             {
                 IsGlobalConfigUpdated = (json != null && GlobalConfig.SetData(json));
                 if (IsGlobalConfigUpdated)
                     LoginToServer(sendProfile, nextTask);
                 else
                     nextTask(false);
-            }, 10);
+            });
         }
         else LoginToServer(sendProfile, nextTask);
     }

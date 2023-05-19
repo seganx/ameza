@@ -12,6 +12,7 @@ public class Game : GameManager
     protected virtual void Awake()
     {
         Input.multiTouchEnabled = false;
+        Core.OnlineDomain = GlobalConfig.Instance.ApiUrl;
 
 #if UNITY_EDITOR
         Console.Enabled = true;
@@ -169,5 +170,18 @@ public class Game : GameManager
             }
             return instance;
         }
+    }
+
+    public static string TimeToString(long seconds)
+    {
+        long days = seconds / 86400;
+        long hours = (seconds % 86400) / 3600;
+        long minutes = (seconds % 3600) / 60;
+        seconds %= 60;
+
+        if (days > 0) return string.Format(LocalizationService.Get(111006), days) + " و " + string.Format(LocalizationService.Get(111007), hours);
+        if (hours > 0) return string.Format(LocalizationService.Get(111007), hours) + " و " + string.Format(LocalizationService.Get(111008), minutes);
+        if (minutes > 0) return string.Format(LocalizationService.Get(111008), minutes) + " و " + string.Format(LocalizationService.Get(111009), seconds);
+        return string.Format(LocalizationService.Get(111009), seconds);
     }
 }

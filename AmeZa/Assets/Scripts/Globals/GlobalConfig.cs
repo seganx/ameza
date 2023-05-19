@@ -2,18 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Market : int
-{
-    Null = 0,
-    Irancell = 1,
-    Cafebazaar = 2,
-    GoogleplayPersian = 2,
-    GoogleplayEnglish = 3,
-}
-
 public class GlobalConfig : StaticConfig<GlobalConfig>
 {
-
     [System.Serializable]
     public class MarketInfo
     {
@@ -96,9 +86,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
             public int loseFactor = 5;
             public Vector2Int seasonBlocksFactors = new Vector2Int(5, 30);
             public Vector2Int seasonBallsFactors = new Vector2Int(5, 20);
-            public int[] levelFactor0 = new int[12];
-            public int[] levelFactor1 = new int[16];
-            public int[] levelFactor2 = new int[20];
         }
 
         [System.Serializable]
@@ -258,13 +245,15 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [HideInInspector] public List<string> jokes = new List<string>();
     }
 
-    public Market market = 0;
-    public string address = "http://seganx.com/games/ameza/";
     public MarketInfo cafebazaar = new MarketInfo();
     public MarketInfo myket = new MarketInfo();
 
     [Header("Dynamic Data")]
     [SerializeField] private Data data = new Data();
+
+    public string ConfigUrl => $"http://seganx.com/games/ameza/{version}/config.txt?{System.DateTime.Now.Ticks}";
+    public string JokesUrl => $"http://seganx.com/games/ameza/jokes.txt?{System.DateTime.Now.Ticks}";
+    public string ApiUrl => $"http://seganx.com/games/ameza/api-v1";
 
     protected override void OnInitialize()
     {
@@ -388,8 +377,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         SaveData(newdata);
         Console.Enabled = DebugMode;
 
-        var address = Instance.address + "jokes.txt?" + System.DateTime.Now.Ticks;
-        Http.DownloadText(address, jokes =>
+        Http.DownloadText(Instance.JokesUrl, jokes =>
         {
             var array = jokes.Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
             if (array.Length > 0 && array[0] == "seganx_jokes")

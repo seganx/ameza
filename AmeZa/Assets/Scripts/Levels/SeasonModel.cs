@@ -25,8 +25,7 @@ public class SeasonModel
     public LevelModel GetLevelModel(int index, int skillFactor)
     {
         int levelIndex = GlobalFactory.Seasons.GetLevelNumber(id, index);
-        var difficultyFactors = id == 0 ? GlobalConfig.Difficulty.levelFactor0 : (id == 1 ? GlobalConfig.Difficulty.levelFactor1 : GlobalConfig.Difficulty.levelFactor2);
-        var difficultyValue = difficultyFactors[index % difficultyFactors.Length] * 0.01f;
+        var difficultyValue = Mathf.Lerp(0.1f, 0.9f, index / 16.0f);
 
         var res = new LevelModel();
         res.season = id;

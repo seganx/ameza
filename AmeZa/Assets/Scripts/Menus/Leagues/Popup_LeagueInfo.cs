@@ -78,7 +78,7 @@ public class Popup_LeagueInfo : GameState
 
         tutorial.Display(1, true, 111060, null);
 
-        var wait = new WaitForSeconds(1);
+        var wait = new WaitForSecondsRealtime(1);
         while (true)
         {
             UpdateView();
@@ -113,7 +113,7 @@ public class Popup_LeagueInfo : GameState
         var subleague = GlobalFactory.Leagues.GetByScore(LeagueLogics.info, LeagueLogics.data.score);
         medalImage.sprite = GlobalFactory.Leagues.GetMedal(LeagueLogics.info, LeagueLogics.data.score);
         medalLabel.SetText(subleague.name);
-        timeLabel.SetFormatedText(TimeToString(seconds));
+        timeLabel.SetFormatedText(Game.TimeToString(seconds));
         scoreLabel.SetFormatedText(LeagueLogics.data.score);
         rankLabel.SetFormatedText((LeagueLogics.data.rank > 0 && LeagueLogics.data.score > 0) ? LeagueLogics.data.rank.ToString() : "-");
         rewardLabel.SetFormatedText(subleague.rewardGems, subleague.name);
@@ -124,14 +124,6 @@ public class Popup_LeagueInfo : GameState
 
         var topleague = GlobalFactory.Leagues.GetByScore(LeagueLogics.info, 9999999);
         rewardLabelTop.SetFormatedText(topleague.rewardGems, topleague.name);
-    }
-
-    private string TimeToString(long secconds)
-    {
-        if (secconds / 86400 > 0) return string.Format(LocalizationService.Get(111006), secconds / 86400);
-        if (secconds / 3600 > 0) return string.Format(LocalizationService.Get(111007), secconds / 3600);
-        if (secconds / 60 > 0) return string.Format(LocalizationService.Get(111008), secconds / 60);
-        return string.Format(LocalizationService.Get(111009), secconds);
     }
 
     private void OnRewardButton(GlobalConfig.Data.League info)

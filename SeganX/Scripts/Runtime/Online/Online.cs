@@ -26,7 +26,7 @@ namespace SeganX
 
         private static void DownloadData<T>(string uri, object post, System.Action<bool, T> callback, int timeout = 0, int efforts = 1)
         {
-            Http.DownloadText("http://" + Core.OnlineDomain + "/games/api/" + uri, post == null ? null : JsonUtility.ToJson(post), header, (status, resjson) =>
+            Http.DownloadText($"{Core.OnlineDomain}/{uri}", post == null ? null : JsonUtility.ToJson(post), header, (status, resjson) =>
             {
                 if (resjson != null)
                 {

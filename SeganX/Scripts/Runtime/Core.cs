@@ -9,7 +9,6 @@ namespace SeganX
         public class OnlineOptions
         {
             public int gameId = 0;
-            public string onlineDomain = "seganx.ir";
         }
 
         [System.Serializable]
@@ -70,8 +69,8 @@ namespace SeganX
         ////////////////////////////////////////////////////////////
         /// STATIC MEMBERS
         ////////////////////////////////////////////////////////////
+        public static string OnlineDomain = string.Empty;
         public static int GameId => Instance.onlineOptions.gameId;
-        public static string OnlineDomain => Instance.onlineOptions.onlineDomain;
         public static string BaseDeviceId => Instance.baseDeviceId;
         public static string DeviceId => Instance.deviceId;
         public static string Salt => Instance.hashsalt;

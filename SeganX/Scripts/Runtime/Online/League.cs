@@ -141,7 +141,7 @@ namespace SeganX
             private static Data AddToChache(int id, Data data)
             {
                 if (data == null) return data;
-                data.start_time = UnixTimeToLocalTime(data.start_time).Ticks / System.TimeSpan.TicksPerSecond;
+                //data.start_time = UnixTimeToLocalTime(data.start_time).Ticks / System.TimeSpan.TicksPerSecond;
                 var res = new Cache<Data>();
                 res.id = id;
                 res.cacheTime = System.DateTime.Now;

@@ -42,7 +42,8 @@ namespace SeganX
                     if (success && res > 0)
                     {
                         Synced = true;
-                        deltaTime = UnixTimeToLocalTime(res) - DateTime.Now;
+                        var now = LocalTimeSeconds;
+                        deltaTime = CurrentSeconds - now;
                         Invoke("Start", 120);
                     }
                     else Invoke("Start", 5);
@@ -55,11 +56,11 @@ namespace SeganX
             ////////////////////////////////////////////////////////
             private static Timer instance = null;
             private static List<TimeData> data = new List<TimeData>();
-            private static TimeSpan deltaTime = new TimeSpan(0);
+            private static long deltaTime = 0;
 
             public static bool Synced { get; private set; }
-            public static DateTime CurrentTime { get { return DateTime.Now + deltaTime; } }
-            public static long CurrentSeconds { get { return CurrentTime.Ticks / TimeSpan.TicksPerSecond; } }
+            private static long LocalTimeSeconds => DateTimeOffset.Now.ToUnixTimeSeconds() + 12600; // +3:30 Tehran time
+            public static long CurrentSeconds => LocalTimeSeconds + deltaTime;
 
             public static void Set(int timerId, float duration, long startTime = 0)
             {

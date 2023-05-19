@@ -30,7 +30,7 @@ public class Popup_Vip : GameState
         while (true)
         {
             status.SetActiveChild(Profile.IsVIP.value ? 0 : 1);
-            timerLabel.SetFormatedText("00");
+            timerLabel.SetFormatedText(Game.TimeToString(Profile.VipSeconds.value));
             yield return wait;
         }
     }

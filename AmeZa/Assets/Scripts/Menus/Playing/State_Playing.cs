@@ -25,7 +25,7 @@ public class State_Playing : GameState
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         pauseButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Settings>());
 
-        vipBox.gameObject.SetActive(PlayModel.IsClassic || PlayModel.level.index > 1);
+        vipBox.gameObject.SetActive(PlayModel.IsClassic || PlayModel.level.season > 0 || PlayModel.level.index > 1);
         vipBox.Setup(ability =>
         {
             Game.Instance.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
@@ -150,7 +150,7 @@ public class State_Playing : GameState
 #else
     private void OnDestroy()
     {
-        Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), success => { });
+        Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems.value, Profile.Skill, Profile.GetLevelsPassed().value, success => { });
     }
 #endif
 }

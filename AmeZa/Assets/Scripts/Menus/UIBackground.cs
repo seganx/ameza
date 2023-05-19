@@ -15,6 +15,8 @@ public class UIBackground : MonoBehaviour
     [SerializeField] private Button profileButton = null;
     [SerializeField] private Button updateButton = null;
     [SerializeField] private Button settingsButton = null;
+    [SerializeField] private Button vipButton = null;
+    [SerializeField] private Transform vipStatus = null;
 
     // Use this for initialization
     private IEnumerator Start()
@@ -33,6 +35,7 @@ public class UIBackground : MonoBehaviour
         heartsButton.onClick.AddListener(() => { if (Profile.Energy.value < GlobalConfig.ProfilePreset.energy) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
+        vipButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Vip>());
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Market.storeUrl); });
         settingsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Settings>(); });
 
@@ -42,6 +45,7 @@ public class UIBackground : MonoBehaviour
         while (true)
         {
             avatar.Setup(Profile.Avatar.Current);
+            vipStatus.SetActiveChild(Profile.IsVIP.value ? 0 : 1);
             updateButton.gameObject.SetActive(GlobalConfig.Update.mode != GlobalConfig.Data.Update.Mode.Null);
             nickNameLabel.SetText(Profile.Nickname);
             gems.SetText(Profile.Gems.value.ToString("#,0"));
