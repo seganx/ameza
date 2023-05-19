@@ -66,7 +66,7 @@ public class UiProfileBallItem : MonoBehaviour
 
     private void UpdateState()
     {
-        if (Profile.HasBall(id))
+        if (Profile.HasBall(id).value)
         {
             currState = lastState = State.Owned;
             backImage.color = Color.white;

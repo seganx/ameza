@@ -51,14 +51,14 @@ public class Game : GameManager
         SeganX.LocalNotification.OnScheduleNotification += () =>
         {
             // schedule hearts push
-            if (Profile.Energy < GlobalConfig.ProfilePreset.energy)
+            if (Profile.Energy.value < GlobalConfig.ProfilePreset.energy)
             {
                 int totalSeconds = GlobalConfig.ProfilePreset.energy * GlobalConfig.Energy.interval;
                 SeganX.LocalNotification.SendNotification(totalSeconds, GlobalConfig.Notifications.heartFull);
             }
 
             // schedule lucky spin push
-            var seconds = SeganX.Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
+            var seconds = SeganX.Online.Timer.GetRemainSeconds(Timers.Luckyspin, GlobalConfig.Luckyspin.interval);
             if (seconds > 10)
             {
                 SeganX.LocalNotification.SendNotification(seconds, GlobalConfig.Notifications.luckySpine);
@@ -94,11 +94,7 @@ public class Game : GameManager
 
     public static void SpendGems(int value, System.Action onSuccess)
     {
-        if (Profile.SpendGems(value))
-        {
-            onSuccess();
-        }
-        else
+        Profile.SpendGems(value, onSuccess, () =>
         {
             var pack = GetOfferPackage();
             if (pack != null)
@@ -107,27 +103,24 @@ public class Game : GameManager
                 {
                     if (sucess)
                     {
-                        if (Profile.SpendGems(value))
-                            onSuccess();
+                        Profile.SpendGems(value, onSuccess);
                     }
                     else Instance.OpenPopup<Popup_Shop>().SetOnClose(() =>
                     {
-                        if (Profile.SpendGems(value))
-                            onSuccess();
+                        Profile.SpendGems(value, onSuccess);
                     });
                 });
             }
             else Instance.OpenPopup<Popup_Shop>().SetOnClose(() =>
             {
-                if (Profile.SpendGems(value))
-                    onSuccess();
+                Profile.SpendGems(value, onSuccess);
             });
-        }
+        });
     }
 
     public static GlobalConfig.Data.Shop.Package GetOfferPackage()
     {
-        var index = SeganX.PurchaseOffer.GetOfferIndex(Profile.Gems);
+        var index = SeganX.PurchaseOffer.GetOfferIndex(Profile.Gems.value);
         if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
         {
             var pack = GlobalConfig.Shop.offers[index];

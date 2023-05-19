@@ -29,7 +29,7 @@ public class UIFriendItem : MonoBehaviour
         int leagueIndex = GlobalFactory.Friends.GetLeagueIndex(friend.level.ToInt());
         medalImage.sprite = GlobalFactory.Friends.GetMedalSprite(leagueIndex);
 
-        if (friend.username == Profile.Username || Profile.IsFriendRewarded(friend.id.ToInt(), friend.level.ToInt()))
+        if (friend.username == Profile.Username || Profile.IsFriendRewarded(friend.id.ToInt(), friend.level.ToInt()).value)
         {
             descLabel.gameObject.SetActive(true);
             medalImage.gameObject.SetActive(true);

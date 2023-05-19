@@ -20,12 +20,12 @@ public class Profile : MonoBehaviour
             yield return wait;
 
             // update hearts
-            int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
+            int seconds = Online.Timer.GetRemainSeconds(Timers.Energy, GlobalConfig.Energy.interval);
             if (seconds < 0)
             {
                 int addhearts = 1 - seconds / GlobalConfig.Energy.interval;
-                Energy = Mathf.Clamp(Energy + addhearts, 0, GlobalConfig.ProfilePreset.energy);
-                Online.Timer.Set(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
+                SetEnergy(Mathf.Clamp(Energy.value + addhearts, 0, GlobalConfig.ProfilePreset.energy));
+                Online.Timer.Set(Timers.Energy, GlobalConfig.Energy.interval);
             }
 
             syncSeconds++;
@@ -56,17 +56,17 @@ public class Profile : MonoBehaviour
     public static bool IsGlobalConfigUpdated { get; set; }
     public static bool IsLoggedIn { get; set; }
 
-    public static bool IsFirstSession { get { return data.privateData.sessions == 1; } }
+    public static bool IsFirstSession { get { return data.privateData.sessions.Get.value == 1; } }
 
     public static string Username { get { return data.Info.username; } }
 
     public static string Password { get { return data.Info.password; } }
 
-    public static int Gems { get { return data.privateData.gems; } }
-
     public static bool HasNickname { get { return data.Info.nickname.HasContent(); } }
 
     public static bool HasStatus { get { return data.Info.status.HasContent(); } }
+
+    public static IntResult Gems => data.privateData.gems.Get;
 
     public static string Nickname
     {
@@ -82,44 +82,20 @@ public class Profile : MonoBehaviour
 
     public static int Version
     {
-        get { return data.privateData.version; }
+        get { return data.privateData.version.Get.value; }
         set { data.privateData.version = value; }
     }
 
     public static int MaxClassicScore
     {
-        get { return data.privateData.classicScore; }
+        get { return data.privateData.classicScore.Get.value; }
         set { data.privateData.classicScore = value; }
-    }
-
-    public static int Energy
-    {
-        get { return data.privateData.energy; }
-        set { data.privateData.energy = value; }
-    }
-
-    public static int Bombs
-    {
-        get { return data.privateData.bombs; }
-        set { data.privateData.bombs = value; }
-    }
-
-    public static int Hammers
-    {
-        get { return data.privateData.hammers; }
-        set { data.privateData.hammers = value; }
-    }
-
-    public static int Missiles
-    {
-        get { return data.privateData.missles; }
-        set { data.privateData.missles = value; }
     }
 
     public static int Skill
     {
-        get { return data.privateData.skill; }
-        set { data.privateData.skill = value; }
+        get => data.privateData.skill.Get.value;
+        set => data.privateData.skill = value;
     }
 
     private static string LastHashdata
@@ -130,36 +106,45 @@ public class Profile : MonoBehaviour
 
     public static int Sessions
     {
-        get { return data.privateData.sessions; }
-        set { data.privateData.sessions = value; }
+        get => data.privateData.sessions.Get.value;
+        set => data.privateData.sessions = value;
     }
 
-    public static bool IsVIP
-    {
-        get => data.privateData.vip.Value == 1;
-        set => data.privateData.vip = value ? 1 : 0;
-    }
+    public static BoolResult IsVIP => BoolResult.Set(VipSeconds.value > 0);
+    public static LongResult VipSeconds => LongResult.Set(data.privateData.vip - Online.Timer.CurrentSeconds);
+    public static void SetVipSeconds(long value) => data.privateData.vip = value;
 
+    public static IntResult Energy => data.privateData.energy.Get;
+    public static void SetEnergy(int value) => data.privateData.energy.Encrypt(value);
+
+    public static IntResult Bombs => data.privateData.bombs.Get;
+    public static void SetBombs(int value) => data.privateData.bombs.Encrypt(value);
+
+    public static IntResult Hammers => data.privateData.hammers.Get;
+    public static void SetHammers(int value) => data.privateData.hammers.Encrypt(value);
+
+    public static IntResult Missiles => data.privateData.missles.Get;
+    public static void SetMissiles(int value) => data.privateData.missles.Encrypt(value);
 
     public static void EarnGems(int value)
     {
         if (value > 0)
-            data.privateData.gems = data.privateData.gems.Value + value;
+            data.privateData.gems = data.privateData.gems.Get.value + value;
     }
 
-    public static bool SpendGems(int value)
+    public static void SpendGems(int value, System.Action onSuccess, System.Action onFailed = null)
     {
-        if (Gems >= value)
+        if (Gems.value >= value)
         {
-            data.privateData.gems = data.privateData.gems.Value - value;
-            return true;
+            data.privateData.gems = data.privateData.gems.Get.value - value;
+            onSuccess?.Invoke();
         }
-        return false;
+        else onFailed?.Invoke();
     }
 
-    public static bool HasBall(int id)
+    public static BoolResult HasBall(int id)
     {
-        return data.privateData.balls.Contains(id);
+        return BoolResult.Set(data.privateData.balls.Contains(id));
     }
 
     public static void AddBall(int id)
@@ -168,11 +153,11 @@ public class Profile : MonoBehaviour
             data.privateData.balls.Add(id);
     }
 
-    public static int GetSeasonRewarded(int seasonId)
+    public static IntResult GetSeasonRewarded(int seasonId)
     {
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
-        if (season == null) return 0;
-        return season.rewarded;
+        if (season == null) return IntResult.Set(0);
+        return IntResult.Set(season.rewarded);
     }
 
     public static void SetSeasonRewarded(int seasonId, int rewarded)
@@ -183,35 +168,35 @@ public class Profile : MonoBehaviour
         SaveLocal();
     }
 
-    public static bool CanOpenLevel(int seasonId, int index)
+    public static BoolResult CanOpenLevel(int seasonId, int index)
     {
-        if (index < 0) return false;
+        if (index < 0) return BoolResult.Set(false);
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
         if (season == null)
             data.privateData.seasons.Add(season = new ProfileData.SeasonData() { id = seasonId });
-        return index <= season.levels.Count;
+        return BoolResult.Set(index <= season.levels.Count);
     }
 
-    public static int GetLevelsPassed()
+    public static IntResult GetLevelsPassed()
     {
-        if (data.privateData.seasons.Count < 1) return 0;
+        if (data.privateData.seasons.Count < 1) return IntResult.Set(0);
         data.privateData.seasons.Sort((x, y) => x.id - y.id);
         var season = data.privateData.seasons.LastOne();
-        return GlobalFactory.Seasons.GetLevelNumber(season.id, season.levels.Count);
+        return IntResult.Set(GlobalFactory.Seasons.GetLevelNumber(season.id, season.levels.Count));
     }
 
-    public static int GetSeasonProgress(int seasonId)
+    public static IntResult GetSeasonProgress(int seasonId)
     {
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
-        return season == null ? 0 : season.levels.Count;
+        return IntResult.Set(season == null ? 0 : season.levels.Count);
     }
 
-    public static bool IsLevelPassed(int seasonId, int index)
+    public static BoolResult IsLevelPassed(int seasonId, int index)
     {
-        if (index < 0) return false;
+        if (index < 0) return BoolResult.Set(false);
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
-        if (season == null) return false;
-        return index < season.levels.Count;
+        if (season == null) return BoolResult.Set(false);
+        return BoolResult.Set(index < season.levels.Count);
     }
 
     // return 0 if no level found
@@ -243,9 +228,9 @@ public class Profile : MonoBehaviour
         SaveLocal();
     }
 
-    public static bool IsFriendRewarded(int id, int level)
+    public static BoolResult IsFriendRewarded(int id, int level)
     {
-        if (level < GlobalConfig.Friends.minRewardLevel) return false;
+        if (level < GlobalConfig.Friends.minRewardLevel) return BoolResult.Set(false);
         var item = data.privateData.friends.Find(x => x.id == id);
         if (item == null)
         {
@@ -253,7 +238,7 @@ public class Profile : MonoBehaviour
             item.id = id;
             data.privateData.friends.Add(item);
         }
-        return item.rewarded > 0;
+        return BoolResult.Set(item.rewarded > 0);
     }
 
     public static void SetFriendRewarded(int id, int gems)
@@ -300,14 +285,14 @@ public class Profile : MonoBehaviour
 
     private static void StartSession()
     {
-        data.privateData.sessions++;
+        data.privateData.sessions = data.privateData.sessions.Get.value + 1;
         if (IsFirstSession)
         {
             EarnGems(GlobalConfig.ProfilePreset.gems);
-            Energy = GlobalConfig.ProfilePreset.energy;
-            Bombs = GlobalConfig.ProfilePreset.bombs;
-            Hammers = GlobalConfig.ProfilePreset.hammers;
-            Missiles = GlobalConfig.ProfilePreset.missles;
+            SetEnergy(GlobalConfig.ProfilePreset.energy);
+            SetBombs(GlobalConfig.ProfilePreset.bombs);
+            SetHammers(GlobalConfig.ProfilePreset.hammers);
+            SetMissiles(GlobalConfig.ProfilePreset.missles);
 
             GlobalAnalytics.SourceGem(GlobalConfig.ProfilePreset.gems, "first");
         }
@@ -449,7 +434,7 @@ public class Profile : MonoBehaviour
     {
         if (IsFirstSession)
         {
-            Online.Timer.Set(GlobalConfig.Luckyspin.timerId, 60);
+            Online.Timer.Set(Timers.Luckyspin, 60);
         }
     }
 

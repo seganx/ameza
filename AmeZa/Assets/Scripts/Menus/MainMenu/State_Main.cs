@@ -20,7 +20,7 @@ public class State_Main : GameState
 
         onlineButton.onClick.AddListener(() =>
         {
-            if (Profile.GetSeasonRewarded(0) > 0)
+            if (Profile.GetSeasonRewarded(0).value > 0)
                 Game.Instance.OpenState<State_SelectLeague>();
             else
                 tutorial.Display(0, false, 111034, null);
@@ -40,14 +40,14 @@ public class State_Main : GameState
 
         luckyButton.onClick.AddListener(() =>
         {
-            var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
+            var seconds = Online.Timer.GetRemainSeconds(Timers.Luckyspin, GlobalConfig.Luckyspin.interval);
             if (seconds > 0)
             {
                 Game.Instance.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
             }
             else
             {
-                Online.Timer.Set(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
+                Online.Timer.Set(Timers.Luckyspin, GlobalConfig.Luckyspin.interval);
                 Game.Instance.OpenPopup<Popup_LuckySpine>();
             }
         });
@@ -72,7 +72,7 @@ public class State_Main : GameState
         var wait = new WaitForSeconds(1);
         while (true)
         {
-            var seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Luckyspin.timerId, GlobalConfig.Luckyspin.interval);
+            var seconds = Online.Timer.GetRemainSeconds(Timers.Luckyspin, GlobalConfig.Luckyspin.interval);
             if (seconds > 0)
             {
                 luckyTimeLabel.transform.SetActiveChild(1);

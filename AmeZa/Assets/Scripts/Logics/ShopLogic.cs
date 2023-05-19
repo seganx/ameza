@@ -28,9 +28,9 @@ public static class ShopLogic
     private static void PurchasedPackage(GlobalConfig.Data.Shop.Package pack, System.Action nextTask)
     {
         Profile.EarnGems(pack.gems);
-        Profile.Bombs += pack.bombs;
-        Profile.Hammers += pack.hammers;
-        Profile.Missiles += pack.missiles;
+        Profile.SetBombs(Profile.Bombs.value + pack.bombs);
+        Profile.SetHammers(Profile.Hammers.value + pack.hammers);
+        Profile.SetMissiles(Profile.Missiles.value + pack.missiles);
 
         Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, pack.gems, pack.bombs, pack.hammers, pack.missiles, true, false, nextTask);
 
@@ -39,7 +39,7 @@ public static class ShopLogic
             if (success)
             {
                 GlobalAnalytics.NewBusinessEvent(pack.price, pack.sku);
-                Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems, Profile.Skill, Profile.GetLevelsPassed(), r => { });
+                Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems.value, Profile.Skill, Profile.GetLevelsPassed().value, r => { });
             }
         });
 
@@ -48,6 +48,10 @@ public static class ShopLogic
 
     private static void PurchasedVip(GlobalConfig.Data.Shop.VIP pack, System.Action nextTask)
     {
-        //Profile.IsVIP
+        var remained = Profile.VipSeconds.value;
+        if (remained < 0) remained = 0;
+        var newtime = pack.days * 86400;
+        Profile.SetVipSeconds(remained + newtime);
+        nextTask?.Invoke();
     }
 }

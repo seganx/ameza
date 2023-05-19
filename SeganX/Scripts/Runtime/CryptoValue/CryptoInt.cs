@@ -9,55 +9,38 @@ namespace SeganX
         public int v;
         public int c;
 
-        public int Value
+        public IntResult Get => IntResult.Set(Decrypt(v, k));
+
+        public void Decrypt(Action<int> result)
         {
-            get
-            {
-                int res = Decrypt(v, k);
-                return res == c ? res : 0;
-            }
+            int res = Decrypt(v, k);
+            result?.Invoke(res == c ? res : 0);
         }
 
-        private CryptoInt(int a)
+        public void Encrypt(int value)
         {
-            var rand = new Random((int)DateTime.Now.Ticks);
+            var rand = new Random((int)DateTimeOffset.Now.ToUnixTimeMilliseconds());
             do { k = rand.Next(int.MinValue, int.MaxValue); } while (k == 0);
-            v = Encrypt(a, k);
-            c = a;
+            v = Encrypt(value, k);
+            c = value;
         }
 
         public override string ToString()
         {
-            return Value.ToString();
+            int res = Decrypt(v, k);
+            return res.ToString();
         }
 
         public static implicit operator CryptoInt(int value)
         {
-            return new CryptoInt(value);
+            var result = new CryptoInt();
+            result.Encrypt(value);
+            return result;
         }
 
-        public static implicit operator int(CryptoInt value)
-        {
-            return value.Value;
-        }
-
-        public static implicit operator string(CryptoInt value)
-        {
-            return value.Value.ToString();
-        }
-
-        public static CryptoInt operator ++(CryptoInt input)
-        {
-            input = input.Value + 1;
-            return input;
-        }
-
-        public static CryptoInt operator --(CryptoInt input)
-        {
-            input = input.Value - 1;
-            return input;
-        }
-
+        //////////////////////////////////////////////////////
+        /// STATIC MEMBERS
+        //////////////////////////////////////////////////////
         private static int Encrypt(int value, int key)
         {
             var v = (value ^ key);

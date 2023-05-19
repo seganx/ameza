@@ -23,38 +23,38 @@ public class UiVipBox : MonoBehaviour
 
         bombButton.onClick.AddListener(() => CheckVIP(() =>
         {
-            if (Profile.Bombs > 0)
+            if (Profile.Bombs.value > 0)
             {
-                Profile.Bombs--;
+                Profile.SetBombs(Profile.Bombs.value - 1);
                 Profile.Skill -= GlobalConfig.Difficulty.loseFactor / 1;
                 callback(AbilityType.Bomb);
                 UpdateTexts();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.bombs, GlobalConfig.Shop.bombPrice, "bomb", count => Profile.Bombs += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.bombs, GlobalConfig.Shop.bombPrice, "bomb", count => Profile.SetBombs(Profile.Bombs.value + count));
         }));
 
         hammerButton.onClick.AddListener(() => CheckVIP(() =>
         {
-            if (Profile.Hammers > 0)
+            if (Profile.Hammers.value > 0)
             {
-                Profile.Hammers--;
+                Profile.SetHammers(Profile.Hammers.value - 1);
                 Profile.Skill -= GlobalConfig.Difficulty.loseFactor / 3;
                 callback(AbilityType.Hammer);
                 UpdateTexts();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.hammers, GlobalConfig.Shop.hammerPrice, "hammer", count => Profile.Hammers += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.hammers, GlobalConfig.Shop.hammerPrice, "hammer", count => Profile.SetHammers(Profile.Hammers.value + count));
         }));
 
         missleButton.onClick.AddListener(() => CheckVIP(() =>
         {
-            if (Profile.Missiles > 0)
+            if (Profile.Missiles.value > 0)
             {
-                Profile.Missiles--;
+                Profile.SetMissiles(Profile.Missiles.value - 1);
                 Profile.Skill -= GlobalConfig.Difficulty.loseFactor / 2;
                 callback(AbilityType.Missle);
                 UpdateTexts();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, "scissor", count => Profile.Missiles += count);
+            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, "scissor", count => Profile.SetMissiles(Profile.Missiles.value + count));
         }));
 
         return this;
@@ -62,14 +62,14 @@ public class UiVipBox : MonoBehaviour
 
     private void UpdateTexts()
     {
-        bombLabel.SetText(Profile.Bombs > 0 ? $"x{Profile.Bombs}" : "+");
-        hammerLabel.SetText(Profile.Hammers > 0 ? $"x{Profile.Hammers}" : "+");
-        missleLabel.SetText(Profile.Missiles > 0 ? $"x{Profile.Missiles}" : "+");
+        bombLabel.SetText(Profile.Bombs.value > 0 ? $"x{Profile.Bombs.value}" : "+");
+        hammerLabel.SetText(Profile.Hammers.value > 0 ? $"x{Profile.Hammers.value}" : "+");
+        missleLabel.SetText(Profile.Missiles.value > 0 ? $"x{Profile.Missiles.value}" : "+");
     }
 
     private void UpdateLocks()
     {
-        var islock = Profile.IsVIP == false;
+        var islock = Profile.IsVIP.value == false;
         bombLock.SetActive(islock);
         hammerLock.SetActive(islock);
         missleLock.SetActive(islock);
@@ -105,7 +105,7 @@ public class UiVipBox : MonoBehaviour
     //////////////////////////////////////////////////////
     public static void CheckAndGo(System.Action onPass, System.Action onVipChanged = null)
     {
-        if (Profile.IsVIP)
+        if (Profile.IsVIP.value)
         {
             onPass?.Invoke();
         }

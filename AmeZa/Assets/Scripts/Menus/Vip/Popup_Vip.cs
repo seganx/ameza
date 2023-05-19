@@ -29,7 +29,7 @@ public class Popup_Vip : GameState
         var wait = new WaitForSecondsRealtime(1);
         while (true)
         {
-            status.SetActiveChild(Profile.IsVIP ? 0 : 1);
+            status.SetActiveChild(Profile.IsVIP.value ? 0 : 1);
             timerLabel.SetFormatedText("00");
             yield return wait;
         }

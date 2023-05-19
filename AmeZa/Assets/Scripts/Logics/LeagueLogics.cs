@@ -11,7 +11,7 @@ public static class LeagueLogics
 
     public static bool SetPlayerModel()
     {
-        if (Profile.Energy < 1)
+        if (Profile.Energy.value < 1)
         {
             Game.Instance.OpenPopup<Popup_BuyHearts>();
             return false;

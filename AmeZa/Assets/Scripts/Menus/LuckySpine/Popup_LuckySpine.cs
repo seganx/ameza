@@ -174,14 +174,14 @@ public class Popup_LuckySpine : GameState
         if (items[0] > 1)
         {
             var bombs = items[0];
-            Profile.Bombs += bombs;
+            Profile.SetBombs(Profile.Bombs.value = bombs);
             Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, 0, bombs, 0, 0, true);
             descAgain.SetActive(false);
         }
         else if (items[1] > 1)
         {
             var missiles = items[1];
-            Profile.Missiles += missiles;
+            Profile.SetMissiles(Profile.Missiles.value = missiles);
             Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, 0, 0, 0, missiles, true);
             descAgain.SetActive(false);
         }
@@ -196,14 +196,14 @@ public class Popup_LuckySpine : GameState
         else if (items[3] > 1)
         {
             var hammers = Mathf.Max(0, items[3] - 1);
-            Profile.Hammers += hammers;
+            Profile.SetHammers(Profile.Hammers.value = hammers);
             Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, 0, 0, hammers, 0, true);
             descAgain.SetActive(false);
         }
         else if (items[4] > 1)
         {
             var hearts = items[4] - 1;
-            Profile.Energy += hearts;
+            Profile.SetEnergy(Profile.Energy.value = hearts);
             Game.Instance.OpenPopup<Popup_Confirm>().SetText(111017, hearts).Setup(true, false, null);
             descAgain.SetActive(false);
         }

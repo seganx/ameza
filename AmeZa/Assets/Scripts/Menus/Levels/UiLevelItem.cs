@@ -23,7 +23,7 @@ public class UiLevelItem : MonoBehaviour
 
         button.onClick.AddListener(() =>
         {
-            if (Profile.Energy > 0)
+            if (Profile.Energy.value > 0)
             {
                 Game.Instance.OpenPopup<Popup_LevelInfo>().Setup(season, index, true);
             }

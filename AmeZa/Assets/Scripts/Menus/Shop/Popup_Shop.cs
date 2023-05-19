@@ -24,7 +24,7 @@ public class Popup_Shop : GameState
 
     private IEnumerator Start()
     {
-        var index = PurchaseOffer.GetOfferIndex(Profile.Gems);
+        var index = PurchaseOffer.GetOfferIndex(Profile.Gems.value);
         if (index.Between(0, GlobalConfig.Shop.offers.Count - 1))
         {
             var item = combinedItem.Clone<UiShopItem>();
@@ -51,7 +51,7 @@ public class Popup_Shop : GameState
         var wait = new WaitForSeconds(0.5f);
         while (true)
         {
-            gemsLabel.SetText(Profile.Gems.ToString("#,0"));
+            gemsLabel.SetText(Profile.Gems.value.ToString("#,0"));
             yield return wait;
         }
     }

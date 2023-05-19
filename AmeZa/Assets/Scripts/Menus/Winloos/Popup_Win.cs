@@ -34,7 +34,7 @@ public class Popup_Win : GameState
         int rewardStars = PlayModel.GetRewardStars();
 
         // verify that player has been passed this level
-        if (Profile.IsLevelPassed(PlayModel.level.season, PlayModel.level.index))
+        if (Profile.IsLevelPassed(PlayModel.level.season, PlayModel.level.index).value)
             rewards.gems = rewards.bombs = rewards.hammers = rewards.missiles = 0;
 
         Profile.SetLevelStars(PlayModel.level.season, PlayModel.level.index, rewardStars);
@@ -72,9 +72,9 @@ public class Popup_Win : GameState
             continueButton.gameObject.SetActive(false);
 
             Profile.EarnGems(rewards.gems);
-            Profile.Bombs += rewards.bombs;
-            Profile.Hammers += rewards.hammers;
-            Profile.Missiles += rewards.missiles;
+            Profile.SetBombs(Profile.Bombs.value + rewards.bombs);
+            Profile.SetHammers(Profile.Hammers.value + rewards.hammers);
+            Profile.SetMissiles(Profile.Missiles.value + rewards.missiles);
             Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, rewards.gems, rewards.bombs, rewards.hammers, rewards.missiles, true, true, () =>
             {
                 continueButton.gameObject.SetActive(false);

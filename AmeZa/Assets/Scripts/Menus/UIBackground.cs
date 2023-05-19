@@ -30,7 +30,7 @@ public class UIBackground : MonoBehaviour
             break;
         }
 
-        heartsButton.onClick.AddListener(() => { if (Profile.Energy < GlobalConfig.ProfilePreset.energy) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
+        heartsButton.onClick.AddListener(() => { if (Profile.Energy.value < GlobalConfig.ProfilePreset.energy) Game.Instance.OpenPopup<Popup_BuyHearts>(); });
         gemsButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Shop>(); });
         profileButton.onClick.AddListener(() => { Game.Instance.OpenPopup<Popup_Profile>(); });
         updateButton.onClick.AddListener(() => { Application.OpenURL(GlobalConfig.Market.storeUrl); });
@@ -44,16 +44,16 @@ public class UIBackground : MonoBehaviour
             avatar.Setup(Profile.Avatar.Current);
             updateButton.gameObject.SetActive(GlobalConfig.Update.mode != GlobalConfig.Data.Update.Mode.Null);
             nickNameLabel.SetText(Profile.Nickname);
-            gems.SetText(Profile.Gems.ToString("#,0"));
+            gems.SetText(Profile.Gems.value.ToString("#,0"));
 
-            if (Profile.Energy < 1)
+            if (Profile.Energy.value < 1)
             {
-                int seconds = Online.Timer.GetRemainSeconds(GlobalConfig.Energy.timerId, GlobalConfig.Energy.interval);
+                int seconds = Online.Timer.GetRemainSeconds(Timers.Energy, GlobalConfig.Energy.interval);
                 energyLabel.SetText((seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00"));
             }
             else
             {
-                energyLabel.SetText($"{Profile.Energy}/{GlobalConfig.ProfilePreset.energy}");
+                energyLabel.SetText($"{Profile.Energy.value}/{GlobalConfig.ProfilePreset.energy}");
             }
             yield return wait;
         }

@@ -14,7 +14,7 @@ public static class StoryLogic
 
     public static bool NextLevel()
     {
-        if (index < season.levelCount - 1 && Profile.Energy > 0)
+        if (index < season.levelCount - 1 && Profile.Energy.value > 0)
         {
             return SetPlayModel(season, index + 1);
         }
@@ -23,7 +23,7 @@ public static class StoryLogic
 
     public static bool Reset()
     {
-        if (Profile.Energy < 1)
+        if (Profile.Energy.value < 1)
         {
             Game.Instance.OpenPopup<Popup_BuyHearts>();
             return false;

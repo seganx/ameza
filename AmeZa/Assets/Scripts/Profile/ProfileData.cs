@@ -39,15 +39,12 @@ public class ProfileData
         public CryptoInt hammers = 0;
         public CryptoInt skill = 0;
         public CryptoInt classicScore = 0;
-        public CryptoInt vip = 0;
+        public long vip = 0;
         public List<int> balls = new List<int>() { 0 };
         public List<FriendData> friends = new List<FriendData>();
         public List<SeasonData> seasons = new List<SeasonData>();
 
-        public string Datahash
-        {
-            get { return "H" + gems.Value + "|" + energy.Value + "|" + bombs.Value + "|" + missles.Value + "|" + hammers.Value + "|" + balls.Count; }
-        }
+        public string Datahash => "H" + gems.Get.value + "|" + energy.Get.value + "|" + bombs.Get.value + "|" + missles.Get.value + "|" + hammers.Get.value + "|" + vip + "|" + balls.Count;
     }
 
     [System.Serializable]

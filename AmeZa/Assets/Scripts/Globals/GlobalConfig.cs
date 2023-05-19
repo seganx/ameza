@@ -126,7 +126,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class Energy
         {
-            public int timerId = 1;
             public int interval = 900;
         }
 
@@ -150,7 +149,6 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
         [System.Serializable]
         public class Luckyspin
         {
-            public int timerId = 2;
             public int interval = 28800;
             public int gems = 50;
         }

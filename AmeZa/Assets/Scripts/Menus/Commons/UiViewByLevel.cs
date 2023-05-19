@@ -8,7 +8,7 @@ public class UiViewByLevel : MonoBehaviour
 
     private void Awake()
     {
-        if (Profile.Sessions < session || Profile.GetLevelsPassed() < level)
+        if (Profile.Sessions < session || Profile.GetLevelsPassed().value < level)
             gameObject.SetActive(false);
     }
 }

@@ -888,12 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf24e05514261af4db06395bc373afe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombButton: {fileID: 0}
-  bombLabel: {fileID: 0}
-  hammerButton: {fileID: 0}
-  hammerLabel: {fileID: 0}
-  missleButton: {fileID: 0}
-  missleLabel: {fileID: 0}
+  vipBox: {fileID: 6885839624207718698}
   backButton: {fileID: 1948597145749800}
   homeContent: {fileID: 1585205198544912}
   homeButton: {fileID: 114934323381119792}

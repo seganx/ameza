@@ -77,7 +77,7 @@ namespace SeganX
                 Save();
             }
 
-            public static int GetRemainSeconds(int timerId, float duration)
+            public static int GetRemainSeconds(int timerId, int duration)
             {
                 var timer = data.Find(x => x.id == timerId);
                 if (timer == null)

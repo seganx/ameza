@@ -16,7 +16,7 @@ public class State_Playing : GameState
 
     private IEnumerator Start()
     {
-        Profile.Energy--;
+        Profile.SetEnergy(Profile.Energy.value - 1);
         GlobalFactory.Theme.Select(PlayModel.level.theme);
         sounds = GlobalFactory.Theme.Selected.sounds.Clone<ThemeSounds>(transform);
 
