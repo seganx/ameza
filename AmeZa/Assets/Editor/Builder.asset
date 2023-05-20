@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Builder
   m_EditorClassIdentifier: 
   version: 35
-  bundleVersionCode: 3500
+  bundleVersionCode: 3502
   symbols:
     cameraFX: 0
     onlineSystem: 1
@@ -30,9 +30,9 @@ MonoBehaviour:
   buildAndRunIndex: 0
   stopQueueOnError: 1
   builds:
-  - title: "0:\u2713 ameza_35.3500_bazaar_v7.apk"
+  - title: "0:\u2713 ameza_35.3502_bazaar_v7.apk"
     activated: 1
     config: {fileID: 11400000, guid: 02b6a04fd14874f4cb0a8e59b032c5e5, type: 2}
-  - title: "1:\u2713 ameza_35.3500_myket_v7.apk"
+  - title: "1:\u2713 ameza_35.3502_myket_v7.apk"
     activated: 1
     config: {fileID: 11400000, guid: 396c6442203a5e94e9df50d5dd658f22, type: 2}

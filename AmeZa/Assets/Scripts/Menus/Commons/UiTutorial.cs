@@ -35,7 +35,7 @@ public class UiTutorial : MonoBehaviour
         Visible = true;
         label.SetText(str);
         onCloseFunc = onClose;
-        Invoke("Show", delay);
+        Invoke(nameof(Show), delay);
         return true;
     }
 
@@ -47,7 +47,7 @@ public class UiTutorial : MonoBehaviour
     public bool DisplayJoke(float delay)
     {
         if (GlobalFactory.Jokes.Exist == false) return false;
-        Invoke("DoDisplayJoke", delay);
+        Invoke(nameof(DoDisplayJoke), delay);
         return true;
     }
 

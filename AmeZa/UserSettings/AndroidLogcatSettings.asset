@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R58N6062KMN",
         "name": "com.parsehgames.ameza",
-        "processId": 29777,
+        "processId": 30894,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,12 +12,30 @@
             "deviceId": "R58N6062KMN",
             "name": "com.farsitel.bazaar",
             "processId": 30522,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R58N6062KMN",
             "name": "com.parsehgames.ameza",
             "processId": 29777,
+            "exited": true
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.parsehgames.ameza",
+            "processId": 23095,
+            "exited": true
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.parsehgames.ameza",
+            "processId": 27712,
+            "exited": true
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.parsehgames.ameza",
+            "processId": 30894,
             "exited": false
         }
     ],

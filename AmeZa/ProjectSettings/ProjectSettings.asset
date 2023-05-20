@@ -132,7 +132,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 35.3500
+  bundleVersion: 35.3502
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -178,7 +178,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.parsehgames.ameza
   buildNumber: {}
-  AndroidBundleVersionCode: 3500
+  AndroidBundleVersionCode: 3502
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 29
   AndroidPreferredInstallLocation: 0
@@ -694,7 +694,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     1: SX_ONLINE;SX_IAP;SX_ZIP;SX_PARSI;SX_OLDCORE;SX_SHRNG;SX_CENSOR;SX_EXDBG;SX_CCMD
     4: SX_ONLINE;SX_IAP;SX_ZIP;SX_PARSI;SX_OLDCORE;SX_SHRNG;SX_CENSOR;SX_EXDBG;SX_CCMD
-    7: MYKET;SX_CCMD;SX_CENSOR;SX_EXDBG;SX_IAP;SX_OLDCORE;SX_ONLINE;SX_PARSI;SX_SHRNG;SX_ZIP
+    7: SX_ONLINE;SX_IAP;SX_ZIP;SX_PARSI;SX_OLDCORE;SX_SHRNG;SX_CENSOR;SX_EXDBG;SX_CCMD
     13: SX_ONLINE;SX_IAP;SX_ZIP;SX_PARSI;SX_OLDCORE;SX_SHRNG;SX_CENSOR;SX_EXDBG;SX_CCMD
   platformArchitecture: {}
   scriptingBackend:

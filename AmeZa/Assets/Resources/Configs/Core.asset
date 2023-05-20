@@ -17,9 +17,8 @@ MonoBehaviour:
     salt: sx.beigjani
   onlineOptions:
     gameId: 469536763
-    onlineDomain: seganx.ir
   testDevices:
     active: 1
     index: 0
     list:
-    - ver28__0
+    - ver35_0

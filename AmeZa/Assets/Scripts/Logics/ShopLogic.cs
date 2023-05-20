@@ -53,5 +53,14 @@ public static class ShopLogic
         var newtime = pack.days * 86400;
         Profile.SetVip(remained + newtime);
         nextTask?.Invoke();
+
+        PurchaseSystem.Consume(pack.sku, (success, msg) =>
+        {
+            if (success)
+            {
+                GlobalAnalytics.NewBusinessEvent(pack.price, pack.sku);
+                Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems.value, Profile.Skill, Profile.GetLevelsPassed().value, r => { });
+            }
+        });
     }
 }
