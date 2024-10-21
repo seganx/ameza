@@ -27,13 +27,7 @@ namespace SeganX
     [CustomPropertyDrawer(typeof(PersianPreviewAttribute))]
     public class PersianPreviewAttributeDrawer : PropertyDrawer
     {
-        private static GUIStyle style = new GUIStyle(GUI.skin.label)
-        {
-            alignment = TextAnchor.UpperRight,
-            wordWrap = true,
-            border = new RectOffset(10, 10, 0, 0),
-            padding = new RectOffset(10, 15, 0, 0)
-        };
+        private static GUIStyle style = null;
 
         private float baseHeight;
         private int lines;
@@ -50,6 +44,15 @@ namespace SeganX
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (style == null)
+                style = new GUIStyle(GUI.skin.label)
+                {
+                    alignment = TextAnchor.UpperRight,
+                    wordWrap = true,
+                    border = new RectOffset(10, 10, 0, 0),
+                    padding = new RectOffset(10, 15, 0, 0)
+                };
+
             var height = (position.height - baseHeight) / 2;
             position.height = baseHeight;
             EditorGUI.LabelField(position, label);

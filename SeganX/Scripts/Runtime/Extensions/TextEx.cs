@@ -79,6 +79,9 @@ namespace SeganX
 
         public static Text SetTextAndWrap(this Text self, string text, bool autoRtl = false, bool forcePersian = false)
         {
+            self.text = text;
+            return self;
+#if OFF
             if (text.IsNullOrEmpty())
             {
                 self.text = text;
@@ -114,8 +117,8 @@ namespace SeganX
                 else self.text = text;
             }
             else self.text = text;
-
             return self;
+#endif
         }
 
         public static Text FitAlignment(this Text self, bool rtl)

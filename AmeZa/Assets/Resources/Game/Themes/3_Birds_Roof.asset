@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1549783cff64f42ad6c77a72bb8751, type: 3}
+  m_Name: 3_Birds_Roof
+  m_EditorClassIdentifier: 
+  previewBackground: {fileID: 21300000, guid: 1f41b1fd523d04040b43f4e51a7c7704, type: 3}
+  cinematicBackground: {fileID: 21300000, guid: 1f41b1fd523d04040b43f4e51a7c7704,
+    type: 3}
+  playingBackground: {fileID: 21300000, guid: 1f41b1fd523d04040b43f4e51a7c7704, type: 3}
+  playingMissionBackground: {fileID: 21300000, guid: 5a734964e988a2a46b62a78c3b6f97fe,
+    type: 3}
+  items:
+  - {fileID: 21300000, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300002, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300004, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300006, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300008, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300010, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300012, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300014, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  - {fileID: 21300016, guid: 8ee66f667435dac429de51e7083a2742, type: 3}
+  sounds: {fileID: 114678498168420298, guid: 1366cc3c818238a4c835a0a655895a8a, type: 3}

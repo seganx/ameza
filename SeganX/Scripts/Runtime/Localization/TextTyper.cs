@@ -8,11 +8,12 @@ using UnityEngine.UI;
 namespace SeganX
 {
     [DefaultExecutionOrder(1)]
-    public class TextTyper : MonoBehaviour
+    public class TextTyper : Base
     {
         [SerializeField] private Text target = null;
         [SerializeField] private float delayTime = 0.01f;
 
+#if OFF
         private string[] lines = null;
         private string text = string.Empty;
         private string targetText = null;
@@ -77,6 +78,12 @@ namespace SeganX
             if (target == null)
                 target = transform.GetComponent<Text>(true, true);
         }
+#else
+        public void Setup(Action onFinish)
+        {
+            DelayCall(1, onFinish);
+        }
+#endif
     }
 }
 #endif

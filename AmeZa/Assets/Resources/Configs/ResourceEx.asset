@@ -109,11 +109,11 @@ MonoBehaviour:
     name: 2
     tags: []
     ids: 02000000
-  - path: Game/Themes/3_Dices_Roof
+  - path: Game/Themes/3_Birds_Roof
     dire: Game/Themes/
-    name: 3_Dices_Roof
+    name: 3_Birds_Roof
     tags:
-    - Dices
+    - Birds
     - Roof
     ids: 03000000
   - path: Game/Patterns/Missions/3_Repeat_1

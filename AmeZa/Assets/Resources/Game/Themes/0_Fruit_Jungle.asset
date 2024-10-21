@@ -25,4 +25,7 @@ MonoBehaviour:
   - {fileID: 21300006, guid: 3926d92cbad687042b370ae952390f32, type: 3}
   - {fileID: 21300008, guid: 3926d92cbad687042b370ae952390f32, type: 3}
   - {fileID: 21300010, guid: 3926d92cbad687042b370ae952390f32, type: 3}
+  - {fileID: -331410905, guid: 3926d92cbad687042b370ae952390f32, type: 3}
+  - {fileID: 1085139385, guid: 3926d92cbad687042b370ae952390f32, type: 3}
+  - {fileID: -36534957, guid: 3926d92cbad687042b370ae952390f32, type: 3}
   sounds: {fileID: 114678498168420298, guid: 7fd8603b63a8d3f49a3f9fe65f954865, type: 3}

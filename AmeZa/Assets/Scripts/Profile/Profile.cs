@@ -110,8 +110,8 @@ public class Profile : MonoBehaviour
         set => data.privateData.sessions = value;
     }
 
-    public static BoolResult IsVIP => BoolResult.Set(VipSeconds.value > 0);
-    public static LongResult VipSeconds => LongResult.Set(data.privateData.vip - Online.Timer.CurrentSeconds);
+    public static BoolResult IsVIP => BoolResult.Set(true);
+    public static LongResult VipSeconds => LongResult.Set(999);// data.privateData.vip - Online.Timer.CurrentSeconds);
     public static void SetVip(long value) => data.privateData.vip = value + Online.Timer.CurrentSeconds;
 
     public static IntResult Energy => data.privateData.energy.Get;

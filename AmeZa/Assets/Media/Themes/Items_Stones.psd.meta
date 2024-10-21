@@ -153,12 +153,12 @@ TextureImporter:
       name: Items_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 396
-        width: 100
+        x: 19
+        y: 402
+        width: 103
         height: 102
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,12 +174,12 @@ TextureImporter:
       name: Items_1
       rect:
         serializedVersion: 2
-        x: 138
-        y: 398
-        width: 100
-        height: 102
+        x: 140
+        y: 403
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -195,12 +195,12 @@ TextureImporter:
       name: Items_2
       rect:
         serializedVersion: 2
-        x: 261
-        y: 398
-        width: 100
-        height: 103
+        x: 260
+        y: 403
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -216,12 +216,12 @@ TextureImporter:
       name: Items_3
       rect:
         serializedVersion: 2
-        x: 384
-        y: 399
-        width: 100
-        height: 102
+        x: 380
+        y: 403
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -237,12 +237,12 @@ TextureImporter:
       name: Items_4
       rect:
         serializedVersion: 2
-        x: 13
-        y: 280
+        x: 21
+        y: 273
         width: 100
-        height: 102
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -258,12 +258,12 @@ TextureImporter:
       name: Items_5
       rect:
         serializedVersion: 2
-        x: 137
-        y: 280
+        x: 141
+        y: 273
         width: 100
-        height: 102
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -279,12 +279,12 @@ TextureImporter:
       name: Items_6
       rect:
         serializedVersion: 2
-        x: 261
-        y: 280
-        width: 100
-        height: 102
+        x: 260
+        y: 272
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -300,12 +300,12 @@ TextureImporter:
       name: Items_7
       rect:
         serializedVersion: 2
-        x: 13
-        y: 154
+        x: 381
+        y: 272
         width: 100
-        height: 102
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -317,10 +317,94 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Items_Stones_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 153
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7208bbc9b078e2b4ca5544467effa54e
+      internalID: 925118347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Items_Stones_1
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 152
+        width: 101
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8f86877234329469750dce8d1834e5
+      internalID: -1163538084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Items_Stones_2
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 152
+        width: 101
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f61d897db61e3849aad569dec103ae2
+      internalID: -1773407758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Items_Stones_3
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 153
+        width: 102
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e50c3f761eb360640b4b76175062d211
+      internalID: -1923646774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f0dc88e65deccfb4494ac6eb4b3a948d
     internalID: 0
     vertices: []
     indices: 
@@ -336,6 +420,10 @@ TextureImporter:
       Items_5: 21300010
       Items_6: 21300012
       Items_7: 21300014
+      Items_Stones_0: 925118347
+      Items_Stones_1: -1163538084
+      Items_Stones_2: -1773407758
+      Items_Stones_3: -1923646774
   mipmapLimitGroupName: 
   pSDRemoveMatte: 1
   userData: 

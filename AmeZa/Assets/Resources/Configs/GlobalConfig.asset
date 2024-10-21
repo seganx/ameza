@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f8026d0bd9bf94cb5a75b4e9a73dbc, type: 3}
   m_Name: GlobalConfig
   m_EditorClassIdentifier: 
-  version: 35
+  version: 36
   cafebazaar:
     storeUrl: https://cafebazaar.ir/app/com.parsehgames.ameza
     rateUrl: bazaar://details?id=com.parsehgames.ameza
@@ -301,7 +301,7 @@ MonoBehaviour:
         days: 7
       offers:
       - sku: ameza_offer_a_0
-        title: "\u062A\u062E\u0641\u064A\u0641 \u0648\u064A\u0698\u0647 \u062A\u0648"
+        title: Your special discount
         image: 0
         gems: 2500
         bombs: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
         lastPrice: 14000
         discount: 65
       - sku: ameza_offer_a_1
-        title: "\u067E\u064A\u0634\u0646\u0647\u0627\u062F \u0648\u064A\u0698\u0647"
+        title: Special Offer
         image: 1
         gems: 5000
         bombs: 3
@@ -321,7 +321,7 @@ MonoBehaviour:
         lastPrice: 39000
         discount: 60
       - sku: ameza_offer_a_2
-        title: "\u067E\u0631\u0641\u0631\u0648\u0634 \u062A\u0631\u064A\u0646"
+        title: Best Seller
         image: 2
         gems: 8000
         bombs: 5
@@ -331,7 +331,7 @@ MonoBehaviour:
         lastPrice: 69000
         discount: 55
       - sku: ameza_offer_a_3
-        title: "\u0648\u06CC\u0698\u0647 \u062F\u0648\u0633\u062A\u0627\u0646 \u0639\u0645\u0647\u200C\u0632\u0627"
+        title: bobby's Friends Special
         image: 3
         gems: 20000
         bombs: 7
@@ -341,8 +341,7 @@ MonoBehaviour:
         lastPrice: 89000
         discount: 50
       - sku: ameza_offer_a_4
-        title: "\u0639\u0627\u0644\u06CC\u200C\u062A\u0631\u06CC\u0646 \u067E\u06CC\u0634\u0646\u0647\u0627\u062F
-          \u0639\u0645\u0647"
+        title: Bobby's Ultimate Offer
         image: 4
         gems: 40000
         bombs: 12
@@ -353,7 +352,7 @@ MonoBehaviour:
         discount: 45
       combinedPackages:
       - sku: ameza_comb_a_0
-        title: "\u0628\u0633\u062A\u0647 \u0645\u0639\u0645\u0648\u0644\u064A"
+        title: Standard Pack
         image: 0
         gems: 2500
         bombs: 1
@@ -363,7 +362,7 @@ MonoBehaviour:
         lastPrice: 0
         discount: 0
       - sku: ameza_comb_a_1
-        title: "\u064A\u0647 \u0645\u0634\u062A \u0627\u0644\u0645\u0627\u0633"
+        title: A Handful of Gems
         image: 1
         gems: 5000
         bombs: 3
@@ -373,7 +372,7 @@ MonoBehaviour:
         lastPrice: 0
         discount: 0
       - sku: ameza_comb_a_2
-        title: "\u0628\u0642\u0686\u0647 \u0639\u0645\u0647"
+        title: Bobby's Bundle
         image: 2
         gems: 8000
         bombs: 5
@@ -383,7 +382,7 @@ MonoBehaviour:
         lastPrice: 0
         discount: 0
       - sku: ameza_comb_a_3
-        title: "\u062E\u0645\u0631\u0647 \u0639\u0645\u0647"
+        title: Bobby's Jar
         image: 3
         gems: 20000
         bombs: 7
@@ -393,7 +392,7 @@ MonoBehaviour:
         lastPrice: 0
         discount: 0
       - sku: ameza_comb_a_4
-        title: "\u0635\u0646\u062F\u0648\u0642\u0686\u0647 \u0627\u0633\u0631\u0627\u0631"
+        title: Mystery Chest
         image: 4
         gems: 40000
         bombs: 12
@@ -403,7 +402,7 @@ MonoBehaviour:
         lastPrice: 0
         discount: 0
       - sku: ameza_comb_a_5
-        title: "\u06AF\u0646\u062C\u064A\u0646\u0647 \u0639\u0645\u0647"
+        title: Bobby's Treasure
         image: 5
         gems: 85000
         bombs: 20
@@ -483,52 +482,18 @@ MonoBehaviour:
     - items:
       - delay: 86400
         texts:
-        - "\u062E\u0633\u062A\u0647 \u0646\u0634\u062F\u06CC\u061F \U0001F644|\u0628\u06CC\u0627
-          \u06CC\u06A9\u0645 \u0631\u06CC\u0644\u06A9\u0633 \u06A9\u0646 \u0641\u06A9\u0631\u062A
-          \u0622\u0632\u0627\u062F \u0628\u0634\u0647! \U0001F929"
-        - "\u0639\u0645\u0647\u200C\u0632\u0627 \u0628\u0647 \u06A9\u0645\u06A9\u062A
-          \u0646\u06CC\u0627\u0632 \u062F\u0627\u0631\u0647 \U0001F644|\u0628\u06CC\u0627
-          \u0628\u0631\u06AF\u0631\u062F \u062A\u0648 \u0628\u0627\u0632\u06CC \u062A\u0627
-          \u0627\u0632 \u0639\u0645\u0647 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC
-          \U0001F60D"
-        - "\u0633\u0631\u062A \u062E\u0644\u0648\u062A\u0647\u061F \U0001F60C|\u0628\u06CC\u0627
-          \u06CC\u06A9\u0645 \u062A\u0641\u0631\u06CC\u062D \u06A9\u0646 \u0644\u0630\u062A
-          \u0628\u0628\u0631 \U0001F609"
+        - Got some free time? | Come have some fun and enjoy!
+      - delay: 172800
+        texts:
+        - Bobby needs your help | Come back to the game and grab your reward from
+          Bobby!
       - delay: 259200
         texts:
-        - "\u062E\u0633\u062A\u0647 \u0646\u0634\u062F\u06CC\u061F \U0001F644|\u0628\u06CC\u0627
-          \u06CC\u06A9\u0645 \u0631\u06CC\u0644\u06A9\u0633 \u06A9\u0646 \u0641\u06A9\u0631\u062A
-          \u0622\u0632\u0627\u062F \u0628\u0634\u0647! \U0001F929"
-        - "\u0639\u0645\u0647\u200C\u0632\u0627 \u0628\u0647 \u06A9\u0645\u06A9\u062A
-          \u0646\u06CC\u0627\u0632 \u062F\u0627\u0631\u0647 \U0001F644|\u0628\u06CC\u0627
-          \u0628\u0631\u06AF\u0631\u062F \u062A\u0648 \u0628\u0627\u0632\u06CC \u062A\u0627
-          \u0627\u0632 \u0639\u0645\u0647 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC
-          \U0001F60D"
-        - "\u0633\u0631\u062A \u062E\u0644\u0648\u062A\u0647\u061F \U0001F60C|\u0628\u06CC\u0627
-          \u06CC\u06A9\u0645 \u062A\u0641\u0631\u06CC\u062D \u06A9\u0646 \u0644\u0630\u062A
-          \u0628\u0628\u0631 \U0001F609"
-      - delay: 432000
-        texts:
-        - "\u062E\u0633\u062A\u0647 \u0646\u0634\u062F\u06CC\u061F \U0001F644|\u0628\u06CC\u0627
-          \u06CC\u06A9\u0645 \u0631\u06CC\u0644\u06A9\u0633 \u06A9\u0646 \u0641\u06A9\u0631\u062A
-          \u0622\u0632\u0627\u062F \u0628\u0634\u0647! \U0001F929"
-        - "\u0639\u0645\u0647\u200C\u0632\u0627 \u0628\u0647 \u06A9\u0645\u06A9\u062A
-          \u0646\u06CC\u0627\u0632 \u062F\u0627\u0631\u0647 \U0001F644|\u0628\u06CC\u0627
-          \u0628\u0631\u06AF\u0631\u062F \u062A\u0648 \u0628\u0627\u0632\u06CC \u062A\u0627
-          \u0627\u0632 \u0639\u0645\u0647 \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC
-          \U0001F60D"
-        - "\u0633\u0631\u062A \u062E\u0644\u0648\u062A\u0647\u061F \U0001F60C|\u0628\u06CC\u0627
-          \u06CC\u06A9\u0645 \u062A\u0641\u0631\u06CC\u062D \u06A9\u0646 \u0644\u0630\u062A
-          \u0628\u0628\u0631 \U0001F609"
-      heartFull: "\u0642\u0644\u0628\u200C\u0647\u0627\u062A \u067E\u0631 \u0634\u062F\u0647
-        \u2764\uFE0F|\u0628\u06CC\u0627 \u06A9\u0647 \u0639\u0645\u0647 \u0628\u0627
-        \u06CC\u0647 \u062F\u0646\u06CC\u0627 \u0639\u0634\u0642 \u0627\u0646\u062A\u0638\u0627\u0631\u062A
-        \u0631\u0648 \u0645\u06CC\u200C\u06A9\u0634\u0647 \U0001F601"
-      luckySpine: "\u06AF\u0631\u062F\u0648\u0646\u0647 \u0634\u0627\u0646\u0633
-        \u0622\u0645\u0627\u062F\u0647 \u0634\u062F\u0647 \U0001F3B0|\u0628\u06CC\u0627
-        \u0628\u0628\u06CC\u0646 \u0627\u06CC\u0646\u0628\u0627\u0631 \u0686\u0647
-        \u062C\u0627\u06CC\u0632\u0647 \u0634\u0627\u0646\u0633\u06CC \u0645\u06CC\u200C\u06AF\u06CC\u0631\u06CC
-        \U0001F929"
+        - Feeling tired? | Come relax and clear your mind!
+      heartFull: "Your hearts are full \u2764|Come, Auntie\u2019s waiting for you
+        with a world of love!"
+      luckySpine: "The Lucky Wheel is ready|Come see what surprise prize you\u2019ll
+        get this time!"
     jokes: []
   offline: 1
   offlineGroup: 0

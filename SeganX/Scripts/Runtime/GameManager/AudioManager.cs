@@ -82,7 +82,7 @@ namespace SeganX
             get { return PlayerPrefs.GetInt("GameSettings.MusicVolume", instance.initialVolume); }
             set
             {
-                if (currentSource != null)
+                if (currentSource.source != null)
                 {
                     currentSource.source.volume = currentSource.initVolume * value * 0.005f;
                 }

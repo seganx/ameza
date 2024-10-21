@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: LocalizationService
   m_EditorClassIdentifier: 
   currentKit: {fileID: 11400000, guid: abed66283f06ebb4a8e460923439c662, type: 2}
-  kits: []
+  kits:
+  - {fileID: 11400000, guid: abed66283f06ebb4a8e460923439c662, type: 2}
+  - {fileID: 11400000, guid: e0bfd780abefc854eaf8a6d7e39a7b0e, type: 2}

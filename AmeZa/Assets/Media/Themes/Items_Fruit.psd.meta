@@ -144,12 +144,12 @@ TextureImporter:
       name: Items_0
       rect:
         serializedVersion: 2
-        x: 21
+        x: 20
         y: 403
-        width: 100
-        height: 100
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,12 +165,12 @@ TextureImporter:
       name: Items_1
       rect:
         serializedVersion: 2
-        x: 142
+        x: 140
         y: 403
-        width: 100
-        height: 100
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,12 +186,12 @@ TextureImporter:
       name: Items_2
       rect:
         serializedVersion: 2
-        x: 264
+        x: 260
         y: 403
-        width: 99
-        height: 100
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,12 +207,12 @@ TextureImporter:
       name: Items_3
       rect:
         serializedVersion: 2
-        x: 385
+        x: 380
         y: 403
-        width: 99
-        height: 100
+        width: 101
+        height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -229,11 +229,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 21
-        y: 280
+        y: 273
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,12 +249,12 @@ TextureImporter:
       name: Items_5
       rect:
         serializedVersion: 2
-        x: 142
-        y: 280
+        x: 141
+        y: 273
         width: 100
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -266,10 +266,73 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Items_6
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 273
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f686c3a1115f07a4386a5f072db4c7ab
+      internalID: -331410905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Items_7
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 273
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16d707c693f19ba45baf22174047726b
+      internalID: 1085139385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Items_8
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 152
+        width: 100
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e4b1f3418f6d4d499e39a317b8190bb
+      internalID: -36534957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3a8b8a73d12e98b48a9eeb46ac32e202
     internalID: 0
     vertices: []
     indices: 
@@ -283,6 +346,9 @@ TextureImporter:
       Items_3: 21300006
       Items_4: 21300008
       Items_5: 21300010
+      Items_6: -331410905
+      Items_7: 1085139385
+      Items_8: -36534957
   mipmapLimitGroupName: 
   pSDRemoveMatte: 1
   userData: 

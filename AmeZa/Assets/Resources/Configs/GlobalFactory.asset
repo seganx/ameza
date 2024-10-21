@@ -37,7 +37,7 @@ MonoBehaviour:
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 0
+      m_RotationOrder: 4
   leagueMedals:
   - {fileID: 21300012, guid: e0a8b6b43290e164b84802681e0ab699, type: 3}
   - {fileID: 21300014, guid: e0a8b6b43290e164b84802681e0ab699, type: 3}

@@ -1,0 +1,410 @@
+﻿{
+    "baseId": 111131,
+    "language": "en",
+    "strings": [
+        {
+            "i": 111000,
+            "s": "Hello\nI'm Auntie Za\nWell, actually your dad's aunt. That's why my hair is white."
+        },
+        {
+            "i": 111001,
+            "s": "This title can't be chosen!\nTry another one."
+        },
+        {
+            "i": 111002,
+            "s": "I don't know what's wrong with your request, the registration center isn't accepting it!\nMaybe try something simpler!"
+        },
+        {
+            "i": 111003,
+            "s": "Oops, it's all gone!!\nDo you want to buy {0} of this booster\nfor just {1} gems?"
+        },
+        {
+            "i": 111004,
+            "s": "Oh no!\nDo you want to exit the game?"
+        },
+        {
+            "i": 111005,
+            "s": "What's happening!!?\nIf you leave the game now, you'll lose an energy! Are you sure you still want to go?"
+        },
+        {
+            "i": 111006,
+            "s": "{0} days"
+        },
+        {
+            "i": 111007,
+            "s": "{0} hours"
+        },
+        {
+            "i": 111008,
+            "s": "{0} minutes"
+        },
+        {
+            "i": 111009,
+            "s": "{0} seconds"
+        },
+        {
+            "i": 111010,
+            "s": "Oh no!!\nI can't seem to find their biography. Maybe {0} lost it!"
+        },
+        {
+            "i": 111011,
+            "s": "To enter the first league, you need a cool title!"
+        },
+        {
+            "i": 111012,
+            "s": "Well done, Shaboon Kadkhoda!\nNow head to the leagues and show everyone how great you are!"
+        },
+        {
+            "i": 111013,
+            "s": ""
+        },
+        {
+            "i": 111014,
+            "s": "Thanks :)\nPlease leave a rating in the store as well."
+        },
+        {
+            "i": 111015,
+            "s": "Your energy is full!"
+        },
+        {
+            "i": 111016,
+            "s": "Come back to the game so we can have fun together."
+        },
+        {
+            "i": 111017,
+            "s": "Congrats!\nYou've earned {0} energy."
+        },
+        {
+            "i": 111018,
+            "s": "Come back in {0}.\nIt’s not time yet."
+        },
+        {
+            "i": 111019,
+            "s": "Lucky Machine"
+        },
+        {
+            "i": 111020,
+            "s": "Come to the game and claim your free lucky prize, enjoy!"
+        },
+        {
+            "i": 111031,
+            "s": "Hello\nWelcome to Auntie Za's game!"
+        },
+        {
+            "i": 111032,
+            "s": "I've brought you a simple and fun game to enjoy. In this game, you shoot marbles, hit important items, collect them, and win rewards."
+        },
+        {
+            "i": 111033,
+            "s": ""
+        },
+        {
+            "i": 111034,
+            "s": "To enter the championship leagues, you must complete the first season of levels."
+        },
+        {
+            "i": 111035,
+            "s": "Wow!\nWell done!\nI see you're doing great and finished this season too."
+        },
+        {
+            "i": 111036,
+            "s": "Now tap the button on the chest to claim your reward.\nThen, you can enter the championship leagues."
+        },
+        {
+            "i": 111037,
+            "s": "Swipe your finger on the screen and aim for the items."
+        },
+        {
+            "i": 111038,
+            "s": "Whenever you want the marbles to come back down, tap the blue button at the bottom of the screen!"
+        },
+        {
+            "i": 111039,
+            "s": "We've reached the city of a thousand and one aunts. This place is full of precious stones."
+        },
+        {
+            "i": 111040,
+            "s": "Because the aunts love these stones! Now go collect as many stones as you can so we can head home."
+        },
+        {
+            "i": 111041,
+            "s": "Complete all the levels in this season to earn Auntie's chest as a reward."
+        },
+        {
+            "i": 111042,
+            "s": "Now what should we do?"
+        },
+        {
+            "i": 111043,
+            "s": "Let’s clean up Auntie’s house, maybe she'll come back!"
+        },
+        {
+            "i": 111044,
+            "s": "This yellow button here shows you Auntie’s boosters so you can use them and have fun."
+        },
+        {
+            "i": 111045,
+            "s": "I brought you a chest\nthat’ll blow your mind!"
+        },
+        {
+            "i": 111046,
+            "s": "A special discount for you,\ngrab it and enjoy!"
+        },
+        {
+            "i": 111047,
+            "s": "Buy once\nand enjoy the game!"
+        },
+        {
+            "i": 111048,
+            "s": "Hey everyone grab\nyour basket and get it!"
+        },
+        {
+            "i": 111049,
+            "s": "Your special discount\nI’ll be sad if you don’t buy it!"
+        },
+        {
+            "i": 111050,
+            "s": "Well, we’ve reached Auntie’s house. But where’s Auntie? Auntie, don't go! If you leave..."
+        },
+        {
+            "i": 111051,
+            "s": "Why are Auntie’s chocolates scattered everywhere? We need to collect them."
+        },
+        {
+            "i": 111052,
+            "s": "So quickly enter the levels and collect all the delicious chocolates."
+        },
+        {
+            "i": 111053,
+            "s": ""
+        },
+        {
+            "i": 111054,
+            "s": "You can select the levels from down here under my hand!"
+        },
+        {
+            "i": 111055,
+            "s": "Now tap on level 1 to enter the first level. It’s right down here under my hand!"
+        },
+        {
+            "i": 111056,
+            "s": "Oh no! Where's Auntie? Auntie, don’t go! If you leave, no one will tell me the Wi-Fi password, and I’ll run out of data!"
+        },
+        {
+            "i": 111057,
+            "s": "Let’s head back to the forest and search, maybe we’ll find Auntie. Auntiiieee!"
+        },
+        {
+            "i": 111058,
+            "s": "نرو '{0}' نرو! اگه بری می‌بازی! تو با '{1}' فقط {2} امتیاز فاصله داری!\r\nبمون خودتو نشون بده! یه بوستر بزنی توی لیگ گرفتیش هااا!\r\n\r\nبازم می‌خوای بری؟"
+        },
+        {
+            "i": 111059,
+            "s": "ای بابا '{0}' تو با گرفتن مدال '{1}' فقط {2} امتیاز فاصله داری!\r حیفه بخدا حیفه! یه بوستر بزنی گرفتیش هااا!\r\n\r\nبازم می‌خوای بری؟"
+        },
+        {
+            "i": 111060,
+            "s": "Tap on the medal to see the reward information."
+        },
+        {
+            "i": 111061,
+            "s": "Resetting your profile will erase all your profile data, including gems, levels, bombs, hammers, and scissors.\n\nAre you sure you want to do this?"
+        },
+        {
+            "i": 111062,
+            "s": "If you made a purchase but didn’t receive the package yet, tap on the same package again to claim it without any extra cost!"
+        },
+        {
+            "i": 111063,
+            "s": "\n\nاین بازی باحاله رو دانلود کن بیا توی لیگ دوستان!!\r\nبعدش من رو به لیست دوستانت اضافه کن تا هم هردومون جایزه بگیریم هم ببینم چقدر بلدی ;)\r\nبرای اضافه کردن من به لیست دوستانت شناسه زیر رو باید بزنی:\r\n{0}\n\nشناسه"
+        },
+        {
+            "i": 111070,
+            "s": "Auntie Za needs you!"
+        },
+        {
+            "i": 111071,
+            "s": "Don’t you have Auntie Za? Well, come pay her a visit!"
+        },
+        {
+            "i": 111072,
+            "s": "I heard you’ve been away for a while. Come back, let’s see you!"
+        },
+        {
+            "i": 111073,
+            "s": "I see you haven’t been visiting Auntie Za! Come, let’s catch up!"
+        },
+        {
+            "i": 111074,
+            "s": "Thank you for being in the league! Come break some branches!"
+        },
+        {
+            "i": 111075,
+            "s": "Come show your skills in the league so everyone knows you're here!"
+        },
+        {
+            "i": 111076,
+            "s": "Someone in the championship leagues is challenging you!"
+        },
+        {
+            "i": 111077,
+            "s": "Come spin the wheel and win a prize!"
+        },
+        {
+            "i": 111078,
+            "s": "Come take a look, it’s full of rewards!"
+        },
+        {
+            "i": 111079,
+            "s": "I've made some changes to the levels, check them out and see if you like them!"
+        },
+        {
+            "i": 111080,
+            "s": "111080"
+        },
+        {
+            "i": 111090,
+            "s": "Well done!!!"
+        },
+        {
+            "i": 111091,
+            "s": "Good job!!"
+        },
+        {
+            "i": 111092,
+            "s": "Awesome! You’re getting the hang of it."
+        },
+        {
+            "i": 111093,
+            "s": "Bravo! You really know what you’re doing!"
+        },
+        {
+            "i": 111094,
+            "s": "Wow! I like it!"
+        },
+        {
+            "i": 111095,
+            "s": "Nice! You’re a pro!!!"
+        },
+        {
+            "i": 111096,
+            "s": "Well done. I’m really impressed!!!"
+        },
+        {
+            "i": 111097,
+            "s": "Wow, you’re amazing!!"
+        },
+        {
+            "i": 111098,
+            "s": "Kudos to your dedication!"
+        },
+        {
+            "i": 111099,
+            "s": "I’m really enjoying this with you!!"
+        },
+        {
+            "i": 111100,
+            "s": "I'm starting to really like you!"
+        },
+        {
+            "i": 111101,
+            "s": "Oh talented one! Where have you been hiding?!"
+        },
+        {
+            "i": 111102,
+            "s": "Well done!!!"
+        },
+        {
+            "i": 111103,
+            "s": "Well done!!! A kiss from Auntie Za!"
+        },
+        {
+            "i": 111104,
+            "s": "Thank you so much!!"
+        },
+        {
+            "i": 111105,
+            "s": "Way to go!"
+        },
+        {
+            "i": 111106,
+            "s": "You play really well. Good job!"
+        },
+        {
+            "i": 111107,
+            "s": "Use more boosters!!"
+        },
+        {
+            "i": 111108,
+            "s": "Thank you!"
+        },
+        {
+            "i": 111109,
+            "s": "Your game is amazing! Keep going..."
+        },
+        {
+            "i": 111110,
+            "s": "Oh, I’m loving your gameplay :))"
+        },
+        {
+            "i": 111111,
+            "s": "I’m your fan. You’re really good. Keep going!!!"
+        },
+        {
+            "i": 111112,
+            "s": "Amaaazing! Amaaazing! Amaaazing!"
+        },
+        {
+            "i": 111113,
+            "s": "Congratulations!!"
+        },
+        {
+            "i": 111114,
+            "s": "That was truly awesome!!!"
+        },
+        {
+            "i": 111120,
+            "s": "111120"
+        },
+        {
+            "i": 111121,
+            "s": "You need a title to enter here."
+        },
+        {
+            "i": 111122,
+            "s": "Well done, Shaboon Kadkhoda!\nNow go to the friends' café, invite your friends, and show them all how awesome you are!"
+        },
+        {
+            "i": 111123,
+            "s": "In this update, Auntie has entered the game's story, changing all the levels!\n\nDo you want to start from the beginning to follow along with the story?"
+        },
+        {
+            "i": 111124,
+            "s": "I can’t find the ID you entered!\nAre you sure you entered it correctly?"
+        },
+        {
+            "i": 111125,
+            "s": "By the way, visit the friends’ café and add some friends to get rewards!"
+        },
+        {
+            "i": 111126,
+            "s": "Thanks for your feedback. Could you tell us what issue you encountered with the game by participating in our survey?"
+        },
+        {
+            "i": 111127,
+            "s": "Score: {0}"
+        },
+        {
+            "i": 111128,
+            "s": "Don’t leave!! You haven’t beaten your previous record!\nKeep your flag flying high! One booster and you’ll beat your old score!\n\nDo you still want to leave?"
+        },
+        {
+            "i": 111129,
+            "s": "Congrats on updating the game. Here’s a reward to make it even more fun!"
+        },
+        {
+            "i": 111130,
+            "s": "Become Auntie Za’s VIP\nfor exclusive features!\n\nIt’s super awesome and comes with lots of features\nAnd it’s super cheap!!!"
+        }
+    ]
+}

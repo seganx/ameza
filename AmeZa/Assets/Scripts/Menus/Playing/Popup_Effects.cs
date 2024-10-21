@@ -6,7 +6,7 @@ public class Popup_Effects : GameState
 {
     [SerializeField] private GameObject bomb = null;
     [SerializeField] private GameObject hammer = null;
-    [SerializeField] private GameObject scissor = null;
+    [SerializeField] private GameObject dynamite = null;
 
     private float timer = 0;
     private System.Action onCloseFunc = null;
@@ -25,7 +25,7 @@ public class Popup_Effects : GameState
     {
         bomb.SetActive(false);
         hammer.SetActive(false);
-        scissor.SetActive(false);
+        dynamite.SetActive(false);
     }
 
     private IEnumerator Start()
@@ -33,7 +33,7 @@ public class Popup_Effects : GameState
         yield return new WaitForSeconds(0.1f);
         bomb.SetActive(type == AbilityType.Bomb);
         hammer.SetActive(type == AbilityType.Hammer);
-        scissor.SetActive(type == AbilityType.Missle);
+        dynamite.SetActive(type == AbilityType.Missle);
 
         switch (type)
         {
@@ -47,7 +47,7 @@ public class Popup_Effects : GameState
                 break;
             case AbilityType.Missle:
                 yield return new WaitForSeconds(0.75f);
-                Vibration.Vibrate(50);
+                Vibration.Vibrate(150);
                 break;
         }
 
@@ -61,13 +61,5 @@ public class Popup_Effects : GameState
     public override void Back()
     {
 
-    }
-
-    private void Update()
-    {
-        timer += Time.deltaTime * 0.5f;
-        var pos = scissor.transform.position;
-        pos.x = Mathf.Lerp(9.5f, -9.5f, timer);
-        scissor.transform.position = pos;
     }
 }

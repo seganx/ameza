@@ -1,0 +1,319 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e90c93609f28f41ba3bf37c5f7490c, type: 3}
+  m_Name: LocKit_en
+  m_EditorClassIdentifier: 
+  kit:
+    baseId: 111131
+    language: en
+    strings:
+    - i: 111000
+      s: 'Hello
+
+        I''m Auntie Za
+
+        Well, actually your dad''s aunt.
+        That''s why my hair is white.'
+    - i: 111001
+      s: 'This title can''t be chosen!
+
+        Try another one.'
+    - i: 111002
+      s: 'I don''t know what''s wrong with your request, the registration center
+        isn''t accepting it!
+
+        Maybe try something simpler!'
+    - i: 111003
+      s: 'Oops, it''s all gone!!
+
+        Do you want to buy {0} of this booster
+
+        for
+        just {1} gems?'
+    - i: 111004
+      s: 'Oh no!
+
+        Do you want to exit the game?'
+    - i: 111005
+      s: 'What''s happening!!?
+
+        If you leave the game now, you''ll lose an
+        energy! Are you sure you still want to go?'
+    - i: 111006
+      s: '{0} days'
+    - i: 111007
+      s: '{0} hours'
+    - i: 111008
+      s: '{0} minutes'
+    - i: 111009
+      s: '{0} seconds'
+    - i: 111010
+      s: 'Oh no!!
+
+        I can''t seem to find their biography. Maybe {0} lost
+        it!'
+    - i: 111011
+      s: To enter the first league, you need a cool title!
+    - i: 111012
+      s: 'Well done, Shaboon Kadkhoda!
+
+        Now head to the leagues and show
+        everyone how great you are!'
+    - i: 111013
+      s: 
+    - i: 111014
+      s: 'Thanks :)
+
+        Please leave a rating in the store as well.'
+    - i: 111015
+      s: Your energy is full!
+    - i: 111016
+      s: Come back to the game so we can have fun together.
+    - i: 111017
+      s: 'Congrats!
+
+        You''ve earned {0} energy.'
+    - i: 111018
+      s: "Come back in {0}.\nIt\u2019s not time yet."
+    - i: 111019
+      s: Lucky Machine
+    - i: 111020
+      s: Come to the game and claim your free lucky prize, enjoy!
+    - i: 111031
+      s: 'Hello
+
+        Welcome to Auntie Za''s game!'
+    - i: 111032
+      s: I've brought you a simple and fun game to enjoy. In this game, you shoot
+        marbles, hit important items, collect them, and win rewards.
+    - i: 111033
+      s: 
+    - i: 111034
+      s: To enter the championship leagues, you must complete the first season of
+        levels.
+    - i: 111035
+      s: 'Wow!
+
+        Well done!
+
+        I see you''re doing great and finished
+        this season too.'
+    - i: 111036
+      s: 'Now tap the button on the chest to claim your reward.
+
+        Then, you
+        can enter the championship leagues.'
+    - i: 111037
+      s: Swipe your finger on the screen and aim for the items.
+    - i: 111038
+      s: Whenever you want the marbles to come back down, tap the blue button at
+        the bottom of the screen!
+    - i: 111039
+      s: We've reached the city of a thousand and one aunts. This place is full of
+        precious stones.
+    - i: 111040
+      s: Because the aunts love these stones! Now go collect as many stones as you
+        can so we can head home.
+    - i: 111041
+      s: Complete all the levels in this season to earn Auntie's chest as a reward.
+    - i: 111042
+      s: Now what should we do?
+    - i: 111043
+      s: "Let\u2019s clean up Auntie\u2019s house, maybe she'll come back!"
+    - i: 111044
+      s: "This yellow button here shows you Auntie\u2019s boosters so you can use
+        them and have fun."
+    - i: 111045
+      s: "I brought you a chest\nthat\u2019ll blow your mind!"
+    - i: 111046
+      s: 'A special discount for you,
+
+        grab it and enjoy!'
+    - i: 111047
+      s: 'Buy once
+
+        and enjoy the game!'
+    - i: 111048
+      s: 'Hey everyone grab
+
+        your basket and get it!'
+    - i: 111049
+      s: "Your special discount\nI\u2019ll be sad if you don\u2019t buy it!"
+    - i: 111050
+      s: "Well, we\u2019ve reached Auntie\u2019s house. But where\u2019s Auntie?
+        Auntie, don't go! If you leave..."
+    - i: 111051
+      s: "Why are Auntie\u2019s chocolates scattered everywhere? We need to collect
+        them."
+    - i: 111052
+      s: So quickly enter the levels and collect all the delicious chocolates.
+    - i: 111053
+      s: 
+    - i: 111054
+      s: You can select the levels from down here under my hand!
+    - i: 111055
+      s: "Now tap on level 1 to enter the first level. It\u2019s right down here
+        under my hand!"
+    - i: 111056
+      s: "Oh no! Where's Auntie? Auntie, don\u2019t go! If you leave, no one will
+        tell me the Wi-Fi password, and I\u2019ll run out of data!"
+    - i: 111057
+      s: "Let\u2019s head back to the forest and search, maybe we\u2019ll find Auntie.
+        Auntiiieee!"
+    - i: 111058
+      s: "\u0646\u0631\u0648 '{0}' \u0646\u0631\u0648! \u0627\u06AF\u0647 \u0628\u0631\u06CC
+        \u0645\u06CC\u200C\u0628\u0627\u0632\u06CC! \u062A\u0648 \u0628\u0627 '{1}'
+        \u0641\u0642\u0637 {2} \u0627\u0645\u062A\u06CC\u0627\u0632 \u0641\u0627\u0635\u0644\u0647
+        \u062F\u0627\u0631\u06CC!\r\n\u0628\u0645\u0648\u0646 \u062E\u0648\u062F\u062A\u0648
+        \u0646\u0634\u0648\u0646 \u0628\u062F\u0647! \u06CC\u0647 \u0628\u0648\u0633\u062A\u0631
+        \u0628\u0632\u0646\u06CC \u062A\u0648\u06CC \u0644\u06CC\u06AF \u06AF\u0631\u0641\u062A\u06CC\u0634
+        \u0647\u0627\u0627\u0627!\r\n\r\n\u0628\u0627\u0632\u0645 \u0645\u06CC\u200C\u062E\u0648\u0627\u06CC
+        \u0628\u0631\u06CC\u061F"
+    - i: 111059
+      s: "\u0627\u06CC \u0628\u0627\u0628\u0627 '{0}' \u062A\u0648 \u0628\u0627 \u06AF\u0631\u0641\u062A\u0646
+        \u0645\u062F\u0627\u0644 '{1}' \u0641\u0642\u0637 {2} \u0627\u0645\u062A\u06CC\u0627\u0632
+        \u0641\u0627\u0635\u0644\u0647 \u062F\u0627\u0631\u06CC!\r \u062D\u06CC\u0641\u0647
+        \u0628\u062E\u062F\u0627 \u062D\u06CC\u0641\u0647! \u06CC\u0647 \u0628\u0648\u0633\u062A\u0631
+        \u0628\u0632\u0646\u06CC \u06AF\u0631\u0641\u062A\u06CC\u0634 \u0647\u0627\u0627\u0627!\r\n\r\n\u0628\u0627\u0632\u0645
+        \u0645\u06CC\u200C\u062E\u0648\u0627\u06CC \u0628\u0631\u06CC\u061F"
+    - i: 111060
+      s: Tap on the medal to see the reward information.
+    - i: 111061
+      s: 'Resetting your profile will erase all your profile data, including gems,
+        levels, bombs, hammers, and scissors.
+
+
+        Are you sure you want to
+        do this?'
+    - i: 111062
+      s: "If you made a purchase but didn\u2019t receive the package yet, tap on
+        the same package again to claim it without any extra cost!"
+    - i: 111063
+      s: "\n\n\u0627\u06CC\u0646 \u0628\u0627\u0632\u06CC \u0628\u0627\u062D\u0627\u0644\u0647
+        \u0631\u0648 \u062F\u0627\u0646\u0644\u0648\u062F \u06A9\u0646 \u0628\u06CC\u0627
+        \u062A\u0648\u06CC \u0644\u06CC\u06AF \u062F\u0648\u0633\u062A\u0627\u0646!!\r\n\u0628\u0639\u062F\u0634
+        \u0645\u0646 \u0631\u0648 \u0628\u0647 \u0644\u06CC\u0633\u062A \u062F\u0648\u0633\u062A\u0627\u0646\u062A
+        \u0627\u0636\u0627\u0641\u0647 \u06A9\u0646 \u062A\u0627 \u0647\u0645 \u0647\u0631\u062F\u0648\u0645\u0648\u0646
+        \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC\u0645 \u0647\u0645
+        \u0628\u0628\u06CC\u0646\u0645 \u0686\u0642\u062F\u0631 \u0628\u0644\u062F\u06CC
+        ;)\r\n\u0628\u0631\u0627\u06CC \u0627\u0636\u0627\u0641\u0647 \u06A9\u0631\u062F\u0646
+        \u0645\u0646 \u0628\u0647 \u0644\u06CC\u0633\u062A \u062F\u0648\u0633\u062A\u0627\u0646\u062A
+        \u0634\u0646\u0627\u0633\u0647 \u0632\u06CC\u0631 \u0631\u0648 \u0628\u0627\u06CC\u062F
+        \u0628\u0632\u0646\u06CC:\r\n{0}\n\n\u0634\u0646\u0627\u0633\u0647"
+    - i: 111070
+      s: Auntie Za needs you!
+    - i: 111071
+      s: "Don\u2019t you have Auntie Za? Well, come pay her a visit!"
+    - i: 111072
+      s: "I heard you\u2019ve been away for a while. Come back, let\u2019s see you!"
+    - i: 111073
+      s: "I see you haven\u2019t been visiting Auntie Za! Come, let\u2019s catch
+        up!"
+    - i: 111074
+      s: Thank you for being in the league! Come break some branches!
+    - i: 111075
+      s: Come show your skills in the league so everyone knows you're here!
+    - i: 111076
+      s: Someone in the championship leagues is challenging you!
+    - i: 111077
+      s: Come spin the wheel and win a prize!
+    - i: 111078
+      s: "Come take a look, it\u2019s full of rewards!"
+    - i: 111079
+      s: I've made some changes to the levels, check them out and see if you like
+        them!
+    - i: 111080
+      s: 111080
+    - i: 111090
+      s: Well done!!!
+    - i: 111091
+      s: Good job!!
+    - i: 111092
+      s: "Awesome! You\u2019re getting the hang of it."
+    - i: 111093
+      s: "Bravo! You really know what you\u2019re doing!"
+    - i: 111094
+      s: Wow! I like it!
+    - i: 111095
+      s: "Nice! You\u2019re a pro!!!"
+    - i: 111096
+      s: "Well done. I\u2019m really impressed!!!"
+    - i: 111097
+      s: "Wow, you\u2019re amazing!!"
+    - i: 111098
+      s: Kudos to your dedication!
+    - i: 111099
+      s: "I\u2019m really enjoying this with you!!"
+    - i: 111100
+      s: I'm starting to really like you!
+    - i: 111101
+      s: Oh talented one! Where have you been hiding?!
+    - i: 111102
+      s: Well done!!!
+    - i: 111103
+      s: Well done!!! A kiss from Auntie Za!
+    - i: 111104
+      s: Thank you so much!!
+    - i: 111105
+      s: Way to go!
+    - i: 111106
+      s: You play really well. Good job!
+    - i: 111107
+      s: Use more boosters!!
+    - i: 111108
+      s: Thank you!
+    - i: 111109
+      s: Your game is amazing! Keep going...
+    - i: 111110
+      s: "Oh, I\u2019m loving your gameplay :))"
+    - i: 111111
+      s: "I\u2019m your fan. You\u2019re really good. Keep going!!!"
+    - i: 111112
+      s: Amaaazing! Amaaazing! Amaaazing!
+    - i: 111113
+      s: Congratulations!!
+    - i: 111114
+      s: That was truly awesome!!!
+    - i: 111120
+      s: 111120
+    - i: 111121
+      s: You need a title to enter here.
+    - i: 111122
+      s: "Well done, Shaboon Kadkhoda!\nNow go to the friends' caf\xE9, invite your
+        friends, and show them all how awesome you are!"
+    - i: 111123
+      s: 'In this update, Auntie has entered the game''s story, changing all the
+        levels!
+
+
+        Do you want to start from the beginning to follow along
+        with the story?'
+    - i: 111124
+      s: "I can\u2019t find the ID you entered!\nAre you sure you entered it correctly?"
+    - i: 111125
+      s: "By the way, visit the friends\u2019 caf\xE9 and add some friends to get
+        rewards!"
+    - i: 111126
+      s: Thanks for your feedback. Could you tell us what issue you encountered with
+        the game by participating in our survey?
+    - i: 111127
+      s: 'Score: {0}'
+    - i: 111128
+      s: "Don\u2019t leave!! You haven\u2019t beaten your previous record!\nKeep
+        your flag flying high! One booster and you\u2019ll beat your old score!\n\nDo
+        you still want to leave?"
+    - i: 111129
+      s: "Congrats on updating the game. Here\u2019s a reward to make it even more
+        fun!"
+    - i: 111130
+      s: "Become Auntie Za\u2019s VIP\nfor exclusive features!\n\nIt\u2019s super
+        awesome and comes with lots of features\nAnd it\u2019s super cheap!!!"
