@@ -1,13 +1,38 @@
 {
     "m_SelectedDeviceId": "R58N6062KMN",
     "m_SelectedProcess": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "R58N6062KMN",
+        "name": "com.joygamelab.bobbyblaster",
+        "processId": 25254,
         "exited": false
     },
     "m_SelectedPriority": 0,
-    "m_KnownProcessesForSerialization": [],
+    "m_KnownProcessesForSerialization": [
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.joygamelab.bobbyblaster",
+            "processId": 15921,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.joygamelab.bobbyblaster",
+            "processId": 19272,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.joygamelab.bobbyblaster",
+            "processId": 21064,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.joygamelab.bobbyblaster",
+            "processId": 25254,
+            "exited": false
+        }
+    ],
     "m_Tags": {
         "m_Entries": [
             {
@@ -89,5 +114,5 @@
             "exited": false
         }
     },
-    "m_AutoScroll": 0
+    "m_AutoScroll": 1
 }

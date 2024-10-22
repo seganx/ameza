@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e944dda454cad4e81b1bebe111bddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVolume: 100
+  initialVolume: 50
   musics:
   - {fileID: 8300000, guid: 2b9398dc0cf984f489c416869f4c8ee2, type: 3}
   - {fileID: 8300000, guid: c1c297d2dc9e64144bc3db5a0dbabfd9, type: 3}

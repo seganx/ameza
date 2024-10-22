@@ -33,7 +33,7 @@ MonoBehaviour:
   targetSdkVersion: 34
   minSdkVersion: 19
   scriptBackend: 1
-  storeFilename: ../user.keystore
+  storeFilename: ../ww.keystore
   storePassword: 123456
   storeAliseName: release
   storeAlisePassword: 123456

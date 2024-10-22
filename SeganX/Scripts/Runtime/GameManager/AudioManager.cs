@@ -21,7 +21,20 @@ namespace SeganX
             instance = this;
             AudioListener.volume = SoundVolume * 0.01f;
             soundSource = gameObject.AddComponent<AudioSource>();
-            Play(0, 1, 5, 5);
+        }
+
+        private IEnumerator Start()
+        {
+            var index = Random.Range(0, 10);
+            var wait = new WaitForSecondsRealtime(1);
+            while (true)
+            {
+                if (currentSource.source == null || currentSource.source.isPlaying == false)
+                {
+                    Play(index++, 1, 1, 1);
+                }
+                yield return wait;
+            }
         }
 
         public void Play(int index, float volume, float fadeInTime, float fadeOutTime)
@@ -42,7 +55,7 @@ namespace SeganX
             currentSource.source = gameObject.AddComponent<AudioSource>();
             currentSource.source.ignoreListenerVolume = true;
             currentSource.source.clip = musics[index];
-            currentSource.source.loop = true;
+            currentSource.source.loop = false;
             currentSource.source.volume = 0;
             currentSource.source.Play();
             currentSource.initVolume = volume;

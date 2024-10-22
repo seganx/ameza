@@ -106,6 +106,9 @@ public class Popup_Win : GameState
                 baloon.gameObject.SetActive(true);
             }
         }
+
+        if (PlayModel.level.totoalLevelNumber > 5)
+            Plankton.Ad.ShowInterstitial(GlobalConfig.Advertise.levels);
     }
 
     public Popup_Win SetNextTask(System.Action<bool> nextTask)

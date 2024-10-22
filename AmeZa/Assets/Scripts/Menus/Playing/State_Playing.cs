@@ -35,7 +35,7 @@ public class State_Playing : GameState
 
         UIBackground.Hide();
         UiShowHide.ShowAll(transform);
-        AudioManager.SetMusicVolumFactor(0.1f);
+        AudioManager.SetMusicVolumFactor(0.15f);
 
         yield return new WaitWhile(() => Game.Instance.CurrentPopup);
         yield return new WaitForSeconds(0.5f);
@@ -152,12 +152,4 @@ public class State_Playing : GameState
         else
             base.Back();
     }
-
-#if UNITY_EDITOR
-#else
-    private void OnDestroy()
-    {
-        Online.Stats.Set(GlobalConfig.Instance.version, Profile.Gems.value, Profile.Skill, Profile.GetLevelsPassed().value, success => { });
-    }
-#endif
 }

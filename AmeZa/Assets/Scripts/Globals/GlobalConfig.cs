@@ -311,6 +311,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
 
             public AdPlace shopFreeGems = new AdPlace(Plankton.Ad.Type.Rewarded, "shopad");
             public AdPlace winClaim = new AdPlace(Plankton.Ad.Type.Rewarded, "winclaim");
+            public AdPlace levels = new AdPlace(Plankton.Ad.Type.Interstitial, "levels");
         }
 
         [System.Serializable]

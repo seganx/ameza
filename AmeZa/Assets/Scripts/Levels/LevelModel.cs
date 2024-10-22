@@ -55,6 +55,7 @@ public class LevelModel
     public PatternConfig pattern = null;
     public int season = 0;
     public int index = 0;
+    public int totoalLevelNumber = 0;
     public string name = string.Empty;
     public float progress = 0;
     public int startBallCount = 1;

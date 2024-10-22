@@ -261,6 +261,7 @@ public class Profile : MonoBehaviour
         data.privateData.sessions = data.privateData.sessions.Get.value + 1;
         if (IsFirstSession)
         {
+            Online.Timer.Set(Timers.Luckyspin, 300);
             EarnGems(GlobalConfig.ProfilePreset.gems);
             SetEnergy(GlobalConfig.ProfilePreset.energy);
             SetBombs(GlobalConfig.ProfilePreset.bombs);
@@ -270,15 +271,6 @@ public class Profile : MonoBehaviour
             GlobalAnalytics.SourceGem(GlobalConfig.ProfilePreset.gems, "first");
         }
     }
-
-    private static void RunFirstSission()
-    {
-        if (IsFirstSession)
-        {
-            Online.Timer.Set(Timers.Luckyspin, 60);
-        }
-    }
-
     [Console("profile", "display", "Display all profile data")]
     public static void Display()
     {

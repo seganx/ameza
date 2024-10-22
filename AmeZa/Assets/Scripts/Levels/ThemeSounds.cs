@@ -111,7 +111,6 @@ public class ThemeSounds : MonoBehaviour
 
     public static void UpdateMe(float deltaTime)
     {
-        if (playingCount > 1)
-            playingCount -= deltaTime;
+        playingCount = Mathf.Max(0, playingCount - deltaTime * 2);
     }
 }

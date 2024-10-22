@@ -17,7 +17,7 @@ public class GlobalAnalytics : MonoBehaviour
     };
 
 
-    private async void Awake()
+    private void Awake()
     {
         instance = this;
         GeneralAnalytics.Initialize();
@@ -29,7 +29,7 @@ public class GlobalAnalytics : MonoBehaviour
                 .ConfigureResourceCurrencies("gem")
                 .ConfigureItemTypes("earn", "profile", "levels", "classic", "ad")
                 .ConfigureCustomDimensions01("google", "ios")
-                , () =>
+                , async () =>
                 {
                     Debug.Log($"[Services] [GA] Initialized!");
 #if UNITY_IOS
@@ -39,32 +39,32 @@ public class GlobalAnalytics : MonoBehaviour
                     GameAnalytics.SetCustomDimension01("google");
                     GeneralAnalytics.SetUserProperty(provider, "market", "google");
 #endif
-                });
 
 #if UNITY_EDITOR
-        int numberOfTries = 1;
+                    int numberOfTries = 1;
 #else
         int numberOfTries = 60;
 #endif
-        while (numberOfTries-- > 0 && GameAnalytics.IsRemoteConfigsReady() == false)
-        {
-            //Debug.Log("[Services] [GA] waiting for RemoteConfigs");
-            await Task.Delay(1000);
-        }
+                    while (numberOfTries-- > 0 && GameAnalytics.IsRemoteConfigsReady() == false)
+                    {
+                        //Debug.Log("[Services] [GA] waiting for RemoteConfigs");
+                        await Task.Delay(1000);
+                    }
 
-        if (GameAnalytics.IsRemoteConfigsReady())
-        {
-            var log = "[Services] [GA] received RemoteConfigs:\n";
-            var v = new string[rc_all.Length];
-            for (int i = 0; i < v.Length; i++)
-            {
-                v[i] = GameAnalytics.GetRemoteConfigsValueAsString(rc_all[i], "none");
-                log += $"{rc_all[i]} = {v[i]}\n";
-            }
-            Debug.Log(log);
+                    if (GameAnalytics.IsRemoteConfigsReady())
+                    {
+                        var log = "[Services] [GA] received RemoteConfigs:\n";
+                        var v = new string[rc_all.Length];
+                        for (int i = 0; i < v.Length; i++)
+                        {
+                            v[i] = GameAnalytics.GetRemoteConfigsValueAsString(rc_all[i], "none");
+                            log += $"{rc_all[i]} = {v[i]}\n";
+                        }
+                        Debug.Log(log);
 
-            ABTest.OnRecieved?.Invoke();
-        }
+                        ABTest.OnRecieved?.Invoke();
+                    }
+                });
     }
 
 

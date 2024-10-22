@@ -63,6 +63,9 @@ public class Popup_Lose : GameState
             baloon.gameObject.SetActive(true);
         }
 
+        if (PlayModel.level.totoalLevelNumber > 5)
+            Plankton.Ad.ShowInterstitial(GlobalConfig.Advertise.levels);
+
         float t = 0;
         float curscore = 0, maxscore = PlayModel.GetScore();
         var wait = new WaitForEndOfFrame();

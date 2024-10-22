@@ -166,9 +166,9 @@ public class Game : GameManager
         long minutes = (seconds % 3600) / 60;
         seconds %= 60;
 
-        if (days > 0) return string.Format(LocalizationService.Get(111006), days) + " و " + string.Format(LocalizationService.Get(111007), hours);
-        if (hours > 0) return string.Format(LocalizationService.Get(111007), hours) + " و " + string.Format(LocalizationService.Get(111008), minutes);
-        if (minutes > 0) return string.Format(LocalizationService.Get(111008), minutes) + " و " + string.Format(LocalizationService.Get(111009), seconds);
+        if (days > 0) return string.Format(LocalizationService.Get(111006), days) + " " + string.Format(LocalizationService.Get(111007), hours);
+        if (hours > 0) return string.Format(LocalizationService.Get(111007), hours) + " " + string.Format(LocalizationService.Get(111008), minutes);
+        if (minutes > 0) return string.Format(LocalizationService.Get(111008), minutes) + " " + string.Format(LocalizationService.Get(111009), seconds);
         return string.Format(LocalizationService.Get(111009), seconds);
     }
 }
