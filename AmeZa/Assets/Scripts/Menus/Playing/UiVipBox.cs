@@ -54,7 +54,7 @@ public class UiVipBox : MonoBehaviour
                 callback(AbilityType.Missle);
                 UpdateTexts();
             }
-            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, "scissor", count => Profile.SetMissiles(Profile.Missiles.value + count));
+            else BuyBooster(GlobalConfig.ProfilePreset.missles, GlobalConfig.Shop.misslePrice, "dynamits", count => Profile.SetMissiles(Profile.Missiles.value + count));
         }));
 
         return this;

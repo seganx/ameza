@@ -1,5 +1,4 @@
-﻿#if SX_PARSI
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -134,4 +133,3 @@ namespace SeganX
 #endif
     }
 }
-#endif

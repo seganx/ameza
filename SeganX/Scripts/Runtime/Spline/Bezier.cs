@@ -1,5 +1,4 @@
-﻿#if SX_SPLINE
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SeganX
 {
@@ -39,4 +38,3 @@ namespace SeganX
     }
 
 }
-#endif

@@ -1,5 +1,4 @@
-﻿#if SX_ALGOR
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SeganX
 {
@@ -70,4 +69,3 @@ namespace SeganX
         }
     }
 }
-#endif

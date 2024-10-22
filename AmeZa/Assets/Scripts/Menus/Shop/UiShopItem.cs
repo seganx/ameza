@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Fun.Iab;
 
 public class UiShopItem : MonoBehaviour
 {
@@ -31,8 +30,8 @@ public class UiShopItem : MonoBehaviour
         if (bombLabel) bombLabel.SetFormatedText(pack.bombs);
         if (hammerLabel) hammerLabel.SetFormatedText(pack.hammers);
         if (missileLabel) missileLabel.SetFormatedText(pack.missiles);
-        if (priceLabel) priceLabel.SetFormatedText(pack.price);
-        if (lastPriceLabel) lastPriceLabel.SetFormatedText(pack.lastPrice);
+        if (priceLabel) priceLabel.SetText(pack.StorePriceLabel);
+        if (lastPriceLabel) lastPriceLabel.SetFormatedText(pack.StoreLastPriceLabel);
         if (discountLabel)
         {
             if (pack.discount > 0)
@@ -44,10 +43,10 @@ public class UiShopItem : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             button.SetInteractable(false);
-            PurchaseSystem.Purchase(PurchaseProvider.Market, sku, (succeed, token) =>
+            Plankton.Billing.StartPurchase(sku, (status, token) =>
             {
-                if (succeed)
-                    ShopLogic.Purchased(sku, () => onClick?.Invoke(true));
+                if (status == Plankton.Billing.PurchaseStatus.Purchased)
+                    ShopLogic.Purchased(sku, token, () => onClick?.Invoke(true));
                 else 
                     onClick?.Invoke(false);
 

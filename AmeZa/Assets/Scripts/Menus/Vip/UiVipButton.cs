@@ -1,7 +1,4 @@
-﻿using Fun.Iab;
-using SeganX;
-using System.Collections;
-using System.Collections.Generic;
+﻿using SeganX;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,16 +10,16 @@ public class UiVipButton : MonoBehaviour
 
     public UiVipButton Setup(GlobalConfig.Data.Shop.VIP pack, System.Action onPurchased)
     {
-        daysLabel.text = daysLabel.text.Replace("{0}", pack.days.ToString("#,0").Persian());
-        priceLabel.text = priceLabel.text.Replace("{0}", pack.price.ToString("#,0").Persian());
+        daysLabel.text = daysLabel.text.Replace("{0}", pack.days.ToString("#,0"));
+        priceLabel.text = priceLabel.text.Replace("{0}", pack.price.ToString("#,0"));
 
         button.onClick.AddListener(() =>
         {
             button.SetInteractable(false);
-            PurchaseSystem.Purchase(PurchaseProvider.Market, pack.sku, (succeed, token) =>
+            Plankton.Billing.StartPurchase(pack.sku, (status, token) =>
             {
-                if (succeed)
-                    ShopLogic.Purchased(pack.sku, onPurchased);
+                if (status == Plankton.Billing.PurchaseStatus.Purchased)
+                    ShopLogic.Purchased(pack.sku, token, onPurchased);
 
                 button.SetInteractable(true);
             });

@@ -90,7 +90,7 @@ public class PatternConfigEditor : Editor
             {
                 style.normal.background = EditorFactory.GetTexture(BlockType.Value);
                 int value = (int)obj.blocks[i];
-                if (GUI.Button(r, value.ToString().Persian(), style))
+                if (GUI.Button(r, value.ToString(), style))
                 {
                     obj.blocks[i] = brush == BlockType.Value ? (BlockType)brushValue : brush;
                 }

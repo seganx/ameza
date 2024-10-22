@@ -67,6 +67,8 @@ public class ThemeSounds : MonoBehaviour
 
     private void PlayHit()
     {
+        if (CanNotPlay) return;
+        playingCount++;
         var index = Random.Range(0, 1000);
         var source = hitSounds[index % hitSounds.Length];
         source.PlayOneShot(source.clip, 0.75f);
@@ -74,6 +76,8 @@ public class ThemeSounds : MonoBehaviour
 
     private void PlayBreak()
     {
+        if (CanNotPlay) return;
+        playingCount++;
         var index = Random.Range(0, 1000);
         var source = breakSounds[index % breakSounds.Length];
         source.PlayOneShot(source.clip);
@@ -81,6 +85,8 @@ public class ThemeSounds : MonoBehaviour
 
     private void PlayReleaseBall()
     {
+        if (CanNotPlay) return;
+        playingCount++;
         var index = Random.Range(0, 1000);
         var source = releaseBallSounds[index % releaseBallSounds.Length];
         source.PlayOneShot(source.clip);
@@ -88,8 +94,24 @@ public class ThemeSounds : MonoBehaviour
 
     private void PlayDamage()
     {
+        if (CanNotPlay) return;
+        playingCount++;
         var index = Random.Range(0, 1000);
         var source = damageSounds[index % releaseBallSounds.Length];
         source.PlayOneShot(source.clip);
+    }
+
+    //////////////////////////////////////////////////////
+    /// STATIC MEMBERS
+    //////////////////////////////////////////////////////
+    private static float playingCount = 0;
+    private static float maxPlayingCount = 5;
+
+    private static bool CanNotPlay => playingCount > maxPlayingCount;
+
+    public static void UpdateMe(float deltaTime)
+    {
+        if (playingCount > 1)
+            playingCount -= deltaTime;
     }
 }

@@ -31,7 +31,7 @@ public class UiShopOffer : MonoBehaviour
             GlobalConfig.Offers.lastPurchaseTime);
 
 #if UNITY_EDITOR
-        PurchaseOffer.Setup(1, GlobalConfig.Shop.offers.Count, 10, 15, 10, 99999999, 5, 60);
+        PurchaseOffer.Setup(1, GlobalConfig.Shop.offers.Count, 10, 60, 10, 99999999, 5, 60);
 #endif
 
         pack = Game.GetOfferPackage();

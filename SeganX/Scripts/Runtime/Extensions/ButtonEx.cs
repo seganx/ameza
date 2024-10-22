@@ -19,14 +19,12 @@ namespace SeganX
         {
             if (self == null) return self;
 
-#if SX_PARSI
             var localtext = self.GetComponent<LocalText>(true, false);
             if (localtext != null)
             {
                 localtext.SetText(text);
                 return self;
             }
-#endif
 
             var view = self.GetComponent<Text>(true, false);
             if (view != null)

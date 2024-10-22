@@ -1,5 +1,4 @@
-﻿#if SX_PARSI
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace SeganX
@@ -73,8 +72,8 @@ namespace SeganX
                 var item = localKit.kit.strings.Find(x => x.i == filterid);
                 if (item != null)
                 {
-                    item.s = EditorGUILayout.TextArea(item.s, GUILayout.MinHeight(60)).CleanFromCode().CleanForPersian();
-                    var persianStr = PersianTextShaper.ShapeText(item.s.CleanFromCode().CleanForPersian());
+                    item.s = EditorGUILayout.TextArea(item.s, GUILayout.MinHeight(60)).CleanFromCode();
+                    var persianStr = item.s.CleanFromCode();
                     EditorGUILayout.LabelField(persianStr, labelStyle);
                 }
             }
@@ -100,7 +99,7 @@ namespace SeganX
 
                     if (item.s.IsRtl())
                     {
-                        var persianStr = PersianTextShaper.ShapeText(item.s.CleanFromCode().CleanForPersian());
+                        var persianStr = item.s.CleanFromCode();
                         EditorGUILayout.LabelField(item.i + ":", persianStr);
                     }
                     else EditorGUILayout.LabelField(item.i + ":", item.s);
@@ -110,4 +109,3 @@ namespace SeganX
         }
     }
 }
-#endif

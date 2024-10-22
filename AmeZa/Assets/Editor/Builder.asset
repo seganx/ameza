@@ -12,27 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f338dbc26784aed40a48d77f99465dd6, type: 3}
   m_Name: Builder
   m_EditorClassIdentifier: 
-  version: 35
-  bundleVersionCode: 3502
+  version: 10
+  bundleVersionCode: 1000
   symbols:
     cameraFX: 0
-    onlineSystem: 1
-    purchaseSystem: 1
-    zipCompression: 1
+    onlineSystem: 0
+    purchaseSystem: 0
+    zipCompression: 0
     playServices: 0
-    additionals:
-    - SX_PARSI
-    - SX_OLDCORE
-    - SX_SHRNG
-    - SX_CENSOR
-    - SX_EXDBG
-    - SX_CCMD
+    additionals: []
+  buildAndRunAll: 1
   buildAndRunIndex: 0
   stopQueueOnError: 1
   builds:
-  - title: "0:\u2713 ameza_35.3502_bazaar_v7.apk"
+  - title: "0:\u2713 bobbyblaster_10.1000_googleplay_v7v8.aab"
     activated: 1
     config: {fileID: 11400000, guid: 02b6a04fd14874f4cb0a8e59b032c5e5, type: 2}
-  - title: 1:x ameza_35.3502_myket_v7.apk
-    activated: 0
-    config: {fileID: 11400000, guid: 396c6442203a5e94e9df50d5dd658f22, type: 2}

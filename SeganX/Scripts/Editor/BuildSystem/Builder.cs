@@ -12,6 +12,7 @@ namespace SeganX.Builder
         public int bundleVersionCode = 1;
         public Symbols symbols = new Symbols();
         [Header("Options:"), Space()]
+        public bool buildAndRunAll = true;
         public int buildAndRunIndex = -1;
         public bool stopQueueOnError = true;
         [Header("Build Configurations:"), Space()]

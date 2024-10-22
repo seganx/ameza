@@ -17,7 +17,6 @@ public class Popup_Profile : GameState
 
     private UiProfileBallItem itemPrefab = null;
     private System.Action onCloseFunc = null;
-    private string lastAvatar = string.Empty;
 
     public Popup_Profile SetOnClose(System.Action onClose)
     {
@@ -27,7 +26,6 @@ public class Popup_Profile : GameState
 
     private void Awake()
     {
-        lastAvatar = Profile.Avatar.Json;
         itemPrefab = ballsScroller.content.GetComponent<UiProfileBallItem>(true, true);
         itemPrefab.gameObject.SetActive(false);
     }
@@ -38,18 +36,18 @@ public class Popup_Profile : GameState
         UiShowHide.ShowAll(transform);
         avatar.Setup(Profile.Avatar.Current);
 
-        nicknameInput.text = Profile.HasNickname ? Profile.Nickname : Profile.Username;
+        nicknameInput.text = Profile.Nickname;
         nicknamePrice.transform.parent.gameObject.SetActive(Profile.HasNickname);
         nicknamePrice.SetText(GlobalConfig.Shop.nicknamePrice.ToString());
         nicknameButton.onClick.AddListener(() =>
         {
             if (nicknameInput.text.ComputeMD5(Core.Salt) != "AC9CD53769E38CBBD8707CA1108BA10D")
             {
-                var nickname = nicknameInput.text.Trim().CleanFromCode().CleanForPersian();
+                var nickname = nicknameInput.text.Trim().CleanFromCode();
 #if UNITY_EDITOR_off
                 SendNickname(nickname);
 #else 
-                if (nickname != Profile.Username && nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
+                if (nickname.HasContent(3) && nickname.IsLetterOrDigit() && BadWordsFinder.HasBadWord(nickname) == false)
                 {
                     if (Profile.HasNickname)
                         Game.SpendGems(GlobalConfig.Shop.nicknamePrice, () => SendNickname(nickname));
@@ -62,25 +60,6 @@ public class Popup_Profile : GameState
             else GlobalConfig.DebugMode = true;
         });
 
-        statusInput.text = Profile.Status;
-        statusPrice.transform.parent.gameObject.SetActive(Profile.HasStatus);
-        statusPrice.SetText(GlobalConfig.Shop.statusPrice.ToString());
-        statusButton.onClick.AddListener(() =>
-        {
-            var status = statusInput.text.Trim().CleanFromCode().CleanForPersian();
-#if UNITY_EDITOR_off
-            SendStatus(status);
-#else
-            if (status.HasContent(3) && status.IsLetterOrDigit() && BadWordsFinder.HasBadWord(status) == false)
-            {
-                if (Profile.HasStatus)
-                    Game.SpendGems(GlobalConfig.Shop.statusPrice, () => SendStatus(status));
-                else
-                    SendStatus(status);
-            }
-            else Game.Instance.OpenPopup<Popup_Confirm>().Setup(111002, false, true, null);
-#endif
-        });
 
         hairSlider.minValue = 0;
         hairSlider.maxValue = 360;
@@ -112,37 +91,18 @@ public class Popup_Profile : GameState
 
     private void SendNickname(string nickname)
     {
-        Popup_Loading.Show();
-        Online.Profile.SetNickname(nickname, success =>
-        {
-            Popup_Loading.Hide();
-            if (success)
-            {
-                Profile.Nickname = nickname;
-                nicknamePrice.transform.parent.gameObject.SetActive(true);
-            }
-        });
+        Profile.Nickname = nickname;
+        nicknamePrice.transform.parent.gameObject.SetActive(true);
     }
 
     private void SendStatus(string status)
     {
-        Popup_Loading.Show();
-        Online.Profile.SetStatus(status, success =>
-        {
-            Popup_Loading.Hide();
-            if (success)
-            {
-                Profile.Status = status;
-                statusPrice.transform.parent.gameObject.SetActive(true);
-            }
-        });
+        //Profile.Status = status;
+        statusPrice.transform.parent.gameObject.SetActive(true);
     }
 
     private void SendAvatar()
     {
-        var newAvatar = JsonUtility.ToJson(Profile.Avatar.Current);
-        if (lastAvatar == newAvatar) return;
-        Online.Profile.SetAvatar(newAvatar, res => { });
     }
 
     public override void Back()
@@ -151,6 +111,5 @@ public class Popup_Profile : GameState
         base.Back();
         if (onCloseFunc != null)
             onCloseFunc();
-        Profile.Sync(true, ok => { });
     }
 }

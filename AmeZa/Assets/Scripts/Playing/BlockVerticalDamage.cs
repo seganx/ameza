@@ -14,7 +14,7 @@ public class BlockVerticalDamage : BlockValue
     {
         ItemIndex = -1;
         Health = Mathf.Max(health, 1);
-        numberLabel.text = Health.ToString().Persian();
+        numberLabel.text = Health.ToString();
         return this;
     }
 

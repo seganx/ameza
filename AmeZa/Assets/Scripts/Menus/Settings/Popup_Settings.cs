@@ -1,7 +1,7 @@
 ﻿using SeganX;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Fun.Iab;
 
 public class Popup_Settings : GameState
 {
@@ -30,30 +30,29 @@ public class Popup_Settings : GameState
         supportButton.onClick.AddListener(() => SocialAndSharing.SendEmail(
             GlobalConfig.Socials.contactEmailUrl,
             "Support - " + Application.identifier + " - " + Application.version,
-            "OS:" + SystemInfo.operatingSystem + "|<br>Model:" + SystemInfo.deviceModel + "|<br>Username:" + Profile.Username + "|<br>DeviceId:" + Core.DeviceId + "|<br>Group:" + GlobalConfig.Group + "|_____________________<br><br><br><br>"));
+            "OS:" + SystemInfo.operatingSystem + "|<br>Model:" + SystemInfo.deviceModel + "|<br>Username:" + Profile.Nickname + "|<br>DeviceId:" + Core.DeviceId + "|<br>Group:" + GlobalConfig.Group + "|_____________________<br><br><br><br>"));
 
         purchasedButton.onClick.AddListener(() =>
         {
             Loading.Show();
-            PurchaseSystem.QueryPurchases(PurchaseProvider.Market, (success, json) =>
+            Plankton.Billing.GetPurchases((success, list) =>
             {
                 Loading.Hide();
                 if (success)
                 {
-                    var data = JsonUtility.FromJson<PurchasedData>(json);
-                    CheckPurchasedList(data, 0);
+                    if (list.Count > 0)
+                    {
+                        var item = list[0];
+                        if (item.status == Plankton.Billing.PurchaseStatus.Purchased)
+                        {
+                            ShopLogic.Purchased(item.sku, item.token, () => { });
+                        }
+                    }
+                    else Game.Instance.OpenPopup<Popup_Confirm>().Setup(111062, true, false, null);
                 }
             });
         });
 
         UiShowHide.ShowAll(transform);
-    }
-
-    private void CheckPurchasedList(PurchasedData data, int index)
-    {
-        if (data.list.Count > index)
-            ShopLogic.Purchased(data.list[index].sku, () => CheckPurchasedList(data, index + 1));
-        else
-            Game.Instance.OpenPopup<Popup_Confirm>().Setup(111062, true, false, null);
     }
 }

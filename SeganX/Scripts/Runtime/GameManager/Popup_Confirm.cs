@@ -34,31 +34,25 @@ namespace SeganX
             return this;
         }
 
-#if SX_PARSI
         public Popup_Confirm SetText(int stringId, params object[] args)
         {
             return SetText(LocalizationService.Get(stringId), args);
         }
-#endif
 
         public Popup_Confirm SetText(string desc, params object[] args)
         {
             var str = args == null ? desc : string.Format(desc, args);
-#if SX_PARSI
             if (LocalizationService.IsPersian)
                 descLabel.SetTextAndWrap(str, false, LocalizationService.IsPersian);
             else
-#endif
                 descLabel.text = str;
             return this;
         }
 
-#if SX_PARSI
         public Popup_Confirm Setup(int stringId, bool displayOkButton, bool displayCancelButton, System.Action<bool> callback)
         {
             return Setup(LocalizationService.Get(stringId), displayOkButton, displayCancelButton, callback);
         }
-#endif
 
         public Popup_Confirm Setup(string desc, bool displayOkButton, bool displayCancelButton, System.Action<bool> callback)
         {

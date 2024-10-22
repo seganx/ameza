@@ -1,0 +1,274 @@
+{
+    "generatePreBuild": true,
+    "generateAar": true,
+    "preset": {
+        "ios": {
+            "appTrackingTransparency": {
+                "active": false,
+                "description": "We use your information in order to enhance your game experience, by serving you personalized ads and measuring the performance of our game."
+            },
+            "admob": {
+                "active": false,
+                "appId": "",
+                "mediations": []
+            },
+            "appLovin": {
+                "active": false,
+                "appId": "",
+                "mediations": [],
+                "adMobAppId": ""
+            },
+            "googleUmp": {
+                "active": false,
+                "adMobAppId": ""
+            },
+            "gameCenter": {
+                "active": false
+            },
+            "appsFlyer": {
+                "active": false,
+                "appId": "",
+                "appleAppId": "",
+                "endpointUrl": ""
+            },
+            "tenjin": {
+                "active": false,
+                "appId": ""
+            },
+            "appMetrica": {
+                "active": false,
+                "appId": ""
+            },
+            "firebase": {
+                "active": false,
+                "ios_plist": "",
+                "gcm_defaultSenderId": "",
+                "google_storage_bucket": "",
+                "project_id": "",
+                "google_api_key": "",
+                "google_crash_reporting_api_key": "",
+                "google_app_id": "",
+                "default_web_client_id": "",
+                "activePushNotification": false
+            },
+            "gameAnalytics": {
+                "active": false
+            },
+            "billing": {
+                "active": false
+            }
+        },
+        "android": {
+            "debug": {
+                "active": false
+            },
+            "admob": {
+                "active": false,
+                "appId": "",
+                "mediations": [
+                    {
+                        "active": false,
+                        "name": "AppLovin",
+                        "pod": "pod 'GoogleMobileAdsMediationAppLovin'",
+                        "dependency": "implementation 'com.google.ads.mediation:applovin:12.1.0.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Chartboost",
+                        "pod": "",
+                        "dependency": "implementation 'com.google.ads.mediation:chartboost:9.6.0.0'",
+                        "maven": "maven { url 'https://cboost.jfrog.io/artifactory/chartboost-ads/'; content { includeGroup 'com.chartboost'  } }"
+                    },
+                    {
+                        "active": false,
+                        "name": "DT Exchange (Fyber)",
+                        "pod": "",
+                        "dependency": "implementation 'com.google.ads.mediation:fyber:8.2.5.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Meta (Facebook)",
+                        "pod": "pod 'GoogleMobileAdsMediationFacebook'",
+                        "dependency": "implementation 'com.google.ads.mediation:facebook:6.16.0.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "ironSource",
+                        "pod": "pod 'GoogleMobileAdsMediationIronSource'",
+                        "dependency": "implementation 'com.google.ads.mediation:ironsource:7.2.3.0'",
+                        "maven": "maven { url 'https://android-sdk.is.com/' }"
+                    },
+                    {
+                        "active": false,
+                        "name": "Liftoff (Vungle)",
+                        "pod": "pod 'GoogleMobileAdsMediationVungle'",
+                        "dependency": "implementation 'com.google.ads.mediation:vungle:7.1.0.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Mintegral",
+                        "pod": "pod 'GoogleMobileAdsMediationMintegral'",
+                        "dependency": "implementation 'com.google.ads.mediation:mintegral:16.4.81.0'",
+                        "maven": "maven { url 'https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea' }"
+                    },
+                    {
+                        "active": false,
+                        "name": "Pangle",
+                        "pod": "pod 'GoogleMobileAdsMediationPangle'",
+                        "dependency": "implementation 'com.google.ads.mediation:pangle:5.8.0.7.0'",
+                        "maven": "maven { url 'https://artifact.bytedance.com/repository/pangle/' }"
+                    },
+                    {
+                        "active": false,
+                        "name": "Unity Ads",
+                        "pod": "pod 'GoogleMobileAdsMediationUnity'",
+                        "dependency": "implementation 'com.unity3d.ads:unity-ads:4.2.1'\n\t\timplementation 'com.google.ads.mediation:unity:4.3.0.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Premium Ads",
+                        "pod": "pod 'PremiumAdmobAdapter'",
+                        "dependency": "implementation 'net.premiumads.sdk:admob-adapter:2.2.4'",
+                        "maven": "maven { url 'https://repo.premiumads.net/artifactory/mobile-ads-sdk/' }"
+                    }
+                ]
+            },
+            "appLovin": {
+                "active": false,
+                "appId": "",
+                "mediations": [
+                    {
+                        "active": false,
+                        "name": "AdMob",
+                        "pod": "pod 'AppLovinMediationGoogleAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:google-adapter:22.6.0.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Google Ad Manager",
+                        "pod": "pod 'AppLovinMediationGoogleAdManagerAdapter'",
+                        "dependency": "",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "DT Exchange (Fyber)",
+                        "pod": "",
+                        "dependency": "implementation 'com.applovin.mediation:fyber-adapter:8.2.5.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "ironSource",
+                        "pod": "pod 'AppLovinMediationIronSourceAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:ironsource-adapter:7.2.3.0.0'",
+                        "maven": "maven { url 'https://android-sdk.is.com/' }"
+                    },
+                    {
+                        "active": false,
+                        "name": "Liftoff (Vungle)",
+                        "pod": "pod 'AppLovinMediationVungleAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:vungle-adapter:7.1.0.0'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Meta (Facebook)",
+                        "pod": "pod 'AppLovinMediationFacebookAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:facebook-adapter:6.16.0.2'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Mintegral",
+                        "pod": "pod 'AppLovinMediationMintegralAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:mintegral-adapter:16.5.91.2'\n\t\timplementation 'androidx.recyclerview:recyclerview:1.1.0'",
+                        "maven": "maven { url 'https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea' }"
+                    },
+                    {
+                        "active": false,
+                        "name": "Pangel",
+                        "pod": "pod 'AppLovinMediationByteDanceAdapter'",
+                        "dependency": "",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Unity Ads",
+                        "pod": "pod 'AppLovinMediationUnityAdsAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:unityads-adapter:4.9.2.1'",
+                        "maven": ""
+                    },
+                    {
+                        "active": false,
+                        "name": "Premium Ads",
+                        "pod": "pod 'AppLovinMediationGoogleAdManagerAdapter'",
+                        "dependency": "implementation 'com.applovin.mediation:google-ad-manager-adapter:23.3.0.1'",
+                        "maven": ""
+                    }
+                ],
+                "adMobAppId": ""
+            },
+            "googleUmp": {
+                "active": false,
+                "adMobAppId": ""
+            },
+            "playServices": {
+                "active": false,
+                "appId": ""
+            },
+            "appsFlyer": {
+                "active": false,
+                "appId": "",
+                "appleAppId": "",
+                "endpointUrl": ""
+            },
+            "tenjin": {
+                "active": false,
+                "appId": ""
+            },
+            "appMetrica": {
+                "active": false,
+                "appId": ""
+            },
+            "firebase": {
+                "active": false,
+                "ios_plist": "",
+                "gcm_defaultSenderId": "",
+                "google_storage_bucket": "",
+                "project_id": "",
+                "google_api_key": "",
+                "google_crash_reporting_api_key": "",
+                "google_app_id": "",
+                "default_web_client_id": "",
+                "activePushNotification": false
+            },
+            "gameAnalytics": {
+                "active": true
+            },
+            "billing": {
+                "active": true
+            },
+            "tapsell": {
+                "active": false,
+                "appId": "",
+                "mediations": [],
+                "adMobKey": "",
+                "appLovinKey": ""
+            },
+            "metrix": {
+                "active": false,
+                "appId": "",
+                "apiKey": "",
+                "sdkSignature": "",
+                "developerMode": false
+            }
+        }
+    }
+}

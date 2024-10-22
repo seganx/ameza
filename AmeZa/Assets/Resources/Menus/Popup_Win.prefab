@@ -1360,7 +1360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 55.00003, y: 0}
+  m_AnchoredPosition: {x: 55.00003, y: 100}
   m_SizeDelta: {x: 244, y: 391}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &114660368032674660
@@ -1493,7 +1493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 450, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222790076849021644
@@ -2484,7 +2484,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u0622\u0641\u0631\u06CC\u0646 \u0628\u0631 \u062A\u0648"
+  m_Text: Congratulation!
 --- !u!114 &114726018666694916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2644,7 +2644,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -3.5}
-  m_SizeDelta: {x: 264, y: 91}
+  m_SizeDelta: {x: 315, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222911024483189228
 CanvasRenderer:
@@ -2696,7 +2696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d2823eca7ca0e45bbda85945b2143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currnetText: "\u0622\u0641\u0631\u06CC\u0646 \u0628\u0631 \u062A\u0648"
+  currnetText: Congratulation!
   target: {fileID: 114825971876006480}
   autoRtl: 0
   autoWidth: 1

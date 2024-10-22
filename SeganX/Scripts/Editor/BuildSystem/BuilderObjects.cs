@@ -8,8 +8,8 @@ using UnityEditor.Build.Reporting;
 
 namespace SeganX.Builder
 {
-    public enum Market : int { Bazaar = 1, Myket = 2, GooglePlay = 3, Huawei = 4, Galaxy = 5, Tutuapp = 6, Aptoide = 7, Emay = 8, OneStore = 9 }
-    public enum Architecture : int { ARMV7 = 1, ARM64 = 2, ARMV7_ARM64 = 3 }
+    public enum Market : int { Bazaar = 1, Myket = 2, IrGoogle = 3, Huawei = 4, Galaxy = 5, Tutuapp = 6, Aptoide = 7, Emay = 8, OneStore = 9, SibApp = 10, GooglePlay = 11, AppStore = 12 }
+    public enum Architecture : int { ARMV7 = 1, ARM64 = 2, ARMV7_ARM64 = ARMV7 | ARM64 }
 
     [System.Serializable]
     public class Build
@@ -26,6 +26,7 @@ namespace SeganX.Builder
     {
         public int versionOffset = 0;
         public string postfix = string.Empty;
+        public string companyName = string.Empty;
         public string packageName = string.Empty;
         public string productName = string.Empty;
         public Builder.Symbols addSymbols = new Builder.Symbols();
@@ -45,7 +46,7 @@ namespace SeganX.Builder
 
         public virtual string PerformSymbols(string initialSymbols)
         {
-            var symbols = RemoveSymbols(initialSymbols, "GOOGLE;BAZAAR;MYKET;PLAY_INSTANT;HUAWEI;GALAXY;TUTUAPP;APTOIDE;EMAY;ONESTORE");
+            var symbols = RemoveSymbols(initialSymbols, "BAZAAR;MYKET;IRGOOGLE;PLAY_INSTANT;HUAWEI;GALAXY;TUTUAPP;APTOIDE;EMAY;ONESTORE;SIBAPP;GOOGLE;APPSTORE");
             foreach (var symbol in removeSymbols)
                 symbols = RemoveSymbols(symbols, symbol);
             symbols = AddSymbols(symbols, addSymbols.Get());

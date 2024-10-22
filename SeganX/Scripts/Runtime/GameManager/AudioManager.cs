@@ -21,6 +21,7 @@ namespace SeganX
             instance = this;
             AudioListener.volume = SoundVolume * 0.01f;
             soundSource = gameObject.AddComponent<AudioSource>();
+            Play(0, 1, 5, 5);
         }
 
         public void Play(int index, float volume, float fadeInTime, float fadeOutTime)
@@ -46,7 +47,7 @@ namespace SeganX
             currentSource.source.Play();
             currentSource.initVolume = volume;
 
-            var targetVolume = volume * MusicVolume * 0.005f;
+            var targetVolume = volume * MusicVolume * 0.005f * musicFactor;
             while (currentSource.source.volume < targetVolume)
             {
                 currentSource.source.volume = Mathf.MoveTowards(currentSource.source.volume, targetVolume, Time.deltaTime / fadeInTime);
@@ -70,6 +71,7 @@ namespace SeganX
         private static AudioManager instance = null;
         private static AudioSource soundSource = null;
         private static MusicSource currentSource = new MusicSource();
+        private static float musicFactor = 1;
 
         private static int lastRandomIndex
         {
@@ -84,7 +86,7 @@ namespace SeganX
             {
                 if (currentSource.source != null)
                 {
-                    currentSource.source.volume = currentSource.initVolume * value * 0.005f;
+                    currentSource.source.volume = currentSource.initVolume * value * 0.005f * musicFactor;
                 }
                 PlayerPrefs.SetInt("GameSettings.MusicVolume", value);
             }
@@ -102,7 +104,8 @@ namespace SeganX
 
         public static void SetMusicVolumFactor(float value)
         {
-            
+            musicFactor = value;
+            MusicVolume = MusicVolume;
         }
 
         public static void PlayMusic(int index, float volume = 1, float fadeInTime = 1, float fadeOutTime = 1)

@@ -5,6 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class ProfileData
 {
+    public string nickname = string.Empty;
+    public AvatarData avatar = new AvatarData();
+    public PrivateData privateData = new PrivateData();
+    public PublicData publicData = new PublicData();
+
     [System.Serializable]
     public class AvatarData
     {
@@ -51,20 +56,5 @@ public class ProfileData
     public class PublicData
     {
         public List<int> balls = new List<int>();
-    }
-
-    public Online.Profile.Data _info = new Online.Profile.Data();
-    public AvatarData avatar = new AvatarData();
-    public PrivateData privateData = new PrivateData();
-    public PublicData publicData = new PublicData();
-    public Online.Profile.Data Info
-    {
-        get { return _info; }
-        set
-        {
-            _info = value;
-            if (_info.avatar.HasContent())
-                avatar = JsonUtility.FromJson<AvatarData>(_info.avatar);
-        }
     }
 }

@@ -25,7 +25,7 @@ public class BlockValue : BlockBase
         Health = Mathf.Max(health, 1);
         ItemIndex = itemIndex % GlobalFactory.Theme.Selected.items.Length;
         spriter.sprite = effector.sprite = GlobalFactory.Theme.Selected.items[ItemIndex];
-        numberLabel.text = Health.ToString().Persian();
+        numberLabel.text = Health.ToString();
         return this;
     }
 
@@ -33,7 +33,7 @@ public class BlockValue : BlockBase
     {
         if (Health > damage)
         {
-            numberLabel.text = Health.ToString().Persian();
+            numberLabel.text = Health.ToString();
             if (animator.isPlaying == false) animator.Play("BlockHit");
             transform.root.Message(Messages.Type.OnBlockHit, this);
         }

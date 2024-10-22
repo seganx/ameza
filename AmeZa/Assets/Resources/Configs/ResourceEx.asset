@@ -20,8 +20,8 @@ MonoBehaviour:
     name: 0
     tags: []
     ids: 00000000
-  - path: Game/Cinematics/0_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/0_0
+    dire: Game/Cinematics_Off/
     name: 0_0
     tags: []
     ids: 0000000000000000
@@ -32,8 +32,8 @@ MonoBehaviour:
     - Fruit
     - Jungle
     ids: 00000000
-  - path: Game/Cinematics/0_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/0_1
+    dire: Game/Cinematics_Off/
     name: 0_1
     tags: []
     ids: 0000000001000000
@@ -143,8 +143,8 @@ MonoBehaviour:
     tags:
     - Repeat
     ids: 0400000002000000
-  - path: Game/Cinematics/4_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/4_1
+    dire: Game/Cinematics_Off/
     name: 4_1
     tags: []
     ids: 0400000001000000
@@ -197,8 +197,8 @@ MonoBehaviour:
     name: 10
     tags: []
     ids: 0a000000
-  - path: Game/Cinematics/10_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/10_0
+    dire: Game/Cinematics_Off/
     name: 10_0
     tags: []
     ids: 0a00000000000000
@@ -207,18 +207,18 @@ MonoBehaviour:
     name: 11
     tags: []
     ids: 0b000000
-  - path: Game/Cinematics/11_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/11_0
+    dire: Game/Cinematics_Off/
     name: 11_0
     tags: []
     ids: 0b00000000000000
-  - path: Game/Cinematics/11_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/11_1
+    dire: Game/Cinematics_Off/
     name: 11_1
     tags: []
     ids: 0b00000001000000
-  - path: Game/Cinematics/12_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/12_0
+    dire: Game/Cinematics_Off/
     name: 12_0
     tags: []
     ids: 0c00000000000000
@@ -232,8 +232,8 @@ MonoBehaviour:
     name: 13
     tags: []
     ids: 0d000000
-  - path: Game/Cinematics/14_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/14_1
+    dire: Game/Cinematics_Off/
     name: 14_1
     tags: []
     ids: 0e00000001000000
@@ -257,8 +257,8 @@ MonoBehaviour:
     name: 17
     tags: []
     ids: 11000000
-  - path: Game/Cinematics/17_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/17_0
+    dire: Game/Cinematics_Off/
     name: 17_0
     tags: []
     ids: 1100000000000000
@@ -282,8 +282,8 @@ MonoBehaviour:
     name: 20
     tags: []
     ids: 14000000
-  - path: Game/Cinematics/20_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/20_0
+    dire: Game/Cinematics_Off/
     name: 20_0
     tags: []
     ids: 1400000000000000
@@ -297,8 +297,8 @@ MonoBehaviour:
     name: 22
     tags: []
     ids: 16000000
-  - path: Game/Cinematics/23_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/23_0
+    dire: Game/Cinematics_Off/
     name: 23_0
     tags: []
     ids: 1700000000000000
@@ -317,8 +317,8 @@ MonoBehaviour:
     name: 25
     tags: []
     ids: 19000000
-  - path: Game/Cinematics/25_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/25_0
+    dire: Game/Cinematics_Off/
     name: 25_0
     tags: []
     ids: 1900000000000000
@@ -332,8 +332,8 @@ MonoBehaviour:
     name: 27
     tags: []
     ids: 1b000000
-  - path: Game/Cinematics/27_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/27_1
+    dire: Game/Cinematics_Off/
     name: 27_1
     tags: []
     ids: 1b00000001000000
@@ -352,18 +352,18 @@ MonoBehaviour:
     name: 30
     tags: []
     ids: 1e000000
-  - path: Game/Cinematics/31_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/31_0
+    dire: Game/Cinematics_Off/
     name: 31_0
     tags: []
     ids: 1f00000000000000
-  - path: Game/Cinematics/34_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/34_0
+    dire: Game/Cinematics_Off/
     name: 34_0
     tags: []
     ids: 2200000000000000
-  - path: Game/Cinematics/37_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/37_1
+    dire: Game/Cinematics_Off/
     name: 37_1
     tags: []
     ids: 2500000001000000
@@ -372,23 +372,23 @@ MonoBehaviour:
     name: 40
     tags: []
     ids: 28000000
-  - path: Game/Cinematics/40_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/40_0
+    dire: Game/Cinematics_Off/
     name: 40_0
     tags: []
     ids: 2800000000000000
-  - path: Game/Cinematics/43_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/43_1
+    dire: Game/Cinematics_Off/
     name: 43_1
     tags: []
     ids: 2b00000001000000
-  - path: Game/Cinematics/47_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/47_1
+    dire: Game/Cinematics_Off/
     name: 47_1
     tags: []
     ids: 2f00000001000000
-  - path: Game/Cinematics/48_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/48_0
+    dire: Game/Cinematics_Off/
     name: 48_0
     tags: []
     ids: 3000000000000000
@@ -397,23 +397,23 @@ MonoBehaviour:
     name: 50
     tags: []
     ids: 32000000
-  - path: Game/Cinematics/51_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/51_0
+    dire: Game/Cinematics_Off/
     name: 51_0
     tags: []
     ids: 3300000000000000
-  - path: Game/Cinematics/54_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/54_1
+    dire: Game/Cinematics_Off/
     name: 54_1
     tags: []
     ids: 3600000001000000
-  - path: Game/Cinematics/57_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/57_0
+    dire: Game/Cinematics_Off/
     name: 57_0
     tags: []
     ids: 3900000000000000
-  - path: Game/Cinematics/60_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/60_1
+    dire: Game/Cinematics_Off/
     name: 60_1
     tags: []
     ids: 3c00000001000000
@@ -422,23 +422,23 @@ MonoBehaviour:
     name: 60
     tags: []
     ids: 3c000000
-  - path: Game/Cinematics/63_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/63_1
+    dire: Game/Cinematics_Off/
     name: 63_1
     tags: []
     ids: 3f00000001000000
-  - path: Game/Cinematics/67_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/67_1
+    dire: Game/Cinematics_Off/
     name: 67_1
     tags: []
     ids: 4300000001000000
-  - path: Game/Cinematics/68_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/68_0
+    dire: Game/Cinematics_Off/
     name: 68_0
     tags: []
     ids: 4400000000000000
-  - path: Game/Cinematics/70_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/70_0
+    dire: Game/Cinematics_Off/
     name: 70_0
     tags: []
     ids: 4600000000000000
@@ -447,18 +447,18 @@ MonoBehaviour:
     name: 70
     tags: []
     ids: 46000000
-  - path: Game/Cinematics/72_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/72_0
+    dire: Game/Cinematics_Off/
     name: 72_0
     tags: []
     ids: 4800000000000000
-  - path: Game/Cinematics/75_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/75_0
+    dire: Game/Cinematics_Off/
     name: 75_0
     tags: []
     ids: 4b00000000000000
-  - path: Game/Cinematics/78_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/78_0
+    dire: Game/Cinematics_Off/
     name: 78_0
     tags: []
     ids: 4e00000000000000
@@ -467,23 +467,23 @@ MonoBehaviour:
     name: 80
     tags: []
     ids: 50000000
-  - path: Game/Cinematics/81_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/81_0
+    dire: Game/Cinematics_Off/
     name: 81_0
     tags: []
     ids: 5100000000000000
-  - path: Game/Cinematics/84_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/84_0
+    dire: Game/Cinematics_Off/
     name: 84_0
     tags: []
     ids: 5400000000000000
-  - path: Game/Cinematics/87_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/87_1
+    dire: Game/Cinematics_Off/
     name: 87_1
     tags: []
     ids: 5700000001000000
-  - path: Game/Cinematics/88_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/88_0
+    dire: Game/Cinematics_Off/
     name: 88_0
     tags: []
     ids: 5800000000000000
@@ -492,18 +492,18 @@ MonoBehaviour:
     name: 90
     tags: []
     ids: 5a000000
-  - path: Game/Cinematics/93_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/93_0
+    dire: Game/Cinematics_Off/
     name: 93_0
     tags: []
     ids: 5d00000000000000
-  - path: Game/Cinematics/96_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/96_0
+    dire: Game/Cinematics_Off/
     name: 96_0
     tags: []
     ids: 6000000000000000
-  - path: Game/Cinematics/99_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/99_0
+    dire: Game/Cinematics_Off/
     name: 99_0
     tags: []
     ids: 6300000000000000
@@ -512,18 +512,18 @@ MonoBehaviour:
     name: 100
     tags: []
     ids: 64000000
-  - path: Game/Cinematics/102_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/102_1
+    dire: Game/Cinematics_Off/
     name: 102_1
     tags: []
     ids: 6600000001000000
-  - path: Game/Cinematics/105_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/105_0
+    dire: Game/Cinematics_Off/
     name: 105_0
     tags: []
     ids: 6900000000000000
-  - path: Game/Cinematics/107_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/107_1
+    dire: Game/Cinematics_Off/
     name: 107_1
     tags: []
     ids: 6b00000001000000
@@ -532,18 +532,18 @@ MonoBehaviour:
     name: 110
     tags: []
     ids: 6e000000
-  - path: Game/Cinematics/111_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/111_0
+    dire: Game/Cinematics_Off/
     name: 111_0
     tags: []
     ids: 6f00000000000000
-  - path: Game/Cinematics/114_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/114_0
+    dire: Game/Cinematics_Off/
     name: 114_0
     tags: []
     ids: 7200000000000000
-  - path: Game/Cinematics/117_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/117_0
+    dire: Game/Cinematics_Off/
     name: 117_0
     tags: []
     ids: 7500000000000000
@@ -552,28 +552,28 @@ MonoBehaviour:
     name: 120
     tags: []
     ids: 78000000
-  - path: Game/Cinematics/120_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/120_0
+    dire: Game/Cinematics_Off/
     name: 120_0
     tags: []
     ids: 7800000000000000
-  - path: Game/Cinematics/123_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/123_0
+    dire: Game/Cinematics_Off/
     name: 123_0
     tags: []
     ids: 7b00000000000000
-  - path: Game/Cinematics/126_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/126_0
+    dire: Game/Cinematics_Off/
     name: 126_0
     tags: []
     ids: 7e00000000000000
-  - path: Game/Cinematics/127_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/127_1
+    dire: Game/Cinematics_Off/
     name: 127_1
     tags: []
     ids: 7f00000001000000
-  - path: Game/Cinematics/129_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/129_0
+    dire: Game/Cinematics_Off/
     name: 129_0
     tags: []
     ids: 8100000000000000
@@ -582,18 +582,18 @@ MonoBehaviour:
     name: 130
     tags: []
     ids: 82000000
-  - path: Game/Cinematics/132_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/132_0
+    dire: Game/Cinematics_Off/
     name: 132_0
     tags: []
     ids: 8400000000000000
-  - path: Game/Cinematics/135_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/135_0
+    dire: Game/Cinematics_Off/
     name: 135_0
     tags: []
     ids: 8700000000000000
-  - path: Game/Cinematics/138_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/138_0
+    dire: Game/Cinematics_Off/
     name: 138_0
     tags: []
     ids: 8a00000000000000
@@ -602,23 +602,23 @@ MonoBehaviour:
     name: 140
     tags: []
     ids: 8c000000
-  - path: Game/Cinematics/141_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/141_0
+    dire: Game/Cinematics_Off/
     name: 141_0
     tags: []
     ids: 8d00000000000000
-  - path: Game/Cinematics/145_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/145_0
+    dire: Game/Cinematics_Off/
     name: 145_0
     tags: []
     ids: 9100000000000000
-  - path: Game/Cinematics/147_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/147_1
+    dire: Game/Cinematics_Off/
     name: 147_1
     tags: []
     ids: 9300000001000000
-  - path: Game/Cinematics/149_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/149_0
+    dire: Game/Cinematics_Off/
     name: 149_0
     tags: []
     ids: 9500000000000000
@@ -627,18 +627,18 @@ MonoBehaviour:
     name: 150
     tags: []
     ids: 96000000
-  - path: Game/Cinematics/153_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/153_0
+    dire: Game/Cinematics_Off/
     name: 153_0
     tags: []
     ids: 9900000000000000
-  - path: Game/Cinematics/157_0
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/157_0
+    dire: Game/Cinematics_Off/
     name: 157_0
     tags: []
     ids: 9d00000000000000
-  - path: Game/Cinematics/160_1
-    dire: Game/Cinematics/
+  - path: Game/Cinematics_Off/160_1
+    dire: Game/Cinematics_Off/
     name: 160_1
     tags: []
     ids: a000000001000000

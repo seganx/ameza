@@ -1,5 +1,4 @@
-﻿#if SX_PARSI
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace SeganX
 {
@@ -34,4 +33,3 @@ namespace SeganX
         }
     }
 }
-#endif

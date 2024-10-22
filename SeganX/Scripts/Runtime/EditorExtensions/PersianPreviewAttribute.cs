@@ -1,5 +1,4 @@
-﻿#if SX_PARSI
-using UnityEngine;
+﻿using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -60,9 +59,8 @@ namespace SeganX
             position.height = height;
             property.stringValue = EditorGUI.TextArea(position, property.stringValue);
             position.y += height;
-            EditorGUI.LabelField(position, property.stringValue.CleanFromCode().CleanForPersian().Persian(forcePersian), style);
+            EditorGUI.LabelField(position, property.stringValue.CleanFromCode(), style);
         }
     }
 #endif
 }
-#endif

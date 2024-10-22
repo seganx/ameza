@@ -14,6 +14,8 @@ public class State_Playing : GameState
 
     private ThemeSounds sounds = null;
 
+    private bool BoosterVisibility => PlayModel.IsClassic || PlayModel.level.season > 0 || PlayModel.level.index > 1;
+
     private IEnumerator Start()
     {
         Profile.SetEnergy(Profile.Energy.value - 1);
@@ -25,7 +27,7 @@ public class State_Playing : GameState
         endTurnButton.onClick.AddListener(() => transform.Broadcast(Messages.Type.EndTurn));
         pauseButton.onClick.AddListener(() => Game.Instance.OpenPopup<Popup_Settings>());
 
-        vipBox.gameObject.SetActive(PlayModel.IsClassic || PlayModel.level.season > 0 || PlayModel.level.index > 1);
+        vipBox.gameObject.SetActive(BoosterVisibility);
         vipBox.Setup(ability =>
         {
             Game.Instance.OpenPopup<Popup_Effects>().Setup(ability, () => transform.Broadcast(Messages.Type.UseAbility, ability), CheckMission);
@@ -43,6 +45,11 @@ public class State_Playing : GameState
             tutorial.transform.GetChild(1).gameObject.SetActive(false);
             tutorial.Display(0, false, 111037, null);
         }
+    }
+
+    private void Update()
+    {
+        ThemeSounds.UpdateMe(Time.unscaledTime);
     }
 
     private void OnMessage(Messages.Param param)
@@ -72,7 +79,7 @@ public class State_Playing : GameState
             case Messages.Type.TurnEnded:
                 ballsLabel.transform.position = BallManager.SpawnPoint;
                 endTurnButton.gameObject.SetActive(false);
-                vipBox.gameObject.SetActive(PlayModel.IsClassic || PlayModel.level.index > 1);
+                vipBox.gameObject.SetActive(BoosterVisibility);
                 UpdateBallText(BallManager.balls.Count);
                 break;
 

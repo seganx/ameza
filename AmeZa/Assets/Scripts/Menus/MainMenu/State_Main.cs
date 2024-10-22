@@ -20,10 +20,7 @@ public class State_Main : GameState
 
         onlineButton.onClick.AddListener(() =>
         {
-            if (Profile.GetSeasonRewarded(0).value > 0)
-                Game.Instance.OpenState<State_SelectLeague>();
-            else
-                tutorial.Display(0, false, 111034, null);
+             tutorial.Display(0,"Coming Soon!", null);
         });
 
         classicButton.onClick.AddListener(() =>

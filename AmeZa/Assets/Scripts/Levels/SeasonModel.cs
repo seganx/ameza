@@ -31,7 +31,7 @@ public class SeasonModel
         res.season = id;
         res.theme = id;
         res.index = index;
-        res.name = (levelIndex + 1).ToString();
+        res.name = "Level: " + (levelIndex + 1).ToString();
         res.progress = (index + 1) / (float)levelCount;
         res.startBallCount = Mathf.RoundToInt(Mathf.Lerp(startBallCount.x, startBallCount.y, res.progress));
         res.minBlockHealth = res.startBallCount / 4;

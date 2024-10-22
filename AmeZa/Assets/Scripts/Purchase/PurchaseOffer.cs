@@ -1,5 +1,4 @@
-﻿#if SX_IAP
-namespace SeganX
+﻿namespace SeganX
 {
     public static class PurchaseOffer
     {
@@ -122,4 +121,3 @@ namespace SeganX
         }
     }
 }
-#endif

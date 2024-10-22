@@ -7,6 +7,7 @@ public class Popup_Offer : GameState
     [SerializeField] private UiShopItem presenter = null;
     [SerializeField] private LocalText hint = null;
 
+    private bool exiting = false;
     private System.Action<bool> onCloseFunc = null;
 
     private static int HintId
@@ -37,6 +38,7 @@ public class Popup_Offer : GameState
 
     private void Exit(bool success)
     {
+        exiting = true;
         base.Back();
         onCloseFunc?.Invoke(success);
     }
@@ -61,7 +63,7 @@ public class Popup_Offer : GameState
         hint.SetText(LocalizationService.Get(111045 + HintId++ % 5));
 
         var wait = new WaitForSeconds(0.5f);
-        while (true)
+        while (!exiting)
         {
             if (PurchaseOffer.RemainedTime < 0)
             {

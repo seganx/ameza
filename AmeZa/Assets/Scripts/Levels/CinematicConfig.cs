@@ -136,7 +136,7 @@ public class CinematicConfig : ScriptableObject
                 face = currFace,
                 body = currBody,
                 item = currItem,
-                text = line.Trim(new char[] { ' ', '\n', '\r', '\t' }).CleanFromCode().CleanForPersian()
+                text = line.Trim(new char[] { ' ', '\n', '\r', '\t' }).CleanFromCode()
             };
             currConfig.sequences.Add(sequence);
             currBody = Body.Normal;

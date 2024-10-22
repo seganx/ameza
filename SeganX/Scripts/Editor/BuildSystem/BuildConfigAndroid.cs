@@ -9,10 +9,14 @@ namespace SeganX.Builder
     [CreateAssetMenu(menuName = "Builder/Android/Standard Offline")]
     public class BuildConfigAndroid : BuildConfigBase
     {
+        private enum SdkVersions { ApiLevel19 = 19, ApiLevel29 = 29, ApiLevel30 = 30, ApiLevel31 = 31, ApiLevel32 = 32, ApiLevel33 = 33, ApiLevel34 = 34, }
         public bool buildAppBundle = false;
         public bool proguardMinification = false;
         public Market market = Market.Bazaar;
         public Architecture architecture = Architecture.ARMV7;
+        [SerializeField] private SdkVersions targetSdkVersion = SdkVersions.ApiLevel29;
+        [SerializeField] private SdkVersions minSdkVersion = SdkVersions.ApiLevel19;
+        [SerializeField] private ScriptingImplementation scriptBackend = ScriptingImplementation.IL2CPP;
         [Space(50), InspectorButton(200, "Open KeyStore File", "OpenKeyStoreFile", false)]
         [Delayed] public string storeFilename = "../user.keystore";
         [Delayed] public string storePassword = string.Empty;
@@ -52,9 +56,7 @@ namespace SeganX.Builder
                 storePassword.HasContent(6) == false)
                 return $"{name}: Keystore is not valid! Please check the Keystore fields";
 
-            int targetSdkVersion = (int)PlayerSettings.Android.targetSdkVersion;
-            int minSdkVersion = (int)PlayerSettings.Android.minSdkVersion;
-            int sdkDelta = targetSdkVersion - minSdkVersion;
+            int sdkDelta = (int)targetSdkVersion - (int)minSdkVersion;
             if (sdkDelta < 5)
                 return $"{name}: Target[{targetSdkVersion}] & Minimum[{minSdkVersion}] API versions are too close[{sdkDelta}] and cause rediuce target devices!";
 
@@ -71,6 +73,7 @@ namespace SeganX.Builder
         {
             bool result = false;
 
+            var initialCompanyName = PlayerSettings.companyName;
             var initialProductName = PlayerSettings.productName;
             var initialPackageName = PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.Android);
             var initialArchitectures = PlayerSettings.Android.targetArchitectures;
@@ -84,9 +87,13 @@ namespace SeganX.Builder
             PlayerSettings.Android.bundleVersionCode = BundleVersion;
             PlayerSettings.bundleVersion = Builder.Instance.version + "." + BundleVersion;
 
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, scriptBackend);
             PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, packageName.HasContent(3) ? packageName : initialPackageName);
             PlayerSettings.productName = productName.HasContent(3) ? productName : initialProductName;
+            PlayerSettings.companyName = companyName.HasContent(3) ? companyName : initialCompanyName;
             PlayerSettings.Android.targetArchitectures = (AndroidArchitecture)architecture;
+            PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)targetSdkVersion;
+            PlayerSettings.Android.minSdkVersion = (AndroidSdkVersions)minSdkVersion;
 
 #if UNITY_2020_1_OR_NEWER
             PlayerSettings.Android.minifyRelease = proguardMinification;
@@ -99,13 +106,16 @@ namespace SeganX.Builder
             {
                 case Market.Bazaar: symbols = AddSymbols(symbols, "BAZAAR"); break;
                 case Market.Myket: symbols = AddSymbols(symbols, "MYKET"); break;
-                case Market.GooglePlay: symbols = AddSymbols(symbols, "GOOGLE"); break;
+                case Market.IrGoogle: symbols = AddSymbols(symbols, "IRGOOGLE"); break;
                 case Market.Huawei: symbols = AddSymbols(symbols, "HUAWEI"); break;
                 case Market.Galaxy: symbols = AddSymbols(symbols, "GALAXY"); break;
                 case Market.Tutuapp: symbols = AddSymbols(symbols, "TUTUAPP"); break;
                 case Market.Aptoide: symbols = AddSymbols(symbols, "APTOIDE"); break;
                 case Market.Emay: symbols = AddSymbols(symbols, "EMAY"); break;
                 case Market.OneStore: symbols = AddSymbols(symbols, "ONESTORE"); break;
+                case Market.SibApp: symbols = AddSymbols(symbols, "SIBAPP"); break;
+                case Market.GooglePlay: symbols = AddSymbols(symbols, "GOOGLE"); break;
+                case Market.AppStore: symbols = AddSymbols(symbols, "APPSTORE"); break;
             }
             PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android, symbols);
             await WaitForEditor();

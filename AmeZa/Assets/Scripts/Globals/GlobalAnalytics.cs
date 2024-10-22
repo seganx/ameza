@@ -1,27 +1,70 @@
-﻿using GameAnalyticsSDK;
+﻿using Plankton;
 using SeganX;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [DefaultExecutionOrder(-9999)]
 public class GlobalAnalytics : MonoBehaviour
 {
-    private void Awake()
+    private const GeneralAnalytics.Provider provider = GeneralAnalytics.Provider.Firebase;
+
+    // game analaytic's remote config key: the angle of shooting
+    public const string rc_shoot_angle = "shoot_angle";
+
+    public static readonly string[] rc_all = new string[] {
+        rc_shoot_angle,
+    };
+
+
+    private async void Awake()
     {
         instance = this;
-        GameAnalytics.Initialize();
+        GeneralAnalytics.Initialize();
 
-        GameAnalytics.OnRemoteConfigsUpdatedEvent += () =>
+        GameAnalytics.Initialize(
+                new GameAnalytics.Builder("49e4082c40a593ddf9e5fceda5cf82a3", "6ea05e72b7bc31ca9326bbede14215ba80dc467d")
+                .SetUserId(Core.DeviceId)
+                .SetBuildVersion(Application.version)
+                .ConfigureResourceCurrencies("gem")
+                .ConfigureItemTypes("earn", "profile", "levels", "classic", "ad")
+                .ConfigureCustomDimensions01("google", "ios")
+                , () =>
+                {
+                    Debug.Log($"[Services] [GA] Initialized!");
+#if UNITY_IOS
+                    GameAnalytics.SetCustomDimension01("ios");
+                    GeneralAnalytics.SetUserProperty(provider, "market", "ios");
+#else
+                    GameAnalytics.SetCustomDimension01("google");
+                    GeneralAnalytics.SetUserProperty(provider, "market", "google");
+#endif
+                });
+
+#if UNITY_EDITOR
+        int numberOfTries = 1;
+#else
+        int numberOfTries = 60;
+#endif
+        while (numberOfTries-- > 0 && GameAnalytics.IsRemoteConfigsReady() == false)
         {
-            if (GameAnalytics.IsRemoteConfigsReady() == false) return;
-            ABTest.OnRecieved?.Invoke();
+            //Debug.Log("[Services] [GA] waiting for RemoteConfigs");
+            await Task.Delay(1000);
+        }
 
-            var remoteConfig = GameAnalytics.GetRemoteConfigsContentAsString();
-            if (remoteConfig.HasContent(5))
+        if (GameAnalytics.IsRemoteConfigsReady())
+        {
+            var log = "[Services] [GA] received RemoteConfigs:\n";
+            var v = new string[rc_all.Length];
+            for (int i = 0; i < v.Length; i++)
             {
-                Debug.Log("GameAnalytics remote config recieved:\n" + GameAnalytics.GetRemoteConfigsContentAsString());
+                v[i] = GameAnalytics.GetRemoteConfigsValueAsString(rc_all[i], "none");
+                log += $"{rc_all[i]} = {v[i]}\n";
             }
-        };
+            Debug.Log(log);
+
+            ABTest.OnRecieved?.Invoke();
+        }
     }
 
 
@@ -79,17 +122,17 @@ public class GlobalAnalytics : MonoBehaviour
     {
         public static void Start(int season, int level)
         {
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Levels", season.ToString(), level.ToString(), 0);
+            GameAnalytics.AddProgressionEvent(GameAnalytics.ProgressionStatus.Start, "Levels", season.ToString(), level.ToString());
         }
 
         public static void Complete(int season, int level, int stars)
         {
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Levels", season.ToString(), level.ToString(), stars);
+            GameAnalytics.AddProgressionEvent(GameAnalytics.ProgressionStatus.Complete, "Levels", season.ToString(), level.ToString());
         }
 
         public static void Fail(int season, int level)
         {
-            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "Levels", season.ToString(), level.ToString(), 0);
+            GameAnalytics.AddProgressionEvent(GameAnalytics.ProgressionStatus.Fail, "Levels", season.ToString(), level.ToString());
         }
     }
 
@@ -98,65 +141,31 @@ public class GlobalAnalytics : MonoBehaviour
         // A “sink” is when a player loses or spends a resource
         public static void Sink(string name, string gate, string item, int amount)
         {
-            GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, name, amount, gate, item);
+            GameAnalytics.AddResourceEvent(GameAnalytics.ResourceFlowType.Sink, name, amount, gate, item);
         }
 
         // A “source” is when a player gains or earns a resource
         public static void Source(string name, string gate, string item, int amount)
         {
-            GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, name, amount, gate, item);
-        }
-    }
-
-    public static class Ad
-    {
-        public static class Rewarded
-        {
-            public static void Request(string placement)
-            {
-                GameAnalytics.NewAdEvent(GAAdAction.Request, GAAdType.RewardedVideo, "tapsell", placement);
-            }
-
-            public static void RequestFailed(string placement)
-            {
-                GameAnalytics.NewAdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo, "tapsell", placement);
-            }
-
-            public static void Show(string placement)
-            {
-                GameAnalytics.NewAdEvent(GAAdAction.Show, GAAdType.RewardedVideo, "tapsell", placement);
-            }
-
-            public static void RewardReceived(string placement)
-            {
-                GameAnalytics.NewAdEvent(GAAdAction.RewardReceived, GAAdType.RewardedVideo, "tapsell", placement);
-            }
-        }
-
-        public static class Interstitial
-        {
-            public static void Show(string placement)
-            {
-                GameAnalytics.NewAdEvent(GAAdAction.Show, GAAdType.Interstitial, "tapsell", placement);
-            }
+            GameAnalytics.AddResourceEvent(GameAnalytics.ResourceFlowType.Source, name, amount, gate, item);
         }
     }
 
     public static void NewBusinessEvent(int rialAmount, string sku)
     {
-        GameAnalytics.NewBusinessEvent("USD", rialAmount / 10, "pack", sku, "shop");
+        GameAnalytics.AddBusinessEvent("USD", rialAmount, "pack", sku, "shop");
     }
 
     // A “sink” is when a player loses or spends a resource
     public static void SinkGem(int amount, string placement, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "gem", amount, placement, itemId);
+        GameAnalytics.AddResourceEvent(GameAnalytics.ResourceFlowType.Sink, "gem", amount, placement, itemId);
     }
 
     // A “source” is when a player gains or earns a resource
     public static void SourceGem(int amount, string itemId)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "gem", amount, "earn", itemId);
+        GameAnalytics.AddResourceEvent(GameAnalytics.ResourceFlowType.Source, "gem", amount, "earn", itemId);
     }
 
 }

@@ -1,4 +1,4 @@
-﻿#if SX_CAMFX
+﻿#if OFF
 using System.Collections.Generic;
 using UnityEngine;
 

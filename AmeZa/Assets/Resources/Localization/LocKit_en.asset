@@ -17,12 +17,12 @@ MonoBehaviour:
     language: en
     strings:
     - i: 111000
-      s: 'Hello
+      s: 'Hi,
 
-        I''m Auntie Za
+        I''m Bobby Blaster.
 
-        Well, actually your dad''s aunt.
-        That''s why my hair is white.'
+        The husband of the aunt. Look
+        at her, she''s walking back there, heading for shopping.'
     - i: 111001
       s: 'This title can''t be chosen!
 
@@ -91,7 +91,7 @@ MonoBehaviour:
     - i: 111031
       s: 'Hello
 
-        Welcome to Auntie Za''s game!'
+        Welcome to Bobby Blaster''s game!'
     - i: 111032
       s: I've brought you a simple and fun game to enjoy. In this game, you shoot
         marbles, hit important items, collect them, and win rewards.
@@ -124,13 +124,13 @@ MonoBehaviour:
       s: Because the aunts love these stones! Now go collect as many stones as you
         can so we can head home.
     - i: 111041
-      s: Complete all the levels in this season to earn Auntie's chest as a reward.
+      s: Complete all the levels in this season to earn Bobby's chest as a reward.
     - i: 111042
       s: Now what should we do?
     - i: 111043
-      s: "Let\u2019s clean up Auntie\u2019s house, maybe she'll come back!"
+      s: "Let\u2019s clean up the house, maybe she'll come back!"
     - i: 111044
-      s: "This yellow button here shows you Auntie\u2019s boosters so you can use
+      s: "This yellow button here shows you Bobby\u2019s boosters so you can use
         them and have fun."
     - i: 111045
       s: "I brought you a chest\nthat\u2019ll blow your mind!"
@@ -149,13 +149,12 @@ MonoBehaviour:
     - i: 111049
       s: "Your special discount\nI\u2019ll be sad if you don\u2019t buy it!"
     - i: 111050
-      s: "Well, we\u2019ve reached Auntie\u2019s house. But where\u2019s Auntie?
-        Auntie, don't go! If you leave..."
+      s: "Well, we\u2019ve reached Auntie\u2019s house. But where\u2019s Auntie?"
     - i: 111051
-      s: "Why are Auntie\u2019s chocolates scattered everywhere? We need to collect
+      s: "Why are Auntie\u2019s candies scattered everywhere? We need to collect
         them."
     - i: 111052
-      s: So quickly enter the levels and collect all the delicious chocolates.
+      s: So quickly enter the levels and collect all the delicious candies.
     - i: 111053
       s: 
     - i: 111054
@@ -165,31 +164,19 @@ MonoBehaviour:
         under my hand!"
     - i: 111056
       s: "Oh no! Where's Auntie? Auntie, don\u2019t go! If you leave, no one will
-        tell me the Wi-Fi password, and I\u2019ll run out of data!"
+        tell me the Wi-Fi password!"
     - i: 111057
       s: "Let\u2019s head back to the forest and search, maybe we\u2019ll find Auntie.
         Auntiiieee!"
     - i: 111058
-      s: "\u0646\u0631\u0648 '{0}' \u0646\u0631\u0648! \u0627\u06AF\u0647 \u0628\u0631\u06CC
-        \u0645\u06CC\u200C\u0628\u0627\u0632\u06CC! \u062A\u0648 \u0628\u0627 '{1}'
-        \u0641\u0642\u0637 {2} \u0627\u0645\u062A\u06CC\u0627\u0632 \u0641\u0627\u0635\u0644\u0647
-        \u062F\u0627\u0631\u06CC!\r\n\u0628\u0645\u0648\u0646 \u062E\u0648\u062F\u062A\u0648
-        \u0646\u0634\u0648\u0646 \u0628\u062F\u0647! \u06CC\u0647 \u0628\u0648\u0633\u062A\u0631
-        \u0628\u0632\u0646\u06CC \u062A\u0648\u06CC \u0644\u06CC\u06AF \u06AF\u0631\u0641\u062A\u06CC\u0634
-        \u0647\u0627\u0627\u0627!\r\n\r\n\u0628\u0627\u0632\u0645 \u0645\u06CC\u200C\u062E\u0648\u0627\u06CC
-        \u0628\u0631\u06CC\u061F"
+      s: 
     - i: 111059
-      s: "\u0627\u06CC \u0628\u0627\u0628\u0627 '{0}' \u062A\u0648 \u0628\u0627 \u06AF\u0631\u0641\u062A\u0646
-        \u0645\u062F\u0627\u0644 '{1}' \u0641\u0642\u0637 {2} \u0627\u0645\u062A\u06CC\u0627\u0632
-        \u0641\u0627\u0635\u0644\u0647 \u062F\u0627\u0631\u06CC!\r \u062D\u06CC\u0641\u0647
-        \u0628\u062E\u062F\u0627 \u062D\u06CC\u0641\u0647! \u06CC\u0647 \u0628\u0648\u0633\u062A\u0631
-        \u0628\u0632\u0646\u06CC \u06AF\u0631\u0641\u062A\u06CC\u0634 \u0647\u0627\u0627\u0627!\r\n\r\n\u0628\u0627\u0632\u0645
-        \u0645\u06CC\u200C\u062E\u0648\u0627\u06CC \u0628\u0631\u06CC\u061F"
+      s: 
     - i: 111060
       s: Tap on the medal to see the reward information.
     - i: 111061
       s: 'Resetting your profile will erase all your profile data, including gems,
-        levels, bombs, hammers, and scissors.
+        levels, bombs, hammers, and dynamits.
 
 
         Are you sure you want to
@@ -198,25 +185,15 @@ MonoBehaviour:
       s: "If you made a purchase but didn\u2019t receive the package yet, tap on
         the same package again to claim it without any extra cost!"
     - i: 111063
-      s: "\n\n\u0627\u06CC\u0646 \u0628\u0627\u0632\u06CC \u0628\u0627\u062D\u0627\u0644\u0647
-        \u0631\u0648 \u062F\u0627\u0646\u0644\u0648\u062F \u06A9\u0646 \u0628\u06CC\u0627
-        \u062A\u0648\u06CC \u0644\u06CC\u06AF \u062F\u0648\u0633\u062A\u0627\u0646!!\r\n\u0628\u0639\u062F\u0634
-        \u0645\u0646 \u0631\u0648 \u0628\u0647 \u0644\u06CC\u0633\u062A \u062F\u0648\u0633\u062A\u0627\u0646\u062A
-        \u0627\u0636\u0627\u0641\u0647 \u06A9\u0646 \u062A\u0627 \u0647\u0645 \u0647\u0631\u062F\u0648\u0645\u0648\u0646
-        \u062C\u0627\u06CC\u0632\u0647 \u0628\u06AF\u06CC\u0631\u06CC\u0645 \u0647\u0645
-        \u0628\u0628\u06CC\u0646\u0645 \u0686\u0642\u062F\u0631 \u0628\u0644\u062F\u06CC
-        ;)\r\n\u0628\u0631\u0627\u06CC \u0627\u0636\u0627\u0641\u0647 \u06A9\u0631\u062F\u0646
-        \u0645\u0646 \u0628\u0647 \u0644\u06CC\u0633\u062A \u062F\u0648\u0633\u062A\u0627\u0646\u062A
-        \u0634\u0646\u0627\u0633\u0647 \u0632\u06CC\u0631 \u0631\u0648 \u0628\u0627\u06CC\u062F
-        \u0628\u0632\u0646\u06CC:\r\n{0}\n\n\u0634\u0646\u0627\u0633\u0647"
+      s: 
     - i: 111070
-      s: Auntie Za needs you!
+      s: Bobby Blaster needs you!
     - i: 111071
-      s: "Don\u2019t you have Auntie Za? Well, come pay her a visit!"
+      s: "Don\u2019t you have Bobby Blaster? Well, come visit him!"
     - i: 111072
       s: "I heard you\u2019ve been away for a while. Come back, let\u2019s see you!"
     - i: 111073
-      s: "I see you haven\u2019t been visiting Auntie Za! Come, let\u2019s catch
+      s: "I see you haven\u2019t been visiting Bobby Blaster! Come, let\u2019s catch
         up!"
     - i: 111074
       s: Thank you for being in the league! Come break some branches!
@@ -260,7 +237,7 @@ MonoBehaviour:
     - i: 111102
       s: Well done!!!
     - i: 111103
-      s: Well done!!! A kiss from Auntie Za!
+      s: Well done!!! A hug from Bobby Blaster!
     - i: 111104
       s: Thank you so much!!
     - i: 111105
@@ -286,7 +263,7 @@ MonoBehaviour:
     - i: 111120
       s: 111120
     - i: 111121
-      s: You need a title to enter here.
+      s: You need a nickname to enter here.
     - i: 111122
       s: "Well done, Shaboon Kadkhoda!\nNow go to the friends' caf\xE9, invite your
         friends, and show them all how awesome you are!"
@@ -308,12 +285,11 @@ MonoBehaviour:
     - i: 111127
       s: 'Score: {0}'
     - i: 111128
-      s: "Don\u2019t leave!! You haven\u2019t beaten your previous record!\nKeep
-        your flag flying high! One booster and you\u2019ll beat your old score!\n\nDo
-        you still want to leave?"
+      s: "Don\u2019t leave!! You haven\u2019t beaten your previous record!\nOne booster
+        and you\u2019ll beat your old score!\n\nDo you still want to leave?"
     - i: 111129
       s: "Congrats on updating the game. Here\u2019s a reward to make it even more
         fun!"
     - i: 111130
-      s: "Become Auntie Za\u2019s VIP\nfor exclusive features!\n\nIt\u2019s super
+      s: "Become Bobby Blaster\u2019s VIP\nfor exclusive features!\n\nIt\u2019s super
         awesome and comes with lots of features\nAnd it\u2019s super cheap!!!"

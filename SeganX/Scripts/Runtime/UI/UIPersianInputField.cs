@@ -1,5 +1,4 @@
-﻿#if SX_PARSI
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace SeganX
@@ -34,9 +33,8 @@ namespace SeganX
 
         public void OnInputTextChanged(string value)
         {
-            var res = inputField.text.Trim().CleanForPersian();
+            var res = inputField.text.Trim();
             inputText.SetTextAndWrap(res, autoAlignment, LocalizationService.IsPersian);
         }
     }
 }
-#endif

@@ -14,7 +14,6 @@ public class Profile : MonoBehaviour
     {
         var wait = new WaitForSeconds(1);
 
-        int syncSeconds = 0;
         while (true)
         {
             yield return wait;
@@ -27,10 +26,6 @@ public class Profile : MonoBehaviour
                 SetEnergy(Mathf.Clamp(Energy.value + addhearts, 0, GlobalConfig.ProfilePreset.energy));
                 Online.Timer.Set(Timers.Energy, GlobalConfig.Energy.interval);
             }
-
-            syncSeconds++;
-            if (syncSeconds % 10 == 0)
-                Sync(true, ok => { });
         }
     }
 
@@ -56,28 +51,15 @@ public class Profile : MonoBehaviour
     public static bool IsGlobalConfigUpdated { get; set; }
     public static bool IsLoggedIn { get; set; }
 
-    public static bool IsFirstSession { get { return data.privateData.sessions.Get.value == 1; } }
+    public static bool IsFirstSession => data.privateData.sessions.Get.value == 1;
 
-    public static string Username { get { return data.Info.username; } }
-
-    public static string Password { get { return data.Info.password; } }
-
-    public static bool HasNickname { get { return data.Info.nickname.HasContent(); } }
-
-    public static bool HasStatus { get { return data.Info.status.HasContent(); } }
-
+    public static bool HasNickname => data.nickname.HasContent();
     public static IntResult Gems => data.privateData.gems.Get;
 
     public static string Nickname
     {
-        get { return HasNickname ? data.Info.nickname : (data.Info.username.HasContent() ? data.Info.username : "player"); }
-        set { data.Info.nickname = value; }
-    }
-
-    public static string Status
-    {
-        get { return data.Info.status; }
-        set { data.Info.status = value; }
+        get { return HasNickname ? data.nickname : "player"; }
+        set { data.nickname = value; }
     }
 
     public static int Version
@@ -267,20 +249,11 @@ public class Profile : MonoBehaviour
     public static void Reset()
     {
         Loading.Show();
-        Online.Profile.SetNickname(string.Empty, successName =>
-        Online.Profile.SetStatus(string.Empty, successStatus =>
-        Online.Profile.SetAvatar(string.Empty, successAvatar =>
-        {
-            Application.Quit();
-            PlayerPrefs.DeleteAll();
-            PlayerPrefsEx.ClearData();
-            data.privateData = new ProfileData.PrivateData();
-            data.publicData = new ProfileData.PublicData();
-            data.avatar = new ProfileData.AvatarData();
-            data.Info.avatar = JsonUtility.ToJson(data.avatar);
-            StartSession();
-            SaveLocal();
-        })));
+        Application.Quit();
+        PlayerPrefs.DeleteAll();
+        PlayerPrefsEx.ClearData();
+        data = new ProfileData();
+        SaveLocal();
     }
 
     private static void StartSession()
@@ -296,137 +269,6 @@ public class Profile : MonoBehaviour
 
             GlobalAnalytics.SourceGem(GlobalConfig.ProfilePreset.gems, "first");
         }
-    }
-
-    public static void Sync(bool sendProfile, System.Action<bool> nextTask)
-    {
-        SaveLocal();
-
-        if (IsGlobalConfigUpdated == false)
-        {
-            Http.DownloadText(GlobalConfig.Instance.ConfigUrl, json =>
-            {
-                IsGlobalConfigUpdated = (json != null && GlobalConfig.SetData(json));
-                if (IsGlobalConfigUpdated)
-                    LoginToServer(sendProfile, nextTask);
-                else
-                    nextTask(false);
-            });
-        }
-        else LoginToServer(sendProfile, nextTask);
-    }
-
-    private static void LoginToServer(bool sendProfile, System.Action<bool> nextTask)
-    {
-        if (IsLoggedIn)
-        {
-            GetProfile(sendProfile, nextTask);
-            return;
-        }
-
-        Online.Login(Core.GameId, Core.DeviceId, success =>
-        {
-            IsLoggedIn = success;
-            if (IsLoggedIn)
-                GetProfile(sendProfile, nextTask);
-            else
-                nextTask(false);
-        });
-    }
-
-    private static void GetProfile(bool sendProfile, System.Action<bool> nextTask)
-    {
-        if ((System.DateTime.Now - lastGetPrfoileTime).TotalMinutes < 10)
-        {
-            SyncProfile(sendProfile, data.Info, nextTask);
-            return;
-        }
-
-        Online.Profile.Get((success, srverdata) =>
-        {
-            if (success && srverdata != null)
-            {
-                lastGetPrfoileTime = System.DateTime.Now;
-                SyncProfile(sendProfile, srverdata, nextTask);
-            }
-            else nextTask(false);
-        });
-    }
-
-    private static void SyncProfile(bool sendProfile, Online.Profile.Data serverProfile, System.Action<bool> nextTask)
-    {
-        // check to see if local data is empty then ther are 2 states
-        // 1- we are in first run
-        // 2- we lost our cache files
-        if (Username.IsNullOrEmpty())
-        {
-            // check to see if we are in first run
-            if (serverProfile.datahash.IsNullOrEmpty())
-            {
-                data.Info = serverProfile;
-                RunFirstSission();
-                SendProfileData(sendProfile, nextTask);
-            }
-            // we have data on server but we have lost data on local
-            // so try to load from server to local
-            else
-            {
-                data.Info = serverProfile;
-                Online.Userdata.Get((sucess, privateStr, publicStr) =>
-                {
-                    if (sucess)
-                    {
-                        data.privateData = JsonUtility.FromJson<ProfileData.PrivateData>(Utilities.DecompressString(privateStr, "{}"));
-                        data.publicData = JsonUtility.FromJson<ProfileData.PublicData>(Utilities.DecompressString(publicStr, "{}"));
-                        SaveLocal();
-                        nextTask(true);
-                    }
-                    else nextTask(false);
-                });
-            }
-        }
-        // local data is not empty
-        else
-        {
-            data.Info = serverProfile;
-
-            // check to see if player is marked as hacher?
-            if (serverProfile.datahash == "shame")
-            {
-                PlayerPrefs.DeleteAll();
-                PlayerPrefsEx.ClearData();
-                data.privateData = new ProfileData.PrivateData();
-                data.publicData = new ProfileData.PublicData();
-                StartSession();
-                SaveLocal();
-            }
-
-            // finally just send data to server
-            SendProfileData(sendProfile, nextTask);
-        }
-    }
-
-    private static void SendProfileData(bool sendProfile, System.Action<bool> nextTask)
-    {
-        if (sendProfile == false || LastHashdata == data.privateData.Datahash || (System.DateTime.Now - lastSetProfileTime).TotalMinutes < 3)
-        {
-            nextTask(true);
-            return;
-        }
-
-        lastSetProfileTime = System.DateTime.Now;
-        data.publicData.balls = data.privateData.balls;
-        string privateString = Utilities.CompressString(JsonUtility.ToJson(data.privateData), null);
-        string publicString = Utilities.CompressString(JsonUtility.ToJson(data.publicData), null);
-        Online.Userdata.Set(data.privateData.Datahash, privateString, publicString, success =>
-        {
-            if (success)
-            {
-                LastHashdata = data.privateData.Datahash;
-                nextTask(true);
-            }
-            else nextTask(false);
-        });
     }
 
     private static void RunFirstSission()
@@ -453,7 +295,6 @@ public class Profile : MonoBehaviour
             set
             {
                 data.avatar.ballId = value;
-                data.Info.avatar = JsonUtility.ToJson(data.avatar);
             }
         }
 
@@ -463,11 +304,9 @@ public class Profile : MonoBehaviour
             set
             {
                 data.avatar.angle = value;
-                data.Info.avatar = JsonUtility.ToJson(data.avatar);
             }
         }
 
-        public static string Json { get { return data.Info.avatar; } }
         public static ProfileData.AvatarData Current { get { return data.avatar; } }
     }
 }

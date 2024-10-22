@@ -20,15 +20,13 @@ public class Game : GameManager
     }
 
     // Use this for initialization
-#if UNITY_EDITOR
     private IEnumerator Start()
     {
+#if UNITY_EDITOR
         if (stopLoading)
             yield break;
-#else
-     private void Start()
-     {
 #endif
+
         Console.OnDisplayInfo += str =>
         {
             return "Ver: " + Application.version + " Group: " + GlobalConfig.Group + "\nId: " + SeganX.Console.DisplayDeviceID;
@@ -36,17 +34,11 @@ public class Game : GameManager
         };
 
         Loading.Show();
-        Profile.Sync(false, succss =>
+        Plankton.Billing.Initialize(succeed => ShopLogic.Initialize(() =>
         {
             Loading.Hide();
             OpenState<State_Main>();
-        });
-
-#if TAPSELL
-        TapsellPlusSDK.TapsellPlus.initialize("eojghhgttbmtjibqhsjtrkprmpiparomofortdgjrndaqtocafonrglqlhgionkrgbbija");
-#endif
-
-        Fun.Iab.PurchaseSystem.Initialize(GlobalConfig.Market.rsaKey, GlobalConfig.Market.storeUrl);
+        }));
 
         SeganX.LocalNotification.Initialize(GlobalConfig.Notifications.items);
         SeganX.LocalNotification.OnScheduleNotification += () =>
@@ -68,6 +60,13 @@ public class Game : GameManager
 
         CheckABTest();
         GlobalAnalytics.ABTest.OnRecieved = CheckABTest;
+
+        yield return new WaitForSecondsRealtime(5);
+        Plankton.Ad.Initialize(
+            Plankton.Ad.Provider.Admob, "",
+            Plankton.Ad.Provider.Admob, "",
+            Plankton.Ad.Provider.Admob, "");
+        Plankton.Ad.Banner = true;
 
 #if UNITY_EDITOR
         while (true)
@@ -135,18 +134,6 @@ public class Game : GameManager
     {
         Profile.Reset();
         GlobalConfig.DebugMode = true;
-    }
-
-    [SeganX.Console("friends", "add")]
-    public static void AddFriends(string username)
-    {
-        SeganX.Online.Friends.Add(username, (success, res) => Debug.Log(res.GetStringDebug()));
-    }
-
-    [SeganX.Console("friends", "get")]
-    public static void GetFriends()
-    {
-        SeganX.Online.Friends.Get((success, res) => Debug.Log(res.GetStringDebug()));
     }
 
 

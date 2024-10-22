@@ -13,6 +13,7 @@ namespace SeganX.Builder
         {
             versionProp = serializedObject.FindProperty("version");
             versionCodeProp = serializedObject.FindProperty("bundleVersionCode");
+            buildAndRunAllProp = serializedObject.FindProperty("buildAndRunAll");
             buildAndRunIndexProp = serializedObject.FindProperty("buildAndRunIndex");
             stopQueueOnErrorProp = serializedObject.FindProperty("stopQueueOnError");
             symbolsProp = serializedObject.FindProperty("symbols");
@@ -70,7 +71,10 @@ namespace SeganX.Builder
                 else EditorGUILayout.HelpBox(error, MessageType.Error);
             }
 
-            EditorGUILayout.PropertyField(buildAndRunIndexProp);
+
+            EditorGUILayout.PropertyField(buildAndRunAllProp);
+            if (buildAndRunAllProp.boolValue == false)
+                EditorGUILayout.PropertyField(buildAndRunIndexProp);
             EditorGUILayout.PropertyField(stopQueueOnErrorProp);
             EditorGUILayout.Space(30);
             EditorGUILayout.PropertyField(buildsProp);
@@ -85,6 +89,7 @@ namespace SeganX.Builder
         public static bool isBuilding = false;
         static private SerializedProperty versionProp = null;
         static private SerializedProperty versionCodeProp = null;
+        static private SerializedProperty buildAndRunAllProp = null;
         static private SerializedProperty buildAndRunIndexProp = null;
         static private SerializedProperty stopQueueOnErrorProp = null;
         static private SerializedProperty symbolsProp = null;
@@ -146,7 +151,7 @@ namespace SeganX.Builder
                 bool buildResult = await Builder.CurrentBuilding.Config.Build(
                     Builder.CurrentBuilding.Config.PerformSymbols(builder.symbols.Get()),
                     Path.Combine(folder, Builder.CurrentBuilding.Config.FileName),
-                    index == builder.buildAndRunIndex);
+                    builder.buildAndRunAll || index == builder.buildAndRunIndex);
 
                 await Task.Delay(10);
                 Debug.Log("Build " + (index + 1) + " of " + builder.builds.Count + " finished.");

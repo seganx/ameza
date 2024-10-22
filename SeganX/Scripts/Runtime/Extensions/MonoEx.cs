@@ -286,6 +286,7 @@ namespace SeganX
 
         public static string Persian(this string self, bool force = true)
         {
+#if OFF
             if (!force && !self.IsRtl())
                 return self;
 
@@ -302,6 +303,9 @@ namespace SeganX
                 .Replace('٧', '۷')
                 .Replace('٨', '۸')
                 .Replace('٩', '۹');
+#else
+            return self;
+#endif
         }
 
         private static int GetPersianAlphaForSort(this char self)
@@ -360,10 +364,10 @@ namespace SeganX
         }
 #endif
 
-        #endregion
+#endregion
 
-        #region arrays
-        public static bool HasOneItem(this System.Array self)
+            #region arrays
+            public static bool HasOneItem(this System.Array self)
         {
             return self != null && self.Length == 1;
         }

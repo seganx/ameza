@@ -1,0 +1,12 @@
+source 'https://cdn.cocoapods.org/'
+platform :ios, [MINIMUM_TARGET_PLACEHOLDER]
+
+target 'UnityFramework' do
+
+  pod 'PlanktonCoreSDK'
+
+  [PLACEHOLDERS]
+end
+target 'Unity-iPhone' do
+end
+use_frameworks! :linkage => :static

@@ -24,13 +24,13 @@ public class UiShopItemFree : MonoBehaviour
             }
             else
             {
-                Game.Instance.OpenPopup<Popup_VideoAd>().Setup(GlobalConfig.Advertise.shopFreeGems, "shopad", success =>
+                Plankton.Ad.ShowRewarded(GlobalConfig.Advertise.shopFreeGems, success =>
                 {
                     if (success == false) return;
                     Online.Timer.Set(GlobalConfig.Advertise.shopFreeGems.timerId, GlobalConfig.Advertise.shopFreeGems.interval);
                     Profile.EarnGems(GlobalConfig.Advertise.shopFreeGems.rewardGems);
                     Game.Instance.OpenPopup<Popup_Rewards>().Setup(0, GlobalConfig.Advertise.shopFreeGems.rewardGems, 0, 0, 0, true);
-                    GlobalAnalytics.SourceGem(GlobalConfig.Advertise.shopFreeGems.rewardGems, "shopad");
+                    GlobalAnalytics.SourceGem(GlobalConfig.Advertise.shopFreeGems.rewardGems, "shop_ad");
                 });
             }
         });

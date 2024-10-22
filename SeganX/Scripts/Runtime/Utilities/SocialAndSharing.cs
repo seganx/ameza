@@ -1,5 +1,4 @@
-﻿#if SX_SHRNG
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SeganX
 {
@@ -138,4 +137,3 @@ namespace SeganX
         }
     }
 }
-#endif

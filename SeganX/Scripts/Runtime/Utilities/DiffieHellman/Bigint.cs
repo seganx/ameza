@@ -1,5 +1,4 @@
-﻿#if SX_ALGOR
-namespace SeganX.DiffieHellman
+﻿namespace SeganX.DiffieHellman
 {
     public class Bigint
     {
@@ -76,4 +75,3 @@ namespace SeganX.DiffieHellman
         }
     };
 }
-#endif

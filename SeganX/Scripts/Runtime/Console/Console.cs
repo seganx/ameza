@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-#if SX_CCMD
 using System.Linq;
 using System.Reflection;
 using UnityEngine.Profiling;
-#endif
 
 namespace SeganX
 {
@@ -32,7 +30,6 @@ namespace SeganX
     {
         public delegate string OnDisplayInfoEvent(string info);
 
-#if SX_CCMD
         public class MethodObject
         {
             public string space;
@@ -40,7 +37,6 @@ namespace SeganX
             public string help;
             public MethodInfo info;
         }
-#endif
 
         public class LogText
         {
@@ -92,7 +88,6 @@ namespace SeganX
                 scrollbox.content.SetAnchordPositionY(0);
             });
 
-#if SX_CCMD
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
@@ -114,10 +109,8 @@ namespace SeganX
 
             userInput.onEndEdit.AddListener(str => RunCommand(str));
             runButton.onClick.AddListener(() => RunCommand(userInput.text));
-#else
             Destroy(runButton.gameObject);
             Destroy(userInput.gameObject);            
-#endif
         }
 
         void OnEnable()
@@ -202,9 +195,7 @@ namespace SeganX
         private static Text textVisual = null;
         private static volatile List<KeyValuePair<string, Color>> threadedList = new List<KeyValuePair<string, Color>>();
         private static readonly List<LogText> textList = new List<LogText>();
-#if SX_CCMD
         private static readonly List<MethodObject> methods = new List<MethodObject>();
-#endif
 
         public static bool Enabled
         {
@@ -222,11 +213,9 @@ namespace SeganX
         public static string GetSystemInfo()
         {
             return "GPU Memory: " + SystemInfo.graphicsMemorySize + " - System Memory: " + SystemInfo.systemMemorySize +
-#if SX_CCMD
                 "\nTotalAllocatedMemory: " + Profiler.GetTotalAllocatedMemoryLong() / 1048576 +
                 "\nTotalReservedMemory: " + Profiler.GetTotalReservedMemoryLong() / 1048576 +
                 "\nTotalUnusedReservedMemory:" + Profiler.GetTotalUnusedReservedMemoryLong() / 1048576 +
-#endif
 #if UNITY_EDITOR
                 "mb\nDrawCalls: " + UnityEditor.UnityStats.drawCalls +
                 "\nUsed Texture Memory: " + UnityEditor.UnityStats.usedTextureMemorySize / 1048576 +
@@ -311,7 +300,6 @@ namespace SeganX
             return height;
         }
 
-#if SX_CCMD
         private static void RunCommand(string str)
         {
             //  handle help command
@@ -397,7 +385,6 @@ namespace SeganX
             else if (type == typeof(float)) return "float";
             return type.Name;
         }
-#endif
 
 #if UNITY_ANDROID && !UNITY_EDITOR
         private static void ShareText(string title, string message)
@@ -447,7 +434,6 @@ namespace SeganX
 #endif
         }
 
-#if SX_CCMD
         [Console("Clear", "Cache")]
         public static void ClearCache()
         {
@@ -476,7 +462,6 @@ namespace SeganX
         {
             Debug.Log(Application.temporaryCachePath);
         }
-#endif
 #endregion
     }
 

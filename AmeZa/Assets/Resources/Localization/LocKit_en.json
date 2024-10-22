@@ -4,7 +4,7 @@
     "strings": [
         {
             "i": 111000,
-            "s": "Hello\nI'm Auntie Za\nWell, actually your dad's aunt. That's why my hair is white."
+            "s": "Hi,\nI'm Bobby Blaster.\nThe husband of the aunt. Look at her, she's walking back there, heading for shopping."
         },
         {
             "i": 111001,
@@ -88,7 +88,7 @@
         },
         {
             "i": 111031,
-            "s": "Hello\nWelcome to Auntie Za's game!"
+            "s": "Hello\nWelcome to Bobby Blaster's game!"
         },
         {
             "i": 111032,
@@ -128,7 +128,7 @@
         },
         {
             "i": 111041,
-            "s": "Complete all the levels in this season to earn Auntie's chest as a reward."
+            "s": "Complete all the levels in this season to earn Bobby's chest as a reward."
         },
         {
             "i": 111042,
@@ -136,11 +136,11 @@
         },
         {
             "i": 111043,
-            "s": "Let’s clean up Auntie’s house, maybe she'll come back!"
+            "s": "Let’s clean up the house, maybe she'll come back!"
         },
         {
             "i": 111044,
-            "s": "This yellow button here shows you Auntie’s boosters so you can use them and have fun."
+            "s": "This yellow button here shows you Bobby’s boosters so you can use them and have fun."
         },
         {
             "i": 111045,
@@ -164,15 +164,15 @@
         },
         {
             "i": 111050,
-            "s": "Well, we’ve reached Auntie’s house. But where’s Auntie? Auntie, don't go! If you leave..."
+            "s": "Well, we’ve reached Auntie’s house. But where’s Auntie?"
         },
         {
             "i": 111051,
-            "s": "Why are Auntie’s chocolates scattered everywhere? We need to collect them."
+            "s": "Why are Auntie’s candies scattered everywhere? We need to collect them."
         },
         {
             "i": 111052,
-            "s": "So quickly enter the levels and collect all the delicious chocolates."
+            "s": "So quickly enter the levels and collect all the delicious candies."
         },
         {
             "i": 111053,
@@ -188,7 +188,7 @@
         },
         {
             "i": 111056,
-            "s": "Oh no! Where's Auntie? Auntie, don’t go! If you leave, no one will tell me the Wi-Fi password, and I’ll run out of data!"
+            "s": "Oh no! Where's Auntie? Auntie, don’t go! If you leave, no one will tell me the Wi-Fi password!"
         },
         {
             "i": 111057,
@@ -196,11 +196,11 @@
         },
         {
             "i": 111058,
-            "s": "نرو '{0}' نرو! اگه بری می‌بازی! تو با '{1}' فقط {2} امتیاز فاصله داری!\r\nبمون خودتو نشون بده! یه بوستر بزنی توی لیگ گرفتیش هااا!\r\n\r\nبازم می‌خوای بری؟"
+            "s": ""
         },
         {
             "i": 111059,
-            "s": "ای بابا '{0}' تو با گرفتن مدال '{1}' فقط {2} امتیاز فاصله داری!\r حیفه بخدا حیفه! یه بوستر بزنی گرفتیش هااا!\r\n\r\nبازم می‌خوای بری؟"
+            "s": ""
         },
         {
             "i": 111060,
@@ -208,7 +208,7 @@
         },
         {
             "i": 111061,
-            "s": "Resetting your profile will erase all your profile data, including gems, levels, bombs, hammers, and scissors.\n\nAre you sure you want to do this?"
+            "s": "Resetting your profile will erase all your profile data, including gems, levels, bombs, hammers, and dynamits.\n\nAre you sure you want to do this?"
         },
         {
             "i": 111062,
@@ -216,15 +216,15 @@
         },
         {
             "i": 111063,
-            "s": "\n\nاین بازی باحاله رو دانلود کن بیا توی لیگ دوستان!!\r\nبعدش من رو به لیست دوستانت اضافه کن تا هم هردومون جایزه بگیریم هم ببینم چقدر بلدی ;)\r\nبرای اضافه کردن من به لیست دوستانت شناسه زیر رو باید بزنی:\r\n{0}\n\nشناسه"
+            "s": ""
         },
         {
             "i": 111070,
-            "s": "Auntie Za needs you!"
+            "s": "Bobby Blaster needs you!"
         },
         {
             "i": 111071,
-            "s": "Don’t you have Auntie Za? Well, come pay her a visit!"
+            "s": "Don’t you have Bobby Blaster? Well, come visit him!"
         },
         {
             "i": 111072,
@@ -232,7 +232,7 @@
         },
         {
             "i": 111073,
-            "s": "I see you haven’t been visiting Auntie Za! Come, let’s catch up!"
+            "s": "I see you haven’t been visiting Bobby Blaster! Come, let’s catch up!"
         },
         {
             "i": 111074,
@@ -316,7 +316,7 @@
         },
         {
             "i": 111103,
-            "s": "Well done!!! A kiss from Auntie Za!"
+            "s": "Well done!!! A hug from Bobby Blaster!"
         },
         {
             "i": 111104,
@@ -368,7 +368,7 @@
         },
         {
             "i": 111121,
-            "s": "You need a title to enter here."
+            "s": "You need a nickname to enter here."
         },
         {
             "i": 111122,
@@ -396,7 +396,7 @@
         },
         {
             "i": 111128,
-            "s": "Don’t leave!! You haven’t beaten your previous record!\nKeep your flag flying high! One booster and you’ll beat your old score!\n\nDo you still want to leave?"
+            "s": "Don’t leave!! You haven’t beaten your previous record!\nOne booster and you’ll beat your old score!\n\nDo you still want to leave?"
         },
         {
             "i": 111129,
@@ -404,7 +404,7 @@
         },
         {
             "i": 111130,
-            "s": "Become Auntie Za’s VIP\nfor exclusive features!\n\nIt’s super awesome and comes with lots of features\nAnd it’s super cheap!!!"
+            "s": "Become Bobby Blaster’s VIP\nfor exclusive features!\n\nIt’s super awesome and comes with lots of features\nAnd it’s super cheap!!!"
         }
     ]
 }

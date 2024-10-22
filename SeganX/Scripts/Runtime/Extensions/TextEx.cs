@@ -1,5 +1,4 @@
-﻿#if SX_PARSI
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +23,7 @@ namespace SeganX
                 return self;
             }
 
-            self.text = text.Persian();
+            self.text = text;//.Persian();
             return self;
         }
 
@@ -72,7 +71,7 @@ namespace SeganX
                 return self;
             }
 
-            self.text = text.Persian();
+            self.text = text;
 
             return self;
         }
@@ -148,4 +147,3 @@ namespace SeganX
         }
     }
 }
-#endif
