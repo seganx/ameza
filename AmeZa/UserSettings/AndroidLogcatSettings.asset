@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "R58N6062KMN",
         "name": "com.joygamelab.bobbyblaster",
-        "processId": 25254,
+        "processId": 27840,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -30,6 +30,12 @@
             "deviceId": "R58N6062KMN",
             "name": "com.joygamelab.bobbyblaster",
             "processId": 25254,
+            "exited": false
+        },
+        {
+            "deviceId": "R58N6062KMN",
+            "name": "com.joygamelab.bobbyblaster",
+            "processId": 27840,
             "exited": false
         }
     ],

@@ -41,7 +41,6 @@ namespace SeganX
         {
             if (musics.Length != 0)
             {
-                StopAllCoroutines();
                 index %= musics.Length;
                 StartCoroutine(DoPlay(index, volume, fadeInTime, fadeOutTime));
             }
