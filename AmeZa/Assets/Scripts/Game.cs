@@ -62,11 +62,8 @@ public class Game : GameManager
         GlobalAnalytics.ABTest.OnRecieved = CheckABTest;
 
         yield return new WaitForSecondsRealtime(5);
-        Plankton.Ad.Initialize(
-            Plankton.Ad.Provider.Admob, "",
-            Plankton.Ad.Provider.Admob, "",
-            Plankton.Ad.Provider.Admob, "");
-        Plankton.Ad.Banner = true;
+        //Plankton.Ad.Initialize(Plankton.Ad.Provider.Admob, "", Plankton.Ad.Provider.Admob, "", Plankton.Ad.Provider.Admob, "");
+        //Plankton.Ad.Banner = true;
 
 #if UNITY_EDITOR
         while (true)
