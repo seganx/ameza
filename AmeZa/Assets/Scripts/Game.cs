@@ -12,7 +12,7 @@ public class Game : GameManager
     protected virtual void Awake()
     {
         Input.multiTouchEnabled = false;
-        Core.OnlineDomain = GlobalConfig.Instance.ApiUrl;
+        Application.targetFrameRate = 60;
 
 #if UNITY_EDITOR
         Console.Enabled = true;

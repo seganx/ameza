@@ -33,6 +33,7 @@ public class GlobalConfig : StaticConfig<GlobalConfig>
     [InspectorButton(200, "Export as", "OnExport", "Export level data", "OnExportLevelData", false)]
     public bool offline = false;
     public int offlineGroup = 0;
+    public int startLevel = -1;
 
     public void OnExport(object sender)
     {

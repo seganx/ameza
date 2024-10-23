@@ -175,6 +175,12 @@ MonoBehaviour:
         timerId: 51
         interval: 30
         rewardGems: 50
+      levels:
+        type: 1
+        name: levels
+        timerId: 50
+        interval: 1800
+        rewardGems: 100
     lockyspin:
     - interval: 43200
       gems: 150
@@ -292,23 +298,23 @@ MonoBehaviour:
       misslePrice: 1900
       hammerPrice: 1300
       vips:
-      - header: "vip_2     \t9,900     \t0 \t$99.00"
+      - header: "vip_2     \t9,900     \t0 \t    "
         sku: vip_2
         price: 9900
         discount: 0
         days: 30
-      - header: "vip_1     \t6,900     \t0 \t$69.00"
+      - header: "vip_1     \t6,900     \t0 \t    "
         sku: vip_1
         price: 6900
         discount: 0
         days: 15
-      - header: "vip_0     \t4,900     \t0 \t$49.00"
+      - header: "vip_0     \t4,900     \t0 \t    "
         sku: vip_0
         price: 4900
         discount: 0
         days: 7
       offers:
-      - header: "offer_0   \t99        \t85\t$0.99"
+      - header: "offer_0   \t99        \t85\t    "
         sku: offer_0
         price: 99
         discount: 85
@@ -319,7 +325,7 @@ MonoBehaviour:
         hammers: 3
         missiles: 1
         lastPrice: 14000
-      - header: "offer_1   \t199       \t75\t$1.99"
+      - header: "offer_1   \t199       \t75\t    "
         sku: offer_1
         price: 199
         discount: 75
@@ -330,7 +336,7 @@ MonoBehaviour:
         hammers: 5
         missiles: 3
         lastPrice: 39000
-      - header: "offer_2   \t299       \t85\t$2.99"
+      - header: "offer_2   \t299       \t85\t    "
         sku: offer_2
         price: 299
         discount: 85
@@ -341,7 +347,7 @@ MonoBehaviour:
         hammers: 7
         missiles: 5
         lastPrice: 69000
-      - header: "offer_3   \t399       \t85\t$3.99"
+      - header: "offer_3   \t399       \t85\t    "
         sku: offer_3
         price: 399
         discount: 85
@@ -352,7 +358,7 @@ MonoBehaviour:
         hammers: 12
         missiles: 7
         lastPrice: 89000
-      - header: "offer_4   \t499       \t75\t$4.99"
+      - header: "offer_4   \t499       \t75\t    "
         sku: offer_4
         price: 499
         discount: 75
@@ -364,7 +370,7 @@ MonoBehaviour:
         missiles: 12
         lastPrice: 99000
       combinedPackages:
-      - header: "comb_0    \t199       \t0 \t$1.99"
+      - header: "comb_0    \t199       \t0 \t    "
         sku: comb_0
         price: 199
         discount: 0
@@ -375,7 +381,7 @@ MonoBehaviour:
         hammers: 3
         missiles: 1
         lastPrice: 0
-      - header: "comb_1    \t299       \t0 \t$2.99"
+      - header: "comb_1    \t299       \t0 \t    "
         sku: comb_1
         price: 299
         discount: 0
@@ -386,7 +392,7 @@ MonoBehaviour:
         hammers: 5
         missiles: 3
         lastPrice: 0
-      - header: "comb_2    \t399       \t0 \t$3.99"
+      - header: "comb_2    \t399       \t0 \t    "
         sku: comb_2
         price: 399
         discount: 0
@@ -397,7 +403,7 @@ MonoBehaviour:
         hammers: 7
         missiles: 5
         lastPrice: 0
-      - header: "comb_3    \t499       \t0 \t$4.99"
+      - header: "comb_3    \t499       \t0 \t    "
         sku: comb_3
         price: 499
         discount: 0
@@ -408,7 +414,7 @@ MonoBehaviour:
         hammers: 12
         missiles: 7
         lastPrice: 0
-      - header: "comb_4    \t599       \t0 \t$5.99"
+      - header: "comb_4    \t599       \t0 \t    "
         sku: comb_4
         price: 599
         discount: 0
@@ -419,7 +425,7 @@ MonoBehaviour:
         hammers: 20
         missiles: 12
         lastPrice: 0
-      - header: "comb_5    \t699       \t0 \t$6.99"
+      - header: "comb_5    \t699       \t0 \t    "
         sku: comb_5
         price: 699
         discount: 0
@@ -431,7 +437,7 @@ MonoBehaviour:
         missiles: 20
         lastPrice: 0
       gemPackages:
-      - header: "gems_0    \t99        \t0 \t$0.99"
+      - header: "gems_0    \t99        \t0 \t    "
         sku: gems_0
         price: 99
         discount: 0
@@ -442,7 +448,7 @@ MonoBehaviour:
         hammers: 0
         missiles: 0
         lastPrice: 0
-      - header: "gems_1    \t199       \t0 \t$1.99"
+      - header: "gems_1    \t199       \t0 \t    "
         sku: gems_1
         price: 199
         discount: 0
@@ -453,7 +459,7 @@ MonoBehaviour:
         hammers: 0
         missiles: 0
         lastPrice: 0
-      - header: "gems_2    \t299       \t0 \t$2.99"
+      - header: "gems_2    \t299       \t0 \t    "
         sku: gems_2
         price: 299
         discount: 0
@@ -464,7 +470,7 @@ MonoBehaviour:
         hammers: 0
         missiles: 0
         lastPrice: 0
-      - header: "gems_3    \t399       \t0 \t$3.99"
+      - header: "gems_3    \t399       \t0 \t    "
         sku: gems_3
         price: 399
         discount: 0
@@ -475,7 +481,7 @@ MonoBehaviour:
         hammers: 0
         missiles: 0
         lastPrice: 0
-      - header: "gems_4    \t499       \t0 \t$4.99"
+      - header: "gems_4    \t499       \t0 \t    "
         sku: gems_4
         price: 499
         discount: 0
@@ -486,7 +492,7 @@ MonoBehaviour:
         hammers: 0
         missiles: 0
         lastPrice: 0
-      - header: "gems_5    \t599       \t0 \t$5.99"
+      - header: "gems_5    \t599       \t0 \t    "
         sku: gems_5
         price: 599
         discount: 0
@@ -522,3 +528,4 @@ MonoBehaviour:
     jokes: []
   offline: 1
   offlineGroup: 0
+  startLevel: 150

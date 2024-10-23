@@ -15,12 +15,27 @@ public class State_Main : GameState
 
     private IEnumerator Start()
     {
+#if UNITY_EDITOR
+        for (int seasonsIndex = 0; seasonsIndex < 50; seasonsIndex++)
+        {
+            var season = GlobalFactory.Seasons.Get(seasonsIndex);
+            if (season == null) break;
+            for (int i = 0; i < season.levelCount; i++)
+            {
+                var levelNumber = GlobalFactory.Seasons.GetLevelNumber(seasonsIndex, i);
+                if (levelNumber > GlobalConfig.Instance.startLevel) break;
+                Profile.SetLevelStars(seasonsIndex, i, 3);
+            }
+            Profile.SetSeasonRewarded(seasonsIndex, 1);
+        }
+#endif
+
         UIBackground.Show();
         UiShowHide.ShowAll(transform);
 
         onlineButton.onClick.AddListener(() =>
         {
-             tutorial.Display(0,"Coming Soon!", null);
+            tutorial.Display(0, "Coming Soon!", null);
         });
 
         classicButton.onClick.AddListener(() =>
@@ -40,6 +55,9 @@ public class State_Main : GameState
             var seconds = Online.Timer.GetRemainSeconds(Timers.Luckyspin, GlobalConfig.Luckyspin.interval);
             if (seconds > 0)
             {
+#if UNITY_EDITOR
+                Game.Instance.OpenPopup<Popup_LuckySpine>();
+#endif
                 Game.Instance.OpenPopup<Popup_Confirm>().SetText(111018, TimeToString(seconds)).Setup(true, false, null);
             }
             else

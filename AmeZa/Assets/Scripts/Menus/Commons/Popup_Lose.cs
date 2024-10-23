@@ -37,7 +37,7 @@ public class Popup_Lose : GameState
         inviteButton.onClick.AddListener(() =>
         {
             var str = string.Format(GlobalConfig.Socials.invitationText, Profile.Nickname, GlobalConfig.Market.storeUrl);
-            SocialAndSharing.ShareText(str);
+            Plankton.Utils.ShareText(str);
         });
 
         replayButton.onClick.AddListener(() =>

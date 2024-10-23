@@ -54461,7 +54461,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   itemScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -54494,7 +54494,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
 --- !u!222 &222612683799444152
 CanvasRenderer:
   m_ObjectHideFlags: 0

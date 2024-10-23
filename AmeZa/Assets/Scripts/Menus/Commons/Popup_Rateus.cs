@@ -30,7 +30,7 @@ public class Popup_Rateus : GameState
                 Game.Instance.OpenPopup<Popup_Confirm>().Setup(111014, true, false, ok =>
                 {
                     if (ok)
-                        SocialAndSharing.RateUs();
+                        Plankton.Utils.ShowRateUs(succeed => { });
                     Back();
                 });
             }

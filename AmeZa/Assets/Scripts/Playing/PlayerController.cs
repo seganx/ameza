@@ -43,6 +43,8 @@ public class PlayerController : Base
         previewFilter.layerMask = 1 << 9 | 1 << 11;
         previewFilter.useTriggers = false;
         ballRadius *= 0.5f;
+
+        rangeAngle = GlobalAnalytics.ABTest.Get(GlobalAnalytics.rc_shoot_angle, rangeAngle);
     }
 
     private void Update()

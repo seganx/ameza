@@ -195,7 +195,8 @@ public class Profile : MonoBehaviour
     {
         if (index < 0) return;
         var season = data.privateData.seasons.Find(x => x.id == seasonId);
-        if (season == null) return;
+        if (season == null)
+            data.privateData.seasons.Add(season = new ProfileData.SeasonData() { id = seasonId });
         if (season.levels.Count < index) return;
         if (season.levels.Count == index)
             season.levels.Add(stars);

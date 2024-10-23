@@ -109,8 +109,11 @@ namespace SeganX
 
             userInput.onEndEdit.AddListener(str => RunCommand(str));
             runButton.onClick.AddListener(() => RunCommand(userInput.text));
+#if UNITY_EDITOR
+#else
             Destroy(runButton.gameObject);
             Destroy(userInput.gameObject);            
+#endif
         }
 
         void OnEnable()
@@ -405,7 +408,7 @@ namespace SeganX
             catch { }
         }
 #endif
-        #endregion
+#endregion
 
         //////////////////////////////////////////////////////
         /// DEFAULT FUNCTIONS

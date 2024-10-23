@@ -1,0 +1,13 @@
+source 'https://cdn.cocoapods.org/'
+platform :ios, 15.0
+
+target 'UnityFramework' do
+
+  pod 'PlanktonCoreSDK'
+
+  pod 'PlanktonBillingSDK'
+  pod 'PlanktonGameAnalyticsSDK'
+end
+target 'Unity-iPhone' do
+end
+use_frameworks! :linkage => :static
